@@ -1,0 +1,33 @@
+button:
+	google: "Prihlásiť cez Google"
+	facebook: "Prihlásiť cez Facebook"
+	email_login: "Prihlásiť emailom"
+
+form:
+	email: "Email"
+	email_warning: "Nezadali ste email"
+	password: "Heslo"
+	password_warning: "Nezadali ste heslo"
+	sign_in: "Prihlásiť"
+
+loginForm:
+
+registerForm:
+	password_length: "Heslo musí mať min. %length% znakov"
+	password_match: "Heslá sa musia zhodovať"
+	password_repeat: "Zopakovať heslo"
+	password_repeat_warning: "Nezopakovali ste heslo"
+	sign_up: "Registrovať"
+
+template:
+	login: "Prihlásiť"
+	email_sign_up: "Registrovať emailom"
+	already_registered: "Ste registrovaný?"
+	log_in_email: "Prihlásiť emailom"
+	sign_up_email: "Registrovať s emailom"
+
+flashes:
+	register_success: "Registrácia úspešná!"
+	login_success: "Prihlásenie úspešné"
+	social_login_success: "Úspešné prihlásenie pomocou %type% účtu."
+	google_permission: "Prosím povoľte prístup k údajom z Vášho Google účtu kvôli úspešnému prihláseniu."

@@ -1,0 +1,27 @@
+header:
+	add_new_task: "Pridať úlohu"
+
+form:
+	title: "Nadpis"
+	title_missing: "Nezadali ste nadpis"
+	description: "Popis"
+	description_missing: "Zabudli ste napísať popis úlohy..."
+	budget: "Váš rozpočet"
+	budget_missing: "Nezadali ste žiadnu hodnotu"
+	budget_type: "Typ ohodnotenia"
+	tags: "Tagy"
+	upload:	"Nahraj"
+	workers_required: "Koľko potrebujete pracovnikov?"
+	deadline: "Deadline"
+	departments: "Oddelenia"
+	submit: "Odoslať"
+	cancel: "Zrušiť"
+
+budgetType:
+	Pay_only_the_best_one: "Iba najlepší"
+	Pay_best_10_users: "Najlepších 10"
+	Pay_all: "Všetkým"
+
+flashes:
+	task_added: "Úloha pridana!"
+	task_edited: "Úloha upravená!"

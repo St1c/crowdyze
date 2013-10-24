@@ -1,0 +1,36 @@
+/* Paginator */ 
+.paginate { 
+	text-align: center; 
+}
+
+.paginator { 
+
+	margin: 1em 0; 
+	font-size: 13px; 
+	font-weight: bold;
+	@media (min-width: $screen-tablet) { font-size: 19px; }
+	
+	a, span { 
+		margin-right: 0.1em; 
+		padding: 0.2em 0.5em; 
+		color: #ddd; 
+	}
+
+	a { 
+		border: 1px solid $brand-primary; 
+		text-decoration: none; 
+		color: $brand-primary; 
+	}
+
+	span {
+		.button { border: 1px solid #ddd; }
+	}
+
+	.current { 
+		text-align: center; 
+		background: $brand-primary; 
+		border: 1px solid $brand-primary; 
+		color: white; 
+		font-weight: bold;
+	}
+}

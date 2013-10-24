@@ -1,0 +1,149 @@
+#
+# SECURITY WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+#
+# If you don't protect this directory from direct web access, anybody will be able to see your passwords.
+# http://nette.org/security-warning
+#
+
+php:
+	date.timezone: Europe/Prague
+	# zlib.output_compression: yes
+
+nette:
+	application:
+		errorPresenter: Error
+		mapping:
+			*: App\*Module\*Presenter
+	
+	xhtml: no
+
+	session:
+		autoStart: true
+		expiration: "+15 days"
+	
+	database:
+		dsn: '%database.driver%:unix_socket=%database.socket%;dbname=%database.dbname%'
+		user: %database.user%
+		password: %database.password%
+		reflection: discovered
+
+	mailer: %mailer%
+	
+translation:
+	default: en
+	fallback: [en, en]
+	
+#gettextTranslator:
+#	lang: en
+#	files:
+#		front: %appDir%/lang # for module Front and other non-specified modules
+#	layout: horizontal # or: vertical
+#	height: 480
+
+services:
+
+	- App\RouterFactory
+	router: @App\RouterFactory::createRouter
+
+	- Model\Repositories\UsersRepository
+	- Model\Repositories\Users_detailsRepository
+	- Model\Repositories\RelationshipsRepository
+	- Model\Repositories\Relationships_typesRepository
+	- Model\Repositories\Accepted_tasksRepository
+	- Model\Repositories\TasksRepository
+	- Model\Repositories\Tasks_budget_typesRepository
+	- Model\Repositories\Tasks_tagsRepository
+	- Model\Repositories\Tasks_statusRepository
+	- Model\Repositories\Tasks_attachmentsRepository
+	- Model\Repositories\Tasks_commentsRepository
+	- Model\Repositories\ResultsRepository
+	- Model\Repositories\Results_attachmentsRepository
+	- Model\Repositories\Results_status_typesRepository
+	- Model\Repositories\Departments_namesRepository
+
+	- Model\Services\TasksService
+	- Model\Services\UsersService
+
+	mailerService: 
+		class: Utilities\MailerService
+
+	fileManager: 
+		class: Utilities\FileManager
+		setup:
+			- $uploadFolders(%uploads%)
+			- $wwwDir(%wwwDir%)
+
+	facebookSDK: 
+		class: Facebook({appId: %facebook.appId%, secret: %facebook.secret%})
+
+	googleSDK: 
+		class: Google([id: %google.id%, secret: %google.secret%])
+
+factories:
+	registerForm: 
+		implement: Controls\IRegisterFormControlFactory
+
+	loginForm: 
+		implement: Controls\ILoginFormControlFactory
+
+	socialLogin: 
+		implement: Controls\ISocialLoginControlFactory
+
+	addTask:
+		implement: Controls\IAddTaskControlFactory
+
+	singleTask:
+		implement: Controls\ISingleTaskControlFactory
+
+	userDetails:
+		implement: Controls\IUserDetailsControlFactory
+
+authentication:
+	email: 
+		class: Model\Authenticators\PasswordAuthenticator
+		autowired: no
+	facebook: 
+		class: Model\Authenticators\FacebookAuthenticator
+		autowired: no
+	google: 
+		class: Model\Authenticators\GoogleAuthenticator
+		autowired: no
+
+parameters:
+	database:
+		driver: mysql
+		socket: /tmp/mysql51.sock
+		dbname: taskie
+		user: taskie
+		password: nu/swad9
+
+	mailer:
+		smtp: true
+		host: smtp.websupport.sk
+		secure: 'ssl'
+		port: 465
+		username: info@dataworkers.eu
+		password: HDCDB20b4t2
+		defaultFrom: 'info@dataworkers.eu'
+
+	facebook:
+		appId: '347648758678722'
+		secret: f15d3f1530ef80c70ab0cc9d80bd03b7
+		scope: 'email'
+	
+	google:	
+		id: 1029118455401.apps.googleusercontent.com
+		secret: QSgb9LNmnJmVdlFLBTlq7c_o
+		key: AIzaSyDM7vc3DZRQ5Ln7047YbJb9LTC77tMKX9A
+		scope: 
+			- 'https://www.googleapis.com/auth/userinfo.profile'
+			- 'https://www.googleapis.com/auth/userinfo.email'
+
+	uploads:
+		tasks: /tasks/
+		users: /users/
+
+extensions:
+	authentication: VojtechDobes\MultiAuthenticatorExtension
+#	gettextTranslator: GettextTranslator\DI\Extension
+	translation: Kdyby\Translation\DI\TranslationExtension

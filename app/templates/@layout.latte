@@ -1,0 +1,93 @@
+{**
+ * My Application layout template.
+ *
+ * @param string   $basePath web base path
+ * @param string   $robots   tell robots how to index the content of a page (optional)
+ * @param array    $flashes  flash messages
+ *}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="robots" content="{$robots}" n:ifset="$robots">
+	<meta name="viewport" content="width=device-width">
+
+	<title>{#title|striptags|upper}Dataworkers.eu{/#}</title>
+	<meta name="description" content="The right place for sharing small jobs and earning nice money" />
+	<meta name="keywords" content="crowdsourcing, jobs, small tasks" />
+
+	<link rel="stylesheet" href="{$basePath}/css/main.css">
+	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
+
+	<script src="{$basePath}/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+	{#head}{/#}
+</head>
+
+<body>
+
+	<!--[if lt IE 7]>
+		<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+	<![endif]-->
+	<div n:foreach="$flashes as $flash" class="alert {$flash->type}">{$flash->message}</div>
+	
+	<nav>
+		<div class="submenu">
+			<ul class="">
+				<li><a n:href="Signup:">{_layout.menu.login}</a></li>
+				{if $user->isLoggedIn()}
+				<li><a n:href="Overview:">{_layout.menu.tasks}</a></li>
+				{/if}
+			</ul>			
+		</div>
+
+		<div class="logo" href="#"><a n:href="Homepage:">Crowdyze<span>me</span></a></div>
+		
+		<div class="submenu">
+			<ul class="">
+				{if $user->isLoggedIn()}
+				<li><a href="#">{_layout.menu.add}</a></li>
+				<li><a n:href="User:">{_layout.menu.profile}</a></li>
+				{/if}
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="body-wp">
+			{include #content}			
+		</div>
+
+		<hr>
+		<footer>
+			&copy; Dataworkers.eu 2013
+			<div class="pull-right">
+				<a n:href="this, locale => en">en</a>
+				<a n:href="this, locale => sk">sk</a>
+				<a n:href="SignOut!">{_layout.menu.logout}</a>
+			</div>
+		</footer>
+	</div>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="{!$basePath}/js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script src="{$basePath}/js/vendor/nette-ck.js"></script>
+
+	{#scripts}
+		<script src="{$basePath}/js/vendor/common-ck.js"></script>
+		<script src="{$basePath}/js/main-ck.js"></script>
+	{/#}
+
+	<script n:syntax="asp">
+		var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+		(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+		g.src='//www.google-analytics.com/ga.js';
+		s.parentNode.insertBefore(g,s)}(document,'script'));
+	</script>
+</body>
+</html>

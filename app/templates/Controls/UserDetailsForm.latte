@@ -1,0 +1,15 @@
+{snippet 'userDetailsForm'}
+	{form userDetailsForm class => 'ajax'}
+		
+		<div class="controls">
+			{input submit, class=>'btn btn-xs btn-success'}
+			{input cancel, class=>'btn btn-xs btn-danger'}
+		</div>
+
+		<div>{input first_name, class=>'title'} {input last_name, class=>'title'}</div>
+		<div>{input city, class=>'title'}</div>
+
+		<div>{input country, class=>'description'}</div>
+
+	{/form}
+{/snippet}

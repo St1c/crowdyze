@@ -1,0 +1,7 @@
+form:
+	first_name: "Meno"
+	last_name: "Priezvisko"
+	city: "Mesto"
+	country: "Krajina"
+	submit: "Uložiť"
+	cancel: "Zruš"

@@ -1,0 +1,40 @@
+.single-task,
+.user-profile {
+
+	text-align: center;
+
+	h3 {
+		text-align: center;
+	}
+
+	input:not([type="submit"]),
+	textarea,
+	select,
+	button {
+		border: none;
+		background: transparent;
+		font-family: inherit;
+		font-size: inherit;
+		color: inherit;
+		font-weight: inherit;
+		line-height: inherit;
+		display: inline-block;
+		text-align: center;
+		padding: 0;
+		margin: 0;
+	}
+
+	input:focus {
+		outline: none;
+	}
+
+	&.title {
+		font-size: 30px;
+	}
+
+	textarea {
+		&.description {
+			width: 100%;
+		}
+	}
+}

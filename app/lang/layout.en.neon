@@ -1,0 +1,8 @@
+menu:
+	home: "Home"
+	login: "Login"
+	tasks: "Tasks"
+	add: "Add"
+	messages: "Messages"
+	profile: "Profile"
+	logout: "Logout"

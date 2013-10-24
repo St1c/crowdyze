@@ -1,0 +1,49 @@
+{#content}
+	<div class="single_task">
+			<div class="tags">
+				{foreach $task->related('tasks_has_tags') as $tag}
+					<a n:href="tag $tag->tasks_tags->tag" class="tag">
+						<span class="label label-default">{$tag->tasks_tags->tag|capitalize}</span>
+					</a>
+				{/foreach}
+			</div>
+
+			{snippet title}
+				{if $editTitle}
+					{form editTitleForm, class => ''}
+						{input 'title', class => 'title'}
+						{input 'submit'}
+						{input 'cancel'}
+					{/form}
+				{else}
+					<h2 class="title">{$task->title|capitalize}
+					<!-- {if $userId == $task->users_id} -->
+						<small><a n:href="editTitle!, 'editTitle'=>$task->id" class="muted ajax text-danger">Edit</a></small>
+					<!-- {/if} -->
+					</h2>
+	    		{/if}
+			{/snippet}
+
+			<span class="budget">Get &euro; {$task->budget}</span>
+
+			<div class="row details">
+				<div class="col-lg-4">{_$task->ref('tasks_budget_types','budget_type')->budget_type}</div>
+				<div class="col-lg-4">{$task->workers}</div>
+				<div class="col-lg-4">{$task->deadline}</div>
+			</div>
+			<p>{$task->description}</p>
+
+			<a n:href="acceptTask! $task->id" class="btn btn-success">{_tasks.single.accept_btn}</a>
+
+			<div class="attachments">
+				<h6>Attachments:</h6>
+				{foreach $task->related('tasks_attachments') as $attachment}
+					{$attachment->path}
+				{/foreach}
+			</div>
+	</div>
+{/#}
+{#scripts}	
+	{include #parent}
+{/#}
+{#head}{/#}

@@ -1,0 +1,83 @@
+{#content}
+	<div class="single-task">
+	{snippet task}
+
+	{if !$edit}
+ 			
+		<div class="controls">
+			<a n:if="$userId == $task->users_id" n:href="edit!, 'edit'=>$task->id" class="btn btn-xs btn-danger ajax">Edit</a>
+		</div>
+
+		<div class="tags">
+			{foreach $task->related('tasks_has_tags') as $tag}
+				<a n:href="tag $tag->tasks_tags->tag" class="tag">
+					<span class="label label-default">{$tag->tasks_tags->tag|capitalize}</span>
+				</a>
+			{/foreach}
+		</div>
+
+		<div>
+			<h2 class="title">{$task->title|capitalize}</h2>
+		</div>
+
+		<div>
+			<div class="col-lg-4 budget-type">{_$task->ref('tasks_budget_types','budget_type')->budget_type}</div>
+			<div class="col-lg-4 workers">{$task->workers}</div>
+			<div class="col-lg-4 deadline">{$task->deadline|date:'j. n. Y'}</div>
+		</div>
+
+		<div class="description">{$task->description}</div>
+
+		<div class="budget">Get &euro; {$task->budget}</div>
+
+		<div class="accept">
+			<a n:href="acceptTask! $task->id" class="btn btn-success">{_tasks.single.accept_btn}</a>
+		</div>
+
+		<div class="attachments">
+			<h6>Attachments:</h6>
+			{foreach $task->related('tasks_attachments') as $attachment}
+				{$attachment->path}
+			{/foreach}
+		</div> 	
+
+	{else}
+
+		{control singleTask}
+
+{* 		{form singleTaskForm, class => 'ajax'}
+			
+			<div class="controls">
+				{input submit, class=>'btn btn-xs btn-success'}
+				{input cancel, class=>'btn btn-xs btn-danger'}
+			</div>
+
+			<div class="tags">{input tags}</div>
+
+			<div>{input title, class=>'title'}</div>
+
+    		<div>
+    			{input budget_type class => "budget-type"}
+   				{input workers class => "workers"}
+   				{input deadline class => "deadline"}
+    		</div>
+
+			<div>{input description, class=>'description'}</div>
+
+			<div><p>Get &euro; {input budget, class=>'budget'}</p></div>
+
+			<div class="accept">
+				<a n:href="acceptTask! $task->id" class="disabled btn btn-success">{_tasks.single.accept_btn}</a>
+			</div>
+
+		{/form} *}
+	{/if}
+	
+	{/snippet}
+	</div>
+{/#}
+
+{#scripts}	
+	{include #parent}
+{/#}
+{#head}{/#}

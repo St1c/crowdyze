@@ -1,0 +1,5 @@
+single:
+	accept_btn: "Prijať úlohu"
+
+errors:
+	already_accepted: "Túto úlohu už ste prijali"

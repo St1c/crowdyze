@@ -1,0 +1,8 @@
+menu:
+	home: "Domov"
+	login: "Prihlásiť"
+	tasks: "Úlohy"
+	add: "Pridať"
+	messages: "Správy"
+	profile: "Profil"
+	logout: "Odhlásiť"

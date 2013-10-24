@@ -1,0 +1,21 @@
+{form registerForm class => "login-form" } 
+			
+	<h5>{_login.template.sign_up_email}</h5>
+
+	<!--  Error messages for current form -->
+	<div class="errors" n:if="$form->hasErrors()">
+		<div n:foreach="$form->errors as $error" class="alert alert-danger">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			{$error}
+		</div>
+	</div>
+
+	{input email class => "form-control"}
+
+	{input password class => "form-control"}
+
+	{input repeatPassword class => "form-control"}
+
+	{input submit type=>'submit', class=>'btn btn-outline btn-sign'}
+
+{/form}

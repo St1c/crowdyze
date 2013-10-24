@@ -1,0 +1,5 @@
+single:
+	accept_btn: "Accept this task"
+
+errors:
+	already_accepted: "You already accepted this task"

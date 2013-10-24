@@ -1,0 +1,41 @@
+{#content}
+	<div class="single_task">
+	{snippet task}
+{* 			{if $userId == $task->users_id}
+				<a n:href="edit!, 'edit'=>$task->id" class="btn btn-xs btn-danger ajax">Edit</a>
+			{/if} *}
+
+			<div class="tags">
+				{foreach $task->related('tasks_has_tags') as $tag}
+					<a n:href="tag $tag->tasks_tags->tag" class="tag">
+						<span class="label label-default">{$tag->tasks_tags->tag|capitalize}</span>
+					</a>
+				{/foreach}
+			</div>
+
+			<h2 class="title editable" data-handle="{link //jedit!}" id="title">{$task->title|capitalize}</h2>
+			<span class="budget">Get &euro; {$task->budget}</span>
+
+			<div class="row details">
+				<div class="col-lg-4">{_$task->ref('tasks_budget_types','budget_type')->budget_type}</div>
+				<div class="col-lg-4">{$task->workers}</div>
+				<div class="col-lg-4">{$task->deadline}</div>
+			</div>
+			<p class="editable" data-handle="{link //jedit!}" id="description">{$task->description}</p>
+
+			<a n:href="acceptTask! $task->id" class="btn btn-success">{_tasks.single.accept_btn}</a>
+
+			<div class="attachments">
+				<h6>Attachments:</h6>
+				{foreach $task->related('tasks_attachments') as $attachment}
+					{$attachment->path}
+				{/foreach}
+			</div>
+	{/snippet}
+	</div>
+{/#}
+
+{#scripts}	
+	{include #parent}
+{/#}
+{#head}{/#}

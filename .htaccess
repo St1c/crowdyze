@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+
+	RewriteEngine On
+	#RewriteBase /socialqoe/
+
+	# Use urls without www/ folder
+	RewriteRule ^(.*)$ www/$1 [L]
+
+</IfModule>

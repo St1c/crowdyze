@@ -1,0 +1,44 @@
+{#content}
+<div class="user-profile">
+	<div class="profile-photo"><img src="{$userData->related('users_details')->fetch()['profile_photo']}" class="img-circle"/></div>
+	
+	{snippet userProfile}
+		{if !$edit}
+		<div class="controls">
+			<a n:href="edit!" class="btn btn-xs btn-danger ajax">Edit</a>
+		</div>
+
+		<div class="userData_details">
+			<div class="name">
+				{$userData->related('users_details')->fetch()['first_name']} {$userData->related('users_details')->fetch()['last_name']}
+			</div>
+
+			<div class="origin">
+				From {$userData->related('users_details')->fetch()['city']}, {$userData->related('users_details')->fetch()['country']}
+			</div>
+
+		</div>
+		{else}
+			{control userDetails}
+		{/if}
+	{/snippet}
+
+	<div class="member_since">Member since {$userData->registered|date:'F j, Y'}</div>
+	<div class="userData_details">Reliability: %</div>
+
+	<div class="tasks">
+		<h3>Your accepted tasks:</h3>
+		{foreach $tasks as $task}
+			<div>{$task->id}. {$task->title} 
+
+			<span>{$task->deadline|date:'%d.%m.%Y'}</span> 
+			Budget: {$task->budget}</div>
+		{/foreach}
+	</div>
+</div>
+	
+{/#}
+{#scripts}
+	{include #parent}
+{/#}
+{#head}{/#}

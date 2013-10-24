@@ -1,0 +1,26 @@
+header:
+	add_new_task: "Add new task"
+form:
+	title: "Title"
+	title_missing: "You did not enter any title"
+	description: "Description"
+	description_missing: "You forgot to describe the task..."
+	budget: "Your budget"
+	budget_missing: "How much do you want to spend?"
+	budget_type: "Budget type"
+	tags: "Tags"
+	upload:	"Upload"
+	workers_required: "How many workers do you need?"
+	deadline: "Deadline"
+	departments: "Departments"
+	submit: "Submit"
+	cancel: "Cancel"
+
+budgetType:
+	Pay_only_the_best_one: "Pay only the best one"
+	Pay_best_10_users: "Pay best 10 users"
+	Pay_all: "Pay all"
+
+flashes:
+	task_added: "Task successfully added!"
+	task_edited: "Task edited!"

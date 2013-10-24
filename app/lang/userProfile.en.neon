@@ -1,0 +1,10 @@
+form:
+	first_name: "First name"
+	last_name: "Last Name"
+	city: "City"
+	country: "Country"
+	submit: "Save"
+	cancel: "Undo"
+
+flashes:
+	profile_edited: "Profile updated"
