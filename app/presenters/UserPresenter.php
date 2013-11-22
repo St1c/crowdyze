@@ -3,13 +3,14 @@
 namespace App;
 
 use Nette,
-	Model\Services\UsersRepository;
+	Model\Services;
 
 class UserPresenter extends BasePresenter 
 {
-	/** @var Model\Services\UsersService @inject */
-	public $usersService;
-
+	/** @var Model\Services\UserService @inject */
+	public $userService;
+	/** @var Model\Services\TaskService @inject */
+	public $taskService;
 	/** @var Controls\IUserDetailsControlFactory @inject */
 	public $userDetailsControlFactory;
 
@@ -21,7 +22,7 @@ class UserPresenter extends BasePresenter
 		parent::startup();
 
 		if (!$this->getUser()->isLoggedIn()) {
-			$this->redirect('Signup:', array( 'backlink' => $this->storeRequest() ));
+			$this->redirect('Sign:', array( 'backlink' => $this->storeRequest() ));
 		} else {
 			$this->backlink = NULL;
 		}
@@ -33,15 +34,24 @@ class UserPresenter extends BasePresenter
 	public function actionDefault()
 	{
 		$this->template->edit 		= $this->edit;
-		$this->template->userData 	= $this->usersService->getUserData($this->getUser()->id);
-		$this->template->tasks 		= $this->usersService->getAcceptedUserTasks($this->getUser()->id);
+		$this->template->userData 	= $this->userService->getUserData($this->user->id);
+		$this->template->balance 	= $this->userService->getBalance($this->user->id);
+		$this->template->tasks		= $this->userService->getAcceptedUserTasks($this->user->id);
 	}
 
+
+	/**
+	 * User details inline edit form
+	 */
 	protected function createComponentUserDetails()
 	{
 		return $this->userDetailsControlFactory->create();
 	}
 
+
+	/**
+	 * Handle inline edit
+	 */
 	public function handleEdit()
 	{
 		$this->edit = TRUE;
@@ -49,4 +59,24 @@ class UserPresenter extends BasePresenter
 		$this->validateControl();
 		$this->invalidateControl('userProfile');
 	}
+
+
+	public function handleWorkerTasks()
+	{
+		$this->template->tasks = $this->userService->getAcceptedUserTasks($this->getUser()->id);
+
+		if ($this->isAjax()) {
+			$this->invalidateControl('tasks');			
+		}
+	}
+
+
+	public function handleEmployerTasks()
+	{
+		$this->template->tasks = $this->taskService->getOwnerTasks($this->getUser()->id);
+		if ($this->isAjax()) {
+			$this->invalidateControl('tasks');			
+		}
+	}
+
 }

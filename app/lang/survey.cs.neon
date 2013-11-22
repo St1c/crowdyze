@@ -1,0 +1,51 @@
+header: "Vítejte"
+
+form:
+	quest1: 
+		quest: "Jestli by jste měli možnost zadávat ponuky práce externím pracovníkům prosřednicvím online služby, využili by jste takovou službu?"
+		ans1: "Ano"
+		ans2: "Ne"
+		req: "Neoznačili jste odpověď na první otázku"
+	quest2: 
+		quest: "Využili by jste možnost budování komunity externích spolupracovníků, kterí by pro Vás pracovali?"
+		ans1: "Ano"
+		ans2: "Ne"
+		req: "Neoznačili jste odpověď na druhou otázku"
+	quest3:
+		quest: "Jste ochotní zadávat práci i externím pracovníkům z krajin EÚ?"
+		ans1: "Ano"
+		ans2: "Ne"
+		req: "Neoznačili jste odpověď na třetí otázku"
+	quest4:
+		quest: "Při jaké úspoře nákladů by jste upřednostnili zadání práce pro online spolupracovníky před spůsobem jaký využívate teď?"
+		ans1: "10%"
+		ans2: "30%"
+		ans3: "50%"
+		ans4: "70%"
+		req: "Neoznačili jste odpověď na štvrtou otázku"
+	quest5:
+		quest: "V jaké oblasti v rámci Vaší firmy by jste takovou spolupráci nejvíc přivítali?"
+		ans1: "Vytváření marketingových materiálů"
+		ans2: "Grafické práce – návrh log, vizualizací"
+		ans3: "Překladatelské práce"
+		ans4: "Programovaní a vývoj aplikací"
+		ans5: "Průzkumy anebo užívatelské hodnocení"
+		ans6: "Psaní a editace textů"
+		ans7: "Jiné"
+		req: "Neoznačili jste odpověď na pátou otázku"
+	quest6:
+		quest: "Jaký parametr je pro zadání práce externím spolupracovníkům nejdůležitejší?"
+		ans1: "Kvalita vykonané práce"
+		ans2: "Možnost širokého výběru spolupracovníků"
+		ans3: "Snížení nákladů oproti interním řešením"
+		ans4: "Rychlost zadaní a vykonaní práce"
+		req: "Neoznačili jste odpověď na poslední otázku"
+	submit: "Odeslat"
+	subscribe:
+		email: "Email"
+		email_required: "Vaše emailová adresa"
+		subscribe: "Chci být informovaný o novinkách"
+
+thanks: 
+	jumbo: "Děkujeme"
+	info: "Tešíme se, že Vám brzy budeme moct představit naše služby"

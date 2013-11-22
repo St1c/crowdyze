@@ -2,15 +2,13 @@
 @import "compass/css3/transform";
 @import "compass/css3/transition";
 @import "compass/css3/box-sizing";
-
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
 /** Bootstrap rewrites */
 
 /* GLOBAL STYLES
 -------------------------------------------------- */
 /* Palette color codes */
 /* http://colorschemedesigner.com/#4K41Tkmxhw0w0 */
-
-// $inv: #D43F3A;
 
 $primary-1:						#3ECD9C;
 
@@ -31,7 +29,8 @@ $border-radius-small:           3px;
 
 // Bootstrap overwrites
 $btn-trans:						all 0.5s;
-$font-family-base: 				"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+// $font-family-base: 				"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+$font-family-base: 				'Open Sans', sans-serif;
 
 @import "bootstrap-sass";
 @import "mixins.scss";
@@ -41,13 +40,29 @@ $font-family-base: 				"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica
 @include font-face(icomoon,'../fonts/icomoon');
 @import "forms";
 @import "navigation";
+@import "tags";
+@import "fileuploader";
 
 body {
 	background-color: #f6f6f6;
 
+	> .container {
+		margin-top: 30px;
+		margin-bottom: 50px;
+		padding-bottom: 15px;
+		background-color: #fff;
+		border: 1px solid #D5D5DA;
+		border-radius: 6px;
+		// max-width: 970px;
+	}
+
+	h1 {
+		text-align: center;
+		color: $primary-1;
+	}
 	.notifier {
 		position: absolute;
-		top:50px;
+		top:80px;
 		height: 50px;
 		width:100%;
 		background-color: #3ECE9C;
@@ -70,6 +85,19 @@ body {
 
 	.under-notifier {
 		margin-top: 70px;
+	}
+}
+
+.survey-form {
+	margin: auto;
+	width: 80%;
+	color: #3B3C3D;
+
+	form {
+		background-color: #FAFAFA;
+		padding: 60px;
+		border: 1px solid #D5D5DA;
+		border-radius: 6px;
 	}
 }
 
@@ -172,5 +200,11 @@ body {
 		img {
 			width: 70px;
 		}
+	}
+}
+
+.single-task{
+	div {
+		margin-top: 20px;
 	}
 }

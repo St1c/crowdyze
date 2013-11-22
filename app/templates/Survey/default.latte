@@ -1,0 +1,96 @@
+{#content}
+ 	<div class="row">
+		<div class="survey-form">
+		
+		<h1 class="row">{_survey.header}</h1>
+
+		{form surveyForm class=>'form-horizontal'}
+
+			<div class="form-group">
+				<div>
+					{$_form['question1']->label}
+				</div>
+				{foreach $_form['question1']->items as $key => $label }
+					{label question1:$key class => "radio-inline" }
+						{input question1:$key}
+						{$label}
+					{/label}
+				{/foreach}
+			</div>
+
+			<div class="form-group">	
+				<div class="">
+					{$_form['question2']->label}
+				</div>
+				{foreach $_form['question2']->items as $key => $label }
+					{label question2:$key class => "radio-inline" }
+						{input question2:$key}
+						{$label}
+					{/label}
+				{/foreach}
+			</div>
+
+			<div class="form-group">
+				<div class="">
+					{$_form['question3']->label}
+				</div>
+				{foreach $_form['question3']->items as $key => $label }
+					{label question3:$key class => "radio-inline" }
+						{input question3:$key}
+						{$label}
+					{/label}
+				{/foreach}
+			</div>
+
+			<div class="form-group">
+				<div class="">
+					{$_form['question4']->label}
+				</div>
+				{foreach $_form['question4']->items as $key => $label }
+					{label question4:$key class => "radio-inline" }
+						{input question4:$key}
+						{$label}
+					{/label}
+				{/foreach}
+			</div>
+
+			<div class="form-group">
+				<div class="">
+					{$_form['question5']->label}
+				</div>
+				{foreach $_form['question5']->items as $key => $label }
+					<div class="radio">
+					{label question5:$key class => "" }
+						{input question5:$key}
+						{$label}
+					{/label}
+					</div>
+				{/foreach}
+			</div>
+
+			<div class="form-group">
+				<div class="">
+					{$_form['question6']->label}
+				</div>
+				{foreach $_form['question6']->items as $key => $label }
+					<div class="radio">
+					{label question6:$key class => "" }
+						{input question6:$key}
+						{$label}
+					{/label}
+					</div>
+				{/foreach}
+			</div>
+
+			<div class="form-group">
+				{input submit}
+			</div>
+
+		{/form}
+		</div>
+	</div>
+{/#}
+
+{#scripts}
+	{include #parent}
+{/#}

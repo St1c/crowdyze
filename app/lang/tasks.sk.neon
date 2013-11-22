@@ -1,5 +1,7 @@
 single:
 	accept_btn: "Prijať úlohu"
+	post_result_btn: "Pridať riešenie"
+	show_result_btn: "Ukáž riešenia"
 
 errors:
 	already_accepted: "Túto úlohu už ste prijali"

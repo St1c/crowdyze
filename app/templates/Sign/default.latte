@@ -1,0 +1,52 @@
+{block content}
+<div class="container">
+
+	<div class="row">
+
+		<div class="col-sm-6">
+			<div class="row">
+				<h2>Workers</h2>
+				<ul>
+					<li>1.step</li>
+					<li>2.step</li>
+					<li>3.step</li>
+				</ul>
+			</div>
+
+			<div class="row">
+				<h2>Employers</h2>
+				<ul>
+					<li>1.step</li>
+					<li>2.step</li>
+					<li>3.step</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="col-sm-6">
+			<div class="socials">
+				{control socialLogin}
+			</div>
+
+			{snippet registration}
+				{if $register}
+				
+					{control registerForm}
+
+					<div class="sign-info">
+						<p>{_login.template.already_registered} <a n:href="register! 'login'" class="ajax">{_login.form.sign_in}</a></p>
+					</div>
+				{else}
+
+					{control loginForm}
+
+					<div class="sign-info">
+						<p>{_login.template.not_registered} <a n:href="register! 'register'" class="ajax">{_login.registerForm.sign_up}</a></p>
+					</div>
+				{/if}
+			{/snippet}
+		</div>
+	</div>
+
+</div>
+{/block}

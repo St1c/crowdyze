@@ -23,6 +23,7 @@ template:
 	login: "Prihlásiť"
 	email_sign_up: "Registrovať emailom"
 	already_registered: "Ste registrovaný?"
+	not_registered: "Ešte nemáte účet?"
 	log_in_email: "Prihlásiť emailom"
 	sign_up_email: "Registrovať s emailom"
 

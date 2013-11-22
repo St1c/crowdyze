@@ -15,7 +15,7 @@ class MessagesPresenter extends BasePresenter
 		parent::startup();
 
 		if (!$this->getUser()->isLoggedIn()) {
-			$this->redirect('Signup:', array( 'backlink' => $this->storeRequest() ));
+			$this->redirect('Sign:', array( 'backlink' => $this->storeRequest() ));
 		} else {
 			$this->backlink = NULL;
 		}

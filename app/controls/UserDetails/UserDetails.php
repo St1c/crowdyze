@@ -10,13 +10,13 @@ use Nette,
 
 class UserDetailsControl extends BaseControl
 {
-	/** @var Model\Services\UsersService @inject */
-	public $usersService;
+	/** @var Model\Services\UserService @inject */
+	public $userService;
 
 	public function createComponentUserDetailsForm()
 	{
 
-		$user 	= $this->usersService->getUserData($this->presenter->getUser()->id);
+		$user 	= $this->userService->getUserData($this->presenter->getUser()->id);
 
 		$userDetailsForm = new Form();
 
@@ -24,20 +24,20 @@ class UserDetailsControl extends BaseControl
 
 		$userDetailsForm->addText('first_name', 'userProfile.form.first_name')
 			->setAttribute('placeholder', 'userProfile.form.first_name')
-			->setDefaultValue($user->related('users_details')->fetch()['first_name']);
+			->setDefaultValue($user->related('user_details')->fetch()['first_name']);
 
 		$userDetailsForm->addText('last_name', 'userProfile.form.last_name')
 			->setAttribute('placeholder', 'userProfile.form.last_name')
-			->setDefaultValue($user->related('users_details')->fetch()['last_name']);
+			->setDefaultValue($user->related('user_details')->fetch()['last_name']);
 
 		
 		$userDetailsForm->addText('city', 'userProfile.form.city')
 			->setAttribute('placeholder', 'userProfile.form.city')
-			->setDefaultValue($user->related('users_details')->fetch()['city']);
+			->setDefaultValue($user->related('user_details')->fetch()['city']);
 		
 		$userDetailsForm->addText('country', 'userProfile.form.country')
 			->setAttribute('placeholder', 'userProfile.form.country')
-			->setDefaultValue($user->related('users_details')->fetch()['country']);
+			->setDefaultValue($user->related('user_details')->fetch()['country']);
 
 		$userDetailsForm->addSubmit('submit', 'userProfile.form.submit');
 		$userDetailsForm->addSubmit('cancel', 'userProfile.form.cancel');
@@ -66,12 +66,11 @@ class UserDetailsControl extends BaseControl
 		}
 		
 		if ($userDetailsForm['submit']->isSubmittedBy()) {
-			$userData = $this->usersService->getUserData($this->presenter->getUser()->id);
-
 			foreach ($values as $key => $value) {
-				$update[$key] = $value;
+				empty($value) ?: $update[$key] = $value;
 			}
-			$this->usersService->update($userData, $update);
+			$userData = $this->userService->getUserData($this->presenter->getUser()->id);
+			$this->userService->updateFromProfile($userData, $update);
 
 			$this->presenter->flashMessage('userProfile.flashes.profile_edited', 'alert-success');
 			$this->presenter->template->userData = $userData;

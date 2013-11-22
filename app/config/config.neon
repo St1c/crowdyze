@@ -6,7 +6,7 @@
 #
 
 php:
-	date.timezone: Europe/Prague
+	date.timezone: Europe/Vienna
 	# zlib.output_compression: yes
 
 nette:
@@ -14,13 +14,13 @@ nette:
 		errorPresenter: Error
 		mapping:
 			*: App\*Module\*Presenter
-	
+
 	xhtml: no
 
 	session:
 		autoStart: true
 		expiration: "+15 days"
-	
+
 	database:
 		dsn: '%database.driver%:unix_socket=%database.socket%;dbname=%database.dbname%'
 		user: %database.user%
@@ -28,41 +28,42 @@ nette:
 		reflection: discovered
 
 	mailer: %mailer%
-	
+
 translation:
 	default: en
 	fallback: [en, en]
-	
-#gettextTranslator:
-#	lang: en
-#	files:
-#		front: %appDir%/lang # for module Front and other non-specified modules
-#	layout: horizontal # or: vertical
-#	height: 480
 
 services:
+	cacheStorage:
+		class: Nette\Caching\Storages\MemcachedStorage('localhost', 11211)
 
 	- App\RouterFactory
 	router: @App\RouterFactory::createRouter
 
-	- Model\Repositories\UsersRepository
-	- Model\Repositories\Users_detailsRepository
-	- Model\Repositories\RelationshipsRepository
-	- Model\Repositories\Relationships_typesRepository
-	- Model\Repositories\Accepted_tasksRepository
-	- Model\Repositories\TasksRepository
-	- Model\Repositories\Tasks_budget_typesRepository
-	- Model\Repositories\Tasks_tagsRepository
-	- Model\Repositories\Tasks_statusRepository
-	- Model\Repositories\Tasks_attachmentsRepository
-	- Model\Repositories\Tasks_commentsRepository
-	- Model\Repositories\ResultsRepository
-	- Model\Repositories\Results_attachmentsRepository
-	- Model\Repositories\Results_status_typesRepository
-	- Model\Repositories\Departments_namesRepository
+	- Model\Repositories\UserRepository
+	- Model\Repositories\User_detailsRepository
+	- Model\Repositories\RelationshipRepository
+	- Model\Repositories\Relationship_typeRepository
+	- Model\Repositories\Accepted_taskRepository
+	- Model\Repositories\TaskRepository
+	- Model\Repositories\Budget_typeRepository
+	- Model\Repositories\TagRepository
+	- Model\Repositories\Task_statusRepository
+	- Model\Repositories\Task_attachmentRepository
+	- Model\Repositories\CommentRepository
+	- Model\Repositories\ResultRepository
+	- Model\Repositories\Result_attachmentRepository
+	- Model\Repositories\Result_status_typeRepository
+	- Model\Repositories\Department_nameRepository
+	- Model\Repositories\WalletRepository
+	- Model\Repositories\EmailRepository
+	- Model\Repositories\PollRepository
+	- Model\Repositories\QuestionRepository
 
-	- Model\Services\TasksService
-	- Model\Services\UsersService
+	- Model\Services\SignService
+	- Model\Services\TaskService
+	- Model\Services\UserService
+	- Model\Services\PollService
 
 	mailerService: 
 		class: Utilities\MailerService
@@ -130,7 +131,7 @@ parameters:
 		appId: '347648758678722'
 		secret: f15d3f1530ef80c70ab0cc9d80bd03b7
 		scope: 'email'
-	
+
 	google:	
 		id: 1029118455401.apps.googleusercontent.com
 		secret: QSgb9LNmnJmVdlFLBTlq7c_o
@@ -145,5 +146,4 @@ parameters:
 
 extensions:
 	authentication: VojtechDobes\MultiAuthenticatorExtension
-#	gettextTranslator: GettextTranslator\DI\Extension
 	translation: Kdyby\Translation\DI\TranslationExtension

@@ -14,20 +14,10 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
 	/** @persistent */
 	public $locale;
-	/** @var \Kdyby\Translation\Translator */
+	/** @var \Kdyby\Translation\Translator @inject */
 	public $translator;
 	/** @persistent */
 	public $backlink;
-
-	/**
-	 * Set new translator
-	 * 
-	 * @param \Kdyby\Translation\Translator
-	 */
-	public function injectTranslator(Translator $translator)
-	{
-		$this->translator = $translator;
-	}
 
 	/**
 	 * Add translator to templates
@@ -88,7 +78,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	{
 		$this->getUser()->logout(TRUE);
 		$this->flashMessage('Successfully signed out!', 'alert-success');
-		$this->redirect('Homepage:');
+		$this->redirect('Sign:');
 	}
 
 }

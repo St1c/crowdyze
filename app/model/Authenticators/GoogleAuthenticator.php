@@ -1,8 +1,7 @@
 <?php
 namespace Model\Authenticators;
 
-use Nette,
-	Model\Repositories\UsersRepository;
+use Nette;
 
 class GoogleAuthenticator extends BaseAuthenticator implements Nette\Security\IAuthenticator
 {
@@ -13,18 +12,18 @@ class GoogleAuthenticator extends BaseAuthenticator implements Nette\Security\IA
 	 */
 	public function authenticate(array $me)
 	{	
-		$user = $this->usersService->find( array('email' => $me['email']) );
+		$user = $this->signService->find( array('email' => $me['email']) );
 
 		if (!$user) {
 			// Record new user
-			$user = $this->usersService->register('google', $me);
+			$user = $this->signService->register('google', $me);
 		
 		} else {
 			// Update user
-			$this->usersService->updateFromSocial('google', $user, $me);
+			$this->signService->updateFromSocial('google', $user, $me);
 		}
 
-		return $this->usersService->createIdentity($user);
+		return $this->signService->createIdentity($user);
 	}
 
 }

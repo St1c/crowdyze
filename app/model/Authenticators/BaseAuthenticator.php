@@ -2,22 +2,18 @@
 namespace Model\Authenticators;
 
 use Nette,
-	Model\Repositories,
-	Model\Services,
-	Utilities\MailerService;
+	Model\Services;
 
 class BaseAuthenticator
 {
 
-	/** @var UsersRepository */
-	protected $usersRepository;
-	/** @var UsersService */
-	protected $usersService;
+	/** @var SignService */
+	protected $signService;
 
 
-	public function __construct(Services\UsersService $usersService)
+	public function __construct(Services\SignService $signService)
 	{
-		$this->usersService = $usersService;
+		$this->signService = $signService;
 	}
 
 }

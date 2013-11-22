@@ -18,9 +18,9 @@ class FileManager extends Nette\Object
 	/** @var string www Dir */
 	public $wwwDir;
 
-	public function saveFile($type, $uuid, FileUpload $upload)
+	public function saveFile($type, $token, FileUpload $upload)
 	{
-		$savePath = $this->uploadFolders[$type] . (string) $uuid;
+		$savePath = $this->uploadFolders[$type] . (string) $token;
 
 		if ($this->testPath( $this->wwwDir . $savePath )) {
 			
@@ -52,9 +52,13 @@ class FileManager extends Nette\Object
 		}
 	}
 
-	private function testPath($path)
+	public function testPath($path, $wwwDir = FALSE)
 	{
-		return is_dir($path) ? TRUE : mkdir($path);
+		if (!$wwwDir) {
+			return is_dir($path) ? TRUE : mkdir($path);
+		} else {
+			return is_dir($this->wwwDir . $path) ? TRUE : mkdir($this->wwwDir . $path);
+		}
 	}
 
 }

@@ -1,5 +1,7 @@
 single:
 	accept_btn: "Accept this task"
+	post_result_btn: "Add result"
+	show_result_btn: "Show results"
 
 errors:
 	already_accepted: "You already accepted this task"

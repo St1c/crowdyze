@@ -10,19 +10,19 @@ use Nette,
 
 class SingleTaskControl extends BaseControl
 {
-	/** @var Model\Services\TasksService @inject */
-	public $tasksService;
-	/** @var Model\Repositories\Tasks_budget_typesRepository @inject */
-	public $tasks_budget_typesRepository;
-	/** @var Model\Repositories\Departments_namesRepository @inject */
-	public $departments_namesRepository;
+	/** @var Model\Services\TaskService @inject */
+	public $taskService;
+	/** @var Model\Repositories\Budget_typeRepository @inject */
+	public $budget_typeRepository;
+	/** @var Model\Repositories\Department_nameRepository @inject */
+	public $department_nameRepository;
 
 	public function createComponentSingleTaskForm()
 	{
-		$budgetTypes 	= $this->tasks_budget_typesRepository->getAll();
-		$departments 	= $this->departments_namesRepository->getAll($this->presenter->getUser()->id);
+		$budgetTypes 	= $this->budget_typeRepository->getAll();
+		$departments 	= $this->department_nameRepository->getAll($this->presenter->getUser()->id);
 
-		$task 			= $this->tasksService->getTask($this->presenter->getParameter('id'));
+		$task 			= $this->taskService->getTaskByToken($this->presenter->getParameter('id'));
 
 		$singleTaskForm = new Form();
 
@@ -94,28 +94,28 @@ class SingleTaskControl extends BaseControl
 		}
 		
 		if ($singleTaskForm['submit']->isSubmittedBy()) {
-			$task = $this->tasksService->getTask($this->presenter->getParameter('id'));
+			$task = $this->taskService->getTask($this->presenter->getParameter('id'));
 
 			foreach ($values as $key => $value) {
 				if ($key == 'deadline') $value = date('Y-m-d H:i:s', strtotime($value));
 				in_array( $key, array('tags', 'upload', 'departments') ) || empty($value) ?: $update[$key] = $value;
 			}
-			$this->tasksService->update($task, $update);
+			$this->taskService->update($task, $update);
 
 			// // Saving tags
 			// if ( !empty($values['tags']) ) {
-			// 	$this->tasksService->addTags($task, $values['tags']);
+			// 	$this->taskService->addTags($task, $values['tags']);
 			// }
 
 			// // Saving departments 
 			// if ( !empty($values['departments']) ) {
-			// 	$this->tasksService->setDepartments($task, $values['departments']);
+			// 	$this->taskService->setDepartments($task, $values['departments']);
 			// }
 
 			// // Saving attachments
 			// foreach ($values['upload'] as $upload) {
 			// 	if ( $upload->isOk() ) {
-			// 		$this->tasksService->saveAttachment($task, $taskUUID, $upload);
+			// 		$this->taskService->saveAttachment($task, $taskUUID, $upload);
 			// 	}
 			// }
 

@@ -1,20 +1,24 @@
 {#content}
 <div class="user-profile">
-	<div class="profile-photo"><img src="{$userData->related('users_details')->fetch()['profile_photo']}" class="img-circle"/></div>
+	<div class="profile-photo">
+		<img src="{$userData->related('user_details')->fetch()['profile_photo']}" class="img-circle"/>
+	</div>
 	
 	{snippet userProfile}
 		{if !$edit}
 		<div class="controls">
-			<a n:href="edit!" class="btn btn-xs btn-danger ajax">Edit</a>
+			<a n:href="edit!" class="btn btn-xs btn-danger">Edit</a>
 		</div>
 
 		<div class="userData_details">
 			<div class="name">
-				{$userData->related('users_details')->fetch()['first_name']} {$userData->related('users_details')->fetch()['last_name']}
+				{$userData->related('user_details')->fetch()['first_name']} 
+				{$userData->related('user_details')->fetch()['last_name']}
 			</div>
 
 			<div class="origin">
-				From {$userData->related('users_details')->fetch()['city']}, {$userData->related('users_details')->fetch()['country']}
+				From {$userData->related('user_details')->fetch()['city']}, 
+					 {$userData->related('user_details')->fetch()['country']}
 			</div>
 
 		</div>
@@ -26,15 +30,23 @@
 	<div class="member_since">Member since {$userData->registered|date:'F j, Y'}</div>
 	<div class="userData_details">Reliability: %</div>
 
-	<div class="tasks">
-		<h3>Your accepted tasks:</h3>
-		{foreach $tasks as $task}
-			<div>{$task->id}. {$task->title} 
+	<div class="balance"><p>You've got {$balance->balance|number:2}$ on your account</p></div>
 
-			<span>{$task->deadline|date:'%d.%m.%Y'}</span> 
-			Budget: {$task->budget}</div>
-		{/foreach}
+	<div>
+		<span>My jobs as:</span> 
+		<div><a n:href="workerTasks!">Worker</a></div>
+		<div><a n:href="employerTasks!">Employer</a></div>
 	</div>
+	{snippet tasks}
+		<div class="tasks">
+			{foreach $tasks as $task}
+				<div>{$task->id}. <a n:href="Overview:task $task->token">{$task->title} </a>
+
+				<span>{$task->deadline|date:'%d.%m.%Y'}</span> 
+				Budget: {$task->budget}</div>
+			{/foreach}
+		</div>
+	{/snippet}
 </div>
 	
 {/#}

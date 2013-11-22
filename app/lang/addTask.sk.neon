@@ -1,13 +1,12 @@
 header:
 	add_new_task: "Pridať úlohu"
-
 form:
 	title: "Nadpis"
 	title_missing: "Nezadali ste nadpis"
 	description: "Popis"
 	description_missing: "Zabudli ste napísať popis úlohy..."
-	budget: "Váš rozpočet"
-	budget_missing: "Nezadali ste žiadnu hodnotu"
+	salary: "Zaplať"
+	salary_missing: "Nezadali ste žiadnu hodnotu"
 	budget_type: "Typ ohodnotenia"
 	tags: "Tagy"
 	upload:	"Nahraj"

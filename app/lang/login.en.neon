@@ -23,6 +23,7 @@ template:
 	login: "Login"
 	email_sign_up: "Sign up with your email"
 	already_registered: "Already registered?"
+	not_registered: "You don't have account yet?"
 	log_in_email: "Login with your email"
 	sign_up_email: "Sign up with your email"
 

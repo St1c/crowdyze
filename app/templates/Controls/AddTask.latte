@@ -1,4 +1,5 @@
 {snippet}
+	<script src="{$basePath}/js/vendor/fileuploader.js"></script>
 	<h3>{_addTask.header.add_new_task}:</h3>
 	<div class="row">
 	{form addTaskForm class=> "col-sm-6"}
@@ -11,6 +12,11 @@
 		</div>
 
 		<div class="form-group">
+			<div id="tags-container"></div>
+			{input tags type => "text", class => "tm-input form-control"}
+		</div>
+		
+		<div class="form-group">
 			{input title type => "text", class => "form-control"}
 		</div>
 
@@ -19,16 +25,16 @@
 		</div>
 
 		<div class="form-group">
-			{input budget class => "form-control"}
+			{input salary id => "salary", class => "form-control"} <span>&euro; </span>
+			{input budget_type id => "budget_type", class => "form-control"}
 		</div>
 
 		<div class="form-group">
-			<label for="frm-addTask-addTaskForm-upload" class="btn btn-default">{_addTask.form.upload}</label>
-			{input upload , class => "form-control"}
+			{input workers type => "text", id => "workers", class => "form-control"}
 		</div>
 
-		<div class="form-group">
-			{input budget_type class => "form-control"}
+		<div id="budget">
+			<p>Estimated costs: <span class="value"></span> &euro;</p>
 		</div>
 
 		<div class="form-group">
@@ -36,21 +42,29 @@
 		</div>
 
 		<div class="form-group">
-			{input tags type => "text", class => "tm-input form-control"}
+			{input day type => "date", class => "form-control"}
+			{input month type => "date", class => "form-control"}
+			{input year type => "date", class => "form-control"}
 		</div>
 
-		<div class="form-group">
-			{input workers type => "text", class => "form-control"}
-		</div>
 
-		<div class="form-group">
-			{input deadline type => "date", class => "form-control"}
-		</div>
-
+{* 		<div id="file-list" class="file-list"></div>
+		<div id="upload">       
+			<noscript>          
+				<div class="form-group">
+					<label for="frm-addTask-addTaskForm-upload" class="btn btn-default">{_addTask.form.upload}</label>
+					{input upload , class => "form-control"}
+				</div>
+			</noscript>
+			<button id="upload-btn">Upload</button>      
+		</div> *}
+		
+		{input token}
+		
 		<div class="form-group">
 			{input submit, class=>'btn btn-default'}
 		</div>
 
 	{/form}
-	</div>		
+	</div>
 {/snippet}

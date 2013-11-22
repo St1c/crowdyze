@@ -2,9 +2,7 @@
 namespace Model\Authenticators;
 
 use Nette,
-	Nette\Security,
-	Model\Repositories\UsersRepository,
-	Nette\Utils\Strings;
+	Nette\Security;
 
 /**
  * Users authenticator.
@@ -19,7 +17,7 @@ class PasswordAuthenticator extends BaseAuthenticator implements Nette\Security\
 	 */
 	public function authenticate(array $data)
 	{
-		$user = $this->usersService->find(array('email' => $data['email']));
+		$user = $this->signService->find(array('email' => $data['email']));
 
 		if (!$user) {
 			throw new Security\AuthenticationException('User not found.', self::IDENTITY_NOT_FOUND);
@@ -34,7 +32,7 @@ class PasswordAuthenticator extends BaseAuthenticator implements Nette\Security\
 			throw new Security\AuthenticationException('The password is incorrect.', self::INVALID_CREDENTIAL);
 		}
 
-		return $this->usersService->createIdentity($user);	
+		return $this->signService->createIdentity($user);	
 	}
 
 }

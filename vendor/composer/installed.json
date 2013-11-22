@@ -21,51 +21,6 @@
         "description": "Customization for the best database management tool written in PHP, Adminer"
     },
     {
-        "name": "facebook/php-sdk",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/facebook/facebook-php-sdk.git",
-            "reference": "97a623be0fd43ba192a83422ea5a919d54e9597f"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/facebook/facebook-php-sdk/zipball/97a623be0fd43ba192a83422ea5a919d54e9597f",
-            "reference": "97a623be0fd43ba192a83422ea5a919d54e9597f",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "ext-json": "*",
-            "php": ">=5.2.0"
-        },
-        "time": "2013-10-10 21:53:48",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "classmap": [
-                "src"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "Apache2"
-        ],
-        "authors": [
-            {
-                "name": "Facebook",
-                "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
-            }
-        ],
-        "description": "Facebook PHP SDK",
-        "homepage": "https://github.com/facebook/facebook-php-sdk",
-        "keywords": [
-            "facebook",
-            "sdk"
-        ]
-    },
-    {
         "name": "mikulas/nette-google-oauth2",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -325,12 +280,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/nette/nette.git",
-            "reference": "3940773d947cc7fb7fbfc9cb9f28f663b4486162"
+            "reference": "720d7901a3c00c000ccb1b7759f19af07c0c6526"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/nette/nette/zipball/3940773d947cc7fb7fbfc9cb9f28f663b4486162",
-            "reference": "3940773d947cc7fb7fbfc9cb9f28f663b4486162",
+            "url": "https://api.github.com/repos/nette/nette/zipball/720d7901a3c00c000ccb1b7759f19af07c0c6526",
+            "reference": "720d7901a3c00c000ccb1b7759f19af07c0c6526",
             "shasum": ""
         },
         "require": {
@@ -348,7 +303,7 @@
             "ext-memcache": "*",
             "ext-pdo": "*"
         },
-        "time": "2013-10-12 09:15:47",
+        "time": "2013-10-28 13:47:57",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -446,6 +401,54 @@
             "nette",
             "testing",
             "unit"
+        ]
+    },
+    {
+        "name": "facebook/php-sdk",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/facebook/facebook-php-sdk.git",
+            "reference": "07deeed3074730a084bf032bc8ee4d54a1808e26"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/facebook/facebook-php-sdk/zipball/07deeed3074730a084bf032bc8ee4d54a1808e26",
+            "reference": "07deeed3074730a084bf032bc8ee4d54a1808e26",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "ext-json": "*",
+            "php": ">=5.2.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "3.7.*"
+        },
+        "time": "2013-10-28 22:40:51",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "classmap": [
+                "src"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache2"
+        ],
+        "authors": [
+            {
+                "name": "Facebook",
+                "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
+            }
+        ],
+        "description": "Facebook PHP SDK",
+        "homepage": "https://github.com/facebook/facebook-php-sdk",
+        "keywords": [
+            "facebook",
+            "sdk"
         ]
     }
 ]

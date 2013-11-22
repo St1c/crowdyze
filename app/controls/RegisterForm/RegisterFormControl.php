@@ -8,8 +8,8 @@ use Nette\Application\UI,
 class RegisterFormControl extends BaseControl
 {
 
-	/** @var Model\Services\UsersService @inject */
-	public $usersService;
+	/** @var Model\Services\SignService @inject */
+	public $signService;
 	/** @var Utilities\MailerService @inject */
 	public $mailerService;
 
@@ -26,7 +26,7 @@ class RegisterFormControl extends BaseControl
 			->addrule(Form::FILLED, 'login.form.email_warning');
 		$register->addPassword('password', 'login.form.password')
 			->setAttribute('placeholder', 'login.form.password')
-			->AddRule(Form::MIN_LENGTH, $register->translator->translate('login.registerForm.password_length', NULL, array('length' => 6)));
+			->AddRule(Form::MIN_LENGTH, $register->translator->translate('login.registerForm.password_length', NULL, array('length' => 6)), 6);
 		$register->addPassword('repeatPassword', 'login.registerForm.password_repeat')
 			->setAttribute('placeholder', 'login.registerForm.password_repeat')
 			->AddRule(Form::FILLED, 'login.registerForm.password_repeat_warning')
@@ -48,7 +48,7 @@ class RegisterFormControl extends BaseControl
 
 		try {
 			// Try to register non-existing user
-			$this->usersService->register('email', $values );
+			$this->signService->register('email', $values );
 
 			$this->presenter->getUser()->setExpiration('+15 days', FALSE);
 			$this->presenter->getUser()->login('email', $values);		
