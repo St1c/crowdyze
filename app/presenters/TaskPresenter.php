@@ -84,6 +84,4 @@ class TaskPresenter extends BasePresenter
 		$this->invalidateControl('task');
 	}
 
-
-
 }

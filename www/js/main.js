@@ -88,31 +88,6 @@ $(function(){
 		}
 	});
 
-	// $.nette.ext('jeditable', {
-	// 	load: function () {
-	// 		$('.editable').editable(function(value, settings) {
-	// 			var element = $(this);
-	// 			$.nette.ajax({
-	// 				url: element.data('handle'),
-	// 				data: {
-	// 					elementId: element.attr('id'),
-	// 					elementValue: value
-	// 				},
-	// 				// start: function (xhr, settings) {
-	// 				// 	var ico = element.prev('span').find('i');
-	// 				// 	ico.removeClass('icon-pencil');
-	// 				// 	ico.addClass('icon-upload');
-	// 				// }
-	// 			});
-	// 			return value;
-	// 		}, {
-	// 			// tooltip	: "Upraviť...",
-	// 			// submit	: 'OK',
-	// 			style  	: "inherit"
-	// 		});
-	// 	}
-	// });
-
 	$.nette.ext('datepicker', {
 		load: function() {
 			$("input.deadline").datepicker();
