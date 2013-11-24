@@ -20,8 +20,7 @@ class RouterFactory
 	public function createRouter()
 	{
 		$router = new RouteList();
-		$router[] = new Route('[<locale [a-z]{2}>/]<presenter>/<action>[/<id>]', array(
-			'locale' 		=> 'en',
+		$router[] = new Route('<presenter>/<action>[/<id>]', array(
 			'presenter' => 'Homepage',
 			'action' 	=> 'default',
 			'id'		=> NULL

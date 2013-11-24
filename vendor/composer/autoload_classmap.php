@@ -12,6 +12,7 @@ return array(
     'Kdyby\\Translation\\Exception' => $vendorDir . '/kdyby/translation/src/Kdyby/Translation/exceptions.php',
     'Kdyby\\Translation\\InvalidArgumentException' => $vendorDir . '/kdyby/translation/src/Kdyby/Translation/exceptions.php',
     'Kdyby\\Translation\\InvalidResourceException' => $vendorDir . '/kdyby/translation/src/Kdyby/Translation/exceptions.php',
+    'Kdyby\\Translation\\LoaderNotFoundException' => $vendorDir . '/kdyby/translation/src/Kdyby/Translation/exceptions.php',
     'Tester\\Assert' => $vendorDir . '/nette/tester/Tester/Framework/Assert.php',
     'Tester\\AssertException' => $vendorDir . '/nette/tester/Tester/Framework/Assert.php',
     'Tester\\CodeCoverage\\Collector' => $vendorDir . '/nette/tester/Tester/CodeCoverage/Collector.php',

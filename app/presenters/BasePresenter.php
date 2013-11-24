@@ -12,12 +12,20 @@ use Nette,
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
-	/** @persistent */
-	public $locale;
 	/** @var \Kdyby\Translation\Translator @inject */
 	public $translator;
+	/** @var \Kdyby\Translation\LocaleResolver\SessionResolver @inject */
+	public $translatorSession;
 	/** @persistent */
 	public $backlink;
+
+
+	public function handleChangeLocale($locale)
+	{
+		$this->translatorSession->setLocale($locale);
+		$this->redirect('this');
+	}
+
 
 	/**
 	 * Add translator to templates

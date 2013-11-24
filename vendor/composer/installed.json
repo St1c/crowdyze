@@ -59,9 +59,142 @@
         "description": "minimalistic Google OAuth2 api"
     },
     {
+        "name": "nette/nette",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/nette/nette.git",
+            "reference": "e234451ac39a6cd8a71fa0a276593740243bd7d3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/nette/nette/zipball/e234451ac39a6cd8a71fa0a276593740243bd7d3",
+            "reference": "e234451ac39a6cd8a71fa0a276593740243bd7d3",
+            "shasum": ""
+        },
+        "require": {
+            "ext-iconv": "*",
+            "ext-tokenizer": "*",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "nette/tester": "@dev"
+        },
+        "suggest": {
+            "ext-fileinfo": "*",
+            "ext-gd": "*",
+            "ext-mbstring": "*",
+            "ext-memcache": "*",
+            "ext-pdo": "*"
+        },
+        "time": "2013-11-20 17:14:27",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.1-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "files": [
+                "Nette/loader.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "David Grudl",
+                "homepage": "http://davidgrudl.com"
+            },
+            {
+                "name": "Nette Community",
+                "homepage": "http://nette.org/contributors"
+            }
+        ],
+        "description": "Nette Framework - innovative framework for fast and easy development of secured web applications in PHP. Write less, have cleaner code and your work will bring you joy.",
+        "homepage": "http://nette.org",
+        "keywords": [
+            "Forms",
+            "database",
+            "dbal",
+            "debugging",
+            "framework",
+            "images",
+            "latte",
+            "mailing",
+            "micro",
+            "mvc",
+            "neon",
+            "templating"
+        ]
+    },
+    {
+        "name": "symfony/translation",
+        "version": "v2.3.7",
+        "version_normalized": "2.3.7.0",
+        "target-dir": "Symfony/Component/Translation",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/Translation.git",
+            "reference": "e0012648d7fc96d8f03bb7ca4d5e44f471a15417"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/Translation/zipball/e0012648d7fc96d8f03bb7ca4d5e44f471a15417",
+            "reference": "e0012648d7fc96d8f03bb7ca4d5e44f471a15417",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "symfony/config": "~2.0",
+            "symfony/yaml": "~2.2"
+        },
+        "suggest": {
+            "symfony/config": "",
+            "symfony/yaml": ""
+        },
+        "time": "2013-11-13 21:27:40",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\Translation\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "http://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Translation Component",
+        "homepage": "http://symfony.com"
+    },
+    {
         "name": "symfony/filesystem",
-        "version": "v2.3.6",
-        "version_normalized": "2.3.6.0",
+        "version": "v2.3.7",
+        "version_normalized": "2.3.7.0",
         "target-dir": "Symfony/Component/Filesystem",
         "source": {
             "type": "git",
@@ -109,8 +242,8 @@
     },
     {
         "name": "symfony/config",
-        "version": "v2.3.6",
-        "version_normalized": "2.3.6.0",
+        "version": "v2.3.7",
+        "version_normalized": "2.3.7.0",
         "target-dir": "Symfony/Component/Config",
         "source": {
             "type": "git",
@@ -158,75 +291,18 @@
         "homepage": "http://symfony.com"
     },
     {
-        "name": "symfony/translation",
-        "version": "v2.3.6",
-        "version_normalized": "2.3.6.0",
-        "target-dir": "Symfony/Component/Translation",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/Translation.git",
-            "reference": "6aedcff5ea623316dbf2112b78f2f63a257aab01"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Translation/zipball/6aedcff5ea623316dbf2112b78f2f63a257aab01",
-            "reference": "6aedcff5ea623316dbf2112b78f2f63a257aab01",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "require-dev": {
-            "symfony/config": "~2.0",
-            "symfony/yaml": "~2.2"
-        },
-        "suggest": {
-            "symfony/config": "",
-            "symfony/yaml": ""
-        },
-        "time": "2013-10-10 13:12:30",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Symfony\\Component\\Translation\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "http://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony Translation Component",
-        "homepage": "http://symfony.com"
-    },
-    {
         "name": "kdyby/translation",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/Kdyby/Translation.git",
-            "reference": "4ab9918c56efe97a800d2b8dd53ed238bc410d65"
+            "reference": "138a97222f62578b360aca26d8474f16822083c5"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Kdyby/Translation/zipball/4ab9918c56efe97a800d2b8dd53ed238bc410d65",
-            "reference": "4ab9918c56efe97a800d2b8dd53ed238bc410d65",
+            "url": "https://api.github.com/repos/Kdyby/Translation/zipball/138a97222f62578b360aca26d8474f16822083c5",
+            "reference": "138a97222f62578b360aca26d8474f16822083c5",
             "shasum": ""
         },
         "require": {
@@ -236,14 +312,19 @@
         },
         "require-dev": {
             "nette/tester": "@dev",
-            "symfony/console": "~2.2"
+            "symfony/console": "~2.3"
         },
         "suggest": {
             "kdyby/console": "If you wanna use extract command and much others, install also console.",
             "symfony/locale": "Locale component provides fallback code to handle cases when the intl extension is missing."
         },
-        "time": "2013-09-05 17:10:48",
+        "time": "2013-11-23 12:02:53",
         "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1-dev"
+            }
+        },
         "installation-source": "source",
         "autoload": {
             "psr-0": {
@@ -274,100 +355,24 @@
         ]
     },
     {
-        "name": "nette/nette",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/nette/nette.git",
-            "reference": "720d7901a3c00c000ccb1b7759f19af07c0c6526"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/nette/nette/zipball/720d7901a3c00c000ccb1b7759f19af07c0c6526",
-            "reference": "720d7901a3c00c000ccb1b7759f19af07c0c6526",
-            "shasum": ""
-        },
-        "require": {
-            "ext-iconv": "*",
-            "ext-tokenizer": "*",
-            "php": ">=5.3.0"
-        },
-        "require-dev": {
-            "nette/tester": "@dev"
-        },
-        "suggest": {
-            "ext-fileinfo": "*",
-            "ext-gd": "*",
-            "ext-mbstring": "*",
-            "ext-memcache": "*",
-            "ext-pdo": "*"
-        },
-        "time": "2013-10-28 13:47:57",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.1-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "files": [
-                "Nette/loader.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause",
-            "GPL-2.0",
-            "GPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "David Grudl",
-                "homepage": "http://davidgrudl.com"
-            },
-            {
-                "name": "Nette Community",
-                "homepage": "http://nette.org/contributors"
-            }
-        ],
-        "description": "Nette Framework - innovative framework for fast and easy development of secured web applications in PHP. Write less, have cleaner code and your work will bring you joy.",
-        "homepage": "http://nette.org",
-        "keywords": [
-            "Forms",
-            "database",
-            "dbal",
-            "debugging",
-            "framework",
-            "images",
-            "latte",
-            "mailing",
-            "micro",
-            "mvc",
-            "neon",
-            "templating"
-        ]
-    },
-    {
         "name": "nette/tester",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/nette/tester.git",
-            "reference": "4f46271816885ed38e8d55b9d3d9fa37182cd312"
+            "reference": "b1bc89b634376154214552d3e984364e24855573"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/nette/tester/zipball/4f46271816885ed38e8d55b9d3d9fa37182cd312",
-            "reference": "4f46271816885ed38e8d55b9d3d9fa37182cd312",
+            "url": "https://api.github.com/repos/nette/tester/zipball/b1bc89b634376154214552d3e984364e24855573",
+            "reference": "b1bc89b634376154214552d3e984364e24855573",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2013-09-13 12:50:22",
+        "time": "2013-11-18 00:03:02",
         "bin": [
             "Tester/tester",
             "Tester/coverage-report"
@@ -410,12 +415,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/facebook/facebook-php-sdk.git",
-            "reference": "07deeed3074730a084bf032bc8ee4d54a1808e26"
+            "reference": "be04c86d5672c383823d4dee3da9522ed143dcef"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/facebook/facebook-php-sdk/zipball/07deeed3074730a084bf032bc8ee4d54a1808e26",
-            "reference": "07deeed3074730a084bf032bc8ee4d54a1808e26",
+            "url": "https://api.github.com/repos/facebook/facebook-php-sdk/zipball/be04c86d5672c383823d4dee3da9522ed143dcef",
+            "reference": "be04c86d5672c383823d4dee3da9522ed143dcef",
             "shasum": ""
         },
         "require": {
@@ -426,7 +431,7 @@
         "require-dev": {
             "phpunit/phpunit": "3.7.*"
         },
-        "time": "2013-10-28 22:40:51",
+        "time": "2013-11-20 17:24:02",
         "type": "library",
         "installation-source": "source",
         "autoload": {

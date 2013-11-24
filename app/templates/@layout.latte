@@ -37,7 +37,7 @@
 		<div class="submenu">
 			<ul class="">
 				<li n:if="!$user->isLoggedIn()"><a n:href="Sign:">{_layout.menu.login}</a></li>
-				<li n:if="$user->isLoggedIn()"><a n:href="Overview:">{_layout.menu.tasks}</a></li>
+				<li n:if="$user->isLoggedIn()"><a n:href="Homepage:">{_layout.menu.tasks}</a></li>
 			</ul>			
 		</div>
 
@@ -62,8 +62,8 @@
 		<div class="footer">
 			&copy; Dataworkers.eu 2013
 			<div class="pull-right">
-				<a n:href="this, locale => en">en</a>
-				<a n:href="this, locale => sk">sk</a>
+				<a n:href="changeLocale!, en">en</a>
+				<a n:href="changeLocale!, sk">sk</a>
 				<a n:href="SignOut!">{_layout.menu.logout}</a>
 			</div>
 		</div>

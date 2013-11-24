@@ -31,7 +31,8 @@ nette:
 
 translation:
 	default: en
-	fallback: [en, en]
+	whitelist: ['sk', 'cs', 'en']
+	fallback: [en_GB, en]
 
 services:
 	cacheStorage:

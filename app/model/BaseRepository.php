@@ -23,7 +23,7 @@ use Nette;
 	 */
 	protected function getTable()
 	{
-		return $this->connection->getSelectionFactory()->table($this->getTableName());
+		return $this->connection->getContext()->table($this->getTableName());
 	}
 
 	protected function getTableName()
@@ -35,6 +35,6 @@ use Nette;
 
 	protected function table($name)
 	{
-		return $this->connection->getSelectionFactory()->table($name);
+		return $this->connection->getContext()->table($name);
 	}
  }
