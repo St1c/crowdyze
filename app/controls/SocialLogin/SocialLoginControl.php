@@ -77,7 +77,7 @@ class SocialLoginControl extends BaseControl
 			// Authentication successful, login in!
 			$this->presenter->flashMessage("login.flashes.social_login_success", 'alert-success', NULL, array( 'type' => ucfirst($type) ));
 			$this->presenter->restoreRequest($this->presenter->backlink);
-			$this->presenter->redirect('Overview:');
+			$this->presenter->redirect('Homepage:');
 	}
 
 	/**

@@ -40,7 +40,7 @@
 	{snippet tasks}
 		<div class="tasks">
 			{foreach $tasks as $task}
-				<div>{$task->id}. <a n:href="Overview:task $task->token">{$task->title} </a>
+				<div>{$task->id}. <a n:href="Task:detail $task->token">{$task->title} </a>
 
 				<span>{$task->deadline|date:'%d.%m.%Y'}</span> 
 				Budget: {$task->budget}</div>

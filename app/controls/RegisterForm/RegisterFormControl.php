@@ -55,7 +55,7 @@ class RegisterFormControl extends BaseControl
 			
 			$this->presenter->flashMessage('login.flashes.register_success.', 'alert-success');
 			$this->presenter->restoreRequest($this->presenter->backlink);
-			$this->presenter->redirect('Overview:');
+			$this->presenter->redirect('Homepage:');
 
 		} catch (\Nette\Security\AuthenticationException $e) {
 			$register->addError($e->getMessage(), 'alert-error');

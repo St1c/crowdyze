@@ -6,7 +6,7 @@ use Nette,
 	Nette\Application\UI\Form,
 	Model\Services\TaskService;
 
-class OverviewPresenter extends BasePresenter 
+class TaskPresenter extends BasePresenter 
 {
 	/** @var Model\Services\TaskService @inject */
 	public $taskService;
@@ -45,22 +45,13 @@ class OverviewPresenter extends BasePresenter
 		return $paginator;
 	}
 
-	public function actionDefault()
-	{
-		$paginator = $this['paginator']->getPaginator();
-		$this['paginator']->paginator->itemCount = $this->taskService->count;
-		$this->template->tasks = $this->taskService->getTasks( $paginator->itemsPerPage, 
-																$paginator->offset, 
-																$this->getUser()->id);
-	}
-
-	public function actionTask($id)
+	public function actionDetail($id)
 	{
 		$task = $this->taskService->getTaskByToken($id);
 
 		if (!$task) {
 			$this->flashMessage("Task with ID: $id was not found, or removed...");
-			$this->redirect('Overview:');
+			$this->redirect('Homepage:');
 		}
 
 		$this->template->edit 		= $this->edit;
@@ -68,6 +59,16 @@ class OverviewPresenter extends BasePresenter
 		$this->template->userId 	= $this->getUser()->id;
 		$this->template->accepted	= $this->taskService->isAccepted($task->token, $this->getUser()->id);
 		// $this->template->owner		= $this->taskService->getOwnerTasks($this->getUser()->id);
+	}
+
+	public function handleAcceptTask($id)
+	{
+		try {
+			$this->taskService->acceptTask($this->getUser()->id, $id);
+			$this->template->accepted = $this->taskService->isAccepted($id, $this->getUser()->id);
+		} catch (\Exception $e) {
+			$this->flashMessage($e->getMessage(), 'alert-danger');
+		}
 	}
 
 	protected function createComponentSingleTask()
@@ -83,26 +84,6 @@ class OverviewPresenter extends BasePresenter
 		$this->invalidateControl('task');
 	}
 
-	public function actionTag($id)
-	{
-		$paginator = $this['paginator']->getPaginator();
-		$this['paginator']->paginator->itemCount = $this->taskService->getTagsTasksCount($id);
 
-		$this->template->setFile(__DIR__ . '/../templates/Overview/default.latte');
-		$this->template->tasks = $this->taskService->getTaggedTasks($id, 
-																	 $paginator->itemsPerPage, 
-																	 $paginator->offset, 
-																	 $this->getUser()->id);
-	}
-
-	public function handleAcceptTask($id)
-	{
-		try {
-			$this->taskService->acceptTask($this->getUser()->id, $id);
-			$this->template->accepted = $this->taskService->isAccepted($id, $this->getUser()->id);
-		} catch (\Exception $e) {
-			$this->flashMessage($e->getMessage(), 'alert-danger');
-		}
-	}
 
 }

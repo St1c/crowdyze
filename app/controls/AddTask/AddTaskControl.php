@@ -129,7 +129,7 @@ class AddTaskControl extends BaseControl
 			// }
 
 			$this->presenter->flashMessage('addTask.flashes.task_added', 'alert-success');
-			$this->presenter->redirect('Overview:');
+			$this->presenter->redirect('Homepage:');
 
 		} catch (Nette\InvalidArgumentException $e) {
 			

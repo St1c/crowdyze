@@ -1,13 +1,40 @@
 {#content}
-	<h1>Welcome page</h1>
-	{control addTask}
+	<div class="notifier">
+		{if $activeJobs > 0}
+			You have {$activeJobs} active jobs. <a n:href="User:">Go to Your profile</a> and check them.
+		{else}
+			You have no active jobs. Pick some from the offer below...
+		{/if}
+	</div>
+	<div class="under-notifier">
+		<div id="container">
+			{foreach $tasks as $task}
+					<div class="item">
+						<div class="deadline">{$task->deadline|daysLeft}</div>
 
-{*  	<div class="row">
-		<div class="col-sm-6">
-		{control form}
+						{foreach $task->related('task_has_tag') as $tag}
+							<a n:href="Homepage:tag $tag->tag->tag" class="tag">
+								<span class="label label-default">{$tag->tag->tag|capitalize}</span>
+							</a>
+						{/foreach}
+						
+						<a n:href="Task:detail $task->token">
+							<h4>{$task->title|capitalize}</h4>
+						</a>
+						
+						<div class="budget">Get <span>&euro; {$task->salary|number:2}</span></div>
+					</div>
+			{/foreach}
 		</div>
-	</div> *}
-	
+	</div>
+
+	<div class="paginate" id="paginate">
+		{control paginator}
+	</div>
+
+	<div class="modal">
+		{control addTask}
+	</div>
 {/#}
 
 {#scripts}
