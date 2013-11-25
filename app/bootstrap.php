@@ -17,9 +17,9 @@ $configurator->setTempDirectory(__DIR__ . '/../temp');
 // Enable RobotLoader - this will load all classes automatically
 $configurator->createRobotLoader()
 	->addDirectory(__DIR__)
-	->addDirectory(__DIR__ . '/../vendor/vojtechDobes/')
+	->addDirectory(__DIR__ . '/../libs')
 	// ->addDirectory(__DIR__ . '/../vendor/valum/')
-	->addDirectory(__DIR__ . '/../tests/')
+	//~ ->addDirectory(__DIR__ . '/../tests/')
 	->register();
 
 // Create Dependency Injection container from config.neon file

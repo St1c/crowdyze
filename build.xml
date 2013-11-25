@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<project name="Crowdyze" basedir="." default="build">
+
+
+	<!-- =================================================================== -->
+
+
+
+	<property file="./build.properties" override="true"/>
+
+	<property name="dir.temp" value="temp" />
+	<property name="dir.build" value="${dir.temp}/build" />
+
+
+
+	<!-- =================================================================== -->
+
+
+
+	<target name="build" 
+			depends="build-temp, build-vendor"
+			/>
+
+
+
+
+	<target name="build-temp"
+			description="Dočasné uložiště.">
+		<delete dir="${dir.temp}" />
+		<mkdir dir="${dir.temp}" mode="777"/>
+	</target>
+	
+
+	<target name="build-vendor"
+			description="Sdílené knihovny.">
+		<exec command="composer install" level="info" />
+	</target>
+	
+
+
+</project>
+
