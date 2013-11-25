@@ -10,10 +10,4 @@ tests/
 www/checker/
 www/adminer/
 www/.sass-cache/
-composer.json
 readme.txt
-scripts/
-vendor/nette/
-www/scss/bootstrap/
-www/users
-www/tasks
