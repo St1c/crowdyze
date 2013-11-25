@@ -2,12 +2,9 @@ web.config
 .DS_Store
 .ssh/
 scripts/
-log/*.log
-log/*.html
-temp/*
-!temp/.htaccess
-tests/
+log
+temp
+vendor
 www/checker/
 www/adminer/
 www/.sass-cache/
-readme.txt
