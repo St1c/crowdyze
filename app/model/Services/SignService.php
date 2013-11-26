@@ -80,9 +80,10 @@ class SignService extends Nette\Object
 	 * @param  string  	$type   Type of registration: email|facebook|google
 	 * @param  array  	$data   User's data
 	 * @param  integer 	$active Activate profile
+	 * 
 	 * @return ActiveRow        New record in DB
 	 */
-	public function register($type = 'email', $data, $active = 1)
+	public function register($type, array $data, $active = 1)
 	{
 		switch ($type) {
 			case 'facebook':
@@ -102,6 +103,7 @@ class SignService extends Nette\Object
 
 		// Create new wallet for the user
 		$this->createUserWallet($user->id);
+		
 		// Send welcome mail to a new user
 		$this->mailerService->sendWelcomeMail($data['email']);
 
@@ -139,18 +141,16 @@ class SignService extends Nette\Object
 	 */
 	private function registerEmail(array $data, $setActive)
 	{
-		$user = $this->userRepository->find(array('email' => $data['email']));
-
-		if ($user) {
+		if ($this->userRepository->find(array('email' => $data['email']))) {
 			throw new AuthenticationException('Email already registered.');
-		} else {
-			$user = $this->userRepository->create(array(
-				'email' 	=> $data['email'],
-				'password' 	=> sha1($data['password']),
-				'role'		=> 'user',
-				'active'	=> $setActive
-			));
 		}
+
+		return $this->userRepository->create(array(
+			'email' 	=> $data['email'],
+			'password' 	=> sha1($data['password']),
+			'role'		=> 'user',
+			'active'	=> $setActive
+		));
 	}
 
 
