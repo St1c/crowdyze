@@ -22,7 +22,7 @@ nette:
 		expiration: "+15 days"
 
 	database:
-		dsn: '%database.driver%:unix_socket=%database.socket%;dbname=%database.dbname%'
+		dsn: '%database.driver%:dbname=%database.dbname%'
 		user: %database.user%
 		password: %database.password%
 		reflection: discovered
@@ -35,8 +35,8 @@ translation:
 	fallback: [en_GB, en]
 
 services:
-	cacheStorage:
-		class: Nette\Caching\Storages\MemcachedStorage('localhost', 11211)
+#	cacheStorage:
+#		class: Nette\Caching\Storages\MemcachedStorage('localhost', 11211)
 
 	- App\RouterFactory
 	router: @App\RouterFactory::createRouter
