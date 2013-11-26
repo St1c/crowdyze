@@ -1,0 +1,17 @@
+## Build
+Použijte nástroj phing pro build aplikace
+	- aktualizace knihoven
+	- hlídání existence a práv adresářů
+	- aktualizace databáze
+
+
+## Spravování databáze
+Použijte nástroj schema-manage, umožnuje vytváření, mazání a aktualizace schematu při zachování existujících dat.
+	- Aktualizace databáze podle schematu:
+		schema-manage update
+	- Vytvoření nové databáze podle schematu:
+		schema-manage install --database moje_database
+
+Pro vytvoření změny v databázi (ať se jedná o alter, nebo nalití dat) vytvořte nový sql soubor do adresáře:
+persistence/mysql/1/update a doň uveďte potřebné věci.
+Pak zavolat příkaz update.

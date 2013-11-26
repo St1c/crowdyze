@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema-manage version="0.11">
+	<repository></repository>
+
+	<access>
+		<database type="admin" login="tacoberu" password="tacoberu" />
+		<database type="user" login="crowdyze" password="crowdyze" />
+	</access>
+
+	<versioning-method>function</versioning-method>
+
+	<schema>
+		<major>1</major>
+		<engine>mysql</engine>
+		<host>localhost</host>
+		<port>3306</port>
+		<database>crowdyze_dev</database>
+		<charset>utf8</charset>
+	</schema>
+
+</schema-manage>
