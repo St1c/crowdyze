@@ -11,6 +11,7 @@ use Nette,
  */
 class UserPresenter extends BasePresenter 
 {
+	
 	/** 
 	 * Informace o uživatelích.
 	 * 
@@ -27,12 +28,11 @@ class UserPresenter extends BasePresenter
 	public $taskService;
 	
 	
-	/** @var Controls\IUserDetailsControlFactory @inject */
+	/**
+	 * @TODO
+	 * @var Controls\IUserDetailsControlFactory @inject
+	 */
 	public $userDetailsControlFactory;
-
-
-	/** @var bool $edit */
-	public $edit;
 
 
 	/**
@@ -51,16 +51,45 @@ class UserPresenter extends BasePresenter
 	}
 
 
+
 	/**
 	 * Default Action
+	 * @param string $filter worker | employer
 	 */
-	public function actionDefault()
+	public function renderDefault($filter = Null)
 	{
-		$this->template->edit = $this->edit;
-		$this->template->userData = $this->userService->getUserData($this->user->id);
-		$this->template->balance 	= $this->userService->getBalance($this->user->id);
-		$this->template->tasks		= $this->userService->getAcceptedUserTasks($this->user->id);
+		if (! $this->template->userData = $this->userService->getUserData($this->user->id)) {
+			$this->error('User is not found.');
+		}
+		
+		switch ($filter) {
+			case 'employer':
+				$this->template->tasks = $this->taskService->getOwnerTasks($this->user->id);
+				break;
+			case 'worker':
+				$this->template->tasks = $this->userService->getAcceptedUserTasks($this->user->id);
+				break;
+			default:
+				$this->redirect('this', array( 'filter' => 'worker' ));
+		}
+
+		$this->template->balance = $this->userService->getBalance($this->user->id);
 	}
+
+
+
+	/**
+	 * Edit of user data.
+	 */
+	public function renderEdit()
+	{
+		$this->template->userData = $this->userService->getUserData($this->user->id);
+		$this->template->balance = $this->userService->getBalance($this->user->id);
+		$this->template->tasks = $this->userService->getAcceptedUserTasks($this->user->id);
+		//~ $this->validateControl();
+		//~ $this->invalidateControl('userProfile');
+	}
+
 
 
 	/**
@@ -69,37 +98,6 @@ class UserPresenter extends BasePresenter
 	protected function createComponentUserDetails()
 	{
 		return $this->userDetailsControlFactory->create();
-	}
-
-
-	/**
-	 * Handle inline edit
-	 */
-	public function handleEdit()
-	{
-		$this->edit = TRUE;
-		$this->template->edit = $this->edit;
-		$this->validateControl();
-		$this->invalidateControl('userProfile');
-	}
-
-
-	public function handleWorkerTasks()
-	{
-		$this->template->tasks = $this->userService->getAcceptedUserTasks($this->getUser()->id);
-
-		if ($this->isAjax()) {
-			$this->invalidateControl('tasks');			
-		}
-	}
-
-
-	public function handleEmployerTasks()
-	{
-		$this->template->tasks = $this->taskService->getOwnerTasks($this->getUser()->id);
-		if ($this->isAjax()) {
-			$this->invalidateControl('tasks');			
-		}
 	}
 
 }

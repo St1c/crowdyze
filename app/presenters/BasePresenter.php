@@ -23,6 +23,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
 	/** @persistent */
 	public $backlink;
+
+
 	/** @var Controls\IAddTaskControlFactory @inject */
 	public $addTaskControlFactory;
 

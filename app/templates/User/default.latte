@@ -1,13 +1,13 @@
-{#content}
+{layout '../@layout.latte'}
+{block #content}
 <div class="user-profile">
 	<div class="profile-photo">
 		<img src="{$userData->related('user_details')->fetch()['profile_photo']}" class="img-circle"/>
 	</div>
 	
-	{snippet userProfile}
-		{if !$edit}
+	{block #userProfile}
 		<div class="controls">
-			<a n:href="edit!" class="btn btn-xs btn-danger">Edit</a>
+			<a n:href="edit" class="btn btn-xs btn-danger">Edit</a>
 		</div>
 
 		<div class="userData_details">
@@ -22,20 +22,18 @@
 			</div>
 
 		</div>
-		{else}
-			{control userDetails}
-		{/if}
-	{/snippet}
+	{/block}
 
 	<div class="member_since">Member since {$userData->registered|date:'F j, Y'}</div>
 	<div class="userData_details">Reliability: %</div>
 
-	<div class="balance"><p>You've got {$balance->balance|number:2}$ on your account</p></div>
+	<div class="balance" n:if="$balance"><p>You've got {$balance->balance|number:2}$ on your account</p></div>
+
 
 	<div>
 		<span>My jobs as:</span> 
-		<div><a n:href="workerTasks!">Worker</a></div>
-		<div><a n:href="employerTasks!">Employer</a></div>
+		<div><a n:href="this, worker">Worker</a></div>
+		<div><a n:href="this, employer">Employer</a></div>
 	</div>
 	{snippet tasks}
 		<div class="tasks">
@@ -48,9 +46,3 @@
 		</div>
 	{/snippet}
 </div>
-	
-{/#}
-{#scripts}
-	{include #parent}
-{/#}
-{#head}{/#}

@@ -8,15 +8,20 @@ use Nette,
 	Nette\Utils\Strings,
 	Nette\Image;
 
+
+/**
+ * Uprava detailu uživatele.
+ */
 class UserDetailsControl extends BaseControl
 {
 	/** @var Model\Services\UserService @inject */
 	public $userService;
 
+
+
 	public function createComponentUserDetailsForm()
 	{
-
-		$user 	= $this->userService->getUserData($this->presenter->getUser()->id);
+		$user = $this->userService->getUserData($this->presenter->getUser()->id);
 
 		$userDetailsForm = new Form();
 
@@ -29,7 +34,6 @@ class UserDetailsControl extends BaseControl
 		$userDetailsForm->addText('last_name', 'userProfile.form.last_name')
 			->setAttribute('placeholder', 'userProfile.form.last_name')
 			->setDefaultValue($user->related('user_details')->fetch()['last_name']);
-
 		
 		$userDetailsForm->addText('city', 'userProfile.form.city')
 			->setAttribute('placeholder', 'userProfile.form.city')
@@ -42,30 +46,45 @@ class UserDetailsControl extends BaseControl
 		$userDetailsForm->addSubmit('submit', 'userProfile.form.submit');
 		$userDetailsForm->addSubmit('cancel', 'userProfile.form.cancel');
 
-		$userDetailsForm->onError[] 	= $this->userDetailsFormError;
-		$userDetailsForm->onSubmit[] 	= $this->userDetailsFormSubmitted;
+		$userDetailsForm->onError[] = $this->processError;
+		$userDetailsForm->onSubmit[] = $this->processSubmitted;
 
 		return $userDetailsForm;
 	}
 
-	public function userDetailsFormError(Form $userDetailsForm)
+
+
+	/**
+	 * Zpracování chyby.
+	 * 
+	 * @param Form $form Který formulář zpracováváme.
+	 */
+	public function processError(Form $form)
 	{
+		die('error');
 		if ($this->isAjax() ) {
 			$this->invalidateControl();
 		}
 	}
 
-	public function userDetailsFormSubmitted(Form $userDetailsForm)
+
+
+	/**
+	 * Zpracování korektních dat.
+	 * 
+	 * @param Form $form Který formulář zpracováváme.
+	 */
+	public function processSubmitted(Form $form)
 	{
-		$values = $userDetailsForm->getValues();
+		$values = $form->getValues();
 		
-		if ($userDetailsForm['cancel']->isSubmittedBy()) {
-			if ($this->presenter->isAjax()) {
-				$this->presenter->invalidateControl('userProfile');
-			}
+		if ($form['cancel']->isSubmittedBy()) {
+			//~ if ($this->presenter->isAjax()) {
+				//~ $this->presenter->invalidateControl('userProfile');
+			//~ }
 		}
 		
-		if ($userDetailsForm['submit']->isSubmittedBy()) {
+		if ($form['submit']->isSubmittedBy()) {
 			foreach ($values as $key => $value) {
 				empty($value) ?: $update[$key] = $value;
 			}
@@ -73,16 +92,20 @@ class UserDetailsControl extends BaseControl
 			$this->userService->updateFromProfile($userData, $update);
 
 			$this->presenter->flashMessage('userProfile.flashes.profile_edited', 'alert-success');
-			$this->presenter->template->userData = $userData;
+			//~ $this->presenter->template->userData = $userData;
 		}
 
-		$this->presenter->edit = FALSE;
-		$this->presenter->template->edit = $this->presenter->edit;
+		//~ $this->presenter->edit = FALSE;
+		//~ $this->presenter->template->edit = $this->presenter->edit;
 
-		if ($this->presenter->isAjax()) {
-			$this->presenter->invalidateControl('userProfile');
-		}
+		//~ if ($this->presenter->isAjax()) {
+			//~ $this->presenter->invalidateControl('userProfile');
+		//~ }
+		
+		$this->presenter->redirect('default');
 	}
+
+
 
 	public function render()
 	{
