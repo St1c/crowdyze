@@ -4,6 +4,7 @@ namespace App;
 
 use Nette,
 	Model,
+	Controls,
 	Kdyby\Translation\Translator;
 
 
@@ -18,12 +19,41 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	public $translatorSession;
 	/** @persistent */
 	public $backlink;
+	/** @var Controls\IAddTaskControlFactory @inject */
+	public $addTaskControlFactory;
 
 
+	/**
+	 * Sign out signal
+	 */
+	public function handleSignOut()
+	{
+		$this->getUser()->logout(TRUE);
+		$this->flashMessage('Successfully signed out!', 'alert-success');
+		$this->redirect('Sign:');
+	}
+	
+
+	/**
+	 * Handle singal for language change
+	 * 
+	 * @param  string $locale 
+	 */
 	public function handleChangeLocale($locale)
 	{
 		$this->translatorSession->setLocale($locale);
 		$this->redirect('this');
+	}
+
+
+	/**
+	 * Add Task From control factory
+	 * 
+	 * @return 	\Nette\Application\UI\Control AddTaskControl
+	 */
+	protected function createComponentAddTask()
+	{
+		return $this->addTaskControlFactory->create();
 	}
 
 
@@ -64,6 +94,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		return $template;
 	}
 
+
 	/**
 	 * Translate Flash Messages
 	 * 
@@ -77,16 +108,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	{
 		$message = $this->translator->translate($message, $count, $parameters);
 		return parent::flashMessage($message, $type);
-	}
-
-	/**
-	 * Sign out signal
-	 */
-	public function handleSignOut()
-	{
-		$this->getUser()->logout(TRUE);
-		$this->flashMessage('Successfully signed out!', 'alert-success');
-		$this->redirect('Sign:');
 	}
 
 }

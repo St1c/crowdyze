@@ -52,15 +52,13 @@ class AddTaskControl extends BaseControl
 			->setAttribute('placeholder', 'addTask.form.workers_required');
 		
 		$addTask->addSelect('day', 'day')
-			->setItems(array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31), TRUE)
+			->setItems(array(1 => 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31))
 			->setDefaultValue(  date('d',strtotime("+1 month")) )
 			->setAttribute('placeholder', 'addTask.form.day');
 
-			$months = array(1,2,3,4,5,6,7,8,9,10,11,12);
-			// $stop();
 		$addTask->addSelect('month')
-			->setItems($months)
-			->setDefaultValue(  date('n',strtotime("+1 month"))-1 )
+			->setItems(array( 1 => 1,2,3,4,5,6,7,8,9,10,11,12))
+			->setDefaultValue( date('n',strtotime("+1 month")) )
 			->setAttribute('placeholder', 'addTask.form.month');
 
 		$addTask->addText('year')
