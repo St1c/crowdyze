@@ -15,8 +15,12 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
 	/** @var \Kdyby\Translation\Translator @inject */
 	public $translator;
+
+
 	/** @var \Kdyby\Translation\LocaleResolver\SessionResolver @inject */
 	public $translatorSession;
+
+
 	/** @persistent */
 	public $backlink;
 	/** @var Controls\IAddTaskControlFactory @inject */
@@ -32,10 +36,11 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		$this->flashMessage('Successfully signed out!', 'alert-success');
 		$this->redirect('Sign:');
 	}
-	
+
 
 	/**
 	 * Handle singal for language change
+	 * @FIXME Zrušit ukládání jazyka do session.
 	 * 
 	 * @param  string $locale 
 	 */
@@ -69,11 +74,15 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		$template->registerHelperLoader(callback($this->translator->createTemplateHelpers(), 'loader'));
 
 		// Register new helper
+		//	@TODO Samostatná funkce
 		$template->registerHelper('daysLeft', function ($deadline) {
 			
-			if (!$deadline) return '';
+			if (!$deadline) {
+				return '';
+			}
+			
 			//Calculate difference
-			$seconds 	= strtotime($deadline) - time(); 	//time returns current time in seconds
+			$seconds = strtotime($deadline) - time(); 	//time returns current time in seconds
 			if ($seconds < 0 ) return '';
 
 			$days 		= floor($seconds / 86400);
@@ -85,14 +94,22 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 			$minutes 	= floor($seconds / 60);
 			$seconds 	%= 60;
 
-			if ($days >= 1) return "$days days left";
-			if ($hours >= 1) return "$hours hours left";
-			else return "$minutes minutes left";
+			if ($days >= 1) {
+				return "$days days left";
+			}
+			
+			if ($hours >= 1) {
+				return "$hours hours left";
+			}
+			else {
+				return "$minutes minutes left";
+			}
 
 		});
 
 		return $template;
 	}
+
 
 
 	/**

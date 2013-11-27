@@ -5,36 +5,59 @@ namespace App;
 use Nette,
 	Model\Services;
 
+
+/**
+ * Správa uživatele.
+ */
 class UserPresenter extends BasePresenter 
 {
-	/** @var Model\Services\UserService @inject */
+	/** 
+	 * Informace o uživatelích.
+	 * 
+	 * @var Model\Services\UserService @inject 
+	 */
 	public $userService;
-	/** @var Model\Services\TaskService @inject */
+	
+	
+	/**
+	 * Informace o taskcích.
+	 *  
+	 * @var Model\Services\TaskService @inject 
+	 */
 	public $taskService;
+	
+	
 	/** @var Controls\IUserDetailsControlFactory @inject */
 	public $userDetailsControlFactory;
+
 
 	/** @var bool $edit */
 	public $edit;
 
+
+	/**
+	 * Návrat z přihlášení.
+	 */
 	protected function startup()
 	{
 		parent::startup();
 
 		if (!$this->getUser()->isLoggedIn()) {
 			$this->redirect('Sign:', array( 'backlink' => $this->storeRequest() ));
-		} else {
+		}
+		else {
 			$this->backlink = NULL;
 		}
 	}
+
 
 	/**
 	 * Default Action
 	 */
 	public function actionDefault()
 	{
-		$this->template->edit 		= $this->edit;
-		$this->template->userData 	= $this->userService->getUserData($this->user->id);
+		$this->template->edit = $this->edit;
+		$this->template->userData = $this->userService->getUserData($this->user->id);
 		$this->template->balance 	= $this->userService->getBalance($this->user->id);
 		$this->template->tasks		= $this->userService->getAcceptedUserTasks($this->user->id);
 	}
