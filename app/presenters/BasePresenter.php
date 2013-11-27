@@ -21,7 +21,10 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	public $translatorSession;
 
 
-	/** @persistent */
+	/**
+	 * @persistent 
+	 * @deprecated
+	 */
 	public $backlink;
 
 
