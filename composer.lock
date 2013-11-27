@@ -174,12 +174,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/nette.git",
-                "reference": "e234451ac39a6cd8a71fa0a276593740243bd7d3"
+                "reference": "561ba608a440328f5054a9b5e72e8dcfe07babae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/nette/zipball/e234451ac39a6cd8a71fa0a276593740243bd7d3",
-                "reference": "e234451ac39a6cd8a71fa0a276593740243bd7d3",
+                "url": "https://api.github.com/repos/nette/nette/zipball/561ba608a440328f5054a9b5e72e8dcfe07babae",
+                "reference": "561ba608a440328f5054a9b5e72e8dcfe07babae",
                 "shasum": ""
             },
             "require": {
@@ -240,7 +240,7 @@
                 "neon",
                 "templating"
             ],
-            "time": "2013-11-20 17:14:27"
+            "time": "2013-11-26 01:49:33"
         },
         {
             "name": "symfony/config",
