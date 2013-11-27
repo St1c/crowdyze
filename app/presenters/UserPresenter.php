@@ -9,7 +9,7 @@ use Nette,
 /**
  * Správa uživatele.
  */
-class UserPresenter extends BasePresenter 
+class UserPresenter extends BaseSignedPresenter 
 {
 	
 	/** 
@@ -35,28 +35,12 @@ class UserPresenter extends BasePresenter
 	public $userDetailsControlFactory;
 
 
-	/**
-	 * Návrat z přihlášení.
-	 */
-	protected function startup()
-	{
-		parent::startup();
-
-		if (!$this->getUser()->isLoggedIn()) {
-			$this->redirect('Sign:', array( 'backlink' => $this->storeRequest() ));
-		}
-		else {
-			$this->backlink = NULL;
-		}
-	}
-
-
 
 	/**
 	 * Default Action
 	 * @param string $filter worker | employer
 	 */
-	public function renderDefault($filter = Null)
+	public function renderDefault($filter = 'worker')
 	{
 		if (! $this->template->userData = $this->userService->getUserData($this->user->id)) {
 			$this->error('User is not found.');
