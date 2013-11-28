@@ -27,17 +27,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
 
 	/**
-	 * Sign out signal
-	 */
-	public function handleSignOut()
-	{
-		$this->getUser()->logout(TRUE);
-		$this->flashMessage('Successfully signed out!', 'alert-success');
-		$this->redirect('Sign:');
-	}
-
-
-	/**
 	 * Handle singal for language change
 	 * @FIXME Zrušit ukládání jazyka do session.
 	 * 
