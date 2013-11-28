@@ -47,10 +47,10 @@ class SingleTaskControl extends BaseControl
 			->AddRule(Form::FILLED, 'addTask.form.description_missing')
 			->setDefaultValue($task->description);
 		
-		$component->addText('budget', 'addTask.form.budget')
-			->setAttribute('placeholder', 'addTask.form.budget')
-			->AddRule(Form::FILLED, 'addTask.form.budget_missing')			
-			->setDefaultValue($task->budget);
+		$component->addText('salary', 'addTask.form.salary')
+			->setAttribute('placeholder', 'addTask.form.salary')
+			->AddRule(Form::FILLED, 'addTask.form.salary_missing')			
+			->setDefaultValue($task->salary);
 		
 		$component->addSelect('budget_type', 'addTask.form.budget_type')
 			->setItems($budgetTypes, TRUE)
@@ -60,21 +60,32 @@ class SingleTaskControl extends BaseControl
 			->setAttribute('placeholder', 'addTask.form.tags')
 			->setDefaultValue(self::formatTags($tags));
 		
+		$component->addText('workers', 'addTask.form.workers_required')
+			->setAttribute('placeholder', 'addTask.form.workers_required')
+			->setDefaultValue($task->workers);
+
+		$component->addSelect('day', 'day')
+			->setItems(array(1 => 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31))
+			->setDefaultValue(  date('d',$task->deadline->getTimeStamp()) )
+			->setAttribute('placeholder', 'addTask.form.day');
+
+		$component->addSelect('month')
+			->setItems(array( 1 => 1,2,3,4,5,6,7,8,9,10,11,12))
+			->setDefaultValue( date('n',$task->deadline->getTimeStamp()) )
+			->setAttribute('placeholder', 'addTask.form.month');
+
+		$component->addText('year')
+			->setDefaultValue(  date('Y',$task->deadline->getTimeStamp()) )
+			->setAttribute('size', 4)
+			->setAttribute('placeholder', 'addTask.form.year');
+		
+		$component->addText('departments', 'addTask.form.department')
+			->setAttribute('placeholder', 'addTask.form.departments');
+
 		// $component->addUpload('upload', 'addTask.form.upload', TRUE);
 		// 	// ->addCondition(Form::FILLED) // Image upload is not mandatory
 		// 	// ->addRule(Form::IMAGE, 'Image must be JPEG, PNG or GIF.')
 		// 	// ->addRule(Form::MAX_FILE_SIZE, 'Maximum file size is 64 kB', 64 * 1024 /* in bytes */);
-		
-		$component->addText('workers', 'addTask.form.workers_required')
-			->setAttribute('placeholder', 'addTask.form.workers_required')
-			->setDefaultValue($task->workers);
-		
-		$component->addText('deadline')
-			->setAttribute('placeholder', 'addTask.form.deadline')
-			->setDefaultValue($task->deadline);
-		
-		$component->addText('departments', 'addTask.form.department')
-			->setAttribute('placeholder', 'addTask.form.departments');
 
 		$component->addSubmit('submit', 'addTask.form.submit');
 		$component->addSubmit('cancel', 'addTask.form.cancel');
@@ -99,30 +110,30 @@ class SingleTaskControl extends BaseControl
 	public function processSubmitted(Form $component)
 	{
 		$values = $component->getValues();
-		
+
 		if ($component['cancel']->isSubmittedBy()) {
-			//~ if ($this->presenter->isAjax()) {
-				//~ $this->presenter->invalidateControl('task');
-			//~ }
+			// if ($this->presenter->isAjax()) {
+				// $this->presenter->invalidateControl('task');
+			// }
 		}
 		
 		if ($component['submit']->isSubmittedBy()) {
-			$task = $this->taskService->getTaskByToken($this->presenter->getParameter('id'));
+
+			$values['budget'] = self::calculateBudget($values);
+			$values['deadline'] = self::parseDate($values);
+			
 			foreach ($values as $key => $value) {
-				if ($key == 'deadline') {
-					$value = self::parseDateTime($value);
-				}
+				// if ($key == 'deadline') {
+				// 	$value = self::parseDateTime($value);
+				// }
 				
-				//	Do update nepatří akce tags, upload, ...
-				in_array( $key, array('tags', 'upload', 'departments') ) || empty($value) ?: $update[$key] = $value;
+				//	Exclude tags, upload, etc. from update
+				$exclude = array('tags', 'upload', 'departments', 'day', 'month', 'year');
+				in_array( $key,  $exclude ) || empty($value) ?: $update[$key] = $value;
 			}
 
+			$task = $this->taskService->getTaskByToken($this->presenter->getParameter('id'));
 			$this->taskService->update($task, $update);
-//~ dump($values);
-//~ dump($update);
-//~ dump($task);
-//~ die('=========');
-
 
 			// Saving tags
 			if (isset($values['tags']) && $value = self::parseTags($values['tags'])) {
@@ -174,21 +185,63 @@ class SingleTaskControl extends BaseControl
 
 
 
+	// /**
+	//  * @param string $value
+	//  * 
+	//  * @return DateTime
+	//  */
+	// private static function parseDateTime($value)
+	// {
+	// 	return \DateTime::createFromFormat('Y-m-d H:i:s', $value);
+	// }
+
+
+
 	/**
-	 * @param string $value
+	 * @param  array $values Form Values
 	 * 
-	 * @return DateTime
+	 * @return Date
 	 */
-	private static function parseDateTime($value)
+	private static function parseDate($values)
 	{
-		return \DateTime::createFromFormat('Y-m-d H:i:s', $value);
+		return date($values['year'] . '-' . $values['month'] . '-' . $values['day']);
 	}
 
 
 
 	private static function formatTags(array $tags = array())
 	{
-		return implode(', ', $tags);
+		return implode(',', $tags);
 	}
 
+
+
+	/**
+	 * Calclate the final costs for the campaign
+	 * @param  array $values Form values
+	 * @return int           Final budget
+	 */
+	private function calculateBudget($values)
+	{
+		$commissionPerc = 1.05;
+		$commissionFix 	= 0.50;
+
+		switch ($values['budget_type']) {
+			case '1': 
+				// Pay the best
+				$budget = $values['salary'] * $commissionPerc + $commissionFix;
+				break;
+			
+			case '2': 
+				// Pay the best 10
+				$budget = (10 * $values['salary'] * $commissionPerc) + $commissionFix;
+
+			default: 
+				// Pay all
+				$budget = ($values['workers'] * $values['salary'] * $commissionPerc) + $commissionFix;
+				break;
+		}
+
+		return $budget;
+	}
 }

@@ -37,15 +37,16 @@ $(function(){
 		load: function () {
 
 			var tagApi = $('.tm-input').tagsManager({
-				tagsContainer: $('#tags-container')
+				tagsContainer: $('#tags-container'),
+				prefilled: $('.tm-input').val()
 			});
 
-			$('.tm-input').typeahead({
-				name: 'countries',
-				prefetch: '/homepage/countries'
-			}).on('typeahead:selected', function (e,d) {
-				tagApi.tagsManager("pushTag", d.value);
-			});
+			// $('.tm-input').typeahead({
+			// 	name: 'countries',
+			// 	prefetch: '/homepage/countries'
+			// }).on('typeahead:selected', function (e,d) {
+			// 	tagApi.tagsManager("pushTag", d.value);
+			// });
 		}
 	})
 
@@ -96,10 +97,16 @@ $(function(){
 
 	$.nette.ext('budgetcalc', {
 		load: function() {
+
+			// Calulate on load
+			calculateBudget();
+
+			// Calculate budget on typing
 			$('#salary, #workers').keyup(function() {
 				calculateBudget();
 			});
 
+			// Calculate on budget_type change
 			$('#budget_type').change(function(evt) {
 				calculateBudget();
 			});

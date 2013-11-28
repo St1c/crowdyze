@@ -6,19 +6,34 @@
 			{input cancel, class=>'btn btn-xs btn-danger'}
 		</div>
 
-		<div class="tags">{input tags}</div>
-
-		<div>{input title, class=>'title'}</div>
+		<div class="tags">
+			<div id="tags-container"></div>
+			{input tags class => "tm-input"}
+		</div>
 
 		<div>
-			{input budget_type class => "budget-type"}
-				{input workers class => "workers"}
-				{input deadline class => "deadline"}
+			{input title, class=>'title'}
+		</div>
+
+		<div>
+			{input budget_type class => "budget-type", id => "budget_type"}
+			{input workers class => "workers" , id => "workers"}
+		
+			{input day type => "date"}
+			{input month type => "date"}
+			{input year type => "date"}		
 		</div>
 
 		<div>{input description, class=>'description'}</div>
 
-		<div><p>Get &euro; {input budget, class=>'budget'}</p></div>
+		<div>
+			<p>Get &euro; {input salary class=>'salary', id => "salary"}
+			</p>
+		</div>
+
+		<div id="budget">
+			<p>Estimated costs: <span class="value"></span> &euro;</p>
+		</div>
 
 		<div class="accept">
 			<a class="disabled btn btn-success">{_tasks.single.accept_btn}</a>
