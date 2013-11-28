@@ -17,7 +17,7 @@
 	<meta name="robots" content="{$robots}" n:ifset="$robots">
 	<meta name="viewport" content="width=device-width">
 
-	<title>{block #title|striptags|upper}Dataworkers.eu{/block}</title>
+	<title>{block #title|striptags|capitalize}Crowdyze.me{/block}</title>
 	<meta name="description" content="The right place for sharing small jobs and earning nice money" />
 	<meta name="keywords" content="crowdsourcing, jobs, small tasks" />
 
@@ -40,9 +40,9 @@
 			</ul>			
 		</div>
 
-		{* <div class="logo" href="#"><a n:href="Homepage:"><img src="{$basePath}/images/crowdyzeme.png"></a></div> *}
+		<div class="logo" href="#"><a n:href="Homepage:"><img src="{$basePath}/images/crowdyzeme.png"></a></div>
 		<!-- <a n:href="Homepage:">Crowdyze<span>me</span></a> -->
-		<div class="submenu">
+		<div class="submenu right">
 			<ul class="">
 				{if $user->isLoggedIn()}
 				<li><a href="#">{_layout.menu.add}</a></li>

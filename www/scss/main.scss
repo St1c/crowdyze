@@ -35,13 +35,12 @@ $font-family-base: 				'Open Sans', sans-serif;
 @import "bootstrap-sass";
 @import "mixins.scss";
 @import "login.scss";
-@import "isotope.scss";
 @import "paginator.scss";
-@include font-face(icomoon,'../fonts/icomoon');
 @import "forms";
 @import "navigation";
 @import "tags";
 @import "fileuploader";
+@include font-face(icomoon,'../fonts/icomoon');
 
 body {
 	background-color: #f6f6f6;
