@@ -1,16 +1,14 @@
-{#content}
+{block #content}
 	<div class="single-task">
 	{snippet task}
 
-	{if !$edit}
- 			
 		<div class="controls">
-			<a n:if="$userId == $task->owner" n:href="edit!, 'edit'=>$task->id" class="btn btn-xs btn-danger ajax">Edit</a>
+			<a n:if="$userId == $task->owner" n:href="edit, $task->token" class="btn btn-xs btn-danger">Edit</a>
 		</div>
 
 		<div class="tags">
 			{foreach $task->related('task_has_tag') as $tag}
-				<a n:href="tag $tag->tag->tag" class="tag">
+				<a n:href="default $tag->tag->tag" class="tag">
 					<span class="label label-default">{$tag->tag->tag|capitalize}</span>
 				</a>
 			{/foreach}
@@ -52,17 +50,6 @@
 			{/foreach}
 		</div> 	
 
-	{else}
-
-		{control singleTask}
-
-	{/if}
-	
 	{/snippet}
 	</div>
-{/#}
-
-{#scripts}	
-	{include #parent}
-{/#}
-{#head}{/#}
+{/block}

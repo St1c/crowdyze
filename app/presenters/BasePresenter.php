@@ -13,19 +13,16 @@ use Nette,
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
+
+	const ITEMS_PER_PAGE = 24;
+
+
 	/** @var \Kdyby\Translation\Translator @inject */
 	public $translator;
 
 
 	/** @var \Kdyby\Translation\LocaleResolver\SessionResolver @inject */
 	public $translatorSession;
-
-
-	/**
-	 * @persistent 
-	 * @deprecated
-	 */
-	public $backlink;
 
 
 	/** @var Controls\IAddTaskControlFactory @inject */

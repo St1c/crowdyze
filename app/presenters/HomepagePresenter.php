@@ -28,6 +28,9 @@ class HomepagePresenter extends BaseSignedPresenter
 	}
 	
 
+	/**
+	 * At front is list of tasks.
+	 */
 	public function renderDefault()
 	{
 		$paginator = $this['paginator']->getPaginator();
@@ -39,7 +42,7 @@ class HomepagePresenter extends BaseSignedPresenter
 	}
 
 
-	public function actionTag($id)
+	public function renderTag($id)
 	{
 		$paginator = $this['paginator']->getPaginator();
 		$this['paginator']->paginator->itemCount = $this->taskService->getTagsTasksCount($id);
@@ -57,7 +60,7 @@ class HomepagePresenter extends BaseSignedPresenter
 	protected function createComponentPaginator()
 	{
 		$paginator = new \Controls\PaginatorControl();
-		$paginator->paginator->itemsPerPage = 24;
+		$paginator->paginator->itemsPerPage = self::ITEMS_PER_PAGE;
 		return $paginator;
 	}
 

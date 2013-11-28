@@ -9,7 +9,6 @@ use Nette,
 class TaskPresenter extends BaseSignedPresenter 
 {
 	
-	const ITEMS_PER_PAGE = 24;
 	
 	
 	/** @var Model\Services\TaskService @inject */
@@ -32,33 +31,52 @@ class TaskPresenter extends BaseSignedPresenter
 	public $singleTaskControlFactory;
 
 
-	/** @var bool $edit */
-	public $edit;
 
-
-
-	public function actionDefault()
+	public function actionDefault($filter = Null)
 	{
-		$this->redirect('Homepage:');
+		$paginator = $this['paginator']->getPaginator();
+		if ($filter) {
+			$this['paginator']->paginator->itemCount = $this->taskService->getTagsTasksCount($filter);
+			$this->template->tasks = $this->taskService->getTaggedTasks($filter,
+					 $paginator->itemsPerPage, 
+					 $paginator->offset, 
+					 $this->getUser()->id
+					 );
+		}
+		else {
+			$this['paginator']->paginator->itemCount = $this->taskService->count;
+			$this->template->tasks = $this->taskService->getTasks($paginator->itemsPerPage, 
+					$paginator->offset, 
+					$this->getUser()->id
+					);
+		}
 	}
 
 
 
 	public function actionDetail($id)
 	{
-		$task = $this->taskService->getTaskByToken($id);
-
-		if (!$task) {
-			$this->flashMessage("Task with ID: $id was not found, or removed...");
-			$this->redirect('Homepage:');
-		}
-
-		$this->template->edit 		= $this->edit;
-		$this->template->task 		= $task;
-		$this->template->userId 	= $this->getUser()->id;
-		$this->template->accepted	= $this->taskService->isAccepted($task->token, $this->getUser()->id);
-		// $this->template->owner		= $this->taskService->getOwnerTasks($this->getUser()->id);
+		$task = self::redirectByEmpty($this->taskService->getTaskByToken($id), $id);
+		$this->template->task = $task;
+		$this->template->userId = $this->getUser()->id;
+		$this->template->accepted = $this->taskService->isAccepted($task->token, $this->getUser()->id);
+		// $this->template->owner = $this->taskService->getOwnerTasks($this->getUser()->id);
 	}
+
+
+
+	/**
+	 * @param string $id
+	 */
+	public function actionEdit($id)
+	{
+		$task = self::redirectByEmpty($this->taskService->getTaskByToken($id), $id);
+		$this->template->task = $task;
+		$this->template->userId = $this->getUser()->id;
+		$this->template->accepted = $this->taskService->isAccepted($task->token, $this->getUser()->id);
+		// $this->template->owner = $this->taskService->getOwnerTasks($this->getUser()->id);
+	}
+
 
 
 	protected function beforeRender()
@@ -80,16 +98,6 @@ class TaskPresenter extends BaseSignedPresenter
 	}
 
 
-	public function handleEdit($edit)
-	{
-		$this->edit = TRUE;
-		$this->template->edit = $this->edit;
-		$this->validateControl();
-		$this->invalidateControl('task');
-	}
-
-
-
 	protected function createComponentPaginator()
 	{
 		$paginator = new \Controls\PaginatorControl();
@@ -102,6 +110,23 @@ class TaskPresenter extends BaseSignedPresenter
 	protected function createComponentSingleTask()
 	{
 		return $this->singleTaskControlFactory->create();
+	}
+
+
+
+	/**
+	 * Asserting $value by empty and if is empty, than redirect to default action of presenter.
+	 * 
+	 * @param $value Asserted value.
+	 * @param $id Added value for message.
+	 */
+	private static function redirectByEmpty($value, $id)
+	{
+		if (!$value) {
+			$this->flashMessage("Task with ID: $id was not found, or removed...");
+			$this->redirect('default');
+		}
+		return $value;
 	}
 
 

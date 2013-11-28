@@ -111,7 +111,7 @@ class AddTaskControl extends BaseControl
 
 			// Saving tags
 			if ( !empty($formValues['tags']) ) {
-				$this->taskService->addTags($task, $formValues['tags']);
+				$this->taskService->storeTags($task, $formValues['tags']);
 			}
 
 			// Saving departments 

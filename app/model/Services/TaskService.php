@@ -6,6 +6,7 @@ use Nette,
 	Utilities,
 	Nette\Database\Table\ActiveRow,
 	Nette\Http\FileUpload,
+	Nette\Utils\Validators,
 	Nette\Utils\Strings;
 
 class TaskService extends Nette\Object
@@ -13,24 +14,30 @@ class TaskService extends Nette\Object
 
 	/** @var taskRepository */
 	private $taskRepository;
+	
 	/** @var tagRepository */
 	private $tagRepository;
+	
 	/** @var accepted_taskRepository */
 	private $accepted_taskRepository;
+	
 	/** @var fileManager */
 	private $fileManager;
 
 
+
 	public function __construct(Repositories\TaskRepository $taskRepository,
-								Repositories\TagRepository $tagRepository,
-								Repositories\Accepted_taskRepository $accepted_taskRepository,
-								Utilities\FileManager $fileManager )
+			Repositories\TagRepository $tagRepository,
+			Repositories\Accepted_taskRepository $accepted_taskRepository,
+			Utilities\FileManager $fileManager )
 	{
-		$this->taskRepository 			= $taskRepository;
-		$this->tagRepository 			= $tagRepository;
-		$this->accepted_taskRepository 	= $accepted_taskRepository;
-		$this->fileManager 				= $fileManager;
+		$this->taskRepository = $taskRepository;
+		$this->tagRepository = $tagRepository;
+		$this->accepted_taskRepository = $accepted_taskRepository;
+		$this->fileManager = $fileManager;
 	}
+
+
 
 	/**
 	 * Create new task from form array
@@ -69,22 +76,20 @@ class TaskService extends Nette\Object
 
 
 	/**
-	 * Add tags to the corresponding task
+	 * Store tags to the corresponding task, remove unused in task
 	 * 
-	 * @param ActiveRow
-	 * @param array
+	 * @param ActiveRow $task
+	 * @param array $tags
 	 */
-	public function addTags(ActiveRow $task, $tags)
+	public function storeTags(ActiveRow $task, array $tags)
 	{
+		$task->related('task_has_tag')->delete();
 
-		foreach (Strings::split($tags, '~,\s*~') as $tag) {
-				
+		foreach (array_unique($tags) as $tag) {
 			$tagInDb = $this->tagRepository->get($tag); 
-
 			if ( empty($tagInDb) ) {
 				$tagInDb = $this->tagRepository->create($tag);
 			}
-
 			$this->setTaskTag($task, $tagInDb->id);
 		}
 	}
@@ -110,7 +115,7 @@ class TaskService extends Nette\Object
 	 * @param ActiveRow
 	 * @param array departments
 	 */
-	public function setDepartment(ActiveRow $task, $departments)
+	public function setDepartment(ActiveRow $task, array $departments)
 	{
 		foreach ($departments as $department) {
 			$task->related('task_department')->insert(array(
@@ -145,15 +150,21 @@ class TaskService extends Nette\Object
 	 */
 	public function acceptTask($userId, $token)
 	{
+		Validators::assert($userId, 'int');
+		Validators::assert($token, 'string');
+
 		$task = $this->getTaskByToken($token);
 		$acceptedTaskStatus = $this->accepted_taskRepository->getStatusById($userId, $task->id);
 
 		if ($acceptedTaskStatus === FALSE) {
 			return $this->accepted_taskRepository->insert($userId, $task->id, 1);
-		} else {
+		}
+		else {
 			throw new \Exception("tasks.errors.already_accepted", 1);
 		}
 	}
+
+
 
 	/**
 	 * Get single task
@@ -163,6 +174,7 @@ class TaskService extends Nette\Object
 	 */
 	public function getTask($id)
 	{
+		Validators::assert($id, 'int');
 		return $this->taskRepository->getTask($id);
 	}
 
@@ -173,9 +185,13 @@ class TaskService extends Nette\Object
 	 * @param  string $token
 	 * @return ActiveRow
 	 */
-	public function getTaskByToken($token){ 
+	public function getTaskByToken($token)
+	{ 
+		Validators::assert($token, 'string');
 		return $this->taskRepository->getTaskByToken($token);
 	}
+
+
 
 	/**
 	 * Get all tasks which are not assigned to current user
@@ -189,7 +205,8 @@ class TaskService extends Nette\Object
 	{
 		if ( $this->accepted_taskRepository->getUsersNumberOfAssignedTasks($userId) > 0 ) {
 			return $this->taskRepository->getTasksFilterByUserAccepted($limit, $offset, $userId);
-		} else {
+		}
+		else {
 			return $this->getAllTasks($limit, $offset);
 		}
 	}
