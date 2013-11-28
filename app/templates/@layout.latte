@@ -45,7 +45,7 @@
 		<div class="submenu right">
 			<ul class="">
 				{if $user->isLoggedIn()}
-				<li><a href="#">{_layout.menu.add}</a></li>
+				<li><a n:href="Task:add">{_layout.menu.add}</a></li>
 				<li><a n:href="User:">{_layout.menu.profile}</a></li>
 				{/if}
 			</ul>
@@ -55,10 +55,6 @@
 	<div class="container">
 		<div class="body-wp">
 			{include #content}			
-		</div>
-
-		<div class="modal">
-			{control addTask}
 		</div>
 
 		<hr>

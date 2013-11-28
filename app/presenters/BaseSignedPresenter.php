@@ -25,9 +25,6 @@ abstract class BaseSignedPresenter extends BasePresenter
 	public $backlink;
 
 
-	/** @var Controls\IAddTaskControlFactory @inject */
-	public $addTaskControlFactory;
-
 
 	/**
 	 * Návrat z přihlášení.
@@ -66,17 +63,6 @@ abstract class BaseSignedPresenter extends BasePresenter
 	{
 		$this->translatorSession->setLocale($locale);
 		$this->redirect('this');
-	}
-
-
-	/**
-	 * Add Task From control factory
-	 * 
-	 * @return 	\Nette\Application\UI\Control AddTaskControl
-	 */
-	protected function createComponentAddTask()
-	{
-		return $this->addTaskControlFactory->create();
 	}
 
 
@@ -127,7 +113,6 @@ abstract class BaseSignedPresenter extends BasePresenter
 
 		return $template;
 	}
-
 
 
 	/**

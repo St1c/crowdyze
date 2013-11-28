@@ -9,8 +9,6 @@ use Nette,
 class TaskPresenter extends BaseSignedPresenter 
 {
 	
-	
-	
 	/** @var Model\Services\TaskService @inject */
 	public $taskService;
 
@@ -25,6 +23,10 @@ class TaskPresenter extends BaseSignedPresenter
 
 	/** @var Model\Repositories\Department_nameRepository @inject */
 	public $department_nameRepository;
+
+
+	/** @var Controls\IAddTaskControlFactory @inject */
+	public $addTaskControlFactory;
 
 
 	/** @var Controls\ISingleTaskControlFactory @inject */
@@ -98,11 +100,24 @@ class TaskPresenter extends BaseSignedPresenter
 	}
 
 
+
 	protected function createComponentPaginator()
 	{
 		$paginator = new \Controls\PaginatorControl();
 		$paginator->paginator->itemsPerPage = self::ITEMS_PER_PAGE;
 		return $paginator;
+	}
+
+
+
+	/**
+	 * Add Task From control factory
+	 * 
+	 * @return 	\Nette\Application\UI\Control AddTaskControl
+	 */
+	protected function createComponentAddTask()
+	{
+		return $this->addTaskControlFactory->create();
 	}
 
 

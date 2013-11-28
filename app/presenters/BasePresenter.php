@@ -25,9 +25,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	public $translatorSession;
 
 
-	/** @var Controls\IAddTaskControlFactory @inject */
-	public $addTaskControlFactory;
-
 
 	/**
 	 * Sign out signal
@@ -50,17 +47,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	{
 		$this->translatorSession->setLocale($locale);
 		$this->redirect('this');
-	}
-
-
-	/**
-	 * Add Task From control factory
-	 * 
-	 * @return 	\Nette\Application\UI\Control AddTaskControl
-	 */
-	protected function createComponentAddTask()
-	{
-		return $this->addTaskControlFactory->create();
 	}
 
 

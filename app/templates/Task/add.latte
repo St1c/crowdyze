@@ -1,0 +1,12 @@
+{block #content}
+	<div class="notifier">
+		{if $activeJobs > 0}
+			You have {$activeJobs} active jobs. <a n:href="User:">Go to Your profile</a> and check them.
+		{else}
+			You have no active jobs. Pick some from the offer below...
+		{/if}
+	</div>
+	<div class="under-notifier">
+			{control addTask}
+	</div>
+{/block}
