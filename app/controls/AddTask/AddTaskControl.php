@@ -12,10 +12,13 @@ class AddTaskControl extends BaseControl
 {
 	/** @var Model\Services\TaskService @inject */
 	public $taskService;
+
 	/** @var Model\Repositories\Budget_typeRepository @inject */
 	public $budget_typeRepository;
+
 	/** @var Model\Repositories\Department_nameRepository @inject */
 	public $department_nameRepository;
+
 	/** @var Utilities\FileManager @inject */
 	public $fileManager;
 
@@ -78,13 +81,13 @@ class AddTaskControl extends BaseControl
 
 		$addTask->addSubmit('submit', 'addTask.form.submit');
 		
-		$addTask->onError[] 	= $this->addTaskFormError;
-		$addTask->onSuccess[] 	= $this->addTaskFormSubmitted;
+		$addTask->onError[] 	= $this->processError;
+		$addTask->onSuccess[] 	= $this->processSubmitted;
 
 		return $addTask;
 	}
 
-	public function addTaskFormError(Form $addTask)
+	public function processError(Form $addTask)
 	{
 
 		if ($this->presenter->isAjax() ) {
@@ -93,7 +96,7 @@ class AddTaskControl extends BaseControl
 
 	}
 
-	public function addTaskFormSubmitted(Form $addTask)
+	public function processSubmitted(Form $addTask)
 	{	
 		$user_id 		= $this->presenter->getUser()->id;
 		$formValues 	= $addTask->getValues(TRUE); // TRUE = get values as an ordinary array
@@ -103,9 +106,8 @@ class AddTaskControl extends BaseControl
 			// Saving task details
 			
 			// Convert date to TIMESTAMP SQL format
-			$formValues['deadline'] = date($formValues['year'] . '-' . $formValues['month'] . '-' . $formValues['day']);
-
-			$formValues['budget'] = $this->calculateBudget($formValues);
+			$formValues['deadline'] = self::parseDate($formValues);
+			$formValues['budget'] 	= self::calculateBudget($formValues);
 
 			$task = $this->taskService->createTask($user_id, $formValues);
 
@@ -139,12 +141,15 @@ class AddTaskControl extends BaseControl
 	}
 
 
+
 	/**
 	 * Calclate the final costs for the campaign
+	 * 
 	 * @param  array $values Form values
+	 * 
 	 * @return int           Final budget
 	 */
-	private function calculateBudget($values)
+	private static function calculateBudget($values)
 	{
 		$commissionPerc = 1.05;
 		$commissionFix 	= 0.50;
@@ -167,6 +172,22 @@ class AddTaskControl extends BaseControl
 
 		return $budget;
 	}
+
+
+
+	/**
+	 * Form input date to desirable format
+	 * 
+	 * @param  array $values Form Values
+	 * 
+	 * @return Date
+	 */
+	private static function parseDate($values)
+	{
+		return date($formValues['year'] . '-' . $formValues['month'] . '-' . $formValues['day']);
+	}
+
+
 
 	public function render()
 	{
