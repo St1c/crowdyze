@@ -94,8 +94,8 @@ factories:
 	addTask:
 		implement: Controls\IAddTaskControlFactory
 
-	singleTask:
-		implement: Controls\ISingleTaskControlFactory
+	editTask:
+		implement: Controls\IEditTaskControlFactory
 
 	userDetails:
 		implement: Controls\IUserDetailsControlFactory

@@ -29,8 +29,8 @@ class TaskPresenter extends BaseSignedPresenter
 	public $addTaskControlFactory;
 
 
-	/** @var Controls\ISingleTaskControlFactory @inject */
-	public $singleTaskControlFactory;
+	/** @var Controls\IEditTaskControlFactory @inject */
+	public $editTaskControlFactory;
 
 
 
@@ -122,9 +122,9 @@ class TaskPresenter extends BaseSignedPresenter
 
 
 
-	protected function createComponentSingleTask()
+	protected function createComponentEditTask()
 	{
-		return $this->singleTaskControlFactory->create();
+		return $this->editTaskControlFactory->create();
 	}
 
 

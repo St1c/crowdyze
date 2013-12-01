@@ -8,7 +8,7 @@ use Nette,
 	Nette\Utils\Strings,
 	Nette\Image;
 
-class SingleTaskControl extends BaseControl
+class EditTaskControl extends BaseControl
 {
 	/** @var Model\Services\TaskService @inject */
 	public $taskService;
@@ -21,7 +21,7 @@ class SingleTaskControl extends BaseControl
 
 
 
-	public function createComponentSingleTaskForm()
+	public function createComponentEditTaskForm()
 	{
 		$budgetTypes = $this->budget_typeRepository->getAll();
 		$departments = $this->department_nameRepository->getAll($this->presenter->getUser()->id);
@@ -167,7 +167,7 @@ class SingleTaskControl extends BaseControl
 
 	public function render()
 	{
-		$this->template->setFile(__DIR__ . '/../../templates/Controls/SingleTask.latte');
+		$this->template->setFile(__DIR__ . '/../../templates/Controls/EditTask.latte');
 		$this->template->render();
 	}
 
@@ -198,6 +198,8 @@ class SingleTaskControl extends BaseControl
 
 
 	/**
+	 * Form input date to desirable format
+	 * 
 	 * @param  array $values Form Values
 	 * 
 	 * @return Date
@@ -218,6 +220,7 @@ class SingleTaskControl extends BaseControl
 
 	/**
 	 * Calclate the final costs for the campaign
+	 * 
 	 * @param  array $values Form values
 	 * @return int           Final budget
 	 */
