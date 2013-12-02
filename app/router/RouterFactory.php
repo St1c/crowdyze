@@ -20,10 +20,10 @@ class RouterFactory
 	public function createRouter()
 	{
 		$router = new RouteList();
-		$router[] = new Route('<presenter>/<action>[/<id>]', array(
+		$router[] = new Route('<presenter>/<action>[/<token>]', array(
 			'presenter' => 'Homepage',
 			'action' 	=> 'default',
-			'id'		=> NULL
+			'token'		=> NULL
 		));
 		return $router;
 	}

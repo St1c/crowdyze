@@ -25,7 +25,7 @@ class EditTaskControl extends BaseControl
 	{
 		$budgetTypes = $this->budget_typeRepository->getAll();
 		$departments = $this->department_nameRepository->getAll($this->presenter->getUser()->id);
-		$task = $this->taskService->getTaskByToken($this->presenter->getParameter('id'));
+		$task = $this->taskService->getTaskByToken($this->presenter->getParameter('token'));
 		$tags = array();
 		foreach ($task->related('task_has_tag') as $tag) {
 			if ($tag->tag->tag) {
@@ -132,7 +132,7 @@ class EditTaskControl extends BaseControl
 				in_array( $key,  $exclude ) || empty($value) ?: $update[$key] = $value;
 			}
 
-			$task = $this->taskService->getTaskByToken($this->presenter->getParameter('id'));
+			$task = $this->taskService->getTaskByToken($this->presenter->getParameter('token'));
 			$this->taskService->update($task, $update);
 
 			// Saving tags
@@ -160,7 +160,7 @@ class EditTaskControl extends BaseControl
 			$this->presenter->invalidateControl('task');
 		}
 		
-		$this->presenter->redirect('detail', array('id' => $this->presenter->getParameter('id')));
+		$this->presenter->redirect('detail', array('token' => $this->presenter->getParameter('token')));
 	}
 
 

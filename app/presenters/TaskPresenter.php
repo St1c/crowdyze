@@ -56,9 +56,9 @@ class TaskPresenter extends BaseSignedPresenter
 
 
 
-	public function actionDetail($id)
+	public function actionDetail($token)
 	{
-		$task = self::redirectByEmpty($this->taskService->getTaskByToken($id), $id);
+		$task = self::redirectByEmpty($this->taskService->getTaskByToken($token), $token);
 		$this->template->task = $task;
 		$this->template->userId = $this->getUser()->id;
 		$this->template->accepted = $this->taskService->isAccepted($task->token, $this->getUser()->id);
@@ -80,11 +80,11 @@ class TaskPresenter extends BaseSignedPresenter
 
 
 	/**
-	 * @param string $id
+	 * @param string $token
 	 */
-	public function actionEdit($id)
+	public function actionEdit($token)
 	{
-		$task = self::redirectByEmpty($this->taskService->getTaskByToken($id), $id);
+		$task = self::redirectByEmpty($this->taskService->getTaskByToken($token), $token);
 		$this->template->task = $task;
 		$this->template->userId = $this->getUser()->id;
 		$this->template->accepted = $this->taskService->isAccepted($task->token, $this->getUser()->id);
@@ -100,11 +100,11 @@ class TaskPresenter extends BaseSignedPresenter
 
 
 
-	public function handleAcceptTask($id)
+	public function handleAcceptTask($token)
 	{
 		try {
-			$this->taskService->acceptTask($this->getUser()->id, $id);
-			$this->template->accepted = $this->taskService->isAccepted($id, $this->getUser()->id);
+			$this->taskService->acceptTask($this->getUser()->id, $token);
+			$this->template->accepted = $this->taskService->isAccepted($token, $this->getUser()->id);
 		}
 		catch (\Exception $e) {
 			$this->flashMessage($e->getMessage(), 'alert-danger');
@@ -145,12 +145,12 @@ class TaskPresenter extends BaseSignedPresenter
 	 * Asserting $value by empty and if is empty, than redirect to default action of presenter.
 	 * 
 	 * @param $value Asserted value.
-	 * @param $id Added value for message.
+	 * @param $token Added value for message.
 	 */
-	private static function redirectByEmpty($value, $id)
+	private static function redirectByEmpty($value, $token)
 	{
 		if (!$value) {
-			$this->flashMessage("Task with ID: $id was not found, or removed...");
+			$this->flashMessage("Task with ID: $token was not found, or removed...");
 			$this->redirect('default');
 		}
 		return $value;
