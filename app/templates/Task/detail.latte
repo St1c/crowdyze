@@ -30,7 +30,7 @@
 
 		<div class="accept">
 			{if $task->owner == $userId}
-				<a n:href="acceptTask! $task->id" class="btn btn-danger btn-lg">
+				<a n:href="Results:default $task->token" class="btn btn-danger btn-lg">
 					{_tasks.single.show_result_btn}
 				</a>
 			{else}
