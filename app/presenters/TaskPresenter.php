@@ -68,6 +68,18 @@ class TaskPresenter extends BaseSignedPresenter
 
 
 	/**
+	 * Adding new task routine
+	 */
+	public function actionAdd()
+	{
+		if (!$this->userService->getBalance($this->user->id) > 0) {
+			$this->redirect('Wallet:deposit');
+		}
+	}
+
+
+
+	/**
 	 * @param string $id
 	 */
 	public function actionEdit($id)

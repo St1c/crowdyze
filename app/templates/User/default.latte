@@ -27,7 +27,12 @@
 	<div class="member_since">Member since {$userData->registered|date:'F j, Y'}</div>
 	<div class="userData_details">Reliability: %</div>
 
-	<div class="balance" n:if="$balance"><p>You've got {$balance->balance|number:2}$ on your account</p></div>
+	<div class="balance">
+		<p>You've got {$balance|number:2}$ on your account
+			<span n:if="$balance"><a n:href="Wallet:withdraw">Withdraw</a></span>
+			<span n:if="!$balance"><a n:href="Wallet:deposit">Charge</a></span>
+		</p>
+	</div>
 
 
 	<div>
