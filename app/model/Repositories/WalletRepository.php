@@ -16,7 +16,7 @@ class WalletRepository extends BaseRepository
 	 * @param  array  	$values 	Data to insert
 	 * @return ActiveRow         	Table row of newly inserted data
 	 */
-	public function create(array $values)
+	public function add(array $values)
 	{
 		return $this->getTable()->insert($values);
 	}
@@ -28,7 +28,7 @@ class WalletRepository extends BaseRepository
 	 * @param  array 	$by 	Searching attributes
 	 * @return ActiveRow    	User's data
 	 */
-	public function read(array $by)
+	public function get(array $by)
 	{
 		return $this->getTable()->where($by)->fetch();
 	}

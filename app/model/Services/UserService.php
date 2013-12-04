@@ -14,17 +14,24 @@ class UserService extends Nette\Object
 
 	/** @var userRepository */
 	private $userRepository;
+
 	/** @var user_detailsRepository */
 	private $user_detailsRepository;
+	
 	/** @var accepted_taskRepository */
 	private $accepted_taskRepository;
+	
 	/** @var Repositories\WalletRepository */
 	private $walletRepository;
+	
 	/** @var fileManager */
 	private $fileManager;
+	
 	/** @var Utilities\MailerService */
 	protected $mailerService;
 	
+
+
 	public function __construct(Repositories\UserRepository $userRepository,
 								Repositories\User_detailsRepository $user_detailsRepository,
 								Repositories\Accepted_taskRepository $accepted_taskRepository,
@@ -44,8 +51,9 @@ class UserService extends Nette\Object
 	/**
 	 * Get user's data
 	 * 
-	 * @param  array 	$by 	Searching attributes
-	 * @return ActiveRow    	User's data
+	 * @param  array $by 	Searching attributes
+	 * 
+	 * @return ActiveRow   	User's data
 	 */
 	public function find($by)
 	{
@@ -56,7 +64,8 @@ class UserService extends Nette\Object
 	/**
 	 * Get user's details by ID
 	 * 
-	 * @param  int  	$id User's id
+	 * @param  int $id 		User's id
+	 * 
 	 * @return ActiveRow    User's details
 	 */
 	public function getUserData($id)
@@ -66,21 +75,11 @@ class UserService extends Nette\Object
 
 
 	/**
-	 * Get user cash balance
-	 * @param  int $userId
-	 * @return string 
-	 */
-	public function getBalance($userId)
-	{
-		return $this->walletRepository->getBalance($userId);
-	}
-
-
-	/**
 	 * Update profile
 	 * 
 	 * @param  ActiveRow $user 
 	 * @param  array     $data 
+	 * 
 	 * @return ActiveRow          
 	 */
 	public function update(ActiveRow $user, array $data)
@@ -94,6 +93,7 @@ class UserService extends Nette\Object
 	 * 
 	 * @param  ActiveRow $user 
 	 * @param  array     $data 
+	 * 
 	 * @return ActiveRow 
 	 */
 	public function updateFromProfile(ActiveRow $user, array $data)
@@ -108,10 +108,40 @@ class UserService extends Nette\Object
 
 
 	/**
+	 * Get user cash balance
+	 * 
+	 * @param  int $userId
+	 * 
+	 * @return string 
+	 */
+	public function getBalance($userId)
+	{
+		return $this->walletRepository->getBalance($userId);
+	}
+
+
+	/**
+	 * Add credit to the user's account
+	 * 
+	 * @param int $userId 
+	 * @param int $amount 
+	 *
+	 * @return ActiveRow
+	 */
+	public function addBalance($userId, $amount)
+	{	
+		$wallet = $this->walletRepository->get(array('user_id' => $userId));
+		$credit = $wallet->balance + $amount;
+		return $this->walletRepository->update($wallet, array('balance' => $credit));
+	}
+
+
+	/**
 	 * Get user's accepted tasks
 	 * 
-	 * @param  int 			$userId User's ID
-	 * @return ActiveRow   			Results
+	 * @param  int 	$userId User's ID
+	 * 
+	 * @return ActiveRow   	Results
 	 */
 	public function getAcceptedUserTasks($userId)
 	{
@@ -122,8 +152,9 @@ class UserService extends Nette\Object
 	/**
 	 * Get user's accepted tasks count
 	 * 
-	 * @param  int 			$userId User's ID
-	 * @return ActiveRow   			Results
+	 * @param  int $userId User's ID
+	 * 
+	 * @return ActiveRow   Results
 	 */
 	public function getAcceptedUserTasksCount($userId)
 	{
@@ -135,6 +166,7 @@ class UserService extends Nette\Object
 	 * Get user's finished tasks
 	 * 
 	 * @param  int $userId User's ID
+	 * 
 	 * @return ActiveRow   Results
 	 */
 	public function getFinishedUserTasks($userId)
@@ -147,6 +179,7 @@ class UserService extends Nette\Object
 	 * Get user's satisfied tasks
 	 * 
 	 * @param  int $userId User's ID
+	 * 
 	 * @return ActiveRow   Results
 	 */
 	public function getSatisfiedUserTasks($userId)
@@ -159,6 +192,7 @@ class UserService extends Nette\Object
 	 * Get user's unsatisfied tasks
 	 * 
 	 * @param  int $userId User's ID
+	 * 
 	 * @return ActiveRow   Results
 	 */
 	public function getUnsatisfiedUserTasks($userId)
