@@ -20,7 +20,10 @@
 		"dg/adminer-custom": "1",
 		"facebook/php-sdk": "dev-master",
 		"mikulas/nette-google-oauth2": "dev-master",
-		"kdyby/translation": "@dev"
+		"kdyby/translation": "@dev",
+		"ext-curl": "*",
+		"ext-json": "*",
+		"paypal/rest-api-sdk-php" : "0.7.*"
 	},
 	"require-dev": {
 		"nette/tester": "@dev"

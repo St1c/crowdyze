@@ -12,6 +12,10 @@ parameters:
 		id: 253794342005.apps.googleusercontent.com
 		secret: OvfVy56E5lJi4QwOPQsIqIT0
 		key: AIzaSyDTWoC6hbnJZftgxLdwvJuDcMrJMWZEvx8
+	paypal:
+		endpoint: api.sandbox.paypal.com
+		clientId: AelPnBC49E1NaV86S1I5TSpoYsIibZyVzaMOG8jPZuqQ3Vbf4RCZAvrAYhH1
+		secret: EC85PBDNJvChqOsXdJ-dtR580nbWEwhkZEh_rrVxtGTIr_NfPFndpHA5OFrq
 
 nette:
 	debugger:

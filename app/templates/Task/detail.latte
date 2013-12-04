@@ -37,7 +37,7 @@
 				<a n:if="!$accepted" n:href="acceptTask! $task->token" class="btn btn-success btn-lg">
 					{_tasks.single.accept_btn}
 				</a>
-				<a n:if="$accepted" n:href="acceptTask! $task->token" class="btn btn-danger btn-lg">
+				<a n:if="$accepted" n:href="Results:add $task->token" class="btn btn-danger btn-lg">
 					{_tasks.single.post_result_btn}
 				</a>
 			{/if}

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f43a0da775ade15c37de01131a3a4b07",
+    "hash": "6f1908e303d0d929c4060a346c9deb69",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -30,12 +30,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/facebook-php-sdk.git",
-                "reference": "be04c86d5672c383823d4dee3da9522ed143dcef"
+                "reference": "13cf3abe223cd7251bf60b5f4758edea45151cc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/facebook-php-sdk/zipball/be04c86d5672c383823d4dee3da9522ed143dcef",
-                "reference": "be04c86d5672c383823d4dee3da9522ed143dcef",
+                "url": "https://api.github.com/repos/facebook/facebook-php-sdk/zipball/13cf3abe223cd7251bf60b5f4758edea45151cc5",
+                "reference": "13cf3abe223cd7251bf60b5f4758edea45151cc5",
                 "shasum": ""
             },
             "require": {
@@ -68,7 +68,7 @@
                 "facebook",
                 "sdk"
             ],
-            "time": "2013-11-20 17:24:02"
+            "time": "2013-11-26 23:01:41"
         },
         {
             "name": "kdyby/translation",
@@ -174,12 +174,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/nette.git",
-                "reference": "561ba608a440328f5054a9b5e72e8dcfe07babae"
+                "reference": "fdfe211c6aa5779ebbce46049914ccd105cf7b93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/nette/zipball/561ba608a440328f5054a9b5e72e8dcfe07babae",
-                "reference": "561ba608a440328f5054a9b5e72e8dcfe07babae",
+                "url": "https://api.github.com/repos/nette/nette/zipball/fdfe211c6aa5779ebbce46049914ccd105cf7b93",
+                "reference": "fdfe211c6aa5779ebbce46049914ccd105cf7b93",
                 "shasum": ""
             },
             "require": {
@@ -240,7 +240,100 @@
                 "neon",
                 "templating"
             ],
-            "time": "2013-11-26 01:49:33"
+            "time": "2013-12-03 00:29:25"
+        },
+        {
+            "name": "paypal/rest-api-sdk-php",
+            "version": "v0.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paypal/rest-api-sdk-php.git",
+                "reference": "4193ae100a8de6fc4e62f94f6c895e0a1f10c956"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paypal/rest-api-sdk-php/zipball/4193ae100a8de6fc4e62f94f6c895e0a1f10c956",
+                "reference": "4193ae100a8de6fc4e62f94f6c895e0a1f10c956",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "paypal/sdk-core-php": "2.4.*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PayPal": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "PayPal",
+                    "homepage": "https://github.com/paypal/rest-api-sdk-php/contributors"
+                }
+            ],
+            "description": "PayPal's PHP SDK for REST APIs",
+            "homepage": "https://github.com/paypal/rest-api-sdk-php",
+            "keywords": [
+                "payments",
+                "paypal",
+                "rest",
+                "sdk"
+            ],
+            "time": "2013-07-31 15:21:19"
+        },
+        {
+            "name": "paypal/sdk-core-php",
+            "version": "v2.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paypal/sdk-core-php.git",
+                "reference": "226d3492f80847f09c99debb4d3220d5e744ddc8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paypal/sdk-core-php/zipball/226d3492f80847f09c99debb4d3220d5e744ddc8",
+                "reference": "226d3492f80847f09c99debb4d3220d5e744ddc8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PayPal": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "PayPal",
+                    "homepage": "https://github.com/paypal/sdk-core-php/contributors"
+                }
+            ],
+            "description": "PayPal Core SDK for PHP",
+            "homepage": "https://github.com/paypal/sdk-core-php",
+            "keywords": [
+                "paypal",
+                "php",
+                "sdk"
+            ],
+            "time": "2013-09-11 14:27:58"
         },
         {
             "name": "symfony/config",
@@ -459,7 +552,9 @@
         "nette/tester": 20
     },
     "platform": {
-        "php": ">= 5.3.0"
+        "php": ">= 5.3.0",
+        "ext-curl": "*",
+        "ext-json": "*"
     },
     "platform-dev": [
 

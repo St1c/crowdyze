@@ -7,6 +7,16 @@ use Nette;
 class WalletPresenter extends BaseSignedPresenter 
 {
 
+	/** @var Controls\IPaypalControlFactory @inject */
+	public $paypalControlFactory;
+
+
+
+	public function createComponentPaypal()
+	{
+		return $this->paypalControlFactory->create();
+	}
+
 
 	/**
 	 * Add money to user wallet
