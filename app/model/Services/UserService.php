@@ -32,13 +32,14 @@ class UserService extends Nette\Object
 	
 
 
-	public function __construct(Repositories\UserRepository $userRepository,
-								Repositories\User_detailsRepository $user_detailsRepository,
-								Repositories\Accepted_taskRepository $accepted_taskRepository,
-								Repositories\WalletRepository $walletRepository,
-								Utilities\FileManager $fileManager,
-								Utilities\MailerService $mailerService )
-	{
+	public function __construct(
+		Repositories\UserRepository $userRepository,
+		Repositories\User_detailsRepository $user_detailsRepository,
+		Repositories\Accepted_taskRepository $accepted_taskRepository,
+		Repositories\WalletRepository $walletRepository,
+		Utilities\FileManager $fileManager,
+		Utilities\MailerService $mailerService
+	) {
 		$this->userRepository 			= $userRepository;
 		$this->user_detailsRepository 	= $user_detailsRepository;
 		$this->accepted_taskRepository  = $accepted_taskRepository;

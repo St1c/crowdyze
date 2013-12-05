@@ -14,21 +14,28 @@ class SignService extends Nette\Object
 
 	/** @var userRepository */
 	private $userRepository;
+
 	/** @var user_detailsRepository */
 	private $user_detailsRepository;
+	
 	/** @var WalletRepository */
 	private $walletRepository;
+	
 	/** @var fileManager */
 	private $fileManager;
+	
 	/** @var Utilities\MailerService */
 	protected $mailerService;
 	
-	public function __construct(Repositories\UserRepository $userRepository,
-								Repositories\User_detailsRepository $user_detailsRepository,
-								Repositories\WalletRepository $walletRepository,
-								Utilities\FileManager $fileManager,
-								Utilities\MailerService $mailerService )
-	{
+
+	
+	public function __construct(
+		Repositories\UserRepository $userRepository,
+		Repositories\User_detailsRepository $user_detailsRepository,
+		Repositories\WalletRepository $walletRepository,
+		Utilities\FileManager $fileManager,
+		Utilities\MailerService $mailerService 
+	) {
 		$this->userRepository 			= $userRepository;
 		$this->user_detailsRepository 	= $user_detailsRepository;
 		$this->walletRepository 		= $walletRepository;
@@ -41,6 +48,7 @@ class SignService extends Nette\Object
 	 * Get user's data
 	 * 
 	 * @param  array 	$by 	Searching attributes
+	 * 
 	 * @return ActiveRow    	User's data
 	 */
 	public function find($by)
@@ -54,6 +62,7 @@ class SignService extends Nette\Object
 	 * 
 	 * @param  ActiveRow $user 
 	 * @param  array     $data 
+	 * 
 	 * @return ActiveRow       
 	 */
 	public function update(ActiveRow $user, array $data)
@@ -66,6 +75,7 @@ class SignService extends Nette\Object
 	 * Get user's details by ID
 	 * 
 	 * @param  int  	$id User's id
+	 * 
 	 * @return ActiveRow    User's details
 	 */
 	public function getUserData($id)
@@ -80,6 +90,7 @@ class SignService extends Nette\Object
 	 * @param  string  	$type   Type of registration: email|facebook|google
 	 * @param  array  	$data   User's data
 	 * @param  integer 	$active Activate profile
+	 * 
 	 * 
 	 * @return ActiveRow        New record in DB
 	 */
@@ -117,6 +128,7 @@ class SignService extends Nette\Object
 	 * @param  string  		$type   Type of registration: email|facebook|google
 	 * @param  ActiveRow  	$user   User's DB row
 	 * @param  integer 		$data 	User's data
+	 * 
 	 * @return ActiveRow        	New record in DB
 	 */
 	public function updateFromSocial($type, $user, $data)
@@ -159,6 +171,7 @@ class SignService extends Nette\Object
 	 * 
 	 * @param array 	$me 		Facebook or Google user profile info array
 	 * @param int|NULL 	$setActive 	Register and activate profile
+	 * 
 	 * @return Nette\Database\Table\ActiveRow
 	 */
 	private function registerSocial(array $me, $setActive = 1)
@@ -176,6 +189,7 @@ class SignService extends Nette\Object
 	 * 
 	 * @param Nette\Database\Table\ActiveRow	$user 	Users DB Table
 	 * @param array 							$me 	Facebook user profile info array
+	 * 
 	 * @return Nette\Database\Table\ActiveRow
 	 */
 	public function setFacebookDetails($user, array $me)
@@ -194,6 +208,7 @@ class SignService extends Nette\Object
 	 * 
 	 * @param Nette\Database\Table\ActiveRow 	$user 	User's table
 	 * @param array 							$me 	Google user profile info array
+	 * 
 	 * @return Nette\Database\Table\ActiveRow
 	 */
 	public function setGoogleDetails($user, array $me)
@@ -213,6 +228,7 @@ class SignService extends Nette\Object
 	 * 
 	 * @param Nette\Database\Table\ActiveRow 	$user User's DB table
 	 * @param array 							$me Facebook user profile info array
+	 * 
 	 * @return Nette\Database\Table\ActiveRow
 	 */
 	private function updateFromFacebook($user, array $me)
@@ -258,6 +274,7 @@ class SignService extends Nette\Object
 	 * 
 	 * @param Nette\Database\Table\ActiveRow 	$user 	DB table
 	 * @param array 							$me 	Facebook user profile info array
+	 * 
 	 * @return Nette\Database\Table\ActiveRow
 	 */
 	private function updateFromGoogle($user, array $me)
@@ -296,7 +313,11 @@ class SignService extends Nette\Object
 		}
 	}
 
-
+	/**
+	 * Create empty wallet upon new registration
+	 * 
+	 * @param  int $userId
+	 */
 	private function createUserWallet($userId)
 	{
 		$this->walletRepository->create(array(
@@ -310,6 +331,7 @@ class SignService extends Nette\Object
 	 * Create user's Identity
 	 * 
 	 * @param  ActiveRow $user User's details
+	 * 
 	 * @return Identity        User's identity
 	 */
 	public function createIdentity(ActiveRow $user)

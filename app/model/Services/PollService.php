@@ -13,19 +13,23 @@ class PollService extends Nette\Object
 
 	/** @var pollRepository */
 	private $pollRepository;
+
 	/** @var emailRepository */
 	private $emailRepository;
+
 	/** @var questionRepository */
 	private $questionRepository;
+	
 	/** @var session */
 	private $session;
 
 
 
-	public function __construct(Repositories\PollRepository $pollRepository,
-								Repositories\EmailRepository $emailRepository,
-								Repositories\QuestionRepository $questionRepository)
-	{
+	public function __construct(
+		Repositories\PollRepository $pollRepository,
+		Repositories\EmailRepository $emailRepository,
+		Repositories\QuestionRepository $questionRepository
+	) {
 		$this->emailRepository 		= $emailRepository;
 		$this->pollRepository 		= $pollRepository;
 		$this->questionRepository 	= $questionRepository;

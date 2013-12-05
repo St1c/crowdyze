@@ -26,11 +26,12 @@ class TaskService extends Nette\Object
 
 
 
-	public function __construct(Repositories\TaskRepository $taskRepository,
-			Repositories\TagRepository $tagRepository,
-			Repositories\Accepted_taskRepository $accepted_taskRepository,
-			Utilities\FileManager $fileManager )
-	{
+	public function __construct(
+		Repositories\TaskRepository $taskRepository,
+		Repositories\TagRepository $tagRepository,
+		Repositories\Accepted_taskRepository $accepted_taskRepository,
+		Utilities\FileManager $fileManager 
+	) {
 		$this->taskRepository = $taskRepository;
 		$this->tagRepository = $tagRepository;
 		$this->accepted_taskRepository = $accepted_taskRepository;
@@ -44,6 +45,7 @@ class TaskService extends Nette\Object
 	 * 
 	 * @param int User Id of the author
 	 * @param array form
+	 * 
 	 * @return ActiveRow
 	 */
 	public function createTask($user_id, array $formValues)
@@ -67,6 +69,7 @@ class TaskService extends Nette\Object
  	 * 
  	 * @param Nette\Database\Table\ActiveRow 	$task
  	 * @param array 							$task update details
+ 	 * 
  	 * @return Nette\Database\Table\ActiveRow
  	 */
 	public function update(ActiveRow $task, array $values)
@@ -165,11 +168,11 @@ class TaskService extends Nette\Object
 	}
 
 
-
 	/**
 	 * Get single task
 	 * 
 	 * @param int task ID
+	 * 
 	 * @return ActiveRow
 	 */
 	public function getTask($id)
@@ -183,6 +186,7 @@ class TaskService extends Nette\Object
 	 * Get task by token
 	 * 
 	 * @param  string $token
+	 * 
 	 * @return ActiveRow
 	 */
 	public function getTaskByToken($token)
@@ -192,13 +196,13 @@ class TaskService extends Nette\Object
 	}
 
 
-
 	/**
 	 * Get all tasks which are not assigned to current user
 	 * 
 	 * @param  int $limit  Paginator Limit
 	 * @param  int $offset Paginator offset
 	 * @param  int $userId Users ID
+	 * 
 	 * @return Table\Selection         Filtered results
 	 */
 	public function getTasks($limit, $offset, $userId)
@@ -217,6 +221,7 @@ class TaskService extends Nette\Object
  	 * 
  	 * @param int $limit Paginator limit for one page
  	 * @param int $offset Paginator offset for current page in paginator
+ 	 * 
  	 * @return Nette\Database\Table\ActiveRow
  	 */
 	public function getAllTasks($limit, $offset)
@@ -231,6 +236,7 @@ class TaskService extends Nette\Object
 	 * @param  int $limit  Paginator Limit
 	 * @param  int $offset Paginator offset
 	 * @param  int $userId Users ID
+	 * 
 	 * @return Table\Selection         Filtered results
 	 */
 	public function getTaggedTasks($tag, $limit, $offset, $userId)
@@ -247,6 +253,7 @@ class TaskService extends Nette\Object
 	 * Get tasks with certain tag
 	 * 
 	 * @param int Tag ID
+	 * 
 	 * @return Table\Selection
 	 */
 	public function getAllTaggedTasks($tag, $limit, $offset)
@@ -279,6 +286,7 @@ class TaskService extends Nette\Object
 	 * Get tasks where current user is owner
 	 * 
 	 * @param  int $userId 
+	 * 
 	 * @return Table\Selection
 	 */
 	public function getOwnerTasks($userId)
@@ -292,6 +300,7 @@ class TaskService extends Nette\Object
 	 * 
 	 * @param  int  $token task token 
 	 * @param  int  $userId
+	 * 
 	 * @return boolean 
 	 */
 	public function isAccepted($token, $userId)
@@ -305,6 +314,7 @@ class TaskService extends Nette\Object
 	 * Check existance of the token (taks) in DB
 	 * 
 	 * @param  string  $token
+	 * 
 	 * @return boolean TRUE|FALSE
 	 */
 	public function isTokenInDatabase($token)
@@ -315,6 +325,7 @@ class TaskService extends Nette\Object
 
 	/**
 	 * Generate unique task ID
+	 * 
 	 * @return string 36^8 =  ~ 2.8 * 10^12 variations
 	 */
 	public function generateTaskToken()
