@@ -10,3 +10,5 @@ www/adminer/
 www/.sass-cache/
 build.properties
 app/config/config.local.neon
+/www/tasks
+/www/users
