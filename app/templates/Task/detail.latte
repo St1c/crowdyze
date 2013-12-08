@@ -46,7 +46,9 @@
 		<div class="attachments">
 			<h6>Attachments:</h6>
 			{foreach $task->related('task_attachment') as $attachment}
-				<a href="{$basePath . $attachment->path|url}">{$attachment->path}</a>
+				<div>
+				<a href="{$basePath}/{$attachment->path}">{$attachment->path}</a>
+				</div>
 			{/foreach}
 		</div> 	
 
