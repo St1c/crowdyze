@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-server-package>
+	<virtual-host>
+		<name>crowdyze</name>
+		<url>crowdyze.local</url>
+		<url>www.crowdyze.local</url>
+		<ip>127.0.0.1</ip>
+		<port>80</port>
+		<document-root>www</document-root>
+
+		<email>%{name}@taco-beru.name</email>
+		<logs>
+			<level>warning</level>
+		</logs>
+	</virtual-host>
+</web-server-package>

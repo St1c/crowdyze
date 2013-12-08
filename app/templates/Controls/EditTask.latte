@@ -1,6 +1,10 @@
 {snippet 'editTaskForm'}
 	{form editTaskForm class => ''}
-		
+
+		<ul class="errors" n:if="$form->hasErrors()">
+			<li n:foreach="$form->errors as $error">{$error}</li>
+		</ul>
+
 		<div class="controls">
 			{input submit, class=>'btn btn-xs btn-success'}
 			{input cancel, class=>'btn btn-xs btn-danger'}
@@ -18,10 +22,7 @@
 		<div>
 			{input budget_type class => "budget-type", id => "budget_type"}
 			{input workers class => "workers" , id => "workers"}
-		
-			{input day }
-			{input month }
-			{input year }		
+			{input deadline}{errors deadline}
 		</div>
 
 		<div>{input description, class=>'description'}</div>

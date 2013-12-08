@@ -6,7 +6,9 @@ use Nette,
 	Nette\Application\UI\Form,
 	Nette\Application\UI\Control,
 	Nette\Utils\Strings,
+	Nette\Utils\Validators,
 	Nette\Image;
+use Taco\Nette\Forms\Controls\DateInput;
 
 class EditTaskControl extends BaseControl
 {
@@ -64,20 +66,8 @@ class EditTaskControl extends BaseControl
 			->setAttribute('placeholder', 'addTask.form.workers_required')
 			->setDefaultValue($task->workers);
 
-		$component->addSelect('day', 'day')
-			->setItems(array(1 => 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31))
-			->setDefaultValue(  date('j',$task->deadline->getTimeStamp()) )
-			->setAttribute('placeholder', 'addTask.form.day');
-
-		$component->addSelect('month')
-			->setItems(array( 1 => 1,2,3,4,5,6,7,8,9,10,11,12))
-			->setDefaultValue( date('n',$task->deadline->getTimeStamp()) )
-			->setAttribute('placeholder', 'addTask.form.month');
-
-		$component->addText('year')
-			->setDefaultValue(  date('Y',$task->deadline->getTimeStamp()) )
-			->setAttribute('size', 4)
-			->setAttribute('placeholder', 'addTask.form.year');
+		$component['deadline'] = new DateInput('Deadline:');
+		$component['deadline']->setDefaultValue($task->deadline);
 		
 		$component->addText('departments', 'addTask.form.department')
 			->setAttribute('placeholder', 'addTask.form.departments');
@@ -90,8 +80,8 @@ class EditTaskControl extends BaseControl
 		$component->addSubmit('submit', 'addTask.form.submit');
 		$component->addSubmit('cancel', 'addTask.form.cancel');
 
-		$component->onError[] 	= $this->processError;
-		$component->onSubmit[] = $this->processSubmitted;
+		//~ $component->onError[] 	= $this->processError;
+		$component->onSuccess[] = $this->processSubmitted;
 
 		return $component;
 	}
@@ -100,9 +90,9 @@ class EditTaskControl extends BaseControl
 
 	public function processError(Form $component)
 	{
-		if ($this->isAjax() ) {
-			$this->invalidateControl();
-		}
+		//~ if ($this->isAjax() ) {
+			//~ $this->invalidateControl();
+		//~ }
 	}
 
 
@@ -120,15 +110,10 @@ class EditTaskControl extends BaseControl
 		if ($component['submit']->isSubmittedBy()) {
 
 			$values['budget'] = self::calculateBudget($values);
-			$values['deadline'] = self::parseDate($values);
 			
 			foreach ($values as $key => $value) {
-				// if ($key == 'deadline') {
-				// 	$value = self::parseDateTime($value);
-				// }
-				
 				//	Exclude tags, upload, etc. from update
-				$exclude = array('tags', 'upload', 'departments', 'day', 'month', 'year');
+				$exclude = array('tags', 'upload', 'departments');
 				in_array( $key,  $exclude ) || empty($value) ?: $update[$key] = $value;
 			}
 
@@ -181,32 +166,6 @@ class EditTaskControl extends BaseControl
 	private static function parseTags($value)
 	{
 		return Strings::split($value, '~[,;]\s*~');
-	}
-
-
-
-	// /**
-	//  * @param string $value
-	//  * 
-	//  * @return DateTime
-	//  */
-	// private static function parseDateTime($value)
-	// {
-	// 	return \DateTime::createFromFormat('Y-m-d H:i:s', $value);
-	// }
-
-
-
-	/**
-	 * Form input date to desirable format
-	 * 
-	 * @param  array $values Form Values
-	 * 
-	 * @return Date
-	 */
-	private static function parseDate($values)
-	{
-		return date($values['year'] . '-' . $values['month'] . '-' . $values['day']);
 	}
 
 

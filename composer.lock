@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "6f1908e303d0d929c4060a346c9deb69",
+    "hash": "b13076558a861d8228d92492a7bf0f28",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -30,12 +30,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/facebook-php-sdk.git",
-                "reference": "13cf3abe223cd7251bf60b5f4758edea45151cc5"
+                "reference": "43a66ce32cec82ad5b00c28fc80b0e3e579cfbb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/facebook-php-sdk/zipball/13cf3abe223cd7251bf60b5f4758edea45151cc5",
-                "reference": "13cf3abe223cd7251bf60b5f4758edea45151cc5",
+                "url": "https://api.github.com/repos/facebook/facebook-php-sdk/zipball/43a66ce32cec82ad5b00c28fc80b0e3e579cfbb0",
+                "reference": "43a66ce32cec82ad5b00c28fc80b0e3e579cfbb0",
                 "shasum": ""
             },
             "require": {
@@ -68,7 +68,7 @@
                 "facebook",
                 "sdk"
             ],
-            "time": "2013-11-26 23:01:41"
+            "time": "2013-12-03 19:19:43"
         },
         {
             "name": "kdyby/translation",
@@ -174,12 +174,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/nette.git",
-                "reference": "fdfe211c6aa5779ebbce46049914ccd105cf7b93"
+                "reference": "e5213455dbe69c5db1e39743fb3d391575bc4424"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/nette/zipball/fdfe211c6aa5779ebbce46049914ccd105cf7b93",
-                "reference": "fdfe211c6aa5779ebbce46049914ccd105cf7b93",
+                "url": "https://api.github.com/repos/nette/nette/zipball/e5213455dbe69c5db1e39743fb3d391575bc4424",
+                "reference": "e5213455dbe69c5db1e39743fb3d391575bc4424",
                 "shasum": ""
             },
             "require": {
@@ -240,7 +240,7 @@
                 "neon",
                 "templating"
             ],
-            "time": "2013-12-03 00:29:25"
+            "time": "2013-12-05 15:46:51"
         },
         {
             "name": "paypal/rest-api-sdk-php",
@@ -337,17 +337,17 @@
         },
         {
             "name": "symfony/config",
-            "version": "v2.3.7",
+            "version": "v2.4.0",
             "target-dir": "Symfony/Component/Config",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config.git",
-                "reference": "1ced3d6c88b22df8cd1fe5209dbd6a89df362a29"
+                "reference": "16068f76c0af74968f3ad8fcec3eb90df1fde394"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/1ced3d6c88b22df8cd1fe5209dbd6a89df362a29",
-                "reference": "1ced3d6c88b22df8cd1fe5209dbd6a89df362a29",
+                "url": "https://api.github.com/repos/symfony/Config/zipball/16068f76c0af74968f3ad8fcec3eb90df1fde394",
+                "reference": "16068f76c0af74968f3ad8fcec3eb90df1fde394",
                 "shasum": ""
             },
             "require": {
@@ -357,7 +357,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3-dev"
+                    "dev-master": "2.4-dev"
                 }
             },
             "autoload": {
@@ -381,21 +381,21 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-19 09:45:20"
+            "time": "2013-11-26 16:40:27"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.3.7",
+            "version": "v2.4.0",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "2b8995042086c5552c94d33b5553c492e9cfc00e"
+                "reference": "79acd777762e81d0f3414ca25a602deeeb48240d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/2b8995042086c5552c94d33b5553c492e9cfc00e",
-                "reference": "2b8995042086c5552c94d33b5553c492e9cfc00e",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/79acd777762e81d0f3414ca25a602deeeb48240d",
+                "reference": "79acd777762e81d0f3414ca25a602deeeb48240d",
                 "shasum": ""
             },
             "require": {
@@ -404,7 +404,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3-dev"
+                    "dev-master": "2.4-dev"
                 }
             },
             "autoload": {
@@ -428,21 +428,21 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-19 09:45:20"
+            "time": "2013-11-16 15:13:54"
         },
         {
             "name": "symfony/translation",
-            "version": "v2.3.7",
+            "version": "v2.4.0",
             "target-dir": "Symfony/Component/Translation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "e0012648d7fc96d8f03bb7ca4d5e44f471a15417"
+                "reference": "0919e0fc709217f8c9e5049f2603419fdd4a34ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/e0012648d7fc96d8f03bb7ca4d5e44f471a15417",
-                "reference": "e0012648d7fc96d8f03bb7ca4d5e44f471a15417",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/0919e0fc709217f8c9e5049f2603419fdd4a34ff",
+                "reference": "0919e0fc709217f8c9e5049f2603419fdd4a34ff",
                 "shasum": ""
             },
             "require": {
@@ -459,7 +459,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3-dev"
+                    "dev-master": "2.4-dev"
                 }
             },
             "autoload": {
@@ -483,7 +483,46 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-11-13 21:27:40"
+            "time": "2013-11-28 10:27:26"
+        },
+        {
+            "name": "tacoberu/nette-form-controls",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tacoberu/nette-form-controls.git",
+                "reference": "de031d78d9eef0607e457abf84c17755be7bf9d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tacoberu/nette-form-controls/zipball/de031d78d9eef0607e457abf84c17755be7bf9d8",
+                "reference": "de031d78d9eef0607e457abf84c17755be7bf9d8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Taco": "libs/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Martin Takáč",
+                    "email": "martin@takac.name"
+                }
+            ],
+            "description": "Ext form controls for nette, DateInput, MultiUpload, and latte macros.",
+            "support": {
+                "source": "https://github.com/tacoberu/nette-form-controls/tree/master",
+                "issues": "https://github.com/tacoberu/nette-form-controls/issues"
+            },
+            "time": "2013-12-07 23:55:47"
         }
     ],
     "packages-dev": [
@@ -549,6 +588,7 @@
         "facebook/php-sdk": 20,
         "mikulas/nette-google-oauth2": 20,
         "kdyby/translation": 20,
+        "tacoberu/nette-form-controls": 20,
         "nette/tester": 20
     },
     "platform": {

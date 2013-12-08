@@ -28,6 +28,11 @@ nette:
 		reflection: discovered
 
 	mailer: %mailer%
+	
+	latte:
+		macros:
+			- Taco\Nette\Latte\FormMacros::install
+
 
 translation:
 	default: en
