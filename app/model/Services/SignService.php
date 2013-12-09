@@ -320,7 +320,7 @@ class SignService extends Nette\Object
 	 */
 	private function createUserWallet($userId)
 	{
-		$this->walletRepository->create(array(
+		$this->walletRepository->add(array(
 			'user_id' => $userId,
 			'balance' => 0
 		));

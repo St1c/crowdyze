@@ -3,8 +3,8 @@
 	<repository></repository>
 
 	<access>
-		<database type="admin" login="tacoberu" password="tacoberu" />
-		<database type="user" login="crowdyze" password="crowdyze" />
+		<database type="admin" login="root" password="root" />
+		<database type="user" login="root" password="root" />
 	</access>
 
 	<versioning-method>function</versioning-method>
@@ -14,7 +14,7 @@
 		<engine>mysql</engine>
 		<host>localhost</host>
 		<port>3306</port>
-		<database>crowdyze_dev</database>
+		<database>crowdyze</database>
 		<charset>utf8</charset>
 	</schema>
 
