@@ -2,12 +2,13 @@
 namespace Model\Services;
 
 use Nette,
-	Model\Repositories,
-	Utilities,
 	Nette\Database\Table\ActiveRow,
 	Nette\Http\FileUpload,
 	Nette\Utils\Validators,
 	Nette\Utils\Strings;
+use	Model\Repositories,
+	Model\Domains\Task,
+	Utilities;
 
 class TaskService extends Nette\Object
 {
@@ -21,20 +22,25 @@ class TaskService extends Nette\Object
 	/** @var accepted_taskRepository */
 	private $accepted_taskRepository;
 	
+	/** @var Repositories\Attachment_typeRepository */
+	private $attachmentTypeRepository;
+	
 	/** @var fileManager */
 	private $fileManager;
 
 
 
 	public function __construct(
-		Repositories\TaskRepository $taskRepository,
-		Repositories\TagRepository $tagRepository,
-		Repositories\Accepted_taskRepository $accepted_taskRepository,
-		Utilities\FileManager $fileManager 
-	) {
+			Repositories\TaskRepository $taskRepository,
+			Repositories\TagRepository $tagRepository,
+			Repositories\Accepted_taskRepository $accepted_taskRepository,
+			Repositories\Attachment_typeRepository $attachmentTypeRepository,
+			Utilities\FileManager $fileManager )
+	{
 		$this->taskRepository = $taskRepository;
 		$this->tagRepository = $tagRepository;
 		$this->accepted_taskRepository = $accepted_taskRepository;
+		$this->attachmentTypeRepository = $attachmentTypeRepository;
 		$this->fileManager = $fileManager;
 	}
 
@@ -72,7 +78,7 @@ class TaskService extends Nette\Object
  	 * 
  	 * @return Nette\Database\Table\ActiveRow
  	 */
-	public function update(ActiveRow $task, array $values)
+	public function update(Task $task, array $values)
 	{
 		return $this->taskRepository->update($task, $values);
 	}
@@ -81,10 +87,10 @@ class TaskService extends Nette\Object
 	/**
 	 * Store tags to the corresponding task, remove unused in task
 	 * 
-	 * @param ActiveRow $task
+	 * @param Task $task
 	 * @param array $tags
 	 */
-	public function storeTags(ActiveRow $task, array $tags)
+	public function storeTags(Task $task, array $tags)
 	{
 		$task->related('task_has_tag')->delete();
 
@@ -101,10 +107,10 @@ class TaskService extends Nette\Object
 	/**
 	 * Connect tag to the task id
 	 * 
-	 * @param ActiveRow
+	 * @param Task
 	 * @param int
 	 */
-	private function setTaskTag(ActiveRow $task, $tagId)
+	private function setTaskTag(Task $task, $tagId)
 	{
 		$task->related('task_has_tag')->insert(array(
 			'tag_id' => $tagId
@@ -115,10 +121,10 @@ class TaskService extends Nette\Object
 	/**
 	 * Assign task to only certain departments
 	 * 
-	 * @param ActiveRow
+	 * @param Task
 	 * @param array departments
 	 */
-	public function setDepartment(ActiveRow $task, array $departments)
+	public function setDepartment(Task $task, array $departments)
 	{
 		foreach ($departments as $department) {
 			$task->related('task_department')->insert(array(
@@ -128,20 +134,21 @@ class TaskService extends Nette\Object
 	}
 
 
+
 	/**
 	 * Save task attachments
 	 * 
-	 * @param ActiveRow
-	 * @param string unique task ID
+	 * @param Task
 	 * @param FileUpload
 	 */
-	public function saveAttachment(ActiveRow $task, $uuid, FileUpload $upload)
+	public function saveAttachment(Task $task, FileUpload $upload)
 	{
-		$path = $this->fileManager->saveFile('tasks', $uuid, $upload);
-
-		$task->related('task_attachment')->insert(array(
-			'path' => $path
-		));
+		$contentType = $this->attachmentTypeRepository->findContentType($upload->contentType);
+		$this->taskRepository->saveAttachment(
+				$task,
+				$this->fileManager->saveFile('tasks', $task->token, $upload),
+				$contentType
+				);
 	}
 
 

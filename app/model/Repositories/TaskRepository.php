@@ -1,10 +1,19 @@
 <?php
 namespace Model\Repositories;
 
+
 use Nette\Database\Table\ActiveRow;
+use Model\Domains\Task;
+
 
 class TaskRepository extends BaseRepository
 {
+
+	/**
+	 * Integrity constraint violation: 1062 Duplicate entry...
+	 */
+	const ERROR_DUPLICATE_ENTRY = 23000;
+
 
  	/** 
  	 * Create new task
@@ -18,17 +27,48 @@ class TaskRepository extends BaseRepository
 	}
 
 
+
 	/** 
  	 * Update task
  	 * 
- 	 * @param Nette\Database\Table\ActiveRow 	$task
- 	 * @param array 							$task update details
+ 	 * @param Task $task
+ 	 * @param array $task update details
+ 	 * 
  	 * @return Nette\Database\Table\ActiveRow
  	 */
-	public function update(ActiveRow $task, array $values)
+	public function update(Task $task, array $values)
 	{
-		return $task->update($values);
+		return $task->activeRow->update($values);
 	}
+
+
+
+	/**
+	 * @param Task
+	 * @param string $path
+	 * @param int $contentType
+	 */
+	public function saveAttachment(Task $task, $path, $contentType)
+	{
+		try {
+			$task->related('task_attachment')->insert(array(
+					'path' => $path,
+					'type_id' => $contentType,
+					));
+		}
+		catch (\PDOException $e) {
+			if (! self::ERROR_DUPLICATE_ENTRY == $e->getCode()) {
+				throw $e;
+			}
+
+			$task->related('task_attachment')->select('`task_attachment`.id')
+					->where('`task_attachment`.path', $path)
+					->update(array(
+							'type_id' => $contentType,
+							));
+		}
+	}
+
 
 
 	/**
@@ -51,7 +91,7 @@ class TaskRepository extends BaseRepository
 	 */
 	public function getTaskByToken($token)
 	{
-		return $this->getTable()->where('token', $token)->fetch();
+		return self::createTask($this->getTable()->where('token', $token)->fetch());
 	}
 
 
@@ -176,6 +216,28 @@ class TaskRepository extends BaseRepository
 			->select('task.*')
 			->where(':task_has_tag.tag.tag', $tag)
 			->count();
+	}
+
+
+
+	/**
+	 * @param Nette\Database\Table\ActiveRow $data
+	 */
+	private static function createTask(ActiveRow $data)
+	{
+		//~ dump($data);
+		$task = new Task($data/*, $data->id*/);
+		//~ $task->title = $data->title;
+		//~ $task->description = $data->description;
+		//~ $task->salary = $data->salary;
+		//~ $task->budgetType = $data->budget_type;
+		//~ $task->workers = $data->workers;
+		//~ $task->deadline = $data->deadline;
+		//~ $task->token = $data->token;
+		//~ $task->owner = $data->owner;
+		//~ dump($task);
+		//~ die('======');
+		return $task;
 	}
 
 }

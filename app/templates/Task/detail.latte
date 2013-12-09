@@ -46,10 +46,11 @@
 		<div class="attachments">
 			<h6>Attachments:</h6>
 			{foreach $task->related('task_attachment') as $attachment}
-				<div>
-				<a href="{$basePath}/{$attachment->path}">{$attachment->path}</a>
+				<div class="tail {$attachment->ref('type_id')->type}">
+				<a href="{$basePath}/{$attachment->path}"><?php echo basename($attachment->path); ?></a>
 				</div>
 			{/foreach}
+			<div style="clear:both"></div>
 		</div> 	
 
 	{/snippet}

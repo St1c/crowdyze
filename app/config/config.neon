@@ -53,6 +53,7 @@ services:
 	- Model\Repositories\Accepted_taskRepository
 	- Model\Repositories\TaskRepository
 	- Model\Repositories\Budget_typeRepository
+	- Model\Repositories\Attachment_typeRepository
 	- Model\Repositories\TagRepository
 	- Model\Repositories\Task_statusRepository
 	- Model\Repositories\Task_attachmentRepository

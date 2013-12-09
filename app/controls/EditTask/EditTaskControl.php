@@ -8,7 +8,11 @@ use Nette,
 	Nette\Utils\Strings,
 	Nette\Utils\Validators,
 	Nette\Image;
-use Taco\Nette\Forms\Controls\DateInput;
+use Taco\Nette\Forms\Controls\DateInput,
+	Taco\Nette\Forms\Controls\MultipleUploadControl,
+	Taco\Nette\Http\FileUploaded;
+use Symfony\Component\Filesystem\Filesystem;
+
 
 class EditTaskControl extends BaseControl
 {
@@ -34,6 +38,11 @@ class EditTaskControl extends BaseControl
 				$tags[] = $tag->tag->tag;
 			}
 		}
+		
+		$attachments = array();
+		foreach ($task->related('task_attachment') as $attachment) {
+			$attachments[] = new FileUploaded($attachment->path);
+		}
 
 		$component = new Form();
 
@@ -56,7 +65,7 @@ class EditTaskControl extends BaseControl
 		
 		$component->addSelect('budget_type', 'addTask.form.budget_type')
 			->setItems($budgetTypes, TRUE)
-			->setDefaultValue($task->budget_type);
+			->setDefaultValue($task->budgetType);
 
 		$component->addText('tags', 'addTask.form.tags')
 			->setAttribute('placeholder', 'addTask.form.tags')
@@ -72,11 +81,9 @@ class EditTaskControl extends BaseControl
 		$component->addText('departments', 'addTask.form.department')
 			->setAttribute('placeholder', 'addTask.form.departments');
 
-		// $component->addUpload('upload', 'addTask.form.upload', TRUE);
-		// 	// ->addCondition(Form::FILLED) // Image upload is not mandatory
-		// 	// ->addRule(Form::IMAGE, 'Image must be JPEG, PNG or GIF.')
-		// 	// ->addRule(Form::MAX_FILE_SIZE, 'Maximum file size is 64 kB', 64 * 1024 /* in bytes */);
-
+		$component['attachments'] = new MultipleUploadControl('attachments');
+		$component['attachments']->setDefaultValue($attachments);
+		
 		$component->addSubmit('submit', 'addTask.form.submit');
 		$component->addSubmit('cancel', 'addTask.form.cancel');
 
@@ -113,7 +120,7 @@ class EditTaskControl extends BaseControl
 			
 			foreach ($values as $key => $value) {
 				//	Exclude tags, upload, etc. from update
-				$exclude = array('tags', 'upload', 'departments');
+				$exclude = array('tags', 'upload', 'departments', 'attachments');
 				in_array( $key,  $exclude ) || empty($value) ?: $update[$key] = $value;
 			}
 
@@ -130,12 +137,14 @@ class EditTaskControl extends BaseControl
 			// 	$this->taskService->setDepartments($task, $values['departments']);
 			// }
 
-			// // Saving attachments
-			// foreach ($values['upload'] as $upload) {
-			// 	if ( $upload->isOk() ) {
-			// 		$this->taskService->saveAttachment($task, $taskUUID, $upload);
-			// 	}
-			// }
+			// Saving attachments
+			foreach ($values->attachments as $file) {
+				if ($file instanceof Nette\Http\FileUpload) {
+					$this->taskService->saveAttachment($task, $file);
+				}
+			}
+
+			$this->taskService->storeTags($task, $value);
 
 			$this->presenter->flashMessage('addTask.flashes.task_edited', 'alert-success');
 		}
