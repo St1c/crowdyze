@@ -72,6 +72,18 @@ class TaskRepository extends BaseRepository
 
 
 	/**
+	 * @param Task
+	 * @param string $path
+	 * @param int $contentType
+	 */
+	public function removeAttachment(Task $task, $path)
+	{
+		$task->related('task_attachment')->where('path', $path)->delete();
+	}
+
+
+
+	/**
 	 * Get single task
 	 * 
 	 * @param int $id Task ID

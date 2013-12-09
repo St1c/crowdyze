@@ -10,6 +10,7 @@ use Nette,
 	Nette\Image;
 use Taco\Nette\Forms\Controls\DateInput,
 	Taco\Nette\Forms\Controls\MultipleUploadControl,
+	Taco\Nette\Http\FileRemove,
 	Taco\Nette\Http\FileUploaded;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -141,6 +142,9 @@ class EditTaskControl extends BaseControl
 			foreach ($values->attachments as $file) {
 				if ($file instanceof Nette\Http\FileUpload) {
 					$this->taskService->saveAttachment($task, $file);
+				}
+				if ($file instanceof FileRemove) {
+					$this->taskService->removeAttachment($task, $file);
 				}
 			}
 

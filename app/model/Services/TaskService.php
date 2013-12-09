@@ -1,5 +1,7 @@
 <?php
+
 namespace Model\Services;
+
 
 use Nette,
 	Nette\Database\Table\ActiveRow,
@@ -9,6 +11,8 @@ use Nette,
 use	Model\Repositories,
 	Model\Domains\Task,
 	Utilities;
+use Taco\Nette\Http\FileRemove;
+
 
 class TaskService extends Nette\Object
 {
@@ -150,6 +154,23 @@ class TaskService extends Nette\Object
 				$contentType
 				);
 	}
+
+
+
+	/**
+	 * Remove task attachments
+	 * 
+	 * @param Task
+	 * @param FileRemove
+	 */
+	public function removeAttachment(Task $task, FileRemove $file)
+	{
+		$this->taskRepository->removeAttachment(
+				$task,
+				$this->fileManager->removeFile('tasks', $task->token, $file)
+				);
+	}
+
 
 
 	/**

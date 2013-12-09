@@ -8,6 +8,7 @@ use Nette,
 	Nette\Http\FileUpload;
 use Symfony\Component\Filesystem\Filesystem,
 	Symfony\Component\Filesystem\Exception\IOException;
+use Taco\Nette\Http\FileRemove;
 
 
 /** 
@@ -61,6 +62,36 @@ class FileManager extends Nette\Object
 			$this->getFilesystem()->chmod(dirname($dest), 0777);
 		}
 		$this->getFilesystem()->rename($file->temporaryFile, $dest, True);
+
+		return implode(DIRECTORY_SEPARATOR, array_slice($filename, 1));
+	}
+
+
+
+	/**
+	 * @param enum $category tasks | users
+	 * @param string $token Next level of directory.
+	 * @param FileUpload $file
+	 * 
+	 * @throws Nette\InvalidStateException
+	 * 
+	 * @return string
+	 */
+	public function removeFile($category, $token, FileRemove $file)
+	{
+		$this->assertCategory($category);
+		Validators::assert($token, 'string');
+
+		$filename = array (
+				rtrim($this->wwwDir, '\\/'),
+				trim($this->uploadFolders[$category], '\\/'),
+				trim((string) $token, '\\/'),
+				trim($file->getName(), '\\/'),
+				);
+		$file = implode(DIRECTORY_SEPARATOR, $filename);
+		if (file_exists($file)) {
+			$this->getFilesystem()->remove($file);
+		}
 
 		return implode(DIRECTORY_SEPARATOR, array_slice($filename, 1));
 	}
