@@ -13,6 +13,9 @@ class AddTaskControl extends BaseControl
 	/** @var Model\Services\TaskService @inject */
 	public $taskService;
 
+	/** @var Model\Services\UserService @inject */
+	public $userService;
+
 	/** @var Model\Repositories\Budget_typeRepository @inject */
 	public $budget_typeRepository;
 
@@ -51,16 +54,16 @@ class AddTaskControl extends BaseControl
 			->setAttribute('placeholder', 'addTask.form.tags');
 		
 		$addTask->addText('workers', 'addTask.form.workers_required')
-			->setDefaultValue(10)
+			->setDefaultValue(1)
 			->setAttribute('placeholder', 'addTask.form.workers_required');
 		
 		$addTask->addSelect('day', 'day')
-			->setItems(array(1 => 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31))
+			->setItems(array_combine(range(1,31), range(1,31)))
 			->setDefaultValue(  date('j',strtotime("+1 month")) )
 			->setAttribute('placeholder', 'addTask.form.day');
 
 		$addTask->addSelect('month')
-			->setItems(array( 1 => 1,2,3,4,5,6,7,8,9,10,11,12))
+			->setItems(array_combine(range(1, 12), range(1,12)))
 			->setDefaultValue( date('n',strtotime("+1 month")) )
 			->setAttribute('placeholder', 'addTask.form.month');
 
@@ -98,41 +101,22 @@ class AddTaskControl extends BaseControl
 
 	public function processSubmitted(Form $addTask)
 	{	
-		$user_id 		= $this->presenter->getUser()->id;
-		$formValues 	= $addTask->getValues(TRUE); // TRUE = get values as an ordinary array
-		$taskUUID		= uniqid();
+		$user_id 	= $this->presenter->getUser()->id;
+		$form 		= $addTask->getValues(TRUE); // TRUE = get values as an ordinary array
+		$taskUUID	= uniqid();
 
 		try {
 			// Saving task details
-			
-			// Convert date to TIMESTAMP SQL format
-			$formValues['deadline'] = self::parseDate($formValues);
-			$formValues['budget'] 	= self::calculateBudget($formValues);
+			$form = $this->saveTaskDetails($form);
 
-			$task = $this->taskService->createTask($user_id, $formValues);
-
-			// Saving tags
-			if ( !empty($formValues['tags']) ) {
-				$this->taskService->storeTags($task, $formValues['tags']);
-			}
-
-			// Saving departments 
-			if ( !empty($formValues['departments']) ) {
-				$this->taskService->setDepartments($task, $formValues['departments']);
-			}
-
-			// Saving attachments
-			// foreach ($formValues['upload'] as $upload) {
-			// 	if ( $upload->isOk() ) {
-			// 		$this->taskService->saveAttachment($task, $taskUUID, $upload);
-			// 	}
-			// }
+			// Allocate money for the task from user's wallet
+			$this->userService->reserveBudget($form['budget']);
 
 			$this->presenter->flashMessage('addTask.flashes.task_added', 'alert-success');
 			$this->presenter->redirect('Homepage:');
 
 		} catch (Nette\InvalidArgumentException $e) {
-			
+			$this->presenter->flashMessage($e->getMessage(), 'alert-danger');
 			if ($this->presenter->isAjax() ) {
 				$this->presenter->invalidateControl();
 			}
@@ -140,6 +124,37 @@ class AddTaskControl extends BaseControl
 		}
 	}
 
+	/**
+	 * Save task details 
+	 * 
+	 * @param  Form $form
+	 */
+	private function saveTaskDetails($form)
+	{
+
+			// Convert date to TIMESTAMP SQL format
+			$form['deadline'] 	= self::parseDate($form);
+			$form['budget'] 	= self::calculateBudget($form);
+
+			$task = $this->taskService->createTask($user_id, $form);
+
+			// Saving tags
+			if ( !empty($form['tags']) ) {
+				$this->taskService->storeTags($task, $form['tags']);
+			}
+
+			// Saving departments 
+			if ( !empty($form['departments']) ) {
+				$this->taskService->setDepartments($task, $form['departments']);
+			}
+
+			// Saving attachments
+			// foreach ($form['upload'] as $upload) {
+			// 	if ( $upload->isOk() ) {
+			// 		$this->taskService->saveAttachment($task, $taskUUID, $upload);
+			// 	}
+			// }
+	}
 
 
 	/**
@@ -179,12 +194,16 @@ class AddTaskControl extends BaseControl
 	 * Form input date to desirable format
 	 * 
 	 * @param  array $values Form Values
-	 * 
+	 *
+	 * @throws InvalidArgumentException If the date is not valid
 	 * @return Date
 	 */
 	private static function parseDate($values)
 	{
-		return date($formValues['year'] . '-' . $formValues['month'] . '-' . $formValues['day']);
+		if (!checkdate($values['month'], $values['day'], $values['year'])) {
+			throw new Nette\InvalidArgumentException("Not a valid date", 1);
+		}
+		return date($values['year'] . '-' . $values['month'] . '-' . $values['day']);
 	}
 
 

@@ -10,9 +10,11 @@ class Accepted_taskRepository extends BaseRepository
 
 	/**
 	 * Insert accepted task to DB
+	 * 
 	 * @param int User ID
 	 * @param int Task ID
-	 * @param int 1=accepted|2=finished|3=satisfied|4=unsatisfied
+	 * @param int 1=accepted|2=pending|3=satisfied|4=unsatisfied
+	 * 
 	 * @return ActiveRow
 	 */
 	public function insert($userId, $taskId, $status)
@@ -28,8 +30,10 @@ class Accepted_taskRepository extends BaseRepository
 
 	/**
 	 * Get status of the accepted task
+	 * 
 	 * @param int User ID
 	 * @param int Task ID
+	 * 
 	 * @return string 'accepted'|'finished'|'satisfied'|'unsatisfied'|FALSE
 	 */
 	public function getStatusById($userId, $taskId)
@@ -43,7 +47,9 @@ class Accepted_taskRepository extends BaseRepository
 
 	/**
 	 * Get accpeted user's task
+	 * 
 	 * @param  int $userId 	User's ID
+	 * 
 	 * @return ActiveRow 	User's accepted unfinished tasks
 	 */
 	public function getAcceptedByUser($userId)
@@ -57,7 +63,9 @@ class Accepted_taskRepository extends BaseRepository
 
 	/**
 	 * Get user's finished tasks 
+	 * 
 	 * @param  int $userId 	User ID
+	 * 
 	 * @return ActiveRow 	User's finished tasks
 	 */
 	public function getFinishedByUser($userId)
@@ -71,7 +79,9 @@ class Accepted_taskRepository extends BaseRepository
 
 	/**
 	 * Get user's satisfied tasks - paid
+	 * 
 	 * @param  int $userId 	User ID
+	 * 
 	 * @return ActiveRow 	User's satisfied tasks
 	 */
 	public function getSatisfiedByUser($userId)
@@ -85,7 +95,9 @@ class Accepted_taskRepository extends BaseRepository
 
 	/**
 	 * Get user's unsatisfied tasks - not paid
+	 * 
 	 * @param  int $userId 	User ID
+	 * 
 	 * @return ActiveRow 	User's unsatisfied tasks
 	 */
 	public function getUnsatisfiedByUser($userId)
@@ -99,7 +111,9 @@ class Accepted_taskRepository extends BaseRepository
 
 	/**
 	 * Number of task assigned to a given user
+	 * 
 	 * @param  int 	$userId User's Id
+	 * 
 	 * @return int  Resulting number
 	 */
 	public function getUsersNumberOfAssignedTasks($userId)
@@ -112,8 +126,10 @@ class Accepted_taskRepository extends BaseRepository
 
 	/**
 	 * Obtain info about state for the current task - accepted/not accepted by current user
+	 * 
 	 * @param  int  $taskId
 	 * @param  int  $userId
+	 * 
 	 * @return boolean TRUE|FALSE
 	 */
 	public function isAccepted($taskId, $userId)

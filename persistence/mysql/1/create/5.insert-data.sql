@@ -12,21 +12,46 @@ INSERT INTO `budget_type` (`id`, `budget_type`) VALUES (2, 'Pay best 10 users');
 INSERT INTO `budget_type` (`id`, `budget_type`) VALUES (3, 'Pay all');
 
 
+
+-- -----------------------------------------------------
+-- Data for table `crowdyze`.`task_status`
+-- -----------------------------------------------------
+INSERT INTO `task_status` (`id`, `status`, `description`) VALUES (0, 'Not approved', 'New task, before admin approval');
+INSERT INTO `task_status` (`id`, `status`, `description`) VALUES (1, 'Approved', 'Active task, no workers yet, editing possible');
+INSERT INTO `task_status` (`id`, `status`, `description`) VALUES (2, 'Paused', 'Paused task, workers assigned, editing possible');
+INSERT INTO `task_status` (`id`, `status`, `description`) VALUES (3, 'Locked', 'Active task, workers assigned, no editing');
+INSERT INTO `task_status` (`id`, `status`, `description`) VALUES (4, 'Finished', 'Finished taks');
+INSERT INTO `task_status` (`id`, `status`, `description`) VALUES (5, 'Cancelled', 'Cancelled task');
+INSERT INTO `task_status` (`id`, `status`, `description`) VALUES (6, 'Banned', 'Disapproved task by admin');
+
+
+
 -- -----------------------------------------------------
 -- Data for table `attachment_type`
 -- -----------------------------------------------------
 INSERT INTO `attachment_type` (`id`, `type`) VALUES (1, 'image');
-INSERT INTO `attachment_type` (`id`, `type`) VALUES (2, 'file');
+INSERT INTO `attachment_type` (`id`, `type`) VALUES (2, 'doc');
+INSERT INTO `attachment_type` (`id`, `type`) VALUES (3, 'file');
 
 
 
 -- -----------------------------------------------------
--- Data for table `task_status`
+-- Data for table `accepted_status`
 -- -----------------------------------------------------
-INSERT INTO `task_status` (`id`, `status`) VALUES (1, 'accepted');
-INSERT INTO `task_status` (`id`, `status`) VALUES (2, 'finished');
-INSERT INTO `task_status` (`id`, `status`) VALUES (3, 'declined');
-INSERT INTO `task_status` (`id`, `status`) VALUES (4, 'passed');
+INSERT INTO `accepted_status` (`id`, `status`) VALUES (1, 'accepted');
+INSERT INTO `accepted_status` (`id`, `status`) VALUES (2, 'pending');
+INSERT INTO `accepted_status` (`id`, `status`) VALUES (3, 'satisfied');
+INSERT INTO `accepted_status` (`id`, `status`) VALUES (4, 'unsatisfied');
+
+
+
+-- -----------------------------------------------------
+-- Data for table `transfer_status`
+-- -----------------------------------------------------
+INSERT INTO `transfer_status` (`id`, `status`) VALUES (1, 'successfull');
+INSERT INTO `transfer_status` (`id`, `status`) VALUES (2, 'failed');
+INSERT INTO `transfer_status` (`id`, `status`) VALUES (3, 'not-finished');
+
 
 
 -- -----------------------------------------------------

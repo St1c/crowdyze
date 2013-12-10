@@ -60,9 +60,9 @@ services:
 	- Model\Repositories\CommentRepository
 	- Model\Repositories\ResultRepository
 	- Model\Repositories\Result_attachmentRepository
-	- Model\Repositories\Result_status_typeRepository
 	- Model\Repositories\Department_nameRepository
 	- Model\Repositories\WalletRepository
+	- Model\Repositories\ReserveRepository
 	- Model\Repositories\EmailRepository
 	- Model\Repositories\PollRepository
 	- Model\Repositories\QuestionRepository
