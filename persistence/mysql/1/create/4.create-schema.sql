@@ -98,7 +98,7 @@ CREATE TABLE `task` (
   `workers` INT NULL,
   `deadline` TIMESTAMP NULL,
   `promotion` INT NULL,
-  `status` TINYINT NOT NULL,
+  `status` TINYINT NOT NULL DEFAULT 0,
   `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
