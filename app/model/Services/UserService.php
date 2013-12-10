@@ -24,6 +24,9 @@ class UserService extends Nette\Object
 	/** @var Repositories\WalletRepository */
 	private $walletRepository;
 	
+	/** @var Repositories\ReserveRepository */
+	private $reserveRepository;
+
 	/** @var fileManager */
 	private $fileManager;
 	
@@ -37,6 +40,7 @@ class UserService extends Nette\Object
 		Repositories\User_detailsRepository $user_detailsRepository,
 		Repositories\Accepted_taskRepository $accepted_taskRepository,
 		Repositories\WalletRepository $walletRepository,
+		Repositories\ReserveRepository $reserveRepository,
 		Utilities\FileManager $fileManager,
 		Utilities\MailerService $mailerService
 	) {
@@ -132,8 +136,24 @@ class UserService extends Nette\Object
 	public function addBalance($userId, $amount)
 	{	
 		$wallet = $this->walletRepository->get(array('user_id' => $userId));
-		$credit = $wallet->balance + $amount;
-		return $this->walletRepository->update($wallet, array('balance' => $credit));
+		$balance = $wallet->balance + $amount;
+		return $this->walletRepository->update($wallet, array('balance' => $balance));
+	}
+
+
+	public function reserveBudget($userId, $taskId, $amount)
+	{
+		$wallet = $this->walletRepository->get(array('user_id' => $userId));
+		$reserve = $this->reserveRepository->get(array('task_id' => $taskId));
+		$balance = $wallet->balance - $amount;
+
+		if ($balance < 0) {
+			throw new Exception("Insuficient credit in your wallet", 1);
+		}
+
+		return $this->walletRepository->update($wallet, array(
+			'balance' => $balance
+		));
 	}
 
 
