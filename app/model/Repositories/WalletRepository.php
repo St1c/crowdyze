@@ -67,6 +67,6 @@ class WalletRepository extends BaseRepository
 	 */
 	public function getBalance($userId)
 	{
-		return $this->getTable()->select('balance')->where('user_id', $userId)->fetch()->balance;
+		return ($row = $this->getTable()->select('balance')->where('user_id', $userId)->fetch()) ? $row->balance : 0;
 	}
 }
