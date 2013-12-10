@@ -40,13 +40,13 @@ class LoginFormControl extends BaseControl
 		try {
 			$this->presenter->getUser()->setExpiration('+15 days', FALSE);
 			$this->presenter->getUser()->login('email', $values);						
-
 			// Authentication successful, login in!
 			$this->presenter->flashMessage('login.flashes.login_success', 'alert-success');
 			// $this->presenter->restoreRequest($this->presenter->backlink);
 			$this->presenter->redirect('Homepage:');
 
 		} catch (\Nette\Security\AuthenticationException $e) {
+			$this->presenter->template->register = false;
 			$signIn->addError($e->getMessage(), 'alert-error');
 		}
 
