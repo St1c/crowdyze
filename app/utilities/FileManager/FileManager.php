@@ -8,7 +8,7 @@ use Nette,
 	Nette\Http\FileUpload;
 use Symfony\Component\Filesystem\Filesystem,
 	Symfony\Component\Filesystem\Exception\IOException;
-use Taco\Nette\Http\FileRemove;
+use Taco\Nette\Http\FileUploaded;
 
 
 /** 
@@ -44,7 +44,7 @@ class FileManager extends Nette\Object
 	 * 
 	 * @return string
 	 */
-	public function saveFile($category, $token, FileUpload $file)
+	public function saveFile($category, $token, FileUploaded $file)
 	{
 		$this->assertCategory($category);
 		Validators::assert($token, 'string');
@@ -53,7 +53,7 @@ class FileManager extends Nette\Object
 				rtrim($this->wwwDir, '\\/'),
 				trim($this->uploadFolders[$category], '\\/'),
 				trim((string) $token, '\\/'),
-				trim($file->getSanitizedName(), '\\/'),
+				trim($file->name, '\\/'),
 				);
 		$dest = implode(DIRECTORY_SEPARATOR, $filename);
 		$dir = dirname($dest);
@@ -77,7 +77,7 @@ class FileManager extends Nette\Object
 	 * 
 	 * @return string
 	 */
-	public function removeFile($category, $token, FileRemove $file)
+	public function removeFile($category, $token, FileUploaded $file)
 	{
 		$this->assertCategory($category);
 		Validators::assert($token, 'string');

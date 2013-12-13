@@ -140,11 +140,16 @@ class EditTaskControl extends BaseControl
 
 			// Saving attachments
 			foreach ($values->attachments as $file) {
-				if ($file instanceof Nette\Http\FileUpload) {
-					$this->taskService->saveAttachment($task, $file);
+				if ($file instanceof FileUploaded) {
+					if ($file->isRemove()) {
+						$this->taskService->removeAttachment($task, $file);
+					}
+					else {
+						$this->taskService->saveAttachment($task, $file);
+					}
 				}
-				if ($file instanceof FileRemove) {
-					$this->taskService->removeAttachment($task, $file);
+				else {
+					throw new \LogicException('Invalid type of attachment.');
 				}
 			}
 

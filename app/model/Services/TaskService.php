@@ -11,7 +11,7 @@ use Nette,
 use	Model\Repositories,
 	Model\Domains\Task,
 	Utilities;
-use Taco\Nette\Http\FileRemove;
+use Taco\Nette\Http\FileUploaded;
 
 
 class TaskService extends Nette\Object
@@ -146,12 +146,12 @@ class TaskService extends Nette\Object
 	 * @param Task
 	 * @param FileUpload
 	 */
-	public function saveAttachment(Task $task, FileUpload $upload)
+	public function saveAttachment(Task $task, FileUploaded $file)
 	{
-		$contentType = $this->attachmentTypeRepository->findContentType($upload->contentType);
+		$contentType = $this->attachmentTypeRepository->findContentType($file->contentType);
 		$this->taskRepository->saveAttachment(
 				$task,
-				$this->fileManager->saveFile('tasks', $task->token, $upload),
+				$this->fileManager->saveFile('tasks', $task->token, $file),
 				$contentType
 				);
 	}
@@ -164,7 +164,7 @@ class TaskService extends Nette\Object
 	 * @param Task
 	 * @param FileRemove
 	 */
-	public function removeAttachment(Task $task, FileRemove $file)
+	public function removeAttachment(Task $task, FileUploaded $file)
 	{
 		$this->taskRepository->removeAttachment(
 				$task,

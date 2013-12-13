@@ -2,7 +2,8 @@
 namespace Model\Repositories;
 
 
-use Nette\Database\Table\ActiveRow;
+use Nette\Database\Table\ActiveRow,
+	Nette\Utils\Validators;
 use Model\Domains\Task;
 
 
@@ -50,6 +51,7 @@ class TaskRepository extends BaseRepository
 	 */
 	public function saveAttachment(Task $task, $path, $contentType)
 	{
+		//~ Validators::assert($contentType, 'int');
 		try {
 			$task->related('task_attachment')->insert(array(
 					'path' => $path,

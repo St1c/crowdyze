@@ -170,22 +170,22 @@
         },
         {
             "name": "nette/nette",
-            "version": "dev-master",
+            "version": "v2.1.0-RC2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/nette.git",
-                "reference": "40e7b8f40054d5db2d4a08b23bff6361fec1dd1c"
+                "reference": "b186298772c992cfabb3a8825de9630bc3a20410"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/nette/zipball/40e7b8f40054d5db2d4a08b23bff6361fec1dd1c",
-                "reference": "40e7b8f40054d5db2d4a08b23bff6361fec1dd1c",
+                "url": "https://api.github.com/repos/nette/nette/zipball/b186298772c992cfabb3a8825de9630bc3a20410",
+                "reference": "b186298772c992cfabb3a8825de9630bc3a20410",
                 "shasum": ""
             },
             "require": {
                 "ext-iconv": "*",
                 "ext-tokenizer": "*",
-                "php": ">=5.3.0"
+                "php": ">=5.3.1"
             },
             "require-dev": {
                 "nette/tester": "@dev"
@@ -240,7 +240,7 @@
                 "neon",
                 "templating"
             ],
-            "time": "2013-12-09 18:23:17"
+            "time": "2013-12-11 17:56:48"
         },
         {
             "name": "paypal/rest-api-sdk-php",
@@ -491,12 +491,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tacoberu/nette-form-controls.git",
-                "reference": "17f4f1c364840c55fe50b16a61b788546c9d6d94"
+                "reference": "81ccb868443c9ca88483f1d41a1bd2dbd7f09ee3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tacoberu/nette-form-controls/zipball/17f4f1c364840c55fe50b16a61b788546c9d6d94",
-                "reference": "17f4f1c364840c55fe50b16a61b788546c9d6d94",
+                "url": "https://api.github.com/repos/tacoberu/nette-form-controls/zipball/81ccb868443c9ca88483f1d41a1bd2dbd7f09ee3",
+                "reference": "81ccb868443c9ca88483f1d41a1bd2dbd7f09ee3",
                 "shasum": ""
             },
             "require": {
@@ -522,7 +522,7 @@
                 "source": "https://github.com/tacoberu/nette-form-controls/tree/master",
                 "issues": "https://github.com/tacoberu/nette-form-controls/issues"
             },
-            "time": "2013-12-09 19:25:41"
+            "time": "2013-12-13 00:01:44"
         }
     ],
     "packages-dev": [
@@ -532,12 +532,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tester.git",
-                "reference": "b1bc89b634376154214552d3e984364e24855573"
+                "reference": "6a66b714cf9eb23548af2418085bed30daea8903"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tester/zipball/b1bc89b634376154214552d3e984364e24855573",
-                "reference": "b1bc89b634376154214552d3e984364e24855573",
+                "url": "https://api.github.com/repos/nette/tester/zipball/6a66b714cf9eb23548af2418085bed30daea8903",
+                "reference": "6a66b714cf9eb23548af2418085bed30daea8903",
                 "shasum": ""
             },
             "require": {
@@ -576,7 +576,7 @@
                 "testing",
                 "unit"
             ],
-            "time": "2013-11-18 00:03:02"
+            "time": "2013-12-11 17:10:48"
         }
     ],
     "aliases": [
