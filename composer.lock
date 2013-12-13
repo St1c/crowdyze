@@ -170,22 +170,22 @@
         },
         {
             "name": "nette/nette",
-            "version": "v2.1.0-RC2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/nette.git",
-                "reference": "b186298772c992cfabb3a8825de9630bc3a20410"
+                "reference": "40e7b8f40054d5db2d4a08b23bff6361fec1dd1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/nette/zipball/b186298772c992cfabb3a8825de9630bc3a20410",
-                "reference": "b186298772c992cfabb3a8825de9630bc3a20410",
+                "url": "https://api.github.com/repos/nette/nette/zipball/40e7b8f40054d5db2d4a08b23bff6361fec1dd1c",
+                "reference": "40e7b8f40054d5db2d4a08b23bff6361fec1dd1c",
                 "shasum": ""
             },
             "require": {
                 "ext-iconv": "*",
                 "ext-tokenizer": "*",
-                "php": ">=5.3.1"
+                "php": ">=5.3.0"
             },
             "require-dev": {
                 "nette/tester": "@dev"
@@ -240,7 +240,7 @@
                 "neon",
                 "templating"
             ],
-            "time": "2013-12-11 17:56:48"
+            "time": "2013-12-09 18:23:17"
         },
         {
             "name": "paypal/rest-api-sdk-php",
@@ -532,12 +532,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tester.git",
-                "reference": "6a66b714cf9eb23548af2418085bed30daea8903"
+                "reference": "b1bc89b634376154214552d3e984364e24855573"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tester/zipball/6a66b714cf9eb23548af2418085bed30daea8903",
-                "reference": "6a66b714cf9eb23548af2418085bed30daea8903",
+                "url": "https://api.github.com/repos/nette/tester/zipball/b1bc89b634376154214552d3e984364e24855573",
+                "reference": "b1bc89b634376154214552d3e984364e24855573",
                 "shasum": ""
             },
             "require": {
@@ -576,7 +576,7 @@
                 "testing",
                 "unit"
             ],
-            "time": "2013-12-11 17:10:48"
+            "time": "2013-11-18 00:03:02"
         }
     ],
     "aliases": [
