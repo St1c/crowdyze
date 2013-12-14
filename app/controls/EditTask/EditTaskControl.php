@@ -5,6 +5,8 @@ use Nette,
 	Nette\Application\UI,
 	Nette\Application\UI\Form,
 	Nette\Application\UI\Control,
+	Nette\Application\Responses,
+	Nette\Forms\Controls\SubmitButton,
 	Nette\Utils\Strings,
 	Nette\Utils\Validators,
 	Nette\Image;
@@ -25,7 +27,6 @@ class EditTaskControl extends BaseControl
 	
 	/** @var Model\Repositories\Department_nameRepository @inject */
 	public $department_nameRepository;
-
 
 
 	public function createComponentEditTaskForm()
@@ -84,6 +85,7 @@ class EditTaskControl extends BaseControl
 
 		$component['attachments'] = new MultipleUploadControl('attachments');
 		$component['attachments']->setDefaultValue($attachments);
+		$component->addSubmit('attachmentPreload', 'Preload');
 		
 		$component->addSubmit('submit', 'addTask.form.submit');
 		$component->addSubmit('cancel', 'addTask.form.cancel');
@@ -107,15 +109,18 @@ class EditTaskControl extends BaseControl
 
 	public function processSubmitted(Form $component)
 	{
-		$values = $component->getValues();
+		if ($this->presenter->isAjax()) {
+			$this->presenter->invalidateControl('task');
+		}
 
 		if ($component['cancel']->isSubmittedBy()) {
-			// if ($this->presenter->isAjax()) {
-				// $this->presenter->invalidateControl('task');
-			// }
+			$this->presenter->redirect('detail', array('token' => $this->presenter->getParameter('token')));
 		}
+
+		if ($component['attachmentPreload']->isSubmittedBy()) {}
 		
 		if ($component['submit']->isSubmittedBy()) {
+			$values = $component->getValues();
 
 			$values['budget'] = self::calculateBudget($values);
 			
@@ -139,6 +144,7 @@ class EditTaskControl extends BaseControl
 			// }
 
 			// Saving attachments
+			// !!!! Je rozdíl mezi soubory, které jsme nahráli do transakce, ale neuložili, a soubory, které jsme uložili, a teď je chcem smazat.
 			foreach ($values->attachments as $file) {
 				if ($file instanceof FileUploaded) {
 					if ($file->isRemove()) {
@@ -156,14 +162,8 @@ class EditTaskControl extends BaseControl
 			$this->taskService->storeTags($task, $value);
 
 			$this->presenter->flashMessage('addTask.flashes.task_edited', 'alert-success');
+			$this->presenter->redirect('detail', array('token' => $this->presenter->getParameter('token')));
 		}
-
-
-		if ($this->presenter->isAjax()) {
-			$this->presenter->invalidateControl('task');
-		}
-		
-		$this->presenter->redirect('detail', array('token' => $this->presenter->getParameter('token')));
 	}
 
 
