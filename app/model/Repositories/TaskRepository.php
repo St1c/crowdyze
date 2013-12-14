@@ -24,7 +24,7 @@ class TaskRepository extends BaseRepository
  	 */
 	public function create(array $task)
 	{
-		return $this->getTable()->insert($task);
+		return self::createTask($this->getTable()->insert($task));
 	}
 
 
@@ -105,7 +105,9 @@ class TaskRepository extends BaseRepository
 	 */
 	public function getTaskByToken($token)
 	{
-		return self::createTask($this->getTable()->where('token', $token)->fetch());
+		if ($row = $this->getTable()->where('token', $token)->fetch()) {
+			return self::createTask($row);
+		}
 	}
 
 

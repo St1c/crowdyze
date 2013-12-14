@@ -33,6 +33,8 @@ class WalletRepository extends BaseRepository
 		return $this->getTable()->where($by)->fetch();
 	}
 
+
+
 	/**
 	 * Update data in DB
 	 * 

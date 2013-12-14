@@ -12,24 +12,23 @@ use Nette,
 	Nette\Image;
 use Taco\Nette\Forms\Controls\DateInput,
 	Taco\Nette\Forms\Controls\MultipleUploadControl,
-	Taco\Nette\Http\FileRemove,
 	Taco\Nette\Http\FileUploaded;
-use Symfony\Component\Filesystem\Filesystem;
 
 
 class EditTaskControl extends BaseControl
 {
 	/** @var Model\Services\TaskService @inject */
 	public $taskService;
-	
+
 	/** @var Model\Repositories\Budget_typeRepository @inject */
 	public $budget_typeRepository;
-	
+
 	/** @var Model\Repositories\Department_nameRepository @inject */
 	public $department_nameRepository;
 
 
-	public function createComponentEditTaskForm()
+
+	public function createComponentEditTaskForm($name)
 	{
 		$budgetTypes = $this->budget_typeRepository->getAll();
 		$departments = $this->department_nameRepository->getAll($this->presenter->getUser()->id);
@@ -46,8 +45,7 @@ class EditTaskControl extends BaseControl
 			$attachments[] = new FileUploaded($attachment->path);
 		}
 
-		$component = new Form();
-
+		$component = new Form($this, $name);
 		$component->setTranslator($this->parent->translator);
 
 		$component->addText('title', 'addTask.form.title')
@@ -100,8 +98,8 @@ class EditTaskControl extends BaseControl
 
 	public function processError(Form $component)
 	{
-		//~ if ($this->isAjax() ) {
-			//~ $this->invalidateControl();
+		//~ if ($this->presenter->isAjax() ) {
+			//~ $this->presenter->invalidateControl();
 		//~ }
 	}
 
@@ -118,18 +116,20 @@ class EditTaskControl extends BaseControl
 		}
 
 		if ($component['attachmentPreload']->isSubmittedBy()) {}
-		
-		if ($component['submit']->isSubmittedBy()) {
-			$values = $component->getValues();
 
+		if ($component['submit']->isSubmittedBy()) {
+
+			//	Reformat
+			$values = $component->getValues();
 			$values['budget'] = self::calculateBudget($values);
 			
 			foreach ($values as $key => $value) {
-				//	Exclude tags, upload, etc. from update
-				$exclude = array('tags', 'upload', 'departments', 'attachments');
+				//	Exclude tags, etc. from update
+				$exclude = array('tags', 'departments', 'attachments');
 				in_array( $key,  $exclude ) || empty($value) ?: $update[$key] = $value;
 			}
 
+			//	Store
 			$task = $this->taskService->getTaskByToken($this->presenter->getParameter('token'));
 			$this->taskService->update($task, $update);
 
@@ -138,13 +138,12 @@ class EditTaskControl extends BaseControl
 				$this->taskService->storeTags($task, $value);
 			}
 
-			// // Saving departments 
+			// Saving departments 
 			// if ( !empty($values['departments']) ) {
 			// 	$this->taskService->setDepartments($task, $values['departments']);
 			// }
 
 			// Saving attachments
-			// !!!! Je rozdíl mezi soubory, které jsme nahráli do transakce, ale neuložili, a soubory, které jsme uložili, a teď je chcem smazat.
 			foreach ($values->attachments as $file) {
 				if ($file instanceof FileUploaded) {
 					if ($file->isRemove()) {
@@ -158,8 +157,6 @@ class EditTaskControl extends BaseControl
 					throw new \LogicException('Invalid type of attachment.');
 				}
 			}
-
-			$this->taskService->storeTags($task, $value);
 
 			$this->presenter->flashMessage('addTask.flashes.task_edited', 'alert-success');
 			$this->presenter->redirect('detail', array('token' => $this->presenter->getParameter('token')));
@@ -199,9 +196,10 @@ class EditTaskControl extends BaseControl
 	 * Calclate the final costs for the campaign
 	 * 
 	 * @param  array $values Form values
+	 * 
 	 * @return int           Final budget
 	 */
-	private function calculateBudget($values)
+	private static function calculateBudget($values)
 	{
 		$commissionPerc = 1.05;
 		$commissionFix 	= 0.50;

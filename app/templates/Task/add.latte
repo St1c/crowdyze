@@ -1,3 +1,14 @@
+{block #head}
+    <script type="application/javascript">
+	$(document).ready(function () {
+		$('.file-uploader').filePreuploader({
+			autoSubmitBy: 'input[name="attachmentPreload"]',
+			snippet: '.attachments'
+		});
+	});
+    </script>
+{/block}
+
 {block #content}
 	<div class="notifier">
 		{if $activeJobs > 0}

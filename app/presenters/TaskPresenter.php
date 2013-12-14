@@ -58,7 +58,10 @@ class TaskPresenter extends BaseSignedPresenter
 
 	public function actionDetail($token)
 	{
-		$task = self::redirectIfEmpty($this->taskService->getTaskByToken($token), $token);
+		$task = $this->redirectIfEmpty(
+				$this->taskService->getTaskByToken(
+						$this->redirectIfEmpty($token, $token)), 
+				$token);
 		$this->template->task = $task;
 		$this->template->userId = $this->getUser()->id;
 		$this->template->accepted = $this->taskService->isAccepted($task->token, $this->getUser()->id);
@@ -84,7 +87,7 @@ class TaskPresenter extends BaseSignedPresenter
 	 */
 	public function actionEdit($token)
 	{
-		$task = self::redirectIfEmpty($this->taskService->getTaskByToken($token), $token);
+		$task = $this->redirectIfEmpty($this->taskService->getTaskByToken($this->redirectIfEmpty($token, $token)), $token);
 		$this->template->task = $task;
 		$this->template->userId = $this->getUser()->id;
 		$this->template->accepted = $this->taskService->isAccepted($task->token, $this->getUser()->id);
@@ -147,7 +150,7 @@ class TaskPresenter extends BaseSignedPresenter
 	 * @param $value Asserted value.
 	 * @param $token Added value for message.
 	 */
-	private static function redirectIfEmpty($value, $token)
+	private function redirectIfEmpty($value, $token)
 	{
 		if (!$value) {
 			$this->flashMessage("Task with ID: $token was not found, or removed...");

@@ -6,7 +6,8 @@ use Nette,
 	Nette\Database\Table\ActiveRow,
 	Nette\Http\FileUpload,
 	Nette\Utils\Strings,
-	Model\Repositories,
+	Nette\Utils\Validators;
+use	Model\Repositories,
 	Utilities;
 
 class UserService extends Nette\Object
@@ -36,20 +37,21 @@ class UserService extends Nette\Object
 
 
 	public function __construct(
-		Repositories\UserRepository $userRepository,
-		Repositories\User_detailsRepository $user_detailsRepository,
-		Repositories\Accepted_taskRepository $accepted_taskRepository,
-		Repositories\WalletRepository $walletRepository,
-		Repositories\ReserveRepository $reserveRepository,
-		Utilities\FileManager $fileManager,
-		Utilities\MailerService $mailerService
-	) {
-		$this->userRepository 			= $userRepository;
-		$this->user_detailsRepository 	= $user_detailsRepository;
-		$this->accepted_taskRepository  = $accepted_taskRepository;
-		$this->walletRepository 		= $walletRepository;
-		$this->fileManager 				= $fileManager;
-		$this->mailerService 			= $mailerService;
+			Repositories\UserRepository $userRepository,
+			Repositories\User_detailsRepository $user_detailsRepository,
+			Repositories\Accepted_taskRepository $accepted_taskRepository,
+			Repositories\WalletRepository $walletRepository,
+			Repositories\ReserveRepository $reserveRepository,
+			Utilities\FileManager $fileManager,
+			Utilities\MailerService $mailerService)
+	{
+		$this->userRepository = $userRepository;
+		$this->user_detailsRepository = $user_detailsRepository;
+		$this->accepted_taskRepository = $accepted_taskRepository;
+		$this->walletRepository = $walletRepository;
+		$this->fileManager = $fileManager;
+		$this->reserveRepository = $reserveRepository;
+		$this->mailerService = $mailerService;
 	}
 
 
@@ -143,12 +145,15 @@ class UserService extends Nette\Object
 
 	public function reserveBudget($userId, $taskId, $amount)
 	{
+		Validators::assert($userId, 'int');
+		Validators::assert($taskId, 'int');
+
 		$wallet = $this->walletRepository->get(array('user_id' => $userId));
 		$reserve = $this->reserveRepository->get(array('task_id' => $taskId));
 		$balance = $wallet->balance - $amount;
 
 		if ($balance < 0) {
-			throw new Exception("Insuficient credit in your wallet", 1);
+			throw new \RuntimeException("Insuficient credit in your wallet", 1);
 		}
 
 		return $this->walletRepository->update($wallet, array(

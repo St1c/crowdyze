@@ -61,25 +61,26 @@ class TaskService extends Nette\Object
 	public function createTask($user_id, array $formValues)
 	{
 		return $this->taskRepository->create(array(
-				'owner' 		=> $user_id,
-				'token'			=> $formValues['token'],
-				'title' 		=> $formValues['title'],
-				'description' 	=> $formValues['description'],
-				'salary'		=> $formValues['salary'],
-				'budget'		=> $formValues['budget'],
-				'budget_type' 	=> $formValues['budget_type'],
-				'workers'		=> $formValues['workers'],
-				'status'		=> 0,
-				'deadline'		=> $formValues['deadline'],
+				'owner' => $user_id,
+				'token'	=> $this->generateTaskToken(),
+				'title' => $formValues['title'],
+				'description' => $formValues['description'],
+				'salary' => $formValues['salary'],
+				'budget' => $formValues['budget'],
+				'budget_type' => $formValues['budget_type'],
+				'workers' => $formValues['workers'],
+				//~ 'status' => 0,
+				'deadline' => $formValues['deadline'],
 		));
 	}
+
 
 
 	/** 
  	 * Update task
  	 * 
- 	 * @param Nette\Database\Table\ActiveRow 	$task
- 	 * @param array 							$task update details
+ 	 * @param Nette\Database\Table\ActiveRow $task
+ 	 * @param array $task update details
  	 * 
  	 * @return Nette\Database\Table\ActiveRow
  	 */
@@ -87,6 +88,7 @@ class TaskService extends Nette\Object
 	{
 		return $this->taskRepository->update($task, $values);
 	}
+
 
 
 	/**
@@ -107,6 +109,7 @@ class TaskService extends Nette\Object
 			$this->setTaskTag($task, $tagInDb->id);
 		}
 	}
+
 
 
 	/**
@@ -357,16 +360,16 @@ class TaskService extends Nette\Object
 	 * 
 	 * @return string 36^8 =  ~ 2.8 * 10^12 variations
 	 */
-	public function generateTaskToken()
+	private function generateTaskToken()
 	{
 		$alpha = str_shuffle("abcdefghijklmnopqrstvwuxyz0123456789");
 		$length = 8;
-
-		$row = true;
-		while ( $row ) {
+		$row = True;
+		while ($row) {
 			for($i = 0, $token = '', $l = strlen($alpha) - 1; $i < $length; $i ++) {
 				$token .= $alpha{mt_rand(0, $l)};
 			}
+
 			// Check if it does not already exist in DB
 			$row = $this->isTokenInDatabase($token); //False if not found
 		}

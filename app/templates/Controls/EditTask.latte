@@ -1,4 +1,7 @@
 {snippet 'editTaskForm'}
+
+	<h1>{_"Edit of Task"}:</h1>
+
 	{form editTaskForm class => ''}
 
 		<ul class="errors" n:if="$form->hasErrors()">
@@ -25,11 +28,12 @@
 			{input deadline}{errors deadline}
 		</div>
 
-		<div>{input description, class=>'description'}</div>
+		<div>
+			{input description, class=>'description'}
+		</div>
 
 		<div>
-			<p>Get &euro; {input salary class=>'salary', id => "salary"}
-			</p>
+			<p>Get &euro; {input salary class=>'salary', id => "salary"}</p>
 		</div>
 
 		<div id="budget">

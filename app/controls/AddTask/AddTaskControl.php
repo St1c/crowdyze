@@ -5,8 +5,17 @@ use Nette,
 	Nette\Application\UI,
 	Nette\Application\UI\Form,
 	Nette\Application\UI\Control,
+	Nette\Application\Responses,
+	Nette\Forms\Controls\SubmitButton,
 	Nette\Utils\Strings,
+	Nette\Utils\Validators,
 	Nette\Image;
+use Taco\Nette\Forms\Controls\DateInput,
+	Taco\Nette\Forms\Controls\MultipleUploadControl,
+	Taco\Nette\Http\FileUploaded;
+use DateTime,
+	DateInterval;
+
 
 class AddTaskControl extends BaseControl
 {
@@ -25,136 +34,161 @@ class AddTaskControl extends BaseControl
 	/** @var Utilities\FileManager @inject */
 	public $fileManager;
 
+
+
 	public function createComponentAddTaskForm($name)
 	{
-		$addTask = new Form($this, $name);
-		$addTask->setTranslator($this->parent->translator);
-
 		$budgetTypes = $this->budget_typeRepository->getAll();
 		$departments = $this->department_nameRepository->getAll($this->presenter->getUser()->id);
 
-		$addTask->addText('title', 'addTask.form.title')
+		$component = new Form($this, $name);
+		$component->setTranslator($this->parent->translator);
+
+		$component->addText('title', 'addTask.form.title')
 			->setAttribute('placeholder', 'addTask.form.title')
 			->addrule(Form::FILLED, 'addTask.form.title_missing');
 		
-		$addTask->addTextArea('description', 'addTask.form.description')
+		$component->addTextArea('description', 'addTask.form.description')
 			->setAttribute('placeholder', 'addTask.form.description')
 			->AddRule(Form::FILLED, 'addTask.form.description_missing');
 		
-		$addTask->addText('salary', 'addTask.form.salary')
+		$component->addText('salary', 'addTask.form.salary')
 			->setAttribute('placeholder', 'addTask.form.salary')
 			->setAttribute('size', 6)
 			->AddRule(Form::FILLED, 'addTask.form.salary_missing');
 		
-		$addTask->addSelect('budget_type', 'addTask.form.budget_type')
+		$component->addSelect('budget_type', 'addTask.form.budget_type')
 			->setItems($budgetTypes, TRUE)
 			->setDefaultValue(3);
 
-		$addTask->addText('tags', 'addTask.form.tags')
+		$component->addText('tags', 'addTask.form.tags')
 			->setAttribute('placeholder', 'addTask.form.tags');
 		
-		$addTask->addText('workers', 'addTask.form.workers_required')
+		$component->addText('workers', 'addTask.form.workers_required')
 			->setDefaultValue(1)
 			->setAttribute('placeholder', 'addTask.form.workers_required');
 		
-		$addTask->addSelect('day', 'day')
-			->setItems(array_combine(range(1,31), range(1,31)))
-			->setDefaultValue(  date('j',strtotime("+1 month")) )
-			->setAttribute('placeholder', 'addTask.form.day');
-
-		$addTask->addSelect('month')
-			->setItems(array_combine(range(1, 12), range(1,12)))
-			->setDefaultValue( date('n',strtotime("+1 month")) )
-			->setAttribute('placeholder', 'addTask.form.month');
-
-		$addTask->addText('year')
-			->setDefaultValue(  date('Y',strtotime("+1 month")) )
-			->setAttribute('size', 4)
-			->setAttribute('placeholder', 'addTask.form.year');
+		$component['deadline'] = new DateInput('Deadline:');
+		$component['deadline']->setDefaultValue((new DateTime())->add(new DateInterval('P1M')));
 		
-		$addTask->addText('departments', 'addTask.form.department')
+		$component->addText('departments', 'addTask.form.department')
 			->setAttribute('placeholder', 'addTask.form.departments');
 
-		// $addTask->addMultipleFileUpload('upload', 'addTask.form.upload', TRUE);
-			// ->addCondition(Form::FILLED) // Image upload is not mandatory
-			// ->addRule(Form::IMAGE, 'Image must be JPEG, PNG or GIF.')
-			// ->addRule(Form::MAX_FILE_SIZE, 'Maximum file size is 64 kB', 64 * 1024 /* in bytes */);
-
-		$addTask->addHidden('token', $this->taskService->generateTaskToken());
-
-		$addTask->addSubmit('submit', 'addTask.form.submit');
+		$component['attachments'] = new MultipleUploadControl('attachments');
+		$component->addSubmit('attachmentPreload', 'Preload');
 		
-		$addTask->onError[] 	= $this->processError;
-		$addTask->onSuccess[] 	= $this->processSubmitted;
+		$component->addSubmit('submit', 'addTask.form.submit');
+		$component->addSubmit('cancel', 'addTask.form.cancel');
 
-		return $addTask;
+		//~ $component->onError[] 	= $this->processError;
+		$component->onSuccess[] = $this->processSubmitted;
+
+		return $component;
 	}
 
-	public function processError(Form $addTask)
-	{
 
-		if ($this->presenter->isAjax() ) {
-			$this->invalidateControl();
+
+	public function processError(Form $component)
+	{
+		//~ if ($this->presenter->isAjax() ) {
+			//~ $this->presenter->invalidateControl();
+		//~ }
+	}
+
+
+
+	public function processSubmitted(Form $component)
+	{
+		if ($this->presenter->isAjax()) {
+			$this->presenter->invalidateControl('task');
 		}
 
-	}
-
-	public function processSubmitted(Form $addTask)
-	{	
-		$user_id 	= $this->presenter->getUser()->id;
-		$form 		= $addTask->getValues(TRUE); // TRUE = get values as an ordinary array
-		$taskUUID	= uniqid();
-
-		try {
-			// Saving task details
-			$form = $this->saveTaskDetails($form);
-
-			// Allocate money for the task from user's wallet
-			$this->userService->reserveBudget($form['budget']);
-
-			$this->presenter->flashMessage('addTask.flashes.task_added', 'alert-success');
+		if ($component['cancel']->isSubmittedBy()) {
 			$this->presenter->redirect('Homepage:');
+		}
 
-		} catch (Nette\InvalidArgumentException $e) {
-			$this->presenter->flashMessage($e->getMessage(), 'alert-danger');
-			if ($this->presenter->isAjax() ) {
-				$this->presenter->invalidateControl();
+		if ($component['attachmentPreload']->isSubmittedBy()) {}
+
+		if ($component['submit']->isSubmittedBy()) {
+
+			//	Reformat
+			$values = $component->getValues();
+			$values['budget'] = self::calculateBudget($values);
+			
+			foreach ($values as $key => $value) {
+				//	Exclude tags, etc. from update
+				$exclude = array('tags', 'departments', 'attachments');
+				in_array( $key,  $exclude ) || empty($value) ?: $data[$key] = $value;
 			}
 
-		}
-	}
-
-	/**
-	 * Save task details 
-	 * 
-	 * @param  Form $form
-	 */
-	private function saveTaskDetails($form)
-	{
-
-			// Convert date to TIMESTAMP SQL format
-			$form['deadline'] 	= self::parseDate($form);
-			$form['budget'] 	= self::calculateBudget($form);
-
-			$task = $this->taskService->createTask($user_id, $form);
+			//	Store
+			$task = $this->taskService->createTask($this->presenter->getUser()->id, $data);
 
 			// Saving tags
-			if ( !empty($form['tags']) ) {
-				$this->taskService->storeTags($task, $form['tags']);
+			if (isset($values['tags']) && $value = self::parseTags($values['tags'])) {
+				$this->taskService->storeTags($task, $value);
 			}
 
 			// Saving departments 
-			if ( !empty($form['departments']) ) {
-				$this->taskService->setDepartments($task, $form['departments']);
-			}
-
-			// Saving attachments
-			// foreach ($form['upload'] as $upload) {
-			// 	if ( $upload->isOk() ) {
-			// 		$this->taskService->saveAttachment($task, $taskUUID, $upload);
-			// 	}
+			// if ( !empty($values['departments']) ) {
+			// 	$this->taskService->setDepartments($task, $values['departments']);
 			// }
+
+			// Allocate money for the task from user's wallet
+			try {
+				$this->userService->reserveBudget($this->presenter->getUser()->id, $task->id, $values['budget']);
+
+				// Saving attachments
+				foreach ($values->attachments as $file) {
+					if ($file instanceof FileUploaded) {
+						if ($file->isRemove()) {
+							$this->taskService->removeAttachment($task, $file);
+						}
+						else {
+							$this->taskService->saveAttachment($task, $file);
+						}
+					}
+					else {
+						throw new \LogicException('Invalid type of attachment.');
+					}
+				}
+
+				$this->presenter->flashMessage('addTask.flashes.task_edited', 'alert-success');
+				$this->presenter->redirect('detail', array('token' => $task->token));
+			}
+			catch (\RuntimeException $e) {
+				$component->addError($e->getMessage());
+			}
+		}
 	}
+
+
+
+	public function render()
+	{
+		$this->template->setFile(__DIR__ . '/../../templates/Controls/AddTask.latte');
+		$this->template->render();
+	}
+
+
+
+	/**
+	 * @param string $value
+	 * 
+	 * @return array
+	 */
+	private static function parseTags($value)
+	{
+		return Strings::split($value, '~[,;]\s*~');
+	}
+
+
+
+	private static function formatTags(array $tags = array())
+	{
+		return implode(',', $tags);
+	}
+
 
 
 	/**
@@ -187,31 +221,4 @@ class AddTaskControl extends BaseControl
 
 		return $budget;
 	}
-
-
-
-	/**
-	 * Form input date to desirable format
-	 * 
-	 * @param  array $values Form Values
-	 *
-	 * @throws InvalidArgumentException If the date is not valid
-	 * @return Date
-	 */
-	private static function parseDate($values)
-	{
-		if (!checkdate($values['month'], $values['day'], $values['year'])) {
-			throw new Nette\InvalidArgumentException("Not a valid date", 1);
-		}
-		return date($values['year'] . '-' . $values['month'] . '-' . $values['day']);
-	}
-
-
-
-	public function render()
-	{
-		$this->template->setFile(__DIR__ . '/../../templates/Controls/AddTask.latte');
-		$this->template->render();
-	}
-
 }
