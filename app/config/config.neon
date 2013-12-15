@@ -28,7 +28,7 @@ nette:
 		reflection: discovered
 
 	mailer: %mailer%
-	
+
 	latte:
 		macros:
 			- Taco\Nette\Latte\FormMacros::install
@@ -63,6 +63,7 @@ services:
 	- Model\Repositories\Department_nameRepository
 	- Model\Repositories\WalletRepository
 	- Model\Repositories\ReserveRepository
+	- Model\Repositories\IncomeRepository
 	- Model\Repositories\EmailRepository
 	- Model\Repositories\PollRepository
 	- Model\Repositories\QuestionRepository
@@ -70,6 +71,7 @@ services:
 	- Model\Services\SignService
 	- Model\Services\TaskService
 	- Model\Services\UserService
+	- Model\Services\PayService
 	- Model\Services\PollService
 
 	mailerService: 

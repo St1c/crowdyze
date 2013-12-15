@@ -12,22 +12,14 @@ class TaskPresenter extends BaseSignedPresenter
 	/** @var Model\Services\TaskService @inject */
 	public $taskService;
 
-
 	/** @var Model\Services\UserService @inject */
 	public $userService;
 
-
-	/** @var Model\Repositories\Budget_typeRepository @inject */
-	public $budget_typeRepository;
-
-
-	/** @var Model\Repositories\Department_nameRepository @inject */
-	public $department_nameRepository;
-
+	/** @var Model\Services\PayService @inject */
+	public $payService;
 
 	/** @var Controls\IAddTaskControlFactory @inject */
 	public $addTaskControlFactory;
-
 
 	/** @var Controls\IEditTaskControlFactory @inject */
 	public $editTaskControlFactory;
@@ -75,7 +67,7 @@ class TaskPresenter extends BaseSignedPresenter
 	 */
 	public function actionAdd()
 	{
-		if (!$this->userService->getBalance($this->user->id) > 0) {
+		if (!$this->payService->getBalance($this->user->id) > 0) {
 			$this->redirect('Wallet:deposit');
 		}
 	}

@@ -22,8 +22,8 @@ class AddTaskControl extends BaseControl
 	/** @var Model\Services\TaskService @inject */
 	public $taskService;
 
-	/** @var Model\Services\UserService @inject */
-	public $userService;
+	/** @var Model\Services\PayService @inject */
+	public $payService;
 
 	/** @var Model\Repositories\Budget_typeRepository @inject */
 	public $budget_typeRepository;
@@ -136,7 +136,7 @@ class AddTaskControl extends BaseControl
 
 			// Allocate money for the task from user's wallet
 			try {
-				$this->userService->reserveBudget($this->presenter->getUser()->id, $task->id, $values['budget']);
+				$this->payService->reserveBudget($this->presenter->getUser()->id, $task->id, $values['budget']);
 
 				// Saving attachments
 				foreach ($values->attachments as $file) {
