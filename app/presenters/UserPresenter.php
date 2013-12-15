@@ -29,6 +29,13 @@ class UserPresenter extends BaseSignedPresenter
 	
 	
 	/**
+	 * Informace o taskcích.
+	 *  
+	 * @var Model\Services\PayService @inject 
+	 */
+	public $payService;
+
+	/**
 	 * @TODO
 	 * @var Controls\IUserDetailsControlFactory @inject
 	 */
@@ -57,7 +64,7 @@ class UserPresenter extends BaseSignedPresenter
 				$this->redirect('this', array( 'filter' => 'worker' ));
 		}
 
-		$this->template->balance = $this->userService->getBalance($this->user->id);
+		$this->template->balance = $this->payService->getBalance($this->user->id);
 	}
 
 
@@ -68,7 +75,7 @@ class UserPresenter extends BaseSignedPresenter
 	public function renderEdit()
 	{
 		$this->template->userData = $this->userService->getUserData($this->user->id);
-		$this->template->balance = $this->userService->getBalance($this->user->id);
+		$this->template->balance = $this->payService->getBalance($this->user->id);
 		$this->template->tasks = $this->userService->getAcceptedUserTasks($this->user->id);
 		//~ $this->validateControl();
 		//~ $this->invalidateControl('userProfile');
