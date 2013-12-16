@@ -1,7 +1,7 @@
 <?php
 namespace Model\Repositories;
 
-class ReserveRepository extends BaseRepository
+class BudgetRepository extends BaseRepository
 {
 
 

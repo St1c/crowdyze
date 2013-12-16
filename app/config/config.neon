@@ -52,6 +52,7 @@ services:
 	- Model\Repositories\Relationship_typeRepository
 	- Model\Repositories\Accepted_taskRepository
 	- Model\Repositories\TaskRepository
+	- Model\Repositories\BudgetRepository
 	- Model\Repositories\Budget_typeRepository
 	- Model\Repositories\Attachment_typeRepository
 	- Model\Repositories\TagRepository
@@ -62,7 +63,6 @@ services:
 	- Model\Repositories\Result_attachmentRepository
 	- Model\Repositories\Department_nameRepository
 	- Model\Repositories\WalletRepository
-	- Model\Repositories\ReserveRepository
 	- Model\Repositories\IncomeRepository
 	- Model\Repositories\EmailRepository
 	- Model\Repositories\PollRepository
@@ -71,8 +71,12 @@ services:
 	- Model\Services\SignService
 	- Model\Services\TaskService
 	- Model\Services\UserService
-	- Model\Services\PayService
 	- Model\Services\PollService
+
+	payService:
+		class: Model\Services\payService
+		setup:
+			- $fees(%fees%)
 
 	mailerService: 
 		class: Utilities\MailerService
@@ -131,6 +135,10 @@ parameters:
 		dbname: taskie
 		user: taskie
 		password: nu/swad9
+
+	fees:
+		fix: 0.50
+		commission: 1.05 
 
 	mailer:
 		smtp: true

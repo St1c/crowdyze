@@ -114,9 +114,7 @@ class AddTaskControl extends BaseControl
 		if ($component['submit']->isSubmittedBy()) {
 
 			//	Reformat
-			$values = $component->getValues();
-			$values['budget'] = self::calculateBudget($values);
-			
+			$values = $component->getValues();			
 			foreach ($values as $key => $value) {
 				//	Exclude tags, etc. from update
 				$exclude = array('tags', 'departments', 'attachments');
@@ -138,7 +136,7 @@ class AddTaskControl extends BaseControl
 
 			// Allocate money for the task from user's wallet
 			try {
-				$this->payService->reserveBudget($this->presenter->getUser()->id, $task->id, $values['budget']);
+				$this->payService->createBudget($task, $this->presenter->getUser()->id, $values);
 
 				// Saving attachments
 				foreach ($values->attachments as $file) {
@@ -163,7 +161,6 @@ class AddTaskControl extends BaseControl
 			}
 		}
 	}
-
 
 
 	public function render()
@@ -191,36 +188,4 @@ class AddTaskControl extends BaseControl
 		return implode(',', $tags);
 	}
 
-
-
-	/**
-	 * Calclate the final costs for the campaign
-	 * 
-	 * @param  array $values Form values
-	 * 
-	 * @return int           Final budget
-	 */
-	private static function calculateBudget($values)
-	{
-		$commissionPerc = 1.05;
-		$commissionFix 	= 0.50;
-
-		switch ($values['budget_type']) {
-			case '1': 
-				// Pay the best
-				$budget = $values['salary'] * $commissionPerc + $commissionFix;
-				break;
-			
-			case '2': 
-				// Pay the best 10
-				$budget = (10 * $values['salary'] * $commissionPerc) + $commissionFix;
-
-			default: 
-				// Pay all
-				$budget = ($values['workers'] * $values['salary'] * $commissionPerc) + $commissionFix;
-				break;
-		}
-
-		return $budget;
-	}
 }

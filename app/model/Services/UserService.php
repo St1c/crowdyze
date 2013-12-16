@@ -21,12 +21,6 @@ class UserService extends Nette\Object
 	
 	/** @var accepted_taskRepository */
 	private $accepted_taskRepository;
-	
-	/** @var Repositories\WalletRepository */
-	private $walletRepository;
-	
-	/** @var Repositories\ReserveRepository */
-	private $reserveRepository;
 
 	/** @var fileManager */
 	private $fileManager;
@@ -40,17 +34,13 @@ class UserService extends Nette\Object
 			Repositories\UserRepository $userRepository,
 			Repositories\User_detailsRepository $user_detailsRepository,
 			Repositories\Accepted_taskRepository $accepted_taskRepository,
-			Repositories\WalletRepository $walletRepository,
-			Repositories\ReserveRepository $reserveRepository,
 			Utilities\FileManager $fileManager,
 			Utilities\MailerService $mailerService)
 	{
 		$this->userRepository = $userRepository;
 		$this->user_detailsRepository = $user_detailsRepository;
 		$this->accepted_taskRepository = $accepted_taskRepository;
-		$this->walletRepository = $walletRepository;
 		$this->fileManager = $fileManager;
-		$this->reserveRepository = $reserveRepository;
 		$this->mailerService = $mailerService;
 	}
 
