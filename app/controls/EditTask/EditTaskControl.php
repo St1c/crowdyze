@@ -83,10 +83,12 @@ class EditTaskControl extends BaseControl
 
 		$component['attachments'] = new MultipleUploadControl('attachments');
 		$component['attachments']->setDefaultValue($attachments);
-		$component->addSubmit('attachmentPreload', 'Preload');
+		$component->addSubmit('attachmentPreload', 'Preload')
+				->setValidationScope(False);
 		
 		$component->addSubmit('submit', 'addTask.form.submit');
-		$component->addSubmit('cancel', 'addTask.form.cancel');
+		$component->addSubmit('cancel', 'addTask.form.cancel')
+				->setValidationScope(False);
 
 		//~ $component->onError[] 	= $this->processError;
 		$component->onSuccess[] = $this->processSubmitted;
@@ -125,7 +127,7 @@ class EditTaskControl extends BaseControl
 			
 			foreach ($values as $key => $value) {
 				//	Exclude tags, etc. from update
-				$exclude = array('tags', 'departments', 'attachments');
+				$exclude = array('tags', 'departments', 'attachments', 'budget');
 				in_array( $key,  $exclude ) || empty($value) ?: $update[$key] = $value;
 			}
 
