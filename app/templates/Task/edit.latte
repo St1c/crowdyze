@@ -1,4 +1,13 @@
-{block #head}
+{block #content}
+    <div class="single-task">
+    {snippet task}
+        {control editTask}
+    {/snippet}
+    </div>
+{/block}
+
+
+{block #scripts}
     <script type="application/javascript">
 	$(document).ready(function () {
 		$('.file-uploader').filePreuploader({
@@ -8,12 +17,4 @@
 		});
 	});
     </script>
-{/block}
-
-{block #content}
-    <div class="single-task">
-    {snippet task}
-        {control editTask}
-    {/snippet}
-    </div>
 {/block}

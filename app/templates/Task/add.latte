@@ -1,15 +1,3 @@
-{block #head}
-    <script type="application/javascript">
-	$(document).ready(function () {
-		$('.file-uploader').filePreuploader({
-			autoSubmitBy: 'input[name="attachmentPreload"]',
-			snippet: '.attachments',
-			spinnerUrl: '/images/spinner.gif'
-		});
-	});
-    </script>
-{/block}
-
 {block #content}
 	<div class="notifier">
 		{if $activeJobs > 0}
@@ -21,4 +9,16 @@
 	<div class="under-notifier">
 			{control addTask}
 	</div>
+{/block}
+
+{block #scripts}
+    <script type="application/javascript">
+	$(document).ready(function () {
+		$('.file-uploader').filePreuploader({
+			autoSubmitBy: 'input[name="attachmentPreload"]',
+			snippet: '.attachments',
+			spinnerUrl: '/images/spinner.gif'
+		});
+	});
+    </script>
 {/block}

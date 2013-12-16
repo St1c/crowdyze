@@ -4,3 +4,4 @@
 // @codekit-prepend 'imagesloaded.pkgd.js';
 // @codekit-prepend 'masonry.js';
 // @codekit-prepend 'jquery.ias.js';
+// @codekit-prepend '../jquery.filePreuploader.js';
