@@ -47,7 +47,7 @@ if (jQuery)(function($) {
 			if (el.length) {
 				return el;
 			}
-			throw "Empty selection for: " + def;
+			$.error("Empty selection for: " + def);
 		}
 
 
@@ -60,6 +60,9 @@ if (jQuery)(function($) {
 		 */
 		function init(self, context) 
 		{
+			context.spinnerUrl || $.error("Unused require option 'spinnerUrl'.");
+			context.snippet || $.error("Unused require option 'snippet'.");
+
 			var m = $(self);
 
 			//	Information notice
@@ -195,6 +198,12 @@ if (jQuery)(function($) {
 
             //  Auto send via special button.
             if (this.autoSubmitBy) {
+				form.find(context.uploadWrapper + ' :file').parents('li.file')
+					.css({
+						'background-image': 'url("' + context.spinnerUrl + '")',
+						'background-position': 'center',
+						'background-repeat': 'no-repeat'
+						});
 				form.find(assertEmpty(this.autoSubmitBy, this.autoSubmitBy)).click();
 			}
 		}
