@@ -66,7 +66,7 @@ class TaskService extends Nette\Object
 				'title' => $formValues['title'],
 				'description' => $formValues['description'],
 				'salary' => $formValues['salary'],
-				'budget' => $formValues['budget'],
+				//~ 'budget' => $formValues['budget'],
 				'budget_type' => $formValues['budget_type'],
 				'workers' => $formValues['workers'],
 				//~ 'status' => 0,

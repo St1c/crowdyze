@@ -75,11 +75,13 @@ class AddTaskControl extends BaseControl
 			->setAttribute('placeholder', 'addTask.form.departments');
 
 		$component['attachments'] = new MultipleUploadControl('attachments');
-		$component->addSubmit('attachmentPreload', 'Preload');
+		$component->addSubmit('attachmentPreload', 'Preload')
+				->setValidationScope(False);
 		
 		$component->addSubmit('submit', 'addTask.form.submit');
-		$component->addSubmit('cancel', 'addTask.form.cancel');
-
+		$component->addSubmit('cancel', 'addTask.form.cancel')
+				->setValidationScope(False);
+				
 		//~ $component->onError[] 	= $this->processError;
 		$component->onSuccess[] = $this->processSubmitted;
 

@@ -89,6 +89,11 @@ if (jQuery)(function($) {
 			$(m).find(context.uploadWrapper + ' :file').on('change', function() {
 				context.onChange(self);
 			});
+			
+			//	Hide remove item
+			$(m).find(':checkbox').on('change', function() {
+				$(this).parents('li.file').hide(500);
+			});
 
 			return self;
 		};
@@ -178,6 +183,11 @@ if (jQuery)(function($) {
 						component = $(context.uploadWrapper, this);
 						$(context.uploadWrapper + ' :file', this).on('change', function() {
 							context.onChange(component);
+						});
+
+						//	Hide remove item
+						$(':checkbox', this).on('change', function() {
+							$(this).parents('li.file').hide(500);
 						});
 
 					});

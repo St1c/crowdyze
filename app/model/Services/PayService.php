@@ -2,6 +2,7 @@
 namespace Model\Services;
 
 use Nette,
+	Nette\Utils\Validators,
 	Nette\Database\Table\ActiveRow;
 use	Model\Repositories;
 
