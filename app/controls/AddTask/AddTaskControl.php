@@ -134,10 +134,10 @@ class AddTaskControl extends BaseControl
 			// 	$this->taskService->setDepartments($task, $values['departments']);
 			// }
 
-			// Allocate money for the task from user's wallet
 			try {
+				// Allocate money for the task from user's wallet
 				$this->payService->createBudget($task, $this->presenter->getUser()->id, $values);
-
+				
 				// Saving attachments
 				foreach ($values->attachments as $file) {
 					if ($file instanceof FileUploaded) {

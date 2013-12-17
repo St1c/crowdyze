@@ -20,6 +20,9 @@ class EditTaskControl extends BaseControl
 	/** @var Model\Services\TaskService @inject */
 	public $taskService;
 
+	/** @var Model\Services\PayService @inject */
+	public $payService;
+
 	/** @var Model\Repositories\Budget_typeRepository @inject */
 	public $budget_typeRepository;
 
@@ -122,9 +125,7 @@ class EditTaskControl extends BaseControl
 		if ($component['submit']->isSubmittedBy()) {
 
 			//	Reformat
-			$values = $component->getValues();
-			$values['budget'] = self::calculateBudget($values);
-			
+			$values = $component->getValues();			
 			foreach ($values as $key => $value) {
 				//	Exclude tags, etc. from update
 				$exclude = array('tags', 'departments', 'attachments', 'budget');
@@ -145,19 +146,26 @@ class EditTaskControl extends BaseControl
 			// 	$this->taskService->setDepartments($task, $values['departments']);
 			// }
 
-			// Saving attachments
-			foreach ($values->attachments as $file) {
-				if ($file instanceof FileUploaded) {
-					if ($file->isRemove()) {
-						$this->taskService->removeAttachment($task, $file);
+			try {
+				// Allocate money for the task from user's wallet
+				$this->payService->updateBudget($task, $this->presenter->getUser()->id, $values);
+				
+				// Saving attachments
+				foreach ($values->attachments as $file) {
+					if ($file instanceof FileUploaded) {
+						if ($file->isRemove()) {
+							$this->taskService->removeAttachment($task, $file);
+						}
+						else {
+							$this->taskService->saveAttachment($task, $file);
+						}
 					}
 					else {
-						$this->taskService->saveAttachment($task, $file);
+						throw new \LogicException('Invalid type of attachment.');
 					}
 				}
-				else {
-					throw new \LogicException('Invalid type of attachment.');
-				}
+			} catch (\RuntimeException $e) {
+				$component->addError($e->getMessage());
 			}
 
 			$this->presenter->flashMessage('addTask.flashes.task_edited', 'alert-success');
@@ -192,36 +200,4 @@ class EditTaskControl extends BaseControl
 		return implode(',', $tags);
 	}
 
-
-
-	/**
-	 * Calclate the final costs for the campaign
-	 * 
-	 * @param  array $values Form values
-	 * 
-	 * @return int           Final budget
-	 */
-	private static function calculateBudget($values)
-	{
-		$commissionPerc = 1.05;
-		$commissionFix 	= 0.50;
-
-		switch ($values['budget_type']) {
-			case '1': 
-				// Pay the best
-				$budget = $values['salary'] * $commissionPerc + $commissionFix;
-				break;
-			
-			case '2': 
-				// Pay the best 10
-				$budget = (10 * $values['salary'] * $commissionPerc) + $commissionFix;
-
-			default: 
-				// Pay all
-				$budget = ($values['workers'] * $values['salary'] * $commissionPerc) + $commissionFix;
-				break;
-		}
-
-		return $budget;
-	}
 }

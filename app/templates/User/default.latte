@@ -46,7 +46,7 @@
 				<div>{$task->id}. <a n:href="Task:detail $task->token">{$task->title} </a>
 
 				<span>{$task->deadline|date:'%d.%m.%Y'}</span> 
-				Budget: {$task->budget}</div>
+				Salary: {$task->salary|number:2}$</div>
 			{/foreach}
 		</div>
 	{/snippet}
