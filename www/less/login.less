@@ -1,7 +1,5 @@
-/* SIGNUP & LOGIN CSS
--------------------------------------------------- */
 .btn {
-	@include transition($btn-trans);
+	.transition(@btn-trans);
 }
 
 .social-login { 
@@ -16,27 +14,27 @@
 	letter-spacing: 0.1em; 
 	width: 220px;
 	padding: 12px 24px; 
-	border-radius: $border-radius-base; 
+	border-radius: @border-radius-base; 
 	text-align: left;
 
 	&:hover { 
 		background-color: #fff; 
-		border-color: $border-grey; 
+		border-color: @border-grey; 
 	}
 
 }
 
 .btn-facebook { 
-	background-color: $facebook; 
-	&:hover { color: $facebook; }
+	background-color: @facebook; 
+	&:hover { color: @facebook; }
 }
 .btn-twitter { 
-	background-color: $twitter; 
-	&:hover { color: $twitter; }
+	background-color: @twitter; 
+	&:hover { color: @twitter; }
 }
 .btn-google { 
-	background-color: $google; 
-	&:hover { color: $google; }
+	background-color: @google; 
+	&:hover { color: @google; }
 }
 .btn-sign { 
 	padding: 12px 24px; 

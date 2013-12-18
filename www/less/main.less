@@ -1,8 +1,15 @@
-@charset "UTF-8";
-@import "compass/css3/transform";
-@import "compass/css3/transition";
-@import "compass/css3/box-sizing";
+@import 'bootstrap';
+@import 'mixins';
+@import 'login';
+@import 'paginator';
+@import 'forms';
+@import 'navigation';
+@import 'tags';
+@import 'fileuploader';
+
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+
 /** Bootstrap rewrites */
 
 /* GLOBAL STYLES
@@ -10,37 +17,27 @@
 /* Palette color codes */
 /* http://colorschemedesigner.com/#4K41Tkmxhw0w0 */
 
-$primary-1:						#3ECD9C;
+@primary-1:						#3ECD9C;
 
-$border-grey: 					#e5e5e5;
-$facebook: 						#3B5998;
-$twitter: 						#00BCED;
-$google: 						#DD4B39;
+@border-grey: 					#e5e5e5;
+@facebook: 						#3B5998;
+@twitter: 						#00BCED;
+@google: 						#DD4B39;
 
-$brand-primary:         		#3ECD9C;
-$brand-success:         		#3ECD9C;
-$brand-warning:         		#f0ad4e;
-$brand-danger:          		#d9534f;
-$brand-info:            		#5bc0de;
+@brand-primary:         		#3ECD9C;
+@brand-success:         		#3ECD9C;
+@brand-warning:         		#f0ad4e;
+@brand-danger:          		#d9534f;
+@brand-info:            		#5bc0de;
 
-$border-radius-base:            5px;
-$border-radius-large:           8px;
-$border-radius-small:           3px;
+@border-radius-base:            5px;
+@border-radius-large:           8px;
+@border-radius-small:           3px;
 
 // Bootstrap overwrites
-$btn-trans:						all 0.5s;
-// $font-family-base: 				"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-$font-family-base: 				'Open Sans', sans-serif;
-
-@import "bootstrap-sass";
-@import "mixins.scss";
-@import "login.scss";
-@import "paginator.scss";
-@import "forms";
-@import "navigation";
-@import "tags";
-@import "fileuploader";
-@include font-face(icomoon,'../fonts/icomoon');
+@btn-trans:						all 0.5s;
+// @font-family-base: 				"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+@font-family-base: 				'Open Sans', sans-serif;
 
 body {
 	background-color: #f6f6f6;
@@ -57,7 +54,7 @@ body {
 
 	h1 {
 		text-align: center;
-		color: $primary-1;
+		color: @primary-1;
 	}
 	.notifier {
 		position: absolute;
@@ -126,7 +123,7 @@ body {
 	min-height: 150px;
 	border: 1px solid #d5d5da;
 	background-color: #fff;
-	border-radius: $border-radius-base;
+	border-radius: @border-radius-base;
 	padding: 5px;
 	margin-bottom: 30px;
 
@@ -183,7 +180,7 @@ body {
 
 #container {
 	a {
-		color: $text-color;
+		color: @text-color;
 		display: block;
 		text-decoration: none;
 
