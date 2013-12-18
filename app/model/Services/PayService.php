@@ -21,7 +21,7 @@ class PayService extends Nette\Object
 	/** @var Repositories\BudgetRepository */
 	private $budgetRepository;
 
-	/** @var fees */
+	/** @var fees [injected] */
 	public $fees;
 
 
@@ -117,14 +117,17 @@ class PayService extends Nette\Object
 		Validators::assert($userId, 'int');
 		Validators::assert($task, 'Model\Domains\Task');
 
+		// Clear current budget and refund credit to user (without fee for creating task)
 		$this->refundBudget($task, $userId);
+
+		// Check credit in user's wallet
 		$wallet  = $this->walletRepository->get(array('user_id' => $userId));
 		$balance = $wallet->balance - $this->getOverallCosts($form) + $this->fees['fix'];
-
 		if ($balance < 0) {
 			throw new \RuntimeException("Insuficient credit in your wallet", 1);
 		}
 
+		// Reserve budget for current task
 		$task->related('budget')->update(array(
 			'wallet_id' 	=> $wallet->id,
 			'budget' 		=> $this->getNettoCosts($form),
@@ -132,6 +135,7 @@ class PayService extends Nette\Object
 			// 'promotion_fee' => $promotion_fee,
 		));
 
+		// And update credit in user's wallet
 		return $this->walletRepository->update($wallet, array(
 			'balance' => $balance
 		));
@@ -161,23 +165,18 @@ class PayService extends Nette\Object
 	 */
 	private function refundBudget($task, $userId)
 	{
-		
 		// Get user's wallet and current budget for the task
 		$wallet  		= $this->walletRepository->get(array('user_id' => $userId));
 		$currentBudget 	= $this->getBudget($task);
 
 		// Calculate new wallet balance after refunding current costs
-		$newBalance 	= $wallet->balance;
-		$newBalance 	+= $currentBudget->budget;
-		$newBalance 	+= $currentBudget->commission; 
-		$newBalance 	+= $currentBudget->promotion_fee;
+		$newBalance = $wallet->balance;
+		$newBalance += $currentBudget->budget;
+		$newBalance += $currentBudget->commission; 
+		$newBalance += $currentBudget->promotion_fee;
 
 		// Clear current campaign costs (budget)
-		$task->related('budget')->update(array(
-			'budget'	 	=> 0.00,
-			'commission' 	=> 0.00,
-			'promotion_fee' => NULL
-		));
+		$this->purgeBudget($task);
 
 		// Return budget to the user's wallet
 		$this->walletRepository->update($wallet, array(
@@ -188,7 +187,7 @@ class PayService extends Nette\Object
 
 
 	/**
-	 * Netto price of the campaign: number of workers to be paid * salary per worker
+	 * Netto price of the campaign: number of workers to be paid *(times) salary per worker
 	 * 
 	 * @param  array $values Form values
 	 * 
@@ -269,7 +268,7 @@ class PayService extends Nette\Object
 
 
 	/**
-	 * Transfer fees and commissions to Crowdyze account
+	 * Transfer fees and commissions to local Crowdyze account
 	 * 
 	 * @param  ActiveRow $budget
 	 * 
@@ -281,6 +280,22 @@ class PayService extends Nette\Object
 			'from' 		=> $budget->id,
 			'type' 		=> 1,
 			'amount' 	=> $budget->fee
+		));
+	}
+
+
+
+	/**
+	 * Clear all budget costs for a given task
+	 * 
+	 * @param  Models\Domains\Task $task
+	 */
+	private function purgeBudget($task)
+	{
+		$task->related('budget')->update(array(
+			'budget'	 	=> 0.00,
+			'commission' 	=> 0.00,
+			'promotion_fee' => NULL
 		));
 	}
 
