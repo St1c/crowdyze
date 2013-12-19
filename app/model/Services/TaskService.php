@@ -29,6 +29,9 @@ class TaskService extends Nette\Object
 	/** @var Repositories\Attachment_typeRepository */
 	private $attachmentTypeRepository;
 	
+	/** @var Repositories\ResultRepository */
+	private $resultRepository;
+
 	/** @var fileManager */
 	private $fileManager;
 
@@ -39,12 +42,14 @@ class TaskService extends Nette\Object
 			Repositories\TagRepository $tagRepository,
 			Repositories\Accepted_taskRepository $accepted_taskRepository,
 			Repositories\Attachment_typeRepository $attachmentTypeRepository,
+			Repositories\ResultRepository $resultRepository,
 			Utilities\FileManager $fileManager )
 	{
 		$this->taskRepository = $taskRepository;
 		$this->tagRepository = $tagRepository;
 		$this->accepted_taskRepository = $accepted_taskRepository;
 		$this->attachmentTypeRepository = $attachmentTypeRepository;
+		$this->resultRepository = $resultRepository;
 		$this->fileManager = $fileManager;
 	}
 
@@ -375,5 +380,28 @@ class TaskService extends Nette\Object
 		}
 
 		return $token;
+	}
+
+
+	/**
+	 * Add result to the task
+	 * 
+	 * @param int 	$userId
+	 * @param int 	$taskId
+	 * @param array $value Form Values
+	 *
+	 * @return IRow|int|bool Returns IRow or number of affected rows
+	 */
+	public function createResult($userId, $taskId, $values)
+	{
+		// Change status of accepted task to pending
+		$this->accepted_taskRepository->updateToPending($taskId, $userId);
+
+		// Record new result
+		return $this->resultRepository->create(array(
+			'user_id' => $userId,
+			'task_id' => $taskId,
+			'result'  => $values['result']
+		));
 	}
 }

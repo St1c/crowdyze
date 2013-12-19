@@ -22,8 +22,7 @@ class Accepted_taskRepository extends BaseRepository
 		return $this->getTable()->insert(array(
 			'user_id' 	=> $userId,
 			'task_id' 	=> $taskId,
-			'status' 	=> (int) $status,
-			'payment'	=> 20
+			'status' 	=> (int) $status
 		));
 	}
 
@@ -134,6 +133,46 @@ class Accepted_taskRepository extends BaseRepository
 	 */
 	public function isAccepted($taskId, $userId)
 	{
-		return $this->getTable()->where('task_id', $taskId)->where('user_id', $userId)->fetch();
+		return $this->getTable()
+			->where('task_id', $taskId)
+			->where('user_id', $userId)
+			->fetch() 
+			? TRUE : FALSE;
+	}
+
+
+	/**
+	 * Update accepted task status to Pending 
+	 * 
+	 * @param  int $taskId 
+	 * @param  int $userId
+	 */
+	public function updateToPending($taskId, $userId)
+	{
+		$this->getTable()
+			->where('task_id', $taskId)
+			->where('user_id', $userId)
+			->update(array(
+				'status' => 2
+			));
+	}
+
+
+	/**
+	 * Obtain info about state for the current task - accepted/not accepted by current user
+	 * 
+	 * @param  int  $taskId
+	 * @param  int  $userId
+	 * @param  int  $status 1=accepted|2=pending|3=satisfied|4=unsatisfied
+	 * 
+	 * @return boolean TRUE|FALSE
+	 */
+	public function isAcceptedFilterByStatus($taskId, $userId, $status)
+	{
+		return $this->getTable()
+			->where('task_id', $taskId)
+			->where('user_id', $userId)
+			->where('status', $status)
+			->fetch() ? TRUE : FALSE;
 	}
 }

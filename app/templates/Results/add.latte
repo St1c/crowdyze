@@ -1,2 +1,39 @@
 {layout '../@layout.latte'}
 {block #content}
+
+	{form resultForm class => ""}
+
+		<ul class="errors" n:if="$form->hasErrors()">
+			<li n:foreach="$form->errors as $error">{$error}</li>
+		</ul>
+
+		<div class="controls">
+			{input submit, class=>'btn btn-xs btn-success'}
+			{input cancel, class=>'btn btn-xs btn-danger'}
+		</div>
+
+		<div>
+			{input result, class=>'result'}
+		</div>
+
+<!-- 		<div class="attachments">
+			<h6>Attachments:</h6>
+			{input attachments}{errors attachments}
+			{input attachmentPreload, style=>"visibility:hidden"}
+			<div style="clear:both"></div>
+		</div> -->
+	{/form}
+
+{/block}
+
+{block #scripts}
+    <script type="application/javascript">
+	// $(document).ready(function () {
+	// 	$('.file-uploader').filePreuploader({
+	// 		autoSubmitBy: 'input[name="attachmentPreload"]',
+	// 		snippet: '.attachments',
+	// 		spinnerUrl: '/images/spinner.gif'
+	// 	});
+	// });
+    </script>
+{/block}

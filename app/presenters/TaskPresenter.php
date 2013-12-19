@@ -145,7 +145,7 @@ class TaskPresenter extends BaseSignedPresenter
 	private function redirectIfEmpty($value, $token)
 	{
 		if (!$value) {
-			$this->flashMessage("Task with ID: $token was not found, or removed...");
+			$this->flashMessage("notice.error.task-not-found", 'alert-danger', NULL, array('token' => $token));
 			$this->redirect('default');
 		}
 		return $value;

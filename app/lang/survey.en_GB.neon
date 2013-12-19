@@ -26,7 +26,7 @@ form:
 	quest5:
 		quest: "V akej oblasti v rámci Vašej firmy by ste takúto spoluprácu najviac privítali?"
 		ans1: "Vytváranie marketingových materiálov"
-		ans2: "Graficke práce – návrh log, vizualizácií"
+		ans2: "Graficke práce – návrh loga, vizualizácií"
 		ans3: "Prekladateľské práce"
 		ans4: "Programovanie a vývoj aplikácií"
 		ans5: "Prieskum obchodných príležitostí"

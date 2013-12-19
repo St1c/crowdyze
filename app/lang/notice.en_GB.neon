@@ -1,0 +1,7 @@
+flash:
+
+warning:
+
+error:
+	task-not-found: "Task with ID: %token% was not found, or removed..."
+	not-accepted: "You have not accepted this task"

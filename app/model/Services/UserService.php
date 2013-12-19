@@ -168,4 +168,19 @@ class UserService extends Nette\Object
 		return $this->accepted_taskRepository->getUnsatisfiedByUser($userId);
 	}
 
+
+	/**
+	 * Check whether the task is assigned to user
+	 * 
+	 * @param  int  $userId
+	 * @param  int  $taskId
+	 * @param  int  $status 1=accepted|2=pending|3=satisfied|4=unsatisfied
+	 * 
+	 * @return boolean TRUE|FALSE
+	 */
+	public function isAcceptedFilterByStatus($taskId, $userId, $status = 1)
+	{
+		return $this->accepted_taskRepository->isAcceptedFilterByStatus($taskId, $userId, $status);
+	}
+
 }

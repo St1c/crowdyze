@@ -8,4 +8,9 @@ class ResultRepository extends BaseRepository
 {
 
 
+	public function create(array $values)
+	{
+		return $this->getTable()->insert($values);
+	}
+
 }

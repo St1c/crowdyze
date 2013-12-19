@@ -1,0 +1,5 @@
+form:
+	result: "Result"
+	result_missing: "You forgot to type in the result"
+	submit: "Send"
+	cancel: "Cancel"
