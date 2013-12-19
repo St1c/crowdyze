@@ -12,6 +12,8 @@
     "grunt-autoprefixer": "~0.4.1",
     "grunt-contrib-cssmin": "~0.7.0",
     "grunt-contrib-jshint": "~0.7.2",
-    "load-grunt-tasks": "~0.2.1"
+    "load-grunt-tasks": "~0.2.1",
+    "grunt-uncss": "~0.1.5",
+    "grunt-ucss": "~0.1.1"
   }
 }

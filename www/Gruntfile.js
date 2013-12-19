@@ -39,6 +39,15 @@ module.exports = function(grunt) {
       }
     },
 
+    // Remove unused CSS across multiple files
+    uncss: {
+      dist: {
+        files: {
+          'css/tidy.css': ['../app/templates/**/*.latte', '../app/templates/*.latte']
+          }
+        }
+    },
+
     autoprefixer: {
       options: {
         browsers: ['last 2 version']
@@ -62,7 +71,7 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         files: {
-          'js/build/common.min.js':['js/vendor/jqueryui-1.10.3.js',
+          'js/build/common.min.js':[//'js/vendor/jqueryui-1.10.3.js',
                                 'js/vendor/tagmanager.js',
                                 'js/vendor/typeahead.js',
                                 'js/vendor/imagesloaded.pkgd.js',
