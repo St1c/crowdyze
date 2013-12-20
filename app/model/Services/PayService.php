@@ -90,7 +90,7 @@ class PayService extends Nette\Object
 		$balance = $wallet->balance - $this->getOverallCosts($form);
 
 		if ($balance < 0) {
-			throw new \RuntimeException("Insuficient credit in your wallet", 1);
+			throw new \RuntimeException("", 1);
 		}
 
 		$budget = $this->recordBudget($task, $wallet->id, $form);
@@ -124,7 +124,7 @@ class PayService extends Nette\Object
 		$wallet  = $this->walletRepository->get(array('user_id' => $userId));
 		$balance = $wallet->balance - $this->getOverallCosts($form) + $this->fees['fix'];
 		if ($balance < 0) {
-			throw new \RuntimeException("Insuficient credit in your wallet", 1);
+			throw new \RuntimeException("notice.exception.insuficient_credit", 1);
 		}
 
 		// Reserve budget for current task
@@ -298,5 +298,52 @@ class PayService extends Nette\Object
 			'promotion_fee' => NULL
 		));
 	}
+
+
+
+	public function payResult($task, $userId)
+	{
+
+		// Check if budget is sufficient to pay the user
+		$budget 	= $this->getBudget($task);
+		$newBudget 	= $budget->budget - $task->salary;
+
+		if ( $newBudget < 0 ) {
+			throw new \RuntimeException("notice.exception.insuficient_credit", 1);
+		}
+		
+		// Pay commission to Crowdyze account
+		$resultCommission = $task->salary * ($this->fees['commission'] - 1);
+		$updateCommission = $budget->commission - $resultCommission;
+
+		$this->createIncomeCommission($budget, $resultCommission);
+		$task->related('budget')->update(array(
+			'budget'	 => $newBudget,
+			'commission' => $updateCommission,
+		));
+
+		// Transfer salary to user's wallet
+		$this->addBalance($userId, $task->salary);
+		
+	}
+
+
+
+	/**
+	 * Transfer commission to local Crowdyze account
+	 * 
+	 * @param  ActiveRow $budget
+	 * 
+	 * @return ActiveRow 
+	 */
+	private function createIncomeCommission($budget, $commission)
+	{
+		return $this->incomeRepository->create(array(
+			'from' 		=> $budget->id,
+			'type' 		=> 2,
+			'amount' 	=> $commission
+		));
+	}
+
 
 }

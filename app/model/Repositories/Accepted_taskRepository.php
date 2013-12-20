@@ -124,6 +124,24 @@ class Accepted_taskRepository extends BaseRepository
 
 
 	/**
+	 * Update accepted task status to Pending | Satisfied | Unsatisfied
+	 * 
+	 * @param  int $taskId 
+	 * @param  int $userId
+	 * @param  int $status 1=accepted|2=pending|3=satisfied|4=unsatisfied
+	 */
+	public function updateStatus($taskId, $userId, $status)
+	{
+		$this->getTable()
+			->where('task_id', $taskId)
+			->where('user_id', $userId)
+			->update(array(
+				'status' => $status
+			));
+	}
+
+
+	/**
 	 * Obtain info about state for the current task - accepted/not accepted by current user
 	 * 
 	 * @param  int  $taskId
@@ -138,23 +156,6 @@ class Accepted_taskRepository extends BaseRepository
 			->where('user_id', $userId)
 			->fetch() 
 			? TRUE : FALSE;
-	}
-
-
-	/**
-	 * Update accepted task status to Pending 
-	 * 
-	 * @param  int $taskId 
-	 * @param  int $userId
-	 */
-	public function updateToPending($taskId, $userId)
-	{
-		$this->getTable()
-			->where('task_id', $taskId)
-			->where('user_id', $userId)
-			->update(array(
-				'status' => 2
-			));
 	}
 
 

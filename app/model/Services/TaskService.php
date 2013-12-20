@@ -71,10 +71,8 @@ class TaskService extends Nette\Object
 				'title' => $formValues['title'],
 				'description' => $formValues['description'],
 				'salary' => $formValues['salary'],
-				//~ 'budget' => $formValues['budget'],
 				'budget_type' => $formValues['budget_type'],
 				'workers' => $formValues['workers'],
-				//~ 'status' => 0,
 				'deadline' => $formValues['deadline'],
 		));
 	}
@@ -395,7 +393,7 @@ class TaskService extends Nette\Object
 	public function createResult($userId, $taskId, $values)
 	{
 		// Change status of accepted task to pending
-		$this->accepted_taskRepository->updateToPending($taskId, $userId);
+		$this->accepted_taskRepository->updateStatus($taskId, $userId, 2);
 
 		// Record new result
 		return $this->resultRepository->create(array(
@@ -403,5 +401,43 @@ class TaskService extends Nette\Object
 			'task_id' => $taskId,
 			'result'  => $values['result']
 		));
+	}
+
+
+	/**
+	 * Get all results for given task
+	 * 
+	 * @param  int $taskId
+	 * 
+	 * @return Table\Selection
+	 */
+	public function getResults($taskId)
+	{
+		Validators::assert($taskId, 'int');
+		return $this->resultRepository->getAll($taskId);
+	}
+
+
+	/**
+	 * Accept result
+	 *
+	 * @param  int $taskId
+	 * @param  int $userId
+	 */
+	public function acceptResult($taskId, $userId)
+	{
+		$this->accepted_taskRepository->updateStatus($taskId, $userId, 3);
+	}
+
+
+	/**
+	 * Reject result
+	 * 
+	 * @param  int $taskId
+	 * @param  int $userId
+	 */
+	public function rejectResult($taskId, $userId)
+	{
+		$this->accepted_taskRepository->updateStatus($taskId, $userId, 4);
 	}
 }

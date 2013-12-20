@@ -20,6 +20,7 @@ class TaskRepository extends BaseRepository
  	 * Create new task
  	 * 
  	 * @param array $task details
+ 	 * 
  	 * @return Nette\Database\Table\ActiveRow
  	 */
 	public function create(array $task)
@@ -89,6 +90,7 @@ class TaskRepository extends BaseRepository
 	 * Get single task
 	 * 
 	 * @param int $id Task ID
+	 * 
 	 * @return ActiveRow
 	 */
 	public function getTask($id)
@@ -101,6 +103,7 @@ class TaskRepository extends BaseRepository
 	 * Get single task by token
 	 * 
 	 * @param  string $token
+	 * 
 	 * @return ActiveRow
 	 */
 	public function getTaskByToken($token)
@@ -116,6 +119,7 @@ class TaskRepository extends BaseRepository
  	 * 
  	 * @param int limit for one page
  	 * @param int offset for current page in paginator
+ 	 * 
  	 * @return Nette\Database\Table\Selection
  	 */
 	public function getTasks($limit, $offset)
@@ -133,6 +137,7 @@ class TaskRepository extends BaseRepository
 	 * @param  int $limit  Paginator limit
 	 * @param  int $offset Paginator offset
 	 * @param  int $userId User's ID
+	 * 
 	 * @return Table\Selection         Filtered Results
 	 */
 	public function getTasksFilterByUserAccepted($limit, $offset, $userId)
@@ -150,6 +155,7 @@ class TaskRepository extends BaseRepository
  	 * Get task's tags
  	 * 
  	 * @param int task id
+ 	 * 
  	 * @return Nette\Database\Table\ActiveRow
  	 */
 	public function getTaskTags($taskId)
@@ -166,6 +172,7 @@ class TaskRepository extends BaseRepository
 	 * @param  string $tag    Tag
 	 * @param  int $limit  Paginator limit
 	 * @param  int $offset Paginator offset
+	 * 
 	 * @return Table\Selection         Filtered Results
 	 */
 	public function getTaggedTasks($tag, $limit, $offset)
@@ -184,6 +191,7 @@ class TaskRepository extends BaseRepository
 	 * @param  int $limit  Paginator limit
 	 * @param  int $offset Paginator offset
 	 * @param  int $userId User's ID
+	 * 
 	 * @return Table\Selection         Filtered Results
 	 */
 	public function getTaggedTasksFilterByUserAccepted($tag, $limit, $offset, $userId)
@@ -201,6 +209,7 @@ class TaskRepository extends BaseRepository
 	/**
 	 * Get tasks where current user is owner
 	 * @param  int $userId 
+	 * 
 	 * @return Table\Selection
 	 */
 	public function getOwnerTasks($userId)
@@ -224,6 +233,7 @@ class TaskRepository extends BaseRepository
 	 * Get number of tasks with specified tag
 	 * 
 	 * @param string $tag Tag name
+	 * 
 	 * @return ActiveRow Number of tasks with certain tag
 	 */
 	public function getTagsTasksCount($tag)
