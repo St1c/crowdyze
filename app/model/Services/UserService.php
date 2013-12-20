@@ -131,15 +131,15 @@ class UserService extends Nette\Object
 
 
 	/**
-	 * Get user's finished tasks
+	 * Get user's pending tasks
 	 * 
 	 * @param  int $userId User's ID
 	 * 
 	 * @return ActiveRow   Results
 	 */
-	public function getFinishedUserTasks($userId)
+	public function getPendingUserTasks($userId)
 	{
-		return $this->accepted_taskRepository->getFinishedByUser($userId);
+		return $this->accepted_taskRepository->getPendingByUser($userId);
 	}
 
 

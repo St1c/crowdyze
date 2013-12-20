@@ -28,9 +28,6 @@ class TaskService extends Nette\Object
 	
 	/** @var Repositories\Attachment_typeRepository */
 	private $attachmentTypeRepository;
-	
-	/** @var Repositories\ResultRepository */
-	private $resultRepository;
 
 	/** @var fileManager */
 	private $fileManager;
@@ -42,14 +39,12 @@ class TaskService extends Nette\Object
 			Repositories\TagRepository $tagRepository,
 			Repositories\Accepted_taskRepository $accepted_taskRepository,
 			Repositories\Attachment_typeRepository $attachmentTypeRepository,
-			Repositories\ResultRepository $resultRepository,
 			Utilities\FileManager $fileManager )
 	{
 		$this->taskRepository = $taskRepository;
 		$this->tagRepository = $tagRepository;
 		$this->accepted_taskRepository = $accepted_taskRepository;
 		$this->attachmentTypeRepository = $attachmentTypeRepository;
-		$this->resultRepository = $resultRepository;
 		$this->fileManager = $fileManager;
 	}
 
@@ -129,6 +124,7 @@ class TaskService extends Nette\Object
 	}
 
 
+
 	/**
 	 * Assign task to only certain departments
 	 * 
@@ -203,6 +199,7 @@ class TaskService extends Nette\Object
 	}
 
 
+
 	/**
 	 * Get single task
 	 * 
@@ -217,6 +214,7 @@ class TaskService extends Nette\Object
 	}
 
 
+
 	/**
 	 * Get task by token
 	 * 
@@ -229,6 +227,7 @@ class TaskService extends Nette\Object
 		Validators::assert($token, 'string');
 		return $this->taskRepository->getTaskByToken($token);
 	}
+
 
 
 	/**
@@ -251,6 +250,7 @@ class TaskService extends Nette\Object
 	}
 
 
+
 	/** 
  	 * Get tasks with paginator info
  	 * 
@@ -265,6 +265,7 @@ class TaskService extends Nette\Object
 	}
 
 	
+
 	/**
 	 * Get all tasks with certain tag which are not assigned to current user
 	 * 
@@ -284,6 +285,7 @@ class TaskService extends Nette\Object
 	}
 
 
+
 	/**
 	 * Get tasks with certain tag
 	 * 
@@ -297,6 +299,7 @@ class TaskService extends Nette\Object
 	}
 
 
+
 	/** 
  	 * Get number of tasks
  	 * 
@@ -308,6 +311,7 @@ class TaskService extends Nette\Object
 	}
 
 
+
 	/**
 	 * Get number of tasks with specified tag
 	 */
@@ -315,6 +319,7 @@ class TaskService extends Nette\Object
 	{
 		return $this->taskRepository->getTagsTasksCount($tag);
 	}
+
 
 
 	/**
@@ -328,6 +333,7 @@ class TaskService extends Nette\Object
 	{
 		return $this->taskRepository->getOwnerTasks($userId);
 	}
+
 
 
 	/**
@@ -345,6 +351,7 @@ class TaskService extends Nette\Object
 	}
 
 
+
 	/**
 	 * Check existance of the token (taks) in DB
 	 * 
@@ -356,6 +363,7 @@ class TaskService extends Nette\Object
 	{
 		return $this->taskRepository->getTaskByToken($token) ? TRUE : FALSE;
 	}
+
 
 
 	/**
@@ -381,8 +389,9 @@ class TaskService extends Nette\Object
 	}
 
 
+
 	/**
-	 * Add result to the task
+	 * Record new result and change status of accepted task to '2=pending'
 	 * 
 	 * @param int 	$userId
 	 * @param int 	$taskId
@@ -392,29 +401,31 @@ class TaskService extends Nette\Object
 	 */
 	public function createResult($userId, $taskId, $values)
 	{
-		// Change status of accepted task to pending
-		$this->accepted_taskRepository->updateStatus($taskId, $userId, 2);
-
-		// Record new result
-		return $this->resultRepository->create(array(
-			'user_id' => $userId,
-			'task_id' => $taskId,
-			'result'  => $values['result']
+		return $this->accepted_taskRepository->update($taskId, $userId, array(
+			'result' => $values['result'],
+			'status' => 2
 		));
 	}
 
 
+
 	/**
-	 * Get all results for given task
+	 * Get all pending results for given task
 	 * 
 	 * @param  int $taskId
 	 * 
 	 * @return Table\Selection
 	 */
-	public function getResults($taskId)
+	public function getPendingResults($taskId)
 	{
 		Validators::assert($taskId, 'int');
-		return $this->resultRepository->getAll($taskId);
+		return $this->accepted_taskRepository->getPending($taskId);
+	}
+
+
+	public function getRatedResults($task)
+	{
+		return $task->related('accepted')->where("status = ? OR status = ?", 3, 4)->fetchAll();
 	}
 
 
@@ -430,6 +441,7 @@ class TaskService extends Nette\Object
 	}
 
 
+
 	/**
 	 * Reject result
 	 * 
@@ -440,4 +452,5 @@ class TaskService extends Nette\Object
 	{
 		$this->accepted_taskRepository->updateStatus($taskId, $userId, 4);
 	}
+
 }

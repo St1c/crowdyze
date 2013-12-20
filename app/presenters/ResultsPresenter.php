@@ -49,8 +49,8 @@ class ResultsPresenter extends BaseSignedPresenter
 			$this->redirect('User:');
 		}
 
-		// $this->template->results = $this->taskService->getResults($this->task->id);
-		$this->template->task = $this->task;
+		$this->template->results = $this->taskService->getPendingResults($this->task->id);
+		$this->template->rated = $this->taskService->getRatedResults($this->task);
 	}
 
 
@@ -166,6 +166,7 @@ class ResultsPresenter extends BaseSignedPresenter
 		
 			$this->payService->payResult($this->task, $userId);
 			$this->taskService->acceptResult($this->task->id, $userId);
+			$this->redirect('this');
 
 		} catch (\RuntimeException $e) {
 			$this->flashMessage($e->getMessage(), 'alert-danger');
@@ -177,6 +178,7 @@ class ResultsPresenter extends BaseSignedPresenter
 	public function handleReject($userId)
 	{
 		$this->taskService->rejectResult($this->task->id, $userId);
+		$this->redirect('this');
 	}
 
 

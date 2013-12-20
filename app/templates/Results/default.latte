@@ -1,8 +1,12 @@
 {layout '../@layout.latte'}
 {block #content}
 
-{foreach $task->related('result') as $result}
+{foreach $results as $result}
 	{$result->id}, {$result->user->id}: {$result->result}
 	<a n:href="accept! $result->user_id" class="btn btn-xs btn-success">Satisfied</a>
 	<a n:href="reject! $result->user_id" class="btn btn-xs btn-danger">Unsatisfied</a>
+{/foreach}
+
+{foreach $rated as $result}
+	{$result->id}, {$result->user->id}: {$result->result} , {$result->stat->status}
 {/foreach}

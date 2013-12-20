@@ -59,7 +59,6 @@ services:
 	- Model\Repositories\Task_statusRepository
 	- Model\Repositories\Task_attachmentRepository
 	- Model\Repositories\CommentRepository
-	- Model\Repositories\ResultRepository
 	- Model\Repositories\Result_attachmentRepository
 	- Model\Repositories\Department_nameRepository
 	- Model\Repositories\WalletRepository

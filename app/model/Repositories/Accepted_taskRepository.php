@@ -28,6 +28,38 @@ class Accepted_taskRepository extends BaseRepository
 
 
 	/**
+	 * Update accepted task record
+	 * 
+	 * @param int 	$taskId 
+	 * @param int 	$userId
+	 * @param array $values
+	 */
+	public function update($taskId, $userId, array $values)
+	{
+		return $this->getTable()
+			->where('task_id', $taskId)
+			->where('user_id', $userId)
+			->update($values);
+	}
+
+
+	/**
+	 * Get all pending results for given taskId
+	 * 
+	 * @param  int $taskId
+	 * 
+	 * @return Database\Selection
+	 */
+	public function getPending($taskId)
+	{
+		return $this->getTable()
+			->where('task_id',$taskId)
+			->where('status', 2)
+			->fetchAll();
+	}
+
+
+	/**
 	 * Get status of the accepted task
 	 * 
 	 * @param int User ID
@@ -67,7 +99,7 @@ class Accepted_taskRepository extends BaseRepository
 	 * 
 	 * @return ActiveRow 	User's finished tasks
 	 */
-	public function getFinishedByUser($userId)
+	public function getPendingByUser($userId)
 	{
 		return $this->getTable()
 			->select('task.*')
