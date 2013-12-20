@@ -423,9 +423,16 @@ class TaskService extends Nette\Object
 	}
 
 
-	public function getRatedResults($task)
+	/**
+	 * Get all results corresponding to thsi task
+	 * 
+	 * @param  Model\Domains\Task $task
+	 * 
+	 * @return Table\Selection      
+	 */
+	public function getResults($task)
 	{
-		return $task->related('accepted')->where("status = ? OR status = ?", 3, 4)->fetchAll();
+		return $task->related('accepted')->fetchAll();
 	}
 
 

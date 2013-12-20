@@ -49,8 +49,7 @@ class ResultsPresenter extends BaseSignedPresenter
 			$this->redirect('User:');
 		}
 
-		$this->template->results = $this->taskService->getPendingResults($this->task->id);
-		$this->template->rated = $this->taskService->getRatedResults($this->task);
+		$this->template->results = $this->taskService->getResults($this->task);
 	}
 
 
