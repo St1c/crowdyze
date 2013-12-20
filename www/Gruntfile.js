@@ -71,7 +71,7 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         files: {
-          'js/build/common.min.js':[//'js/vendor/jqueryui-1.10.3.js',
+          'js/build/common.min.js':['js/vendor/jquery-ui-1.10.3.datepicker.js',
                                 'js/vendor/tagmanager.js',
                                 'js/vendor/typeahead.js',
                                 'js/vendor/imagesloaded.pkgd.js',
