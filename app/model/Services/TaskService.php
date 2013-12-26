@@ -460,4 +460,18 @@ class TaskService extends Nette\Object
 		$this->accepted_taskRepository->updateStatus($taskId, $userId, 4);
 	}
 
+
+
+	/**
+	 * Get number of accepted/satisfied/pending
+	 * 
+	 * @param  Task   $task 
+	 * 
+	 * @return int    
+	 */
+	public function getFinishedCount(Task $task)
+	{
+		return $task->related('accepted')->where("status <> ?", 4)->count();
+	}
+
 }

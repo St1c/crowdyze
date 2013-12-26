@@ -125,7 +125,9 @@ class TaskRepository extends BaseRepository
 	public function getTasks($limit, $offset)
 	{
 		return $this->getTable()
-			->select('task.*')
+			->select('task.*, sum(:accepted_task.status <> (4) AND IFNULL(:accepted_task.status,0)) AS finished')
+			->group('task.id')
+			->having('finished < task.workers')
 			->limit($limit, $offset)
 			->order('created DESC');
 	}
@@ -144,8 +146,10 @@ class TaskRepository extends BaseRepository
 	{
 		// Subquery in where(NOT IN (?)) must not be NULL !
 		return $this->getTable()
-			->select('task.*')
-			->where('id NOT IN (?)', $this->table('accepted_task')->select('task_id')->where('user_id', $userId) )
+			->select('task.*, sum(:accepted_task.status <> (4) AND IFNULL(:accepted_task.status,0)) AS finished')
+			->where('task.id NOT IN (?)', $this->table('accepted_task')->select('task_id')->where('user_id', $userId) )
+			->group('task.id')
+			->having('finished < task.workers')
 			->limit($limit, $offset)
 			->order('created DESC');
 	}
@@ -178,9 +182,12 @@ class TaskRepository extends BaseRepository
 	public function getTaggedTasks($tag, $limit, $offset)
 	{
 		return $this->getTable()
-			->select('task.*')
+			->select('task.*, sum(:accepted_task.status <> (4) AND IFNULL(:accepted_task.status,0)) AS finished')
 			->where(':task_has_tag.tag.tag', $tag)
-			->limit($limit, $offset)->order('created DESC');
+			->group('task.id')
+			->having('finished < task.workers')
+			->limit($limit, $offset)
+			->order('created DESC');
 	}
 
 
@@ -198,9 +205,11 @@ class TaskRepository extends BaseRepository
 	{
 		// Subquery in where(NOT IN (?)) must not be NULL !
 		return $this->getTable()
-			->select('task.*')
+			->select('task.*, sum(:accepted_task.status <> (4) AND IFNULL(:accepted_task.status,0)) AS finished')
 			->where(':task_has_tag.tag.tag', $tag)
 			->where('task.id NOT IN (?)', $this->table('accepted_task')->select('task_id')->where('user_id', $userId) )
+			->group('task.id')
+			->having('finished < task.workers')
 			->limit($limit, $offset)
 			->order('created DESC');
 	}

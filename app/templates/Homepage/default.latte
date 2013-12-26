@@ -9,21 +9,22 @@
 	<div class="under-notifier">
 		<div id="container">
 			{foreach $tasks as $task}
-					<div class="item">
-						<div class="deadline">{$task->deadline|daysLeft}</div>
-
-						{foreach $task->related('task_has_tag') as $tag}
-							<a n:href="Homepage:tag $tag->tag->tag" class="tag">
-								<span class="label label-default">{$tag->tag->tag|capitalize}</span>
-							</a>
-						{/foreach}
-						
-						<a n:href="Task:detail $task->token">
-							<h4>{$task->title|capitalize}</h4>
+				<div class="item">
+					<div class="deadline">{$task->deadline|daysLeft}</div>
+					{foreach $task->related('task_has_tag') as $tag}
+						<a n:href="Homepage:tag $tag->tag->tag" class="tag">
+							<span class="label label-default">{$tag->tag->tag|capitalize}</span>
 						</a>
-						
-						<div class="budget">Get <span>&euro; {$task->salary|number:2}</span></div>
-					</div>
+					{/foreach}
+
+					<a n:href="Task:detail $task->token">
+						<h4>{$task->title|capitalize}</h4>
+					</a>
+					
+					<span>{($task->finished / $task->workers)*100 |number:0}% finished</span>
+
+					<div class="budget">Get <span>&euro; {$task->salary|number:2}</span></div>
+				</div>
 			{/foreach}
 		</div>
 	</div>
