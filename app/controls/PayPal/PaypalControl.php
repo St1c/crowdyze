@@ -2,8 +2,8 @@
 namespace Controls;
 
 use	Nette\Application\UI\Control,
-	Model\Services\UserService,
-	PayPal\Rest\ApiContext,
+	Model\Services\PayService;
+use	PayPal\Rest\ApiContext,
 	PayPal\Auth\OAuthTokenCredential,
 	PayPal\Api\Amount,
 	PayPal\Api\Details,
@@ -23,8 +23,8 @@ class PaypalControl extends BaseControl
 	/** @var Paypal neon settings */
 	public $paypal;
 
-	/** @var Model\Services\UserService @inject */
-	public $userService;
+	/** @var Model\Services\PayService @inject */
+	public $payService;
 
 
 
@@ -63,7 +63,7 @@ class PaypalControl extends BaseControl
 			$execution->setPayer_id($this->presenter->getParameter('PayerID'));
 			$result = $payment->execute($execution, $apiContext);
 
-			$this->userService->addBalance($this->presenter->user->id, $paypalSession->result->transactions[0]->amount->details->subtotal);
+			$this->payService->addBalance($this->presenter->user->id, $paypalSession->result->transactions[0]->amount->details->subtotal);
 
 			$this->presenter->flashMessage('Credit added', 'alert-success');
 			$this->presenter->redirect('Wallet:deposit');
