@@ -90,7 +90,7 @@ class PayService extends Nette\Object
 		$balance = $wallet->balance - $this->getOverallCosts($form);
 
 		if ($balance < 0) {
-			throw new \RuntimeException("", 1);
+			throw new \RuntimeException("notice.exception.insuficient_credit", 1);
 		}
 
 		$budget = $this->recordBudget($task, $wallet->id, $form);

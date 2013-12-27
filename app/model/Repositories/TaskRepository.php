@@ -29,7 +29,6 @@ class TaskRepository extends BaseRepository
 	}
 
 
-
 	/** 
  	 * Update task
  	 * 
@@ -43,6 +42,16 @@ class TaskRepository extends BaseRepository
 		return $task->activeRow->update($values);
 	}
 
+
+	/**
+	 * Delete selected task
+	 * 
+	 * @param  Task   $task
+	 */
+	public function delete(Task $task)
+	{
+		$task->activeRow->delete();
+	}
 
 
 	/**
@@ -73,7 +82,6 @@ class TaskRepository extends BaseRepository
 	}
 
 
-
 	/**
 	 * @param Task
 	 * @param string $path
@@ -83,7 +91,6 @@ class TaskRepository extends BaseRepository
 	{
 		$task->related('task_attachment')->where('path', $path)->delete();
 	}
-
 
 
 	/**
@@ -252,7 +259,6 @@ class TaskRepository extends BaseRepository
 			->where(':task_has_tag.tag.tag', $tag)
 			->count();
 	}
-
 
 
 	/**

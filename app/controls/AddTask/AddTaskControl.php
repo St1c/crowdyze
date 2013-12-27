@@ -113,15 +113,15 @@ class AddTaskControl extends BaseControl
 
 		if ($component['submit']->isSubmittedBy()) {
 
-			//	Reformat
+			// Reformat
 			$values = $component->getValues();			
 			foreach ($values as $key => $value) {
-				//	Exclude tags, etc. from update
+				// Exclude tags, etc. from update
 				$exclude = array('tags', 'departments', 'attachments');
 				in_array( $key,  $exclude ) || empty($value) ?: $data[$key] = $value;
 			}
 
-			//	Store
+			// Store
 			$task = $this->taskService->createTask($this->presenter->getUser()->id, $data);
 
 			// Saving tags
@@ -156,7 +156,8 @@ class AddTaskControl extends BaseControl
 				$this->presenter->flashMessage('addTask.flashes.task_edited', 'alert-success');
 				$this->presenter->redirect('detail', array('token' => $task->token));
 			}
-			catch (\RuntimeException $e) {
+			catch (\Exception $e) {
+				$this->taskService->deleteTask($task);
 				$component->addError($e->getMessage());
 			}
 		}

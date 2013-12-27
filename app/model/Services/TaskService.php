@@ -73,6 +73,11 @@ class TaskService extends Nette\Object
 	}
 
 
+	public function deleteTask(Task $task)
+	{
+		$this->taskRepository->delete($task);
+	}
+
 
 	/** 
  	 * Update task
