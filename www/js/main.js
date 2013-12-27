@@ -89,12 +89,13 @@ $(function(){
 		}
 	});
 
+/*
 	$.nette.ext('datepicker', {
 		load: function() {
 			$("input.deadline").datepicker();
 		}
 	});
-
+ */
 	$.nette.ext('budgetcalc', {
 		load: function() {
 
@@ -220,5 +221,3 @@ $(function(){
 	// }
 
 });
-
-

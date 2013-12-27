@@ -18,8 +18,7 @@ $configurator->setDebugMode(FALSE);
 $configurator->setTempDirectory(__DIR__ . '/../temp');
 $configurator->createRobotLoader()
 	->addDirectory(__DIR__ . '/../app')
-	->addDirectory(__DIR__ . '/../libs/VojtechDobes/')
-	->addDirectory(__DIR__ . '/../tests/')
+	->addDirectory(__DIR__ . '/../libs/')
 	->register();
 
 $configurator->addConfig(__DIR__ . '/../app/config/config.neon');

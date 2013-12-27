@@ -63,7 +63,9 @@ module.exports = function(grunt) {
     cssmin: {
       combine: {
         files: {
-          'css/main.css': ['css/main.css']
+          'css/main.css': [
+				'css/main.css'
+				]
         }
       }
     },
@@ -71,15 +73,17 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         files: {
-          'js/build/common.min.js':['js/vendor/jquery-ui-1.10.3.datepicker.js',
-                                'js/vendor/tagmanager.js',
-                                'js/vendor/typeahead.js',
-                                'js/vendor/imagesloaded.pkgd.js',
-                                'js/vendor/masonry.js',
-                                'js/vendor/jquery.ias.js',
-                                'js/jquery.filePreuploader.js'],
-          'js/build/nette.min.js': ['js/vendor/netteForms.js',
-                                'js/vendor/nette.ajax.js']
+          'js/build/common.min.js':[
+//					'js/vendor/jquery-ui-1.10.3.datepicker.js',
+					'js/vendor/tagmanager.js',
+					'js/vendor/typeahead.js',
+					'js/vendor/imagesloaded.pkgd.js',
+					'js/vendor/masonry.js',
+					'js/vendor/jquery.ias.js',
+					'js/jquery.filePreuploader.js'],
+          'js/build/nette.min.js': [
+					'js/vendor/netteForms.js',
+                    'js/vendor/nette.ajax.js']
         }
       }
     },
@@ -87,9 +91,15 @@ module.exports = function(grunt) {
     uglify: {
       build: {
         files: {
-          'js/build/common.min.js': ['js/build/common.min.js'],
-          'js/build/main.min.js': ['js/main.js'],
-          'js/build/nette.min.js': ['js/build/nette.min.js']
+          'js/build/common.min.js': [
+					'js/build/common.min.js'
+					],
+          'js/build/main.min.js': [
+					'js/main.js'
+					],
+          'js/build/nette.min.js': [
+					'js/build/nette.min.js'
+					]
         }
       }
     },
