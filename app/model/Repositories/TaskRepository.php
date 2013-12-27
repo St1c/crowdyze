@@ -29,6 +29,7 @@ class TaskRepository extends BaseRepository
 	}
 
 
+
 	/** 
  	 * Update task
  	 * 
@@ -82,6 +83,7 @@ class TaskRepository extends BaseRepository
 	}
 
 
+
 	/**
 	 * @param Task
 	 * @param string $path
@@ -91,6 +93,7 @@ class TaskRepository extends BaseRepository
 	{
 		$task->related('task_attachment')->where('path', $path)->delete();
 	}
+
 
 
 	/**
@@ -261,13 +264,14 @@ class TaskRepository extends BaseRepository
 	}
 
 
+
 	/**
 	 * @param Nette\Database\Table\ActiveRow $data
 	 */
 	private static function createTask(ActiveRow $data)
 	{
 		//~ dump($data);
-		$task = new Task($data/*, $data->id*/);
+		$task = Task::createFromActiveRow($data/*, $data->id*/);
 		//~ $task->title = $data->title;
 		//~ $task->description = $data->description;
 		//~ $task->salary = $data->salary;

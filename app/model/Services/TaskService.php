@@ -9,6 +9,7 @@ use Nette,
 	Nette\Utils\Validators,
 	Nette\Utils\Strings;
 use	Model\Repositories,
+	Model\Services,
 	Model\Domains\Task,
 	Utilities;
 use Taco\Nette\Http\FileUploaded;
@@ -23,8 +24,8 @@ class TaskService extends Nette\Object
 	/** @var tagRepository */
 	private $tagRepository;
 	
-	/** @var accepted_taskRepository */
-	private $accepted_taskRepository;
+	/** @var acceptedTaskRepository */
+	private $acceptedTaskRepository;
 	
 	/** @var Repositories\Attachment_typeRepository */
 	private $attachmentTypeRepository;
@@ -32,20 +33,28 @@ class TaskService extends Nette\Object
 	/** @var fileManager */
 	private $fileManager;
 
+	/** @var Model\Services\PayService @inject */
+	private $payService;
 
 
+	/**
+	 * DI
+	 */
 	public function __construct(
 			Repositories\TaskRepository $taskRepository,
 			Repositories\TagRepository $tagRepository,
-			Repositories\Accepted_taskRepository $accepted_taskRepository,
+			Repositories\Accepted_taskRepository $acceptedTaskRepository,
 			Repositories\Attachment_typeRepository $attachmentTypeRepository,
-			Utilities\FileManager $fileManager )
+			Utilities\FileManager $fileManager,
+			Services\PayService $payService
+			)
 	{
 		$this->taskRepository = $taskRepository;
 		$this->tagRepository = $tagRepository;
-		$this->accepted_taskRepository = $accepted_taskRepository;
+		$this->acceptedTaskRepository = $acceptedTaskRepository;
 		$this->attachmentTypeRepository = $attachmentTypeRepository;
 		$this->fileManager = $fileManager;
+		$this->payService = $payService;
 	}
 
 
@@ -58,18 +67,60 @@ class TaskService extends Nette\Object
 	 * 
 	 * @return ActiveRow
 	 */
-	public function createTask($user_id, array $formValues)
+	public function createTask(array $formValues)
 	{
-		return $this->taskRepository->create(array(
-				'owner' => $user_id,
-				'token'	=> $this->generateTaskToken(),
-				'title' => $formValues['title'],
-				'description' => $formValues['description'],
-				'salary' => $formValues['salary'],
-				'budget_type' => $formValues['budget_type'],
-				'workers' => $formValues['workers'],
-				'deadline' => $formValues['deadline'],
-		));
+		$this->taskRepository->beginTransaction();
+
+		try {
+			$task = $this->taskRepository->create(array(
+					'owner' => $formValues['owner'],
+					//~ 'owner' => $user_id,
+					//	@TODO Move to repository
+					'token'	=> $this->generateTaskToken(),
+					'title' => $formValues['title'],
+					'description' => $formValues['description'],
+					'salary' => $formValues['salary'],
+					'budget_type' => $formValues['budget_type'],
+					'workers' => $formValues['workers'],
+					'deadline' => $formValues['deadline'],
+					));
+
+			// Saving tags
+			if (isset($formValues['tags'])) {
+				$this->storeTags($task, $formValues['tags']);
+			}
+
+			// Saving departments 
+			// if ( !empty($values['departments']) ) {
+			// 	$this->taskService->setDepartments($task, $values['departments']);
+			// }
+
+			// Allocate money for the task from user's wallet
+			$this->payService->createBudget($task, $formValues['owner']);
+			
+			// Saving attachments
+			foreach ($formValues['attachments'] as $file) {
+				if ($file instanceof FileUploaded) {
+					if ($file->isRemove()) {
+						$this->removeAttachment($task, $file);
+					}
+					else {
+						$this->saveAttachment($task, $file);
+					}
+				}
+				else {
+					throw new \LogicException('Invalid type of attachment.');
+				}
+			}
+
+			$this->taskRepository->commitTransaction();
+		}
+		catch (\Exception $e) {
+			$this->taskRepository->rollbackTransaction();
+			throw $e;
+		}
+		
+		return $task;
 	}
 
 
@@ -102,6 +153,7 @@ class TaskService extends Nette\Object
 	 */
 	public function storeTags(Task $task, array $tags)
 	{
+		//	Old tags remove
 		$task->related('task_has_tag')->delete();
 
 		foreach (array_unique($tags) as $tag) {
@@ -193,10 +245,10 @@ class TaskService extends Nette\Object
 		Validators::assert($token, 'string');
 
 		$task = $this->getTaskByToken($token);
-		$acceptedTaskStatus = $this->accepted_taskRepository->getStatusById($userId, $task->id);
+		$acceptedTaskStatus = $this->acceptedTaskRepository->getStatusById($userId, $task->id);
 
 		if ($acceptedTaskStatus === FALSE) {
-			return $this->accepted_taskRepository->insert($userId, $task->id, 1);
+			return $this->acceptedTaskRepository->insert($userId, $task->id, 1);
 		}
 		else {
 			throw new \Exception("tasks.errors.already_accepted", 1);
@@ -246,7 +298,7 @@ class TaskService extends Nette\Object
 	 */
 	public function getTasks($limit, $offset, $userId)
 	{
-		if ( $this->accepted_taskRepository->getUsersNumberOfAssignedTasks($userId) > 0 ) {
+		if ( $this->acceptedTaskRepository->getUsersNumberOfAssignedTasks($userId) > 0 ) {
 			return $this->taskRepository->getTasksFilterByUserAccepted($limit, $offset, $userId);
 		}
 		else {
@@ -282,7 +334,7 @@ class TaskService extends Nette\Object
 	 */
 	public function getTaggedTasks($tag, $limit, $offset, $userId)
 	{
-		if ( $this->accepted_taskRepository->getUsersNumberOfAssignedTasks($userId) > 0 ) {
+		if ( $this->acceptedTaskRepository->getUsersNumberOfAssignedTasks($userId) > 0 ) {
 			return $this->taskRepository->getTaggedTasksFilterByUserAccepted($tag, $limit, $offset, $userId);
 		} else {
 			return $this->getAllTaggedTasks($tag, $limit, $offset);
@@ -352,7 +404,7 @@ class TaskService extends Nette\Object
 	public function isAccepted($token, $userId)
 	{
 		$task = $this->getTaskByToken($token);
-		return $this->accepted_taskRepository->isAccepted($task->id, $userId);
+		return $this->acceptedTaskRepository->isAccepted($task->id, $userId);
 	}
 
 
@@ -406,7 +458,7 @@ class TaskService extends Nette\Object
 	 */
 	public function createResult($userId, $taskId, $values)
 	{
-		return $this->accepted_taskRepository->update($taskId, $userId, array(
+		return $this->acceptedTaskRepository->update($taskId, $userId, array(
 			'result' => $values['result'],
 			'status' => 2
 		));
@@ -424,7 +476,7 @@ class TaskService extends Nette\Object
 	public function getPendingResults($taskId)
 	{
 		Validators::assert($taskId, 'int');
-		return $this->accepted_taskRepository->getPending($taskId);
+		return $this->acceptedTaskRepository->getPending($taskId);
 	}
 
 
@@ -449,7 +501,7 @@ class TaskService extends Nette\Object
 	 */
 	public function acceptResult($taskId, $userId)
 	{
-		$this->accepted_taskRepository->updateStatus($taskId, $userId, 3);
+		$this->acceptedTaskRepository->updateStatus($taskId, $userId, 3);
 	}
 
 
@@ -462,7 +514,7 @@ class TaskService extends Nette\Object
 	 */
 	public function rejectResult($taskId, $userId)
 	{
-		$this->accepted_taskRepository->updateStatus($taskId, $userId, 4);
+		$this->acceptedTaskRepository->updateStatus($taskId, $userId, 4);
 	}
 
 

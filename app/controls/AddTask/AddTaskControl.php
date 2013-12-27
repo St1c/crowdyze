@@ -115,53 +115,28 @@ class AddTaskControl extends BaseControl
 
 			// Reformat
 			$values = $component->getValues();			
-			foreach ($values as $key => $value) {
-				// Exclude tags, etc. from update
-				$exclude = array('tags', 'departments', 'attachments');
-				in_array( $key,  $exclude ) || empty($value) ?: $data[$key] = $value;
-			}
 
-			// Store
-			$task = $this->taskService->createTask($this->presenter->getUser()->id, $data);
+			// Adding owner.
+			$values['owner'] = $this->presenter->getUser()->id;
 
-			// Saving tags
+			// Parsing tags
 			if (isset($values['tags']) && $value = self::parseTags($values['tags'])) {
-				$this->taskService->storeTags($task, $value);
+				$values['tags'] = $value;
 			}
 
-			// Saving departments 
-			// if ( !empty($values['departments']) ) {
-			// 	$this->taskService->setDepartments($task, $values['departments']);
-			// }
-
+			//	Process store
 			try {
-				// Allocate money for the task from user's wallet
-				$this->payService->createBudget($task, $this->presenter->getUser()->id, $values);
-				
-				// Saving attachments
-				foreach ($values->attachments as $file) {
-					if ($file instanceof FileUploaded) {
-						if ($file->isRemove()) {
-							$this->taskService->removeAttachment($task, $file);
-						}
-						else {
-							$this->taskService->saveAttachment($task, $file);
-						}
-					}
-					else {
-						throw new \LogicException('Invalid type of attachment.');
-					}
-				}
-
+				$task = $this->taskService->createTask((array)$values);
 				$this->presenter->flashMessage('addTask.flashes.task_edited', 'alert-success');
 				$this->presenter->redirect('detail', array('token' => $task->token));
 			}
-			catch (\Exception $e) {
-				$this->taskService->deleteTask($task);
+			catch (\RuntimeException $e) {
 				$component->addError($e->getMessage());
+				throw $e;
 			}
 		}
 	}
+
 
 
 	public function render()
@@ -173,6 +148,8 @@ class AddTaskControl extends BaseControl
 
 
 	/**
+	 * String to array of tags
+	 * 
 	 * @param string $value
 	 * 
 	 * @return array
@@ -184,6 +161,13 @@ class AddTaskControl extends BaseControl
 
 
 
+	/**
+	 * Array of tags to string
+	 * 
+	 * @param array $tags
+	 * 
+	 * @return string
+	 */
 	private static function formatTags(array $tags = array())
 	{
 		return implode(',', $tags);

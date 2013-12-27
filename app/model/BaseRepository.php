@@ -19,6 +19,37 @@ use Nette;
  	}
 
 
+
+ 	/** 
+ 	 * Create new transaction
+ 	 */
+	public function beginTransaction()
+	{
+		$this->connection->beginTransaction();
+	}
+
+
+
+ 	/** 
+ 	 * Commit transaction
+ 	 */
+	public function commitTransaction()
+	{
+		$this->connection->commit();
+	}
+
+
+
+ 	/** 
+ 	 * Rollback transaction
+ 	 */
+	public function rollbackTransaction()
+	{
+		$this->connection->rollback();
+	}
+
+
+
  	/**
 	 * Return object representing database table
 	 * 

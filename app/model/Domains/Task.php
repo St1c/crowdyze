@@ -25,22 +25,62 @@ class Task extends Nette\Object
 	public $owner;
 
 
+
 	/**
+	 * Require id
+	 */
+	private function __construct($id)
+	{
+		$this->id = $id;
+	}
+
+
+
+	/**
+	 * Vytvoření z pole.
+	 * 
+	 * @param array $entry Original, předlona
+	 */
+	public static function createFromArray(array $data)
+	{
+		$inst = new self(isset($data['id']) ? $data['id'] : Null);
+		unset($data['id']);
+		foreach ($data as $key => $val) {
+			$setter = 'set' . ucfirst($key);
+			if (method_exists($setter)) {
+				$inst->$setter($val);
+			}
+			else {
+				$inst->$key = $val;
+			}
+		}
+
+		return $inst;
+	}
+
+
+
+	/**
+	 * Vytvoření z ActiveRow. Špatný, špatný, ale kdo to má předělávat.
+	 * 
 	 * @param Nette\Database\Table\ActiveRow $data
 	 */
-	public function __construct(ActiveRow $data)
+	public static function createFromActiveRow(ActiveRow $data)
 	{
-		$this->activeRow = $data;
+		$inst = new self($data->id ?: Null);
+
+		$inst->activeRow = $data;
 		
-		$this->id = $data->id;
-		$this->title = $data->title;
-		$this->description = $data->description;
-		$this->salary = $data->salary;
-		$this->budgetType = $data->budget_type;
-		$this->workers = $data->workers;
-		$this->deadline = $data->deadline;
-		$this->token = $data->token;
-		$this->owner = $data->owner;
+		$inst->title = $data->title;
+		$inst->description = $data->description;
+		$inst->salary = $data->salary;
+		$inst->budgetType = $data->budget_type;
+		$inst->workers = $data->workers;
+		$inst->deadline = $data->deadline;
+		$inst->token = $data->token;
+		$inst->owner = $data->owner;
+
+		return $inst;
 	}
 
 

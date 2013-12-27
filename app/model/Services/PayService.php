@@ -4,7 +4,8 @@ namespace Model\Services;
 use Nette,
 	Nette\Utils\Validators,
 	Nette\Database\Table\ActiveRow;
-use	Model\Repositories;
+use	Model\Repositories,
+	Model\Domains\Task;
 
 class PayService extends Nette\Object
 {
@@ -77,23 +78,22 @@ class PayService extends Nette\Object
 	 * 
 	 * @param  Model\Domains\Task $task
 	 * @param  int $userId
-	 * @param  array $form
 	 * 
 	 * @return [type]         [description]
 	 */
-	public function createBudget($task, $userId, $form)
+	public function createBudget($task, $userId)
 	{
 		Validators::assert($userId, 'int');
 		Validators::assert($task, 'Model\Domains\Task');
 
 		$wallet  = $this->walletRepository->get(array('user_id' => $userId));
-		$balance = $wallet->balance - $this->getOverallCosts($form);
+		$balance = $wallet->balance - $this->getOverallCosts($task);
 
 		if ($balance < 0) {
 			throw new \RuntimeException("notice.exception.insuficient_credit", 1);
 		}
 
-		$budget = $this->recordBudget($task, $wallet->id, $form);
+		$budget = $this->recordBudget($task, $wallet->id);
 		$this->createIncomeFee($budget);
 
 		return $this->walletRepository->update($wallet, array(
@@ -122,7 +122,7 @@ class PayService extends Nette\Object
 
 		// Check credit in user's wallet
 		$wallet  = $this->walletRepository->get(array('user_id' => $userId));
-		$balance = $wallet->balance - $this->getOverallCosts($form) + $this->fees['fix'];
+		$balance = $wallet->balance - $this->getOverallCosts($task) + $this->fees['fix'];
 		if ($balance < 0) {
 			throw new \RuntimeException("notice.exception.insuficient_credit", 1);
 		}
@@ -130,7 +130,7 @@ class PayService extends Nette\Object
 		// Reserve budget for current task
 		$task->related('budget')->update(array(
 			'wallet_id' 	=> $wallet->id,
-			'budget' 		=> $this->getNettoCosts($form),
+			'budget' 		=> $this->getNettoCosts($task),
 			'commission' 	=> $this->getCommission($form),
 			// 'promotion_fee' => $promotion_fee,
 		));
@@ -193,21 +193,21 @@ class PayService extends Nette\Object
 	 * 
 	 * @return int           Netto price of the campaign
 	 */
-	private function getNettoCosts($values)
+	private function getNettoCosts(Task $task)
 	{
-		switch ($values['budget_type']) {
-			case '1': 
+		switch ($task->budgetType) {
+			case 1: 
 				// Pay the best
-				$budget = $values['salary'];
+				$budget = $task->salary;
 				break;
 			
-			case '2': 
+			case 2: 
 				// Pay the best 10
-				$budget = 10 * $values['salary'];
+				$budget = 10 * $task->salary;
 
 			default: 
 				// Pay all
-				$budget = $values['workers'] * $values['salary'];
+				$budget = $task->workers * $task->salary;
 				break;
 		}
 
@@ -223,9 +223,9 @@ class PayService extends Nette\Object
 	 * 
 	 * @return int        	Commission
 	 */
-	private function getCommission($form)
+	private function getCommission(Task $task)
 	{
-		return $this->getNettoCosts($form) * ( $this->fees['commission'] - 1 );
+		return $this->getNettoCosts($task) * ( $this->fees['commission'] - 1 );
 	}
 
 
@@ -237,9 +237,9 @@ class PayService extends Nette\Object
 	 * 
 	 * @return int        	Final budget
 	 */
-	private function getOverallCosts($form)
+	private function getOverallCosts($task)
 	{	
-		return $this->getNettoCosts($form) * $this->fees['commission'] + $this->fees['fix'];
+		return $this->getNettoCosts($task) * $this->fees['commission'] + $this->fees['fix'];
 	}
 
 
@@ -253,14 +253,13 @@ class PayService extends Nette\Object
 	 * 
 	 * @return ActiveRow
 	 */
-	private function recordBudget($task, $walletId, $form)
+	private function recordBudget($task, $walletId)
 	{
-
 		return $task->related('budget')->insert(array(
 			'wallet_id' 	=> $walletId,
 			'fee' 			=> $this->fees['fix'],
-			'budget' 		=> $this->getNettoCosts($form),
-			'commission' 	=> $this->getCommission($form),
+			'budget' 		=> $this->getNettoCosts($task),
+			'commission' 	=> $this->getCommission($task),
 			// 'promotion_fee' => $promotion_fee,
 		));
 	}
