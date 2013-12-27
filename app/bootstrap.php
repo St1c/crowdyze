@@ -12,6 +12,8 @@ $configurator->setDebugMode($configurator::AUTO);
 $configurator->enableDebugger(__DIR__ . '/../log');
 
 // Specify folder for cache
+umask(0);
+
 $configurator->setTempDirectory(__DIR__ . '/../temp');
 
 // Enable RobotLoader - this will load all classes automatically
@@ -27,5 +29,6 @@ $configurator->addConfig(__DIR__ . '/config/config.neon');
 $configurator->addConfig(__DIR__ . '/config/config.local.neon');
 
 $container = $configurator->createContainer();
+
 
 return $container;
