@@ -130,6 +130,34 @@ class FileManager extends Nette\Object
 
 
 
+ 	/** 
+ 	 * Create new transaction
+ 	 */
+	public function beginTransaction()
+	{
+	}
+
+
+
+ 	/** 
+ 	 * Commit transaction
+ 	 */
+	public function commitTransaction()
+	{
+	}
+
+
+
+ 	/** 
+ 	 * Rollback transaction
+ 	 */
+	public function rollbackTransaction()
+	{
+	}
+
+
+
+
 	/**
 	 * Validate of enums.
 	 */

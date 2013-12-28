@@ -68,6 +68,7 @@ class TaskRepository extends BaseRepository
 	}
 
 
+
 	/**
 	 * @param Task
 	 * @param string $path
@@ -75,19 +76,23 @@ class TaskRepository extends BaseRepository
 	 */
 	public function saveAttachment(Task $task, $path, $contentType)
 	{
+		Validators::assert($path, 'string');
 		//~ Validators::assert($contentType, 'int');
+
 		try {
-			$task->related('task_attachment')->insert(array(
-					'path' => $path,
-					'type_id' => $contentType,
-					));
+			$task->related('task_attachment')
+					->insert(array(
+							'path' => $path,
+							'type_id' => $contentType,
+							));
 		}
 		catch (\PDOException $e) {
 			if (! self::ERROR_DUPLICATE_ENTRY == $e->getCode()) {
 				throw $e;
 			}
 
-			$task->related('task_attachment')->select('`task_attachment`.id')
+			$task->related('task_attachment')
+					->select('`task_attachment`.id')
 					->where('`task_attachment`.path', $path)
 					->update(array(
 							'type_id' => $contentType,
@@ -104,8 +109,14 @@ class TaskRepository extends BaseRepository
 	 */
 	public function removeAttachment(Task $task, $path)
 	{
-		$task->related('task_attachment')->where('path', $path)->delete();
+		Validators::assert($path, 'string');
+		$task->related('task_attachment')
+				->where('path', $path)
+				->delete();
 	}
+
+
+
 
 
 
@@ -283,18 +294,7 @@ class TaskRepository extends BaseRepository
 	 */
 	private static function createTask(ActiveRow $data)
 	{
-		//~ dump($data);
 		$task = Task::createFromActiveRow($data/*, $data->id*/);
-		//~ $task->title = $data->title;
-		//~ $task->description = $data->description;
-		//~ $task->salary = $data->salary;
-		//~ $task->budgetType = $data->budget_type;
-		//~ $task->workers = $data->workers;
-		//~ $task->deadline = $data->deadline;
-		//~ $task->token = $data->token;
-		//~ $task->owner = $data->owner;
-		//~ dump($task);
-		//~ die('======');
 		return $task;
 	}
 

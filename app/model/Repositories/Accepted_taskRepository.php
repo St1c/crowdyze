@@ -8,6 +8,12 @@ class Accepted_taskRepository extends BaseRepository
 {
 
 
+	const STATUS_ACCEPTED = 1;
+	const STATUS_PENDING = 2;
+	const STATUS_SATISFIED = 3;
+	const STATUS_UNSATISFIED = 4;
+
+
 	/**
 	 * Insert accepted task to DB
 	 * 
@@ -36,11 +42,13 @@ class Accepted_taskRepository extends BaseRepository
 	 */
 	public function update($taskId, $userId, array $values)
 	{
-		return $this->getTable()
+		$entry = $this->getTable()
 			->where('task_id', $taskId)
-			->where('user_id', $userId)
-			->update($values);
+			->where('user_id', $userId);
+		$entry->update($values);
+		return $entry->fetch();
 	}
+
 
 
 	/**
@@ -54,7 +62,7 @@ class Accepted_taskRepository extends BaseRepository
 	{
 		return $this->getTable()
 			->where('task_id',$taskId)
-			->where('status', 2)
+			->where('status', self::STATUS_PENDING)
 			->fetchAll();
 	}
 
@@ -88,7 +96,7 @@ class Accepted_taskRepository extends BaseRepository
 		return $this->getTable()
 			->select('task.*')
 			->where('accepted_task.user_id', $userId)
-			->where('accepted_task.status', 1);
+			->where('accepted_task.status', self::STATUS_ACCEPTED);
 	}
 
 
@@ -104,7 +112,7 @@ class Accepted_taskRepository extends BaseRepository
 		return $this->getTable()
 			->select('task.*')
 			->where('accepted_task.user_id', $userId)
-			->where('accepted_task.status', 2);
+			->where('accepted_task.status', self::STATUS_PENDING);
 	}
 
 
@@ -120,7 +128,7 @@ class Accepted_taskRepository extends BaseRepository
 		return $this->getTable()
 			->select('task.*')
 			->where('accepted_task.user_id', $userId)
-			->where('accepted_task.status', 3);
+			->where('accepted_task.status', self::STATUS_SATISFIED);
 	}
 
 
@@ -136,7 +144,7 @@ class Accepted_taskRepository extends BaseRepository
 		return $this->getTable()
 			->select('task.*')
 			->where('accepted_task.user_id', $userId)
-			->where('accepted_task.status', 4);
+			->where('accepted_task.status', self::STATUS_UNSATISFIED);
 	}
 
 
@@ -208,4 +216,9 @@ class Accepted_taskRepository extends BaseRepository
 			->where('status', $status)
 			->fetch() ? TRUE : FALSE;
 	}
+
+
+
+
+
 }

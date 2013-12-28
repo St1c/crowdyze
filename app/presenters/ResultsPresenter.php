@@ -77,7 +77,6 @@ class ResultsPresenter extends BaseSignedPresenter
 	 */
 	protected function createComponentResultForm($name)
 	{
-
 		$component = new Form($this, $name);
 		$component->setTranslator($this->translator);
 		
@@ -114,42 +113,24 @@ class ResultsPresenter extends BaseSignedPresenter
 			$this->redirect('User:');
 		}
 
-		if ($component['attachmentPreload']->isSubmittedBy()) {}
+		if ($component['attachmentPreload']->isSubmittedBy()) {
+		}
 
 		if ($component['submit']->isSubmittedBy()) {
 
-			$values = $component->getValues(TRUE);
+			$values = $component->getValues();
 
 			//	Store new result
-			$result = $this->taskService->createResult($this->user->id, $this->task->id, $values);
-
-			// try {
-				
-			// 	// Saving attachments
-			// 	foreach ($values->attachments as $file) {
-			// 		if ($file instanceof FileUploaded) {
-			// 			if ($file->isRemove()) {
-			// 				$this->taskService->removeAttachment($result, $file);
-			// 			}
-			// 			else {
-			// 				$this->taskService->saveAttachment($result, $file);
-			// 			}
-			// 		}
-			// 		else {
-			// 			throw new \LogicException('Invalid type of attachment.');
-			// 		}
-			// 	}
-
-			// 	$this->flashMessage('addTask.flashes.task_edited', 'alert-success');
-			// 	$this->redirect('detail', array('token' => $task->token));
-			// }
-			// catch (\RuntimeException $e) {
-			// 	$component->addError($e->getMessage());
-			// }
+			try {
+				$result = $this->taskService->createResult($this->user->id, $this->task->id, (array)$values);
+				$this->redirect('User:');
+			}
+			catch (\Exception $e) {
+				$component->addError($e->getMessage());
+			}
 		}
-
-		$this->redirect('User:');
 	}
+
 
 
 	public function handleAccept($userId)
@@ -172,6 +153,7 @@ class ResultsPresenter extends BaseSignedPresenter
 			$this->redirect('User:');
 		}
 	}
+
 
 
 	public function handleReject($userId)
