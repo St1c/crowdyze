@@ -108,11 +108,10 @@ class PayService extends Nette\Object
 	 * 
 	 * @param  Model\Domains\Task $task
 	 * @param  int $userId
-	 * @param  array $form
 	 * 
 	 * @return [type]         [description]
 	 */
-	public function updateBudget($task, $userId, $form)
+	public function updateBudget($task, $userId)
 	{
 		Validators::assert($userId, 'int');
 		Validators::assert($task, 'Model\Domains\Task');
@@ -131,7 +130,7 @@ class PayService extends Nette\Object
 		$task->related('budget')->update(array(
 			'wallet_id' 	=> $wallet->id,
 			'budget' 		=> $this->getNettoCosts($task),
-			'commission' 	=> $this->getCommission($form),
+			'commission' 	=> $this->getCommission($task),
 			// 'promotion_fee' => $promotion_fee,
 		));
 

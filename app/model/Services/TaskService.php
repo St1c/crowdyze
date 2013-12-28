@@ -124,10 +124,12 @@ class TaskService extends Nette\Object
 	}
 
 
+
 	public function deleteTask(Task $task)
 	{
 		$this->taskRepository->delete($task);
 	}
+
 
 
 	/** 
@@ -140,7 +142,55 @@ class TaskService extends Nette\Object
  	 */
 	public function update(Task $task, array $values)
 	{
-		return $this->taskRepository->update($task, $values);
+		$this->taskRepository->beginTransaction();
+
+		try {
+			$task = $this->taskRepository->update($task, self::array_filter_key($values, [
+				'title',
+				'description',
+				'salary',
+				'budget_type',
+				'workers',
+				'deadline',
+				]));
+
+
+			// Saving tags
+			if (isset($values['tags'])) {
+				$res = $this->storeTags($task, $values['tags']);
+			}
+
+			// Saving departments 
+			// if ( !empty($values['departments']) ) {
+			// 	$this->taskService->setDepartments($task, $values['departments']);
+			// }
+
+			// Allocate money for the task from user's wallet
+			$this->payService->updateBudget($task, $task->owner);
+
+			// Saving attachments
+			foreach ($values['attachments'] as $file) {
+				if ($file instanceof FileUploaded) {
+					if ($file->isRemove()) {
+						$this->removeAttachment($task, $file);
+					}
+					else {
+						$this->saveAttachment($task, $file);
+					}
+				}
+				else {
+					throw new \LogicException('Invalid type of attachment.');
+				}
+			}
+
+			$this->taskRepository->commitTransaction();
+		}
+		catch (\Exception $e) {
+			$this->taskRepository->rollbackTransaction();
+			throw $e;
+		}
+
+		return $task;
 	}
 
 
@@ -529,6 +579,24 @@ class TaskService extends Nette\Object
 	public function getFinishedCount(Task $task)
 	{
 		return $task->related('accepted')->where("status <> ?", 4)->count();
+	}
+
+
+
+	/**
+	 * In array leave only keys in $mask
+	 * 
+	 * @return array
+	 */
+	private static function array_filter_key(array $source, array $mask)
+	{
+		foreach ($source as $key => $_) {
+			if (!in_array($key, $mask)) {
+				unset($source[$key]);
+			}
+		}
+
+		return $source;
 	}
 
 }

@@ -36,11 +36,24 @@ class TaskRepository extends BaseRepository
  	 * @param Task $task
  	 * @param array $task update details
  	 * 
- 	 * @return Nette\Database\Table\ActiveRow
+ 	 * @return Task
  	 */
 	public function update(Task $task, array $values)
 	{
-		return $task->activeRow->update($values);
+		$res = $task->activeRow->update($values);
+		
+		//	Update domain object
+		foreach ($values as $key => $val) {
+			switch ($key) {
+				case 'budget_type':
+					$task->budgetType = $val;
+					break;
+				default:
+					$task->$key = $val;
+			}
+		}
+
+		return $task;
 	}
 
 

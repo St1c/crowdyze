@@ -11,8 +11,7 @@ use Nette,
 	Nette\Utils\Validators,
 	Nette\Image;
 use Taco\Nette\Forms\Controls\DateInput,
-	Taco\Nette\Forms\Controls\MultipleUploadControl,
-	Taco\Nette\Http\FileUploaded;
+	Taco\Nette\Forms\Controls\MultipleUploadControl;
 use DateTime,
 	DateInterval;
 
@@ -22,17 +21,11 @@ class AddTaskControl extends BaseControl
 	/** @var Model\Services\TaskService @inject */
 	public $taskService;
 
-	/** @var Model\Services\PayService @inject */
-	public $payService;
-
 	/** @var Model\Repositories\Budget_typeRepository @inject */
 	public $budget_typeRepository;
 
 	/** @var Model\Repositories\Department_nameRepository @inject */
 	public $department_nameRepository;
-
-	/** @var Utilities\FileManager @inject */
-	public $fileManager;
 
 
 
@@ -132,7 +125,6 @@ class AddTaskControl extends BaseControl
 			}
 			catch (\RuntimeException $e) {
 				$component->addError($e->getMessage());
-				throw $e;
 			}
 		}
 	}
