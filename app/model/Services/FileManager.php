@@ -1,14 +1,13 @@
 <?php 
-namespace Utilities;
+namespace Model\Services;
 
 use Nette,
 	Nette\Utils\Strings,
 	Nette\Utils\Validators,
 	Nette\Image,
 	Nette\Http\FileUpload;
-use Symfony\Component\Filesystem\Filesystem,
-	Symfony\Component\Filesystem\Exception\IOException;
 use Taco\Nette\Http\FileUploaded;
+use	Model\Repositories;
 
 
 /** 
@@ -30,11 +29,22 @@ class FileManager extends Nette\Object
 
 
 	/**
-	 * @var Filesystem 
+	 * @var Repositories\FileRepository
 	 */
 	private $filesystem;
 	
 	
+
+	/**
+	 * DI
+	 */
+	public function __construct(Repositories\FileRepository $repository) 
+	{
+		$this->filesystem = $repository;
+	}
+
+
+
 	/**
 	 * @param enum $category tasks | users
 	 * @param string $token Next level of directory.
@@ -55,13 +65,7 @@ class FileManager extends Nette\Object
 				trim((string) $token, '\\/'),
 				trim($file->name, '\\/'),
 				);
-		$dest = implode(DIRECTORY_SEPARATOR, $filename);
-		$dir = dirname($dest);
-		if (! file_exists($dir)) {
-			$this->getFilesystem()->mkdir($dir, 0777, True);
-			$this->getFilesystem()->chmod(dirname($dest), 0777);
-		}
-		$this->getFilesystem()->rename($file->temporaryFile, $dest, True);
+		$this->filesystem->saveFile($file->temporaryFile, implode(DIRECTORY_SEPARATOR, $filename));
 
 		return implode(DIRECTORY_SEPARATOR, array_slice($filename, 1));
 	}
@@ -88,10 +92,8 @@ class FileManager extends Nette\Object
 				trim((string) $token, '\\/'),
 				trim($file->getName(), '\\/'),
 				);
-		$file = implode(DIRECTORY_SEPARATOR, $filename);
-		if (file_exists($file)) {
-			$this->getFilesystem()->remove($file);
-		}
+
+		$this->filesystem->removeFile(implode(DIRECTORY_SEPARATOR, $filename));
 
 		return implode(DIRECTORY_SEPARATOR, array_slice($filename, 1));
 	}
@@ -135,6 +137,7 @@ class FileManager extends Nette\Object
  	 */
 	public function beginTransaction()
 	{
+		$this->filesystem->beginTransaction();
 	}
 
 
@@ -144,6 +147,7 @@ class FileManager extends Nette\Object
  	 */
 	public function commitTransaction()
 	{
+		$this->filesystem->commitTransaction();
 	}
 
 
@@ -153,8 +157,8 @@ class FileManager extends Nette\Object
  	 */
 	public function rollbackTransaction()
 	{
+		$this->filesystem->rollbackTransaction();
 	}
-
 
 
 
@@ -173,13 +177,5 @@ class FileManager extends Nette\Object
 		return $this->uploadFolders[$category];
 	}
 
-
-	private function getFilesystem()
-	{
-		if (empty($this->filesystem)) {
-			$this->filesystem = new Filesystem();
-		}
-		return $this->filesystem;
-	}
 
 }

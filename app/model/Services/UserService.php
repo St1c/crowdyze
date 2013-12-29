@@ -8,6 +8,7 @@ use Nette,
 	Nette\Utils\Strings,
 	Nette\Utils\Validators;
 use	Model\Repositories,
+	Model\Services,
 	Utilities;
 
 class UserService extends Nette\Object
@@ -34,7 +35,7 @@ class UserService extends Nette\Object
 			Repositories\UserRepository $userRepository,
 			Repositories\User_detailsRepository $user_detailsRepository,
 			Repositories\Accepted_taskRepository $accepted_taskRepository,
-			Utilities\FileManager $fileManager,
+			Services\FileManager $fileManager,
 			Utilities\MailerService $mailerService)
 	{
 		$this->userRepository = $userRepository;

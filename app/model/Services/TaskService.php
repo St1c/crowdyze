@@ -48,7 +48,7 @@ class TaskService extends Nette\Object
 			Repositories\TagRepository $tagRepository,
 			Repositories\Accepted_taskRepository $acceptedTaskRepository,
 			Repositories\Attachment_typeRepository $attachmentTypeRepository,
-			Utilities\FileManager $fileManager,
+			Services\FileManager $fileManager,
 			Services\PayService $payService,
 			Repositories\Result_attachmentRepository $resultAttachmentRepository
 			)
