@@ -8,6 +8,7 @@ use Nette,
 	Nette\Utils\Strings,
 	Nette\Utils\Validators;
 use	Model\Repositories,
+	Model\Services,
 	Utilities;
 
 class UserService extends Nette\Object
@@ -34,7 +35,7 @@ class UserService extends Nette\Object
 			Repositories\UserRepository $userRepository,
 			Repositories\User_detailsRepository $user_detailsRepository,
 			Repositories\Accepted_taskRepository $accepted_taskRepository,
-			Utilities\FileManager $fileManager,
+			Services\FileManager $fileManager,
 			Utilities\MailerService $mailerService)
 	{
 		$this->userRepository = $userRepository;
@@ -169,6 +170,23 @@ class UserService extends Nette\Object
 	}
 
 
+
+	/**
+	 * Check whether the task is assigned to user
+	 * 
+	 * @param  int  $userId
+	 * @param  int  $taskId
+	 * 
+	 * @return boolean TRUE|FALSE
+	 */
+	public function isAcceptedFilterByStatus($taskId, $userId)
+	{
+		$repo = $this->accepted_taskRepository;
+		return $this->accepted_taskRepository->isAcceptedFilterByStatus($taskId, $userId, $repo::STATUS_ACCEPTED);
+	}
+
+
+
 	/**
 	 * Check whether the task is assigned to user
 	 * 
@@ -178,9 +196,10 @@ class UserService extends Nette\Object
 	 * 
 	 * @return boolean TRUE|FALSE
 	 */
-	public function isAcceptedFilterByStatus($taskId, $userId, $status = 1)
+	public function isPendingFilterByStatus($taskId, $userId)
 	{
-		return $this->accepted_taskRepository->isAcceptedFilterByStatus($taskId, $userId, $status);
+		$repo = $this->accepted_taskRepository;
+		return $this->accepted_taskRepository->isAcceptedFilterByStatus($taskId, $userId, $repo::STATUS_PENDING);
 	}
 
 }

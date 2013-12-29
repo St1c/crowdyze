@@ -16,24 +16,24 @@
 			{input result, class=>'result'}
 		</div>
 
-<!-- 		<div class="attachments">
+		<div class="attachments">
 			<h6>Attachments:</h6>
 			{input attachments}{errors attachments}
 			{input attachmentPreload, style=>"visibility:hidden"}
 			<div style="clear:both"></div>
-		</div> -->
+		</div>
 	{/form}
 
 {/block}
 
 {block #scripts}
     <script type="application/javascript">
-	// $(document).ready(function () {
-	// 	$('.file-uploader').filePreuploader({
-	// 		autoSubmitBy: 'input[name="attachmentPreload"]',
-	// 		snippet: '.attachments',
-	// 		spinnerUrl: '/images/spinner.gif'
-	// 	});
-	// });
+	$(document).ready(function () {
+		$('.file-uploader').filePreuploader({
+			autoSubmitBy: 'input[name="attachmentPreload"]',
+			snippet: '.attachments',
+			spinnerUrl: '/images/spinner.gif'
+		});
+	});
     </script>
 {/block}

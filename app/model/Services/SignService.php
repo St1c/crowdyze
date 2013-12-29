@@ -7,6 +7,7 @@ use Nette,
 	Nette\Http\FileUpload,
 	Nette\Utils\Strings,
 	Model\Repositories,
+	Model\Services,
 	Utilities;
 
 class SignService extends Nette\Object
@@ -33,7 +34,7 @@ class SignService extends Nette\Object
 		Repositories\UserRepository $userRepository,
 		Repositories\User_detailsRepository $user_detailsRepository,
 		Repositories\WalletRepository $walletRepository,
-		Utilities\FileManager $fileManager,
+		Services\FileManager $fileManager,
 		Utilities\MailerService $mailerService 
 	) {
 		$this->userRepository 			= $userRepository;
