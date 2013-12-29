@@ -67,7 +67,7 @@ class TaskPresenter extends BaseSignedPresenter
 	 */
 	public function actionAdd()
 	{
-		if (!$this->payService->getBalance($this->user->id) > 0) {
+		if (!$this->payService->getWallet($this->user->id) > 0) {
 			$this->redirect('Wallet:deposit');
 		}
 	}

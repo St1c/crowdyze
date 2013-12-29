@@ -143,8 +143,8 @@ class ResultsPresenter extends BaseSignedPresenter
 
 		// Accept result
 		try {
-			$this->payService->payResult($this->task, $userId);
-			$this->taskService->acceptResult($this->task->id, $userId);
+			$this->payService->payResult($this->task, (int) $userId);
+			$this->taskService->acceptResult($this->task->id, (int) $userId);
 			$this->redirect('this');
 		}
 		catch (\RuntimeException $e) {
@@ -157,7 +157,7 @@ class ResultsPresenter extends BaseSignedPresenter
 
 	public function handleReject($userId)
 	{
-		$this->taskService->rejectResult($this->task->id, $userId);
+		$this->taskService->rejectResult($this->task->id, (int) $userId);
 		$this->redirect('this');
 	}
 

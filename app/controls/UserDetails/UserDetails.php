@@ -29,19 +29,19 @@ class UserDetailsControl extends BaseControl
 
 		$userDetailsForm->addText('first_name', 'userProfile.form.first_name')
 			->setAttribute('placeholder', 'userProfile.form.first_name')
-			->setDefaultValue($user->related('user_details')->fetch()['first_name']);
+			->setDefaultValue($user['first_name']);
 
 		$userDetailsForm->addText('last_name', 'userProfile.form.last_name')
 			->setAttribute('placeholder', 'userProfile.form.last_name')
-			->setDefaultValue($user->related('user_details')->fetch()['last_name']);
+			->setDefaultValue($user['last_name']);
 		
 		$userDetailsForm->addText('city', 'userProfile.form.city')
 			->setAttribute('placeholder', 'userProfile.form.city')
-			->setDefaultValue($user->related('user_details')->fetch()['city']);
+			->setDefaultValue($user['city']);
 		
 		$userDetailsForm->addText('country', 'userProfile.form.country')
 			->setAttribute('placeholder', 'userProfile.form.country')
-			->setDefaultValue($user->related('user_details')->fetch()['country']);
+			->setDefaultValue($user['country']);
 
 		$userDetailsForm->addSubmit('submit', 'userProfile.form.submit');
 		$userDetailsForm->addSubmit('cancel', 'userProfile.form.cancel');
@@ -89,7 +89,7 @@ class UserDetailsControl extends BaseControl
 				empty($value) ?: $update[$key] = $value;
 			}
 			$userData = $this->userService->getUserData($this->presenter->getUser()->id);
-			$this->userService->updateFromProfile($userData, $update);
+			$this->userService->update($userData, $update);
 
 			$this->presenter->flashMessage('userProfile.flashes.profile_edited', 'alert-success');
 			//~ $this->presenter->template->userData = $userData;

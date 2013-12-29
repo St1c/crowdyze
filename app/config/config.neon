@@ -47,7 +47,6 @@ services:
 	router: @App\RouterFactory::createRouter
 
 	- Model\Repositories\UserRepository
-	- Model\Repositories\User_detailsRepository
 	- Model\Repositories\RelationshipRepository
 	- Model\Repositories\Relationship_typeRepository
 	- Model\Repositories\Accepted_taskRepository
@@ -61,7 +60,6 @@ services:
 	- Model\Repositories\CommentRepository
 	- Model\Repositories\Result_attachmentRepository
 	- Model\Repositories\Department_nameRepository
-	- Model\Repositories\WalletRepository
 	- Model\Repositories\IncomeRepository
 	- Model\Repositories\EmailRepository
 	- Model\Repositories\PollRepository

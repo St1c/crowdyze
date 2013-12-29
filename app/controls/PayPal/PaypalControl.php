@@ -63,7 +63,7 @@ class PaypalControl extends BaseControl
 			$execution->setPayer_id($this->presenter->getParameter('PayerID'));
 			$result = $payment->execute($execution, $apiContext);
 
-			$this->payService->addBalance($this->presenter->user->id, $paypalSession->result->transactions[0]->amount->details->subtotal);
+			$this->payService->addWallet($this->presenter->user->id, $result->transactions[0]->amount->details->subtotal);
 
 			$this->presenter->flashMessage('Credit added', 'alert-success');
 			$this->presenter->redirect('Wallet:deposit');

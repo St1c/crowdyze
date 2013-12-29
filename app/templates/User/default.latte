@@ -2,7 +2,7 @@
 {block #content}
 <div class="user-profile">
 	<div class="profile-photo">
-		<img src="{$userData->related('user_details')->fetch()['profile_photo']}" class="img-circle"/>
+		<img src="{$userData['profile_photo']}" class="img-circle"/>
 	</div>
 	
 	{block #userProfile}
@@ -12,13 +12,13 @@
 
 		<div class="userData_details">
 			<div class="name">
-				{$userData->related('user_details')->fetch()['first_name']} 
-				{$userData->related('user_details')->fetch()['last_name']}
+				{$userData['first_name']} 
+				{$userData['last_name']}
 			</div>
 
 			<div class="origin">
-				From {$userData->related('user_details')->fetch()['city']}, 
-					 {$userData->related('user_details')->fetch()['country']}
+				From {$userData['city']}, 
+					 {$userData['country']}
 			</div>
 
 		</div>

@@ -15,9 +15,6 @@ class PayService extends Nette\Object
 	
 	/** @var IncomeRepository */
 	private $incomeRepository;
-
-	/** @var Repositories\WalletRepository */
-	private $walletRepository;
 	
 	/** @var Repositories\BudgetRepository */
 	private $budgetRepository;
@@ -30,12 +27,10 @@ class PayService extends Nette\Object
 	public function __construct(
 		Repositories\UserRepository $userRepository,
 		Repositories\IncomeRepository $incomeRepository,
-		Repositories\WalletRepository $walletRepository,		
 		Repositories\BudgetRepository $budgetRepository
 	) {
 		$this->userRepository 	 = $userRepository;
 		$this->incomeRepository  = $incomeRepository;
-		$this->walletRepository  = $walletRepository;
 		$this->budgetRepository  = $budgetRepository;
 	}
 
@@ -48,9 +43,9 @@ class PayService extends Nette\Object
 	 * 
 	 * @return string 
 	 */
-	public function getBalance($userId)
+	public function getWallet($userId)
 	{
-		return $this->walletRepository->getBalance($userId);
+		return $this->userRepository->getWallet($userId);
 	}
 
 
@@ -63,12 +58,10 @@ class PayService extends Nette\Object
 	 *
 	 * @return ActiveRow
 	 */
-	public function addBalance($userId, $amount)
+	public function addWallet($userId, $amount)
 	{	
-		$wallet  = $this->walletRepository->get(array('user_id' => $userId));
-		$balance = $wallet->balance + $amount;
-
-		return $this->walletRepository->update($wallet, array('balance' => $balance));
+		$wallet = $this->getWallet($userId);
+		return $this->userRepository->updateWallet($userId, $wallet + $amount);
 	}
 
 
@@ -86,19 +79,17 @@ class PayService extends Nette\Object
 		Validators::assert($userId, 'int');
 		Validators::assert($task, 'Model\Domains\Task');
 
-		$wallet  = $this->walletRepository->get(array('user_id' => $userId));
-		$balance = $wallet->balance - $this->getOverallCosts($task);
+		$balance = $this->getWallet($userId) - $this->getOverallCosts($task);
 
 		if ($balance < 0) {
 			throw new \RuntimeException("notice.exception.insuficient_credit", 1);
 		}
 
-		$budget = $this->recordBudget($task, $wallet->id);
+		$budget = $this->recordBudget($task, $userId);
 		$this->createIncomeFee($budget);
 
-		return $this->walletRepository->update($wallet, array(
-			'balance' => $balance
-		));
+		// And update credit in user's wallet
+		return $this->userRepository->updateWallet($userId, $balance);
 	}
 
 
@@ -120,24 +111,21 @@ class PayService extends Nette\Object
 		$this->refundBudget($task, $userId);
 
 		// Check credit in user's wallet
-		$wallet  = $this->walletRepository->get(array('user_id' => $userId));
-		$balance = $wallet->balance - $this->getOverallCosts($task) + $this->fees['fix'];
+		$balance = $this->getWallet($userId) - $this->getOverallCosts($task) + $this->fees['fix'];
 		if ($balance < 0) {
 			throw new \RuntimeException("notice.exception.insuficient_credit", 1);
 		}
 
 		// Reserve budget for current task
 		$task->related('budget')->update(array(
-			'wallet_id' 	=> $wallet->id,
+			'user_id' 		=> $userId,
 			'budget' 		=> $this->getNettoCosts($task),
 			'commission' 	=> $this->getCommission($task),
 			'promotion'		=> $this->getPromotion($task)
 		));
 
 		// And update credit in user's wallet
-		return $this->walletRepository->update($wallet, array(
-			'balance' => $balance
-		));
+		return $this->userRepository->updateWallet($userId, $balance);
 	}
 
 
@@ -164,12 +152,11 @@ class PayService extends Nette\Object
 	 */
 	private function refundBudget($task, $userId)
 	{
-		// Get user's wallet and current budget for the task
-		$wallet  		= $this->walletRepository->get(array('user_id' => $userId));
+		// Get current budget for the task
 		$currentBudget 	= $this->getBudget($task);
 
 		// Calculate new wallet balance after refunding current costs
-		$newBalance = $wallet->balance;
+		$newBalance = $this->getWallet($userId);
 		$newBalance += $currentBudget->budget;
 		$newBalance += $currentBudget->commission; 
 		$newBalance += $currentBudget->promotion;
@@ -178,9 +165,7 @@ class PayService extends Nette\Object
 		$this->purgeBudget($task);
 
 		// Return budget to the user's wallet
-		$this->walletRepository->update($wallet, array(
-			'balance' => $newBalance
-		));
+		return $this->userRepository->updateWallet($userId, $newBalance);
 	}
 
 
@@ -268,15 +253,14 @@ class PayService extends Nette\Object
 	 * Record budget to the database
 	 * 
 	 * @param  Model\Domains\Task 	$task
-	 * @param  int 					$wallet
-	 * @param  array 				$form
+	 * @param  int 					$userId
 	 * 
 	 * @return ActiveRow
 	 */
-	private function recordBudget($task, $walletId)
+	private function recordBudget($task, $userId)
 	{
 		return $task->related('budget')->insert(array(
-			'wallet_id'  => $walletId,
+			'user_id'  	 => $userId,
 			'fee' 		 => $this->fees['fix'],
 			'budget' 	 => $this->getNettoCosts($task),
 			'commission' => $this->getCommission($task),
@@ -353,7 +337,7 @@ class PayService extends Nette\Object
 		));
 
 		// Transfer salary to user's wallet
-		$this->addBalance($userId, $task->salary);
+		$this->addWallet($userId, $task->salary);
 		
 	}
 

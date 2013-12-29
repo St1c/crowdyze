@@ -16,9 +16,6 @@ class UserService extends Nette\Object
 
 	/** @var userRepository */
 	private $userRepository;
-
-	/** @var user_detailsRepository */
-	private $user_detailsRepository;
 	
 	/** @var accepted_taskRepository */
 	private $accepted_taskRepository;
@@ -33,13 +30,11 @@ class UserService extends Nette\Object
 
 	public function __construct(
 			Repositories\UserRepository $userRepository,
-			Repositories\User_detailsRepository $user_detailsRepository,
 			Repositories\Accepted_taskRepository $accepted_taskRepository,
 			Services\FileManager $fileManager,
 			Utilities\MailerService $mailerService)
 	{
 		$this->userRepository = $userRepository;
-		$this->user_detailsRepository = $user_detailsRepository;
 		$this->accepted_taskRepository = $accepted_taskRepository;
 		$this->fileManager = $fileManager;
 		$this->mailerService = $mailerService;
@@ -82,11 +77,12 @@ class UserService extends Nette\Object
 	 */
 	public function update(ActiveRow $user, array $data)
 	{
-		return $user->related('user_details')->update($data);
+		return $user->update($data);
 	}
 
 
 	/**
+	 * @deprecated Use ::update() instead
 	 * Update details from profile Form
 	 * 
 	 * @param  ActiveRow $user 
@@ -96,12 +92,7 @@ class UserService extends Nette\Object
 	 */
 	public function updateFromProfile(ActiveRow $user, array $data)
 	{
-		$user_details = $this->user_detailsRepository->detailsExists($user->id);
-		if (!$user_details) {
-			$user->related('user_details')->insert($data);
-		} else {
-			return $user->related('user_details')->update($data);
-		}
+		return $user->update($data);
 	}
 
 

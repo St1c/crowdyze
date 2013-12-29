@@ -21,6 +21,8 @@ class UserRepository extends BaseRepository
 		return $this->getTable()->where($by)->fetch();
 	}
 
+
+
 	/**
 	 * Update data in DB
 	 * 
@@ -34,6 +36,8 @@ class UserRepository extends BaseRepository
 		return $user->update($values);
 	}
 
+
+
 	/**
 	 * Insert new values in the table
 	 * 
@@ -44,6 +48,8 @@ class UserRepository extends BaseRepository
 	{
 		return $this->getTable()->insert($values);
 	}
+
+
 
 	/**
 	 * Set user password
@@ -57,6 +63,34 @@ class UserRepository extends BaseRepository
 	        'password' => sha1($password)
 	    ));
 	}
+
+
+
+	/**
+	 * Get actual state of account for given user_id
+	 * 
+	 * @param  int $userId 
+	 * @return string 
+	 */
+	public function getWallet($userId)
+	{
+		return ($row = $this->getTable()->select('wallet')->where('id', $userId)->fetch()) ? $row->wallet : 0;
+	}
+
+
+
+	/**
+	 * Update balance in user's wallet
+	 * 
+	 * @param  int $userId
+	 * @param  int $balance
+	 */
+	public function updateWallet($userId, $balance)
+	{
+		$this->find(array('id' => $userId))->update(array('wallet' => $balance));
+	}
+
+
 
 	/**
 	 * Create user's Identity

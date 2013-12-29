@@ -15,12 +15,6 @@ class SignService extends Nette\Object
 
 	/** @var userRepository */
 	private $userRepository;
-
-	/** @var user_detailsRepository */
-	private $user_detailsRepository;
-	
-	/** @var WalletRepository */
-	private $walletRepository;
 	
 	/** @var fileManager */
 	private $fileManager;
@@ -32,14 +26,10 @@ class SignService extends Nette\Object
 	
 	public function __construct(
 		Repositories\UserRepository $userRepository,
-		Repositories\User_detailsRepository $user_detailsRepository,
-		Repositories\WalletRepository $walletRepository,
 		Services\FileManager $fileManager,
 		Utilities\MailerService $mailerService 
 	) {
 		$this->userRepository 			= $userRepository;
-		$this->user_detailsRepository 	= $user_detailsRepository;
-		$this->walletRepository 		= $walletRepository;
 		$this->fileManager 				= $fileManager;
 		$this->mailerService 			= $mailerService;
 	}
@@ -68,7 +58,7 @@ class SignService extends Nette\Object
 	 */
 	public function update(ActiveRow $user, array $data)
 	{
-		return $user->related('user_details')->update($data);
+		return $this->userRepository->update($user, $data);
 	}
 
 
@@ -99,23 +89,18 @@ class SignService extends Nette\Object
 	{
 		switch ($type) {
 			case 'facebook':
-				$user = $this->registerSocial($data, $active);
-				$this->setFacebookDetails($user, $data);
+				$user = $this->registerFromFacebook($data, $active);
 				break;
 			
 			case 'google':
-				$user = $this->registerSocial($data, $active);
-				$this->setGoogleDetails($user, $data);
+				$user = $this->registerFromGoogle($data, $active);
 				break;
 
 			default:
-				$user = $this->registerEmail($data, $active);
+				$user = $this->registerFromEmail($data, $active);
 				break;
 		}
 
-		// Create new wallet for the user
-		$this->createUserWallet($user->id);
-		
 		// Send welcome mail to a new user
 		$this->mailerService->sendWelcomeMail($data['email']);
 
@@ -151,8 +136,10 @@ class SignService extends Nette\Object
 	 *
 	 * @param array $data 		Form data
 	 * @param int 	$setActive 	Activate profile
+	 *
+	 * @throws AuthenticationException If Email is already registered
 	 */
-	private function registerEmail(array $data, $setActive)
+	private function registerFromEmail(array $data, $setActive)
 	{
 		if ($this->userRepository->find(array('email' => $data['email']))) {
 			throw new AuthenticationException('Email already registered.');
@@ -162,25 +149,8 @@ class SignService extends Nette\Object
 			'email' 	=> $data['email'],
 			'password' 	=> sha1($data['password']),
 			'role'		=> 'user',
-			'active'	=> $setActive
-		));
-	}
-
-
-	/**
-	 * Register new Facebook or Google user to the database
-	 * 
-	 * @param array 	$me 		Facebook or Google user profile info array
-	 * @param int|NULL 	$setActive 	Register and activate profile
-	 * 
-	 * @return Nette\Database\Table\ActiveRow
-	 */
-	private function registerSocial(array $me, $setActive = 1)
-	{
-		return $this->userRepository->create(array(
-			'email' 		=> $me['email'],
-			'role' 			=> 'user',
-			'active'		=> $setActive,
+			'active'	=> $setActive,
+			'wallet' 	=> 0
 		));
 	}
 
@@ -188,14 +158,18 @@ class SignService extends Nette\Object
 	/**
 	 * Register new Facebook user to the database
 	 * 
-	 * @param Nette\Database\Table\ActiveRow	$user 	Users DB Table
-	 * @param array 							$me 	Facebook user profile info array
+	 * @param array 	$me 		Facebook user profile info array
+	 * @param int|NULL 	$setActive 	Register and activate profile
 	 * 
 	 * @return Nette\Database\Table\ActiveRow
 	 */
-	public function setFacebookDetails($user, array $me)
+	private function registerFromFacebook(array $me, $setActive = 1)
 	{
-		return $user->related('user_details')->insert(array(
+		return $this->userRepository->create(array(
+			'email' 		=> $me['email'],
+			'role' 			=> 'user',
+			'active'		=> $setActive,
+			'wallet'	 	=> 0,
 			'facebook_id' 	=> $me['id'],
 			'first_name'	=> $me['first_name'],
 			'last_name'		=> $me['last_name'],
@@ -207,21 +181,25 @@ class SignService extends Nette\Object
 	/**
 	 * Register new Google user to the database
 	 * 
-	 * @param Nette\Database\Table\ActiveRow 	$user 	User's table
-	 * @param array 							$me 	Google user profile info array
+	 * @param array 	$me 		Google user profile info array
+	 * @param int|NULL 	$setActive 	Register and activate profile
 	 * 
 	 * @return Nette\Database\Table\ActiveRow
 	 */
-	public function setGoogleDetails($user, array $me)
+	private function registerFromGoogle(array $me, $setActive = 1)
 	{
-		return $user->related('user_details')->insert(array(
+		return $this->userRepository->create(array(
+			'email' 		=> $me['email'],
+			'role' 			=> 'user',
+			'active'		=> $setActive,
+			'wallet'	 	=> 0,
 			'google_id' 	=> $me['id'],
 			'first_name'	=> $me['given_name'],
 			'last_name'		=> $me['family_name'],
 			'gender'		=> $me['gender'],
 		));
-
 	}
+
 
 
 	/**
@@ -229,43 +207,35 @@ class SignService extends Nette\Object
 	 * 
 	 * @param Nette\Database\Table\ActiveRow 	$user User's DB table
 	 * @param array 							$me Facebook user profile info array
-	 * 
-	 * @return Nette\Database\Table\ActiveRow
 	 */
 	private function updateFromFacebook($user, array $me)
 	{
 		$updateData = array();
-		$user_details = $this->user_detailsRepository->detailsExists($user->id);
 
-		if (!$user_details) {
-			$this->setFacebookDetails($user, $me);
-		} else {
+		if ( empty($user->first_name) ) {
+			$updateData['first_name'] = $me['first_name'];
+		}
 
-			if ( empty($user_details->first_name) ) {
-				$updateData['first_name'] = $me['first_name'];
-			}
+		if ( empty($user->last_name) ) {
+			$updateData['last_name'] = $me['last_name'];
+		}
 
-			if ( empty($user_details->last_name) ) {
-				$updateData['last_name'] = $me['last_name'];
-			}
+		if ( empty($user->facebook_id) ) {
+			$updateData['facebook_id'] = $me['id'];
+		}
 
-			if ( empty($user_details->facebook_id) ) {
-				$updateData['facebook_id'] = $me['id'];
-			}
+		if ( empty($user->gender) ) {
+			$updateData['gender'] = $me['gender'];
+		}
 
-			if ( empty($user_details->gender) ) {
-				$updateData['gender'] = $me['gender'];
-			}
+		if ( empty($user->profile_photo) ) {
+			$photo = "https://graph.facebook.com/" . $me['id'] . "/picture?type=large";
+			$updateData['profile_photo'] = $this->fileManager->saveProfilePhoto('users', uniqid(), $photo);
+		}
 
-			if ( empty($user_details->profile_photo) ) {
-				$photo = "https://graph.facebook.com/" . $me['id'] . "/picture?type=large";
-				$updateData['profile_photo'] = $this->fileManager->saveProfilePhoto('users', uniqid(), $photo);
-			}
-
-			// Update changes
-			if (!empty($updateData)) {
-				$this->user_detailsRepository->update($user_details, $updateData);
-			}
+		// Update changes
+		if (!empty($updateData)) {
+			$this->userRepository->update($user, $updateData);
 		}
 	}
 
@@ -275,56 +245,35 @@ class SignService extends Nette\Object
 	 * 
 	 * @param Nette\Database\Table\ActiveRow 	$user 	DB table
 	 * @param array 							$me 	Facebook user profile info array
-	 * 
-	 * @return Nette\Database\Table\ActiveRow
 	 */
 	private function updateFromGoogle($user, array $me)
 	{
 		$updateData = array();
-		$user_details = $this->user_detailsRepository->detailsExists($user->id);
 
-		if (!$user_details) {
-			$this->setGoogleDetails($user, $me);
-		} else {
-
-			if ( empty($user_details->first_name) ) {
-				$updateData['first_name'] = $me['given_name'];
-			}
-
-			if ( empty($user_details->last_name) ) {
-				$updateData['last_name'] = $me['family_name'];
-			}
-
-			if ( empty($user_details->google_id) ) {
-				$updateData['google_id'] = $me['id'];
-			}
-
-			if ( empty($user_details->gender) ) {
-				$updateData['gender'] = $me['gender'];
-			}
-			
-			if ( empty($user_details->profile_photo) ) {
-				$updateData['profile_photo'] = $this->fileManager->saveProfilePhoto('users', uniqid(), $me['picture']);
-			}
-			
-			// Update changes
-			if (!empty($updateData)) {
-				$this->user_detailsRepository->update($user_details, $updateData);
-			}
+		if ( empty($user->first_name) ) {
+			$updateData['first_name'] = $me['given_name'];
 		}
-	}
 
-	/**
-	 * Create empty wallet upon new registration
-	 * 
-	 * @param  int $userId
-	 */
-	private function createUserWallet($userId)
-	{
-		$this->walletRepository->add(array(
-			'user_id' => $userId,
-			'balance' => 0
-		));
+		if ( empty($user->last_name) ) {
+			$updateData['last_name'] = $me['family_name'];
+		}
+
+		if ( empty($user->google_id) ) {
+			$updateData['google_id'] = $me['id'];
+		}
+
+		if ( empty($user->gender) ) {
+			$updateData['gender'] = $me['gender'];
+		}
+		
+		if ( empty($user->profile_photo) ) {
+			$updateData['profile_photo'] = $this->fileManager->saveProfilePhoto('users', uniqid(), $me['picture']);
+		}
+		
+		// Update changes
+		if (!empty($updateData)) {
+			$this->userRepository->update($user, $updateData);
+		}
 	}
 
 
