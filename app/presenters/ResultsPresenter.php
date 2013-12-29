@@ -136,19 +136,18 @@ class ResultsPresenter extends BaseSignedPresenter
 	public function handleAccept($userId)
 	{
 		// Check if user is assigned to this task, status = 2|Pending
-		if (!$this->userService->isAcceptedFilterByStatus($this->task->id, $userId,2)) {
+		if (!$this->userService->isPendingFilterByStatus($this->task->id, $userId)) {
 			$this->flashMessage('notice.error.not_assigned_to_user', 'alert-danger');
 			$this->redirect('User:');
 		};
 
 		// Accept result
 		try {
-		
 			$this->payService->payResult($this->task, $userId);
 			$this->taskService->acceptResult($this->task->id, $userId);
 			$this->redirect('this');
-
-		} catch (\RuntimeException $e) {
+		}
+		catch (\RuntimeException $e) {
 			$this->flashMessage($e->getMessage(), 'alert-danger');
 			$this->redirect('User:');
 		}

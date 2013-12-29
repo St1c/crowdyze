@@ -170,6 +170,23 @@ class UserService extends Nette\Object
 	}
 
 
+
+	/**
+	 * Check whether the task is assigned to user
+	 * 
+	 * @param  int  $userId
+	 * @param  int  $taskId
+	 * 
+	 * @return boolean TRUE|FALSE
+	 */
+	public function isAcceptedFilterByStatus($taskId, $userId)
+	{
+		$repo = $this->accepted_taskRepository;
+		return $this->accepted_taskRepository->isAcceptedFilterByStatus($taskId, $userId, $repo::STATUS_ACCEPTED);
+	}
+
+
+
 	/**
 	 * Check whether the task is assigned to user
 	 * 
@@ -179,9 +196,10 @@ class UserService extends Nette\Object
 	 * 
 	 * @return boolean TRUE|FALSE
 	 */
-	public function isAcceptedFilterByStatus($taskId, $userId, $status = 1)
+	public function isPendingFilterByStatus($taskId, $userId)
 	{
-		return $this->accepted_taskRepository->isAcceptedFilterByStatus($taskId, $userId, $status);
+		$repo = $this->accepted_taskRepository;
+		return $this->accepted_taskRepository->isAcceptedFilterByStatus($taskId, $userId, $repo::STATUS_PENDING);
 	}
 
 }

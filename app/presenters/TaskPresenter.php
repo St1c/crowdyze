@@ -95,6 +95,10 @@ class TaskPresenter extends BaseSignedPresenter
 
 
 
+	/**
+	 * Acceptance task as worker.
+	 * @param string $token Ident of task.
+	 */
 	public function handleAcceptTask($token)
 	{
 		try {
@@ -104,6 +108,8 @@ class TaskPresenter extends BaseSignedPresenter
 		catch (\Exception $e) {
 			$this->flashMessage($e->getMessage(), 'alert-danger');
 		}
+
+		$this->redirect('this');
 	}
 
 
