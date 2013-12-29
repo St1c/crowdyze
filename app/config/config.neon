@@ -66,6 +66,7 @@ services:
 	- Model\Repositories\EmailRepository
 	- Model\Repositories\PollRepository
 	- Model\Repositories\QuestionRepository
+	- Model\Repositories\FileRepository
 
 	- Model\Services\SignService
 	- Model\Services\TaskService
@@ -81,7 +82,7 @@ services:
 		class: Utilities\MailerService
 
 	fileManager: 
-		class: Utilities\FileManager
+		class: Model\Services\FileManager
 		setup:
 			- $uploadFolders(%uploads%)
 			- $wwwDir(%wwwDir%)
