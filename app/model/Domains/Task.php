@@ -21,6 +21,7 @@ class Task extends Nette\Object
 	public $budgetType;
 	public $workers;
 	public $deadline;
+	public $promotion;
 	public $token;
 	public $owner;
 
@@ -71,14 +72,15 @@ class Task extends Nette\Object
 
 		$inst->activeRow = $data;
 		
-		$inst->title = $data->title;
-		$inst->description = $data->description;
-		$inst->salary = $data->salary;
-		$inst->budgetType = $data->budget_type;
-		$inst->workers = $data->workers;
-		$inst->deadline = $data->deadline;
-		$inst->token = $data->token;
-		$inst->owner = $data->owner;
+		$inst->title 		= $data->title;
+		$inst->description 	= $data->description;
+		$inst->salary 		= $data->salary;
+		$inst->budgetType 	= $data->budget_type;
+		$inst->workers 		= $data->workers;
+		$inst->deadline 	= $data->deadline;
+		$inst->promotion 	= $data->promotion;
+		$inst->token 		= $data->token;
+		$inst->owner 		= $data->owner;
 
 		return $inst;
 	}

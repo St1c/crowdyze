@@ -13,6 +13,7 @@ form:
 	workers_required: "How many workers do you need?"
 	deadline: "Deadline"
 	departments: "Departments"
+	promotion: "Promotions:"
 	submit: "Submit"
 	cancel: "Cancel"
 

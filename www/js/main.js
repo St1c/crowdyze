@@ -1,6 +1,8 @@
 $(function(){
 
-	/* Firefox fix to connect label with file input form  */
+	/**
+	 * Firefox fix to connect label with file input form
+	 */
 	// if($.browser.mozilla) {
 	// 	$(document).on('click', 'label', function(e) {
 	// 		if(e.currentTarget === this && e.target.nodeName !== 'INPUT') {
@@ -8,6 +10,98 @@ $(function(){
 	// 		}
 	// 	});
 	// }
+
+	/**
+	 * Calculate task costs and inform the user about it
+	 */
+	var budget = budget || {
+		
+		/** 
+		 * Commission Fees SETUP
+		 * @todo  get values from config.neon 
+		 */
+		fees: {
+			fixFee: 0.50,
+			commissionFee: 0.05,
+			promotionsFee: [0.03, 0.05, 0.07],
+		},
+
+		/** Input values */
+		budgetType: function () { return $('#budget_type option:selected').val(); },
+		salary: 	function () { return $('#salary').val(); },
+		promotion: 	function () { return $('input[name=promotion]:checked', '#promotion').val(); },
+		workers: 	function () { return $('#workers').val(); },		
+
+
+		/** Budget methods */
+		getNettoBudget: function () {
+
+			switch (budget.budgetType()) 
+			{
+				// Pay only the best
+				case '1':
+					finalPrice = 1 * budget.salary();
+					break;
+
+				// Pay the best 10
+				case '2':
+					finalPrice = 10 * budget.salary();
+					break;
+
+				// Pay all
+				default:
+					finalPrice = budget.workers() * budget.salary();
+					break;
+			}
+
+			return finalPrice;
+		},
+
+		/** Calculate commission costs */
+		getCommission: function () {
+			return budget.getNettoBudget() * budget.fees.commissionFee;
+		},
+
+		/** Calculate promotion costs */
+		getPromotion: function () {
+			if (budget.promotion() > 0) {
+				return budget.getNettoBudget() * budget.fees.promotionsFee[budget.promotion() - 1];				
+			} else {
+				return 0;
+			}
+		},
+
+		/** Calculate final budget costs */
+		calculateBudget: function () {
+			budget.finalPrice =  budget.getNettoBudget() 
+								+ budget.getCommission() 
+								+ budget.getPromotion() 
+								+ budget.fees.fixFee;
+			// $('#workers').prop('disabled', false);
+			$('#budget .value').html( Math.round( budget.finalPrice * 100 ) / 100 );
+		},
+
+		init: function() {
+
+			// Calulate on load
+			budget.calculateBudget();
+
+			// Calculate budget on typing
+			$('#salary, #workers').keyup(function() {
+				budget.calculateBudget();
+			});
+
+			// Calculate on budget_type change
+			$('#budget_type').change(function(evt) {
+				budget.calculateBudget();
+			});
+
+			// Calculate budget on promotions change
+			$('#promotion input').change(function(evt) {
+				budget.calculateBudget();
+			});
+		}
+	};
 
 	/**	
 	* Remove _fid parameter from URL
@@ -24,7 +118,9 @@ $(function(){
 		}
 	}
 
-	// Automatic flash messages dismissal
+	/** 
+	 * Automatic flash messages dismissal
+	 */
 	$.nette.ext('SuccessfullFlashHide', {
 		load: function(){
 			setTimeout(function (){ $('.alert').fadeOut(3500); },1000);
@@ -32,7 +128,9 @@ $(function(){
 	});
 
 
-	// Twitter tagsmanager
+	/**
+	 * Twitter tagsmanager
+	 */
 	$.nette.ext('tagsmanager', {
 		load: function () {
 
@@ -51,7 +149,9 @@ $(function(){
 	})
 
 
-	// Responsive layout for tasks
+	/**
+	 * Responsive layout for tasks
+	 */
 	$.nette.ext('masonry', {
 		load: function () {
 			$('#container').masonry({
@@ -63,7 +163,9 @@ $(function(){
 	});
 
 
-	// Infinite AJAX scroll
+	/**
+	 * Infinite AJAX scroll
+	 */
 	$.nette.ext('ias', {
 		load: function () {
 			jQuery.ias({
@@ -89,135 +191,11 @@ $(function(){
 		}
 	});
 
-/*
-	$.nette.ext('datepicker', {
-		load: function() {
-			$("input.deadline").datepicker();
-		}
-	});
- */
-	$.nette.ext('budgetcalc', {
-		load: function() {
-
-			// Calulate on load
-			calculateBudget();
-
-			// Calculate budget on typing
-			$('#salary, #workers').keyup(function() {
-				calculateBudget();
-			});
-
-			// Calculate on budget_type change
-			$('#budget_type').change(function(evt) {
-				calculateBudget();
-			});
-		}
-	});
-
+	/**
+	 * Initialize JS methods and AJAX
+	 */
 	$.nette.ext('init').linkSelector = 'a.ajax';
 	$.nette.init();
-
-
-	function calculateBudget() {
-		var budgetType 	= $('#budget_type').val();
-		var salary		= $('#salary').val();
-		var workers 	= $('#workers');
-		var finalPrice;
-
-		switch (budgetType) 
-		{
-			case '1':
-				// Pay only the best
-				workers.prop('disabled', true);
-				finalPrice = salary * 1.05 + 0.50;
-				break;
-			case '2':
-				// Pay the best 10
-				workers.prop('disabled', true);
-				finalPrice = 10 * salary * 1.05 + 0.50;
-				break;
-			default:
-				// Pay all
-				workers.prop('disabled', false);
-				finalPrice = workers.val() * salary * 1.05 + 0.50;
-				break;
-		}
-		$('#budget .value').html(Math.round(finalPrice*100)/100);
-	}
-
-	// $("input[type='file']").on('change', function (evt) {
-		
-	// 	// Loop through the FileList and render image files as thumbnails.
-	// 	var files = evt.target.files; // FileList object
-
-	// 	// files is a FileList of File objects. List some properties.
-	// 	var output = [];
-	// 	for (var i = 0, f; f = files[i]; i++) {
-
-	// 		output.push('<p>', escape(f.name), ' (', f.type || 'n/a', ') - ',
-	// 					f.size, ' bytes</p>');
-	// 	}
-	// 	$(this).before('<div>' + output.join('') + '</div>');
-
-	// });
-
-	// token = $('input[name="token"]').val();
-
-	// uploader = new qq.FileUploaderBasic({
-	// 	// pass the dom node (ex. $(selector)[0] for jQuery users)
-	// 	element: document.getElementById('upload'),
-	// 	// path to server-side upload script
-	// 	action: '/upload/temp/' + token,
-	// 	debug: false,
-	// 	button: document.getElementById('upload-btn'),  
-
-	// 	onSubmit: function(id, fileName) {
-	// 		$('#file-list').append('<div><span class="loader"></span><div>');
-	// 	},
-	//     onProgress: function(id, fileName, uploadedBytes, totalBytes) {
-
-	//     	var el = $('#file-list div').eq(id).find('.loader');
-	//     	var text;
-	// 		var percent = Math.round(uploadedBytes / totalBytes * 100);
-
-	//         if (uploadedBytes != totalBytes) {
-	// 			// If still uploading, display percentage
-	//             text = percent + '%';	
-	//         } else {
-	// 			// If complete, just display final size
-	//             text = totalBytes;
-	//         }
-	//         el.html('<p>' + text + '</p>');
-	//     },
-	//     onComplete: function(id, fileName, responseJSON) {
-	//     	var el = $('#file-list div').eq(id);
-
-	//     	el.find('.loader').remove();
-	//     	el.append('<span class="' + getType(fileName) + '">' + responseJSON.file + '</span>');
-	//     	$('form').append('<input type="hidden" value="' + responseJSON.file + '" name="upload[]">')
-	//     },
-	//     onError: function(id, fileName, xhr){
-	//     	console.log(xhr);
-	//     }
-	// });
-
-	// getType = function(fileName) {
-
-	// 	var images 	= ['jpg', 'JPG', 'png', 'PNG', 'bmp', 'gif'];
-	// 	var video 	= ['avi', 'mp4', 'flv'];
-	// 	var docs 	= ['xml', 'doc', 'xls', 'docx', 'xlsx'];
-
-	// 	var ext = fileName.split('.').pop();
-
-	// 	if (jQuery.inArray(ext, images) !== -1 ) {
-	// 		return 'image';
-	// 	} else if (jQuery.inArray(ext, video) !== -1 ) {
-	// 		return 'video';
-	// 	} else if (jQuery.inArray(ext, docs) !== -1 ) {
-	// 		return 'docus';
-	// 	} else {
-	// 		return 'other';
-	// 	}
-	// }
+	budget.init();
 
 });

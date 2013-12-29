@@ -74,7 +74,7 @@ class PayService extends Nette\Object
 
 
 	/**
-	 * Reserve budget from user's wallet for a given task
+	 * Reserve budget from user's wallet for a given task, when creating new task
 	 * 
 	 * @param  Model\Domains\Task $task
 	 * @param  int $userId
@@ -104,7 +104,7 @@ class PayService extends Nette\Object
 
 
 	/**
-	 * Update budget from user's wallet for a given task
+	 * Update budget from user's wallet for a given task, when editing existing task
 	 * 
 	 * @param  Model\Domains\Task $task
 	 * @param  int $userId
@@ -131,7 +131,7 @@ class PayService extends Nette\Object
 			'wallet_id' 	=> $wallet->id,
 			'budget' 		=> $this->getNettoCosts($task),
 			'commission' 	=> $this->getCommission($task),
-			// 'promotion_fee' => $promotion_fee,
+			'promotion'		=> $this->getPromotion($task)
 		));
 
 		// And update credit in user's wallet
@@ -172,7 +172,7 @@ class PayService extends Nette\Object
 		$newBalance = $wallet->balance;
 		$newBalance += $currentBudget->budget;
 		$newBalance += $currentBudget->commission; 
-		$newBalance += $currentBudget->promotion_fee;
+		$newBalance += $currentBudget->promotion;
 
 		// Clear current campaign costs (budget)
 		$this->purgeBudget($task);
@@ -224,21 +224,42 @@ class PayService extends Nette\Object
 	 */
 	private function getCommission(Task $task)
 	{
-		return $this->getNettoCosts($task) * ( $this->fees['commission'] - 1 );
+		return $this->getNettoCosts($task) * ( $this->fees['commission'] );
 	}
 
 
 
 	/**
-	 * Calclate the overall costs for the campaign = job price + commission + fees
+	 * Get fees for promoting task
+	 * 
+	 * @param  Task   $task
+	 * 
+	 * @return int    Promotion fee
+	 */
+	private function getPromotion(Task $task)
+	{
+		if ($task->promotion > 0) {
+			return $this->getNettoCosts($task) * ($this->fees['promotion'][$task->promotion - 1]);
+		} else {
+			return 0;
+		}
+	}	
+
+
+
+	/**
+	 * Calculate the overall costs for the campaign = job price + commission + fees
 	 * 
 	 * @param  array $form 	Submitted form values
 	 * 
 	 * @return int        	Final budget
 	 */
-	private function getOverallCosts($task)
+	private function getOverallCosts(Task $task)
 	{	
-		return $this->getNettoCosts($task) * $this->fees['commission'] + $this->fees['fix'];
+		return $this->getNettoCosts($task) + 
+				$this->getCommission($task) + 
+				$this->getPromotion($task) + 
+				$this->fees['fix'];
 	}
 
 
@@ -255,11 +276,11 @@ class PayService extends Nette\Object
 	private function recordBudget($task, $walletId)
 	{
 		return $task->related('budget')->insert(array(
-			'wallet_id' 	=> $walletId,
-			'fee' 			=> $this->fees['fix'],
-			'budget' 		=> $this->getNettoCosts($task),
-			'commission' 	=> $this->getCommission($task),
-			// 'promotion_fee' => $promotion_fee,
+			'wallet_id'  => $walletId,
+			'fee' 		 => $this->fees['fix'],
+			'budget' 	 => $this->getNettoCosts($task),
+			'commission' => $this->getCommission($task),
+			'promotion'	 => $this->getPromotion($task)
 		));
 	}
 
@@ -275,9 +296,9 @@ class PayService extends Nette\Object
 	private function createIncomeFee($budget)
 	{
 		return $this->incomeRepository->create(array(
-			'from' 		=> $budget->id,
-			'type' 		=> 1,
-			'amount' 	=> $budget->fee
+			'from' 	=> $budget->id,
+			'type' 	=> 1,
+			'amount' => $budget->fee
 		));
 	}
 
@@ -291,9 +312,9 @@ class PayService extends Nette\Object
 	private function purgeBudget($task)
 	{
 		$task->related('budget')->update(array(
-			'budget'	 	=> 0.00,
-			'commission' 	=> 0.00,
-			'promotion_fee' => NULL
+			'budget'	 => 0.00,
+			'commission' => 0.00,
+			'promotion'	 => 0.00
 		));
 	}
 
@@ -311,13 +332,24 @@ class PayService extends Nette\Object
 		}
 		
 		// Pay commission to Crowdyze account
-		$resultCommission = $task->salary * ($this->fees['commission'] - 1);
+		$resultCommission = $task->salary * ($this->fees['commission'] );
 		$updateCommission = $budget->commission - $resultCommission;
 
-		$this->createIncomeCommission($budget, $resultCommission);
+		// Pay promotion fee to Crowdyze account
+		if ($task->promotion > 0) {
+			$resultPromotion = $task->salary * $this->fees['promotion'][$task->promotion - 1];
+			$updatePromotion = $budget->promotion - $resultPromotion;
+		} else {
+			$updatePromotion = 0;
+		}
+
+
+		$this->createIncomeCommission($budget, $resultCommission, 2);
+		$this->createIncomeCommission($budget, $resultPromotion, 3);
 		$task->related('budget')->update(array(
 			'budget'	 => $newBudget,
 			'commission' => $updateCommission,
+			'promotion'	 => $updatePromotion
 		));
 
 		// Transfer salary to user's wallet
@@ -331,14 +363,14 @@ class PayService extends Nette\Object
 	 * Transfer commission to local Crowdyze account
 	 * 
 	 * @param  ActiveRow $budget
-	 * 
-	 * @return ActiveRow 
+	 * @param  int 				Fee amount
+	 * @param  int 				Type of Fee 
 	 */
-	private function createIncomeCommission($budget, $commission)
+	private function createIncomeCommission($budget, $commission, $type)
 	{
-		return $this->incomeRepository->create(array(
+		$this->incomeRepository->create(array(
 			'from' 		=> $budget->id,
-			'type' 		=> 2,
+			'type' 		=> $type,
 			'amount' 	=> $commission
 		));
 	}

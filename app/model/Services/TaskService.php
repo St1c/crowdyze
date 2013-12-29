@@ -73,16 +73,17 @@ class TaskService extends Nette\Object
 
 		try {
 			$task = $this->taskRepository->create(array(
-					'owner' => $formValues['owner'],
+					'owner' 		=> $formValues['owner'],
 					//~ 'owner' => $user_id,
 					//	@TODO Move to repository
-					'token'	=> $this->generateTaskToken(),
-					'title' => $formValues['title'],
-					'description' => $formValues['description'],
-					'salary' => $formValues['salary'],
-					'budget_type' => $formValues['budget_type'],
-					'workers' => $formValues['workers'],
-					'deadline' => $formValues['deadline'],
+					'token'			=> $this->generateTaskToken(),
+					'title' 		=> $formValues['title'],
+					'description' 	=> $formValues['description'],
+					'salary'		=> $formValues['salary'],
+					'budget_type' 	=> $formValues['budget_type'],
+					'workers' 		=> $formValues['workers'],
+					'deadline' 		=> $formValues['deadline'],
+					'promotion' 	=> $formValues['promotion']
 					));
 
 			// Saving tags

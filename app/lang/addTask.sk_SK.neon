@@ -13,6 +13,7 @@ form:
 	workers_required: "Koľko potrebujete pracovnikov?"
 	deadline: "Deadline"
 	departments: "Oddelenia"
+	promotion: "Zvýraznenie"
 	submit: "Odoslať"
 	cancel: "Zrušiť"
 

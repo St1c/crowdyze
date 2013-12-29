@@ -137,7 +137,11 @@ parameters:
 
 	fees:
 		fix: 0.50
-		commission: 1.05 
+		commission: 0.05
+		promotion: 
+			- 0.03
+			- 0.05
+			- 0.10
 
 	mailer:
 		smtp: true

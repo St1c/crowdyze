@@ -67,6 +67,9 @@ class AddTaskControl extends BaseControl
 		$component->addText('departments', 'addTask.form.department')
 			->setAttribute('placeholder', 'addTask.form.departments');
 
+		$component->addRadioList('promotion', 'addTask.form.promotion', array('none', 'min', 'med', 'max'))
+			->setDefaultValue(0);
+
 		$component['attachments'] = new MultipleUploadControl('attachments');
 		$component->addSubmit('attachmentPreload', 'Preload')
 				->setValidationScope(False);
@@ -124,7 +127,9 @@ class AddTaskControl extends BaseControl
 				$this->presenter->redirect('detail', array('token' => $task->token));
 			}
 			catch (\RuntimeException $e) {
-				$component->addError($e->getMessage());
+				$component->addError(
+					$this->parent->translator->translate($e->getMessage())
+				);
 			}
 		}
 	}
