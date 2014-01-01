@@ -123,11 +123,13 @@ class ResultsPresenter extends BaseSignedPresenter
 			//	Store new result
 			try {
 				$result = $this->taskService->createResult($this->user->id, $this->task->id, (array)$values);
-				$this->redirect('User:');
 			}
 			catch (\Exception $e) {
 				$component->addError($e->getMessage());
+				return;
 			}
+
+			$this->redirect('User:');
 		}
 	}
 
