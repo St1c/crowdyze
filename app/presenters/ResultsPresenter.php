@@ -24,9 +24,6 @@ class ResultsPresenter extends BaseSignedPresenter
 	/** @var Model\Services\UserService @inject */
 	public $userService;
 
-	/** @var Model\Services\PayService @inject */
-	public $payService;
-
 	/** @var Model\Domains\Task */
 	private $task;
 
@@ -145,23 +142,29 @@ class ResultsPresenter extends BaseSignedPresenter
 
 		// Accept result
 		try {
-			$this->payService->payResult($this->task, (int) $userId);
-			$this->taskService->acceptResult($this->task->id, (int) $userId);
-			$this->redirect('this');
+			$this->taskService->doAcceptResult($this->task, (int) $userId);
 		}
 		catch (\RuntimeException $e) {
 			$this->flashMessage($e->getMessage(), 'alert-danger');
 			$this->redirect('User:');
 		}
+		$this->redirect('this');
 	}
 
 
 
 	public function handleReject($userId)
 	{
-		$this->taskService->rejectResult($this->task->id, (int) $userId);
+		try {
+			$this->taskService->doRejectResult($this->task->id, (int) $userId);
+		}
+		catch (\RuntimeException $e) {
+			$this->flashMessage($e->getMessage(), 'alert-danger');
+		}
+			
 		$this->redirect('this');
 	}
+
 
 
 	/**

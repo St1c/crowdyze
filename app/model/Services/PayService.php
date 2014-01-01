@@ -304,12 +304,20 @@ class PayService extends Nette\Object
 
 
 
-	public function payResult($task, $userId)
+	/**
+	 * Process pay transcation
+	 */
+	public function doPayResult(Task $task, $userId)
 	{
+		Validators::assert($task->id, 'int');
+		Validators::assert($userId, 'int');
 
 		// Check if budget is sufficient to pay the user
-		$budget 	= $this->getBudget($task);
-		$newBudget 	= $budget->budget - $task->salary;
+		if (! $budget = $this->getBudget($task)) {
+			throw new \LogicException('Budget for task: ' . $task->id . ' not found.');
+		}
+
+		$newBudget = $budget->budget - $task->salary;
 
 		if ( $newBudget < 0 ) {
 			throw new \RuntimeException("notice.exception.insuficient_credit", 1);
@@ -323,10 +331,11 @@ class PayService extends Nette\Object
 		if ($task->promotion > 0) {
 			$resultPromotion = $task->salary * $this->fees['promotion'][$task->promotion - 1];
 			$updatePromotion = $budget->promotion - $resultPromotion;
-		} else {
-			$updatePromotion = 0;
 		}
-
+		else {
+			$updatePromotion = 0;
+			$resultPromotion = 0;
+		}
 
 		$this->createIncomeCommission($budget, $resultCommission, 2);
 		$this->createIncomeCommission($budget, $resultPromotion, 3);
@@ -338,7 +347,6 @@ class PayService extends Nette\Object
 
 		// Transfer salary to user's wallet
 		$this->addWallet($userId, $task->salary);
-		
 	}
 
 

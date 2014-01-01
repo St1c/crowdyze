@@ -4,10 +4,11 @@ zakladne udaje o uzivatelovi
 
 -> active: info ci je uzivatelsky ucet aktivny. Zatial neplni ziadnu funkciu, vsetky ucty su aktivne automaticky
 -> role: sem pribudne moznost definovat uzivatela ako administratora, ktory bude mat moznost administrovat vsetky ulohy
-
-User details
-============
 - informacie ziskane zo soc. sieti, pripadne editovanim profilu
+- Uzivatelska penazenka. Vytvori sa pri registracii noveho uzivatela.
+- Uzivatel si moze dobit kredit pomocou paypal, goPay, bankovy prevod
+- Uzivatelovi sa sem pridavaju vsetky peniaze ktore zarobil vykonanim urcitej ulohy (Task)
+
 
 Relationship
 ============
@@ -24,12 +25,6 @@ Message
 - Sluzi na ukladanie sprav medzi uzivatelmi
 - zatial neimplementovane
 
-Wallet
-======
-- Uzivatelska penazenka. Vytvori sa pri registracii noveho uzivatela.
-- Uzivatel si moze dobit kredit pomocou paypal, goPay, bankovy prevod
-- Uzivatelovi sa sem pridavaju vsetky peniaze ktore zarobil vykonanim urcitej ulohy (Task)
-
 Transfer
 ========
 - Logovanie vsetkych penaznych transakcii, za vykonane ulohy
@@ -43,11 +38,19 @@ Departments
 Task
 ====
 - Vsetky detaily tykajuce sa vytvorenej ulohy
--> status: sluzi na oznacenie ulohy - ci je schvalena administratormi, ukoncena, pauznuta a podobne
--> pri vytvoreni novej ulohy sa vytvori aj novy zaznam v tabulke budget, ktora obsahuje rezervu na peniaze potrebne na vykonanie danej ulohy + peniaze na rezijne naklady (nasa commission a fees)
--> za vytvorenie ulohy sa okrem 5% commission uctuje aj fixna suma, ktora sa ale rovno prevadza na nas interny ucet (tabulka income)
--> dynamicke poplatky (5% commission, a percenta za promoted task) su zaznamenane v danych stlpcoch tabulky a dynamicky sa odpocitavaju a updatuju, ak zadavatel ulohy oznaci nejaky vysledok za spravny. Tieto dynamicke poplatky sa nasledne presuvaju na interny ucet (income table)
--> peniaze prinaleziace za spravne vykonany vysledok sa presuvaju na ucet uzivatela ktory ho spravil (do jeho wallet)
+-> status: sluzi na oznacenie ulohy - ci je schvalena administratormi, ukoncena, 
+pauznuta a podobne
+-> pri vytvoreni novej ulohy sa vytvori aj novy zaznam v tabulke budget, 
+ktora obsahuje rezervu na peniaze potrebne na vykonanie danej ulohy + peniaze 
+na rezijne naklady (nasa commission a fees)
+-> za vytvorenie ulohy sa okrem 5% commission uctuje aj fixna suma, 
+ktora sa ale rovno prevadza na nas interny ucet (tabulka income)
+-> dynamicke poplatky (5% commission, a percenta za promoted task) su 
+zaznamenane v danych stlpcoch tabulky a dynamicky sa odpocitavaju a updatuju, 
+ak zadavatel ulohy oznaci nejaky vysledok za spravny. Tieto dynamicke poplatky 
+sa nasledne presuvaju na interny ucet (income table)
+-> peniaze prinaleziace za spravne vykonany vysledok sa presuvaju na ucet 
+uzivatela ktory ho spravil (do jeho wallet)
 
 priklad:
 
@@ -82,6 +85,7 @@ priklad:
 11. Sumy 0.05 Eur (commission) a 0.05 eur (promotion) sa presunu ku nam na ucet (tabulka Income) s nalezitymi typmi
 12. Uloha je ukoncena ak je dosiahnuty pocet vysledok rovny 100, alebo ju ukoncil zadavatel sam.
 13. Vsetky transakcie by mali byt zalogovane v tabulke Transfer (nie je implementovane zatial)
+
 
 Comment
 =======

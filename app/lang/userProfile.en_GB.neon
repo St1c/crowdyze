@@ -4,7 +4,7 @@ form:
 	city: "City"
 	country: "Country"
 	submit: "Save"
-	cancel: "Undo"
+	cancel: "Cancel"
 
 flashes:
 	profile_edited: "Profile updated"

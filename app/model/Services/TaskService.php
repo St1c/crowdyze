@@ -197,7 +197,7 @@ class TaskService extends Nette\Object
 		}
 		catch (\Exception $e) {
 			$this->taskRepository->rollbackTransaction();
-			$this->fileManager->commitTransaction();
+			$this->fileManager->rollbackTransaction();
 			throw $e;
 		}
 
@@ -589,7 +589,7 @@ class TaskService extends Nette\Object
 		}
 		catch (\Exception $e) {
 			$this->taskRepository->rollbackTransaction();
-			$this->fileManager->commitTransaction();
+			$this->fileManager->rollbackTransaction();
 			throw $e;
 		}
 	}
@@ -630,12 +630,22 @@ class TaskService extends Nette\Object
 	 * @param  int $taskId
 	 * @param  int $userId
 	 */
-	public function acceptResult($taskId, $userId)
+	public function doAcceptResult($task, $userId)
 	{
-		Validators::assert($taskId, 'int');
+		Validators::assert($task->id, 'int');
 		Validators::assert($userId, 'int');
-		$repo = $this->acceptedTaskRepository;
-		$this->acceptedTaskRepository->updateStatus($taskId, $userId, $repo::STATUS_SATISFIED);
+
+		$this->taskRepository->beginTransaction();
+		try {
+			$this->payService->doPayResult($task, (int) $userId);
+			$repo = $this->acceptedTaskRepository;
+			$this->acceptedTaskRepository->updateStatus($task->id, $userId, $repo::STATUS_SATISFIED);
+			$this->taskRepository->commitTransaction();
+		}
+		catch (\Exception $e) {
+			$this->taskRepository->rollbackTransaction();
+			throw $e;
+		}
 	}
 
 
@@ -646,7 +656,7 @@ class TaskService extends Nette\Object
 	 * @param  int $taskId
 	 * @param  int $userId
 	 */
-	public function rejectResult($taskId, $userId)
+	public function doRejectResult($taskId, $userId)
 	{
 		Validators::assert($taskId, 'int');
 		Validators::assert($userId, 'int');
