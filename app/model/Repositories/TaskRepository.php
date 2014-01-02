@@ -25,6 +25,10 @@ class TaskRepository extends BaseRepository
  	 */
 	public function create(array $task)
 	{
+		if (array_key_exists('promotion', $task) && empty($task['promotion'])) {
+			$task['promotion'] = Null;
+		}
+		
 		return self::createTask($this->getTable()->insert($task));
 	}
 
