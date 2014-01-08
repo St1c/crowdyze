@@ -23,21 +23,26 @@
 		{block #head}{/block}
 	</head>
 
-<body class="no-js cbp-spmenu-push">
 
+	<body class="no-js cbp-spmenu-push">
         <div class="main">
             <div class="header clearfix">
-                <strong class="logo"><a href=""><img src="img/logo.png"></a></strong>
+                <strong class="logo"><a n:href="Homepage:"><img src="{$basePath}/img/logo.png"></a></strong>
                 <div class="filter-holder"><a href="#" class="filter" id="showLeft"></a></div>
                 <form class="search large-screen">
                     <div class="searchinput-holder">
                         <input class="searchinput">
                     </div>
                 </form>
+
                 <ul class="toolbar">
-                    <li><a href="" class="btn btn-primary btn-large btn-addjob"><span class="addjob-text">Add a job</span><span class="addjob-icon">+</span></a></li>
-                    <li class="large-screen"><a href="" class="email"><span class="badge">3</span></a></li>
-                    <li class="large-screen"><a href="" class="user"><img src="img/userphoto.png"></a></li>
+					{if $user->isLoggedIn()}
+                    <li><a n:href="Task:add" class="btn btn-primary btn-large btn-addjob"><span class="addjob-text">Add a job</span><span class="addjob-icon">+</span></a></li>
+                    <li class="large-screen"><a n:href=":User:email" class="email"><span class="badge">9999</span></a></li>
+                    <li class="large-screen"><a n:href=":User:" class="user"><img src="{$basePath}/img/userphoto.png" alt="{_layout.menu.profile}" title="{_layout.menu.profile}"></a></li>
+                    {else}
+                    <li><a n:href="Sign:" class="btn btn-primary btn-large btn-addjob"><span class="addjob-text">{_layout.menu.login}</span><span class="addjob-icon">+</span></a></li>
+                    {/if}
                 </ul>
             </div>
 
@@ -81,7 +86,6 @@
 			</ul>			
 		</div>
 
-		<div class="logo" href="#"><a n:href="Homepage:"><img src="{$basePath}/images/crowdyzeme.png"></a></div>
 		<!-- <a n:href="Homepage:">Crowdyze<span>me</span></a> -->
 		<div class="submenu right">
 			<ul class="">
@@ -284,6 +288,5 @@
         </div>
         <div class="modal-overlay" style="display: none"></div>
 
-
-</body>
+	</body>
 </html>
