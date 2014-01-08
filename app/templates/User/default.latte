@@ -12,6 +12,8 @@
 			*}
 			<img src="{$basePath}/img/userprofile.png">
 		</div>
+
+	{block #userProfile}
         <h1 class="profile-name">
 			{$userData['first_name']} 
 			{$userData['last_name']}
@@ -22,6 +24,7 @@
 					 {$userData['country']}
 				<a n:href="edit" class="profile-edit">Edit</a></h3>
         <p class="profile-details">Member since July 9, 2011 — Good reliability as a worker</p>
+	{/block}
 
         <div class="profile-panel">
             <p class="profile-balance">You’ve got <strong>&euro; {$balance|number:2}</strong> on your account</p>
