@@ -39,6 +39,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	}
 
 
+
 	/**
 	 * Add translator to templates
 	 * 
@@ -49,41 +50,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	{
 		$template = parent::createTemplate($class);
 		$template->registerHelperLoader(callback($this->translator->createTemplateHelpers(), 'loader'));
-
-		// Register new helper
-		//	@TODO Samostatná funkce
-		$template->registerHelper('daysLeft', function ($deadline) {
-			
-			if (!$deadline) {
-				return '';
-			}
-			
-			//Calculate difference
-			$seconds = strtotime($deadline) - time(); 	//time returns current time in seconds
-			if ($seconds < 0 ) return '';
-
-			$days 		= floor($seconds / 86400);
-			$seconds 	%= 86400;
-
-			$hours 		= floor($seconds / 3600);
-			$seconds 	%= 3600;
-
-			$minutes 	= floor($seconds / 60);
-			$seconds 	%= 60;
-
-			if ($days >= 1) {
-				return "$days days left";
-			}
-			
-			if ($hours >= 1) {
-				return "$hours hours left";
-			}
-			else {
-				return "$minutes minutes left";
-			}
-
-		});
-
+		$template->registerHelperLoader(callback('App\Helpers', 'loader'));
 		return $template;
 	}
 

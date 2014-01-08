@@ -31,24 +31,6 @@ class HomepagePresenter extends BaseSignedPresenter
 
 
 
-	public function createTemplate($class = NULL)
-	{
-		$template = parent::createTemplate($class);
-		$template->registerHelper('promotionClass', function ($s) {
-			switch ($s) {
-				case 2:
-					return 'promo-max';
-				case 1:
-					return 'promo-medium';
-				default:
-					return Null;
-			}
-		});
-		return $template;
-	}
-
-
-
 	/**
 	 * At front is list of tasks.
 	 */

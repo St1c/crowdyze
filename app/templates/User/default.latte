@@ -1,15 +1,86 @@
 {layout '../@layout.latte'}
+
+{block notifier}{/block}
+
 {block #content}
+
+<div class="profile">
+    <div class="wrapper">
+        <div class="profile-photo">
+			{*
+			<img src="{$userData['profile_photo']}" class="img-circle"/>
+			*}
+			<img src="{$basePath}/img/userprofile.png">
+		</div>
+        <h1 class="profile-name">
+			{$userData['first_name']} 
+			{$userData['last_name']}
+        </h1>
+
+        <h3 class="profile-location">
+				from {$userData['city']}, 
+					 {$userData['country']}
+				<a n:href="edit" class="profile-edit">Edit</a></h3>
+        <p class="profile-details">Member since July 9, 2011 — Good reliability as a worker</p>
+
+        <div class="profile-panel">
+            <p class="profile-balance">You’ve got <strong>&euro; {$balance|number:2}</strong> on your account</p>
+            <a n:if="$balance" n:href="Wallet:withdraw" class="profile-btnlink">withdraw</a>
+			<a n:if="!$balance" n:href="Wallet:deposit">Charge</a>
+        </div>
+
+
+        <div class="tabmenu">
+            <span class="tabmenu-legend">My jobs as a</span>
+            <a n:href="default, worker" class="tabmenu-item {ifCurrent}active{/ifCurrent}">worker <span class='item-count'>(7)</span></a>
+            <a n:href="default, employer" class="tabmenu-item {ifCurrent}active{/ifCurrent}">employer <span class='item-count'>(3)</span></a>
+        </div>
+    </div>
+</div>
+<div class="wrapper">
+    <p class="info-message">You've earned $69.35 with these jobs</p>
+	{snippet tasks}
+	<div class="jobs-grid clearfix">
+		<div class="box-holder" n:foreach="$tasks as $task">
+			<div class="job job-box {$task->promotion|promotionClass}">
+
+				<span n:ifset="$task->finished">{($task->finished / $task->workers) * 100 |number:0}% finished</span>
+
+{*
+{dump $tasks}
+{dump isset($task->related('task_has_tag'))}
+
+				<a n:href="Homepage:tag $tag->tag->tag" class="job-tag tag-cat2">
+					{foreach $task->related('task_has_tag') as $tag}
+					<span class="tag-label">{$tag->tag->tag}</span>
+					{/foreach}
+					<span class="tag-corner"></span>
+				</a>
+ *}
+
+				<span class="job-time">{$task->deadline|daysLeft}</span>
+
+				<h3 class="job-title"><a n:href="Task:detail $task->token">{$task->title}</a></h3>
+
+				<span class="job-price">Get <strong>&euro; {$task->salary|number:2}</strong></span>
+
+				<input type="checkbox" class="job-checkbox">
+			</div>
+		</div>
+	</div>
+	{/snippet}
+</div>
+
+
+
+
+{*
+
 <div class="user-profile">
 	<div class="profile-photo">
-		<img src="{$userData['profile_photo']}" class="img-circle"/>
 	</div>
 	
 	{block #userProfile}
-		<div class="controls">
-			<a n:href="edit" class="btn btn-xs btn-danger">Edit</a>
-		</div>
-
 		<div class="userData_details">
 			<div class="name">
 				{$userData['first_name']} 
@@ -27,20 +98,6 @@
 	<div class="member_since">Member since {$userData->registered|date:'F j, Y'}</div>
 	<div class="userData_details">Reliability: %</div>
 
-	<div class="balance">
-		<p>You've got {$balance|number:2}$ on your account
-			<span n:if="$balance"><a n:href="Wallet:withdraw">Withdraw</a></span>
-			<span n:if="!$balance"><a n:href="Wallet:deposit">Charge</a></span>
-		</p>
-	</div>
-
-
-	<div>
-		<span>My jobs as:</span> 
-		<div><a n:href="default, worker">Worker</a></div>
-		<div><a n:href="default, employer">Employer</a></div>
-	</div>
-	{snippet tasks}
 		<div class="tasks">
 			{foreach $tasks as $task}
 				<div>{$task->id}. <a n:href="Task:detail $task->token">{$task->title} </a>
@@ -49,5 +106,7 @@
 				Salary: {$task->salary|number:2}$</div>
 			{/foreach}
 		</div>
-	{/snippet}
+
+
 </div>
+*}
