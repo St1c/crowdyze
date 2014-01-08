@@ -15,3 +15,16 @@ Použijte nástroj schema-manage, umožnuje vytváření, mazání a aktualizace
 Pro vytvoření změny v databázi (ať se jedná o alter, nebo nalití dat) vytvořte nový sql soubor do adresáře:
 persistence/mysql/1/update a doň uveďte potřebné věci.
 Pak zavolat příkaz update.
+
+
+## Grunt
+- cd <project>/
+- npm install grunt-cli
+- npm install grunt
+- npm install load-grunt-tasks
+- npm install grunt-contrib-concat grunt-contrib-uglify grunt-contrib-less \
+grunt-contrib-imagemin grunt-contrib-watch grunt-contrib-connect grunt-autoprefixer \
+grunt-contrib-cssmin grunt-contrib-jshint grunt-uncss grunt-ucss
+
+### Spojení souborů
+- grunt concat

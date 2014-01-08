@@ -70,20 +70,26 @@ module.exports = function(grunt) {
       }
     },
 
+	//	Spojení souborů do jednoho
     concat: {
       dist: {
         files: {
-          'js/build/common.min.js':[
-//					'js/vendor/jquery-ui-1.10.3.datepicker.js',
-					'js/vendor/tagmanager.js',
-					'js/vendor/typeahead.js',
-					'js/vendor/imagesloaded.pkgd.js',
-					'js/vendor/masonry.js',
-					'js/vendor/jquery.ias.js',
-					'js/jquery.filePreuploader.js'],
-          'js/build/nette.min.js': [
-					'js/vendor/netteForms.js',
-                    'js/vendor/nette.ajax.js']
+          'www/js/common.min.js':[
+//					'libs/js/vendor/jquery-ui-1.10.3.datepicker.js',
+					'libs/js/vendor/tagmanager.js',
+					'libs/js/vendor/typeahead.js',
+					'libs/js/vendor/imagesloaded.pkgd.js',
+					'libs/js/vendor/masonry.js',
+					'libs/js/vendor/jquery.ias.js',
+					'vendor/tacoberu/nette-form-controls/assets/js/jquery.filePreuploader.js'
+					],
+          'www/js/nette.min.js': [
+					'libs/js/vendor/netteForms.js',
+                    'libs/js/vendor/nette.ajax.js'
+                    ],
+          'www/js/main.min.js': [
+					'assets/js/main.js'
+					]
         }
       }
     },
@@ -91,14 +97,14 @@ module.exports = function(grunt) {
     uglify: {
       build: {
         files: {
-          'js/build/common.min.js': [
-					'js/build/common.min.js'
+          'www/js/common.min.js': [
+					'www/js/common.min.js'
 					],
-          'js/build/main.min.js': [
-					'js/main.js'
+          'www/js/main.min.js': [
+					'www/js/main.js'
 					],
-          'js/build/nette.min.js': [
-					'js/build/nette.min.js'
+          'www/js/nette.min.js': [
+					'www/js/nette.min.js'
 					]
         }
       }

@@ -12,4 +12,4 @@ build.properties
 app/config/config.local.neon
 /www/tasks
 /www/users
-/www/node_modules/
+/node_modules
