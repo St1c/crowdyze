@@ -3,7 +3,9 @@
 namespace App;
 
 use Nette,
-	Model,
+	Nette\Latte\MacroNode,
+	Nette\Latte\PhpWriter;
+use Model,
 	Controls;
 
 
@@ -26,7 +28,26 @@ class HomepagePresenter extends BaseSignedPresenter
 	{
 		$this->template->activeJobs = $this->userService->getAcceptedUserTasksCount($this->user->id);
 	}
-	
+
+
+
+	public function createTemplate($class = NULL)
+	{
+		$template = parent::createTemplate($class);
+		$template->registerHelper('promotionClass', function ($s) {
+			switch ($s) {
+				case 2:
+					return 'promo-max';
+				case 1:
+					return 'promo-medium';
+				default:
+					return Null;
+			}
+		});
+		return $template;
+	}
+
+
 
 	/**
 	 * At front is list of tasks.

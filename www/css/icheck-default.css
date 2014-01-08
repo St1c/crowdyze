@@ -1,0 +1,30 @@
+/* iCheck plugin Default skin
+----------------------------------- */
+.icheckbox_default,
+.iradio_default {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 15px;
+    height: 15px;
+    background: url("../img/icheck-default.png") no-repeat;
+    border: none;
+    cursor: pointer;
+    top: 2px;
+}
+
+.icheckbox_default {
+    background-position: 0 0;
+}
+.icheckbox_default.checked {
+    background-position: -17px 0;
+}
+
+
+.iradio_default {
+    background-position: -34px 0;
+}
+
+.iradio_default.checked {
+    background-position: -51px 0;
+}
