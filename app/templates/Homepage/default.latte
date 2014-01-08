@@ -14,9 +14,10 @@
 				<div class="job job-box {$task->promotion|promotionClass}">
 
 {*
+{dump $task->related('task_has_tag')}
 					<span>{($task->finished / $task->workers)*100 |number:0}% finished</span>
 *}
-					{foreach $task->related('task_has_tag')->limit(1) as $tag}
+					{foreach $task->related('task_has_tag') as $tag}
 						<a n:href="Homepage:tag $tag->tag->tag" class="job-tag tag-cat2">
 							<span class="tag-label">{$tag->tag->tag}</span>
 							<span class="tag-corner"></span>
