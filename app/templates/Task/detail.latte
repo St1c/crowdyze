@@ -1,6 +1,10 @@
+{block notifier}{/block}
 {block #content}
-	<div class="single-task">
-	{snippet task}
+	<div class="wrapper-narrow">
+		<div class="content">
+			{snippet task}
+
+				<h1 class="title">{$task->title|capitalize}</h1>
 
 		<div class="controls">
 			<a n:if="$userId == $task->owner" n:href="edit, $task->token" class="btn btn-xs btn-danger">Edit</a>
@@ -14,9 +18,6 @@
 			{/foreach}
 		</div>
 
-		<div>
-			<h2 class="title">{$task->title|capitalize}</h2>
-		</div>
 
 		<div class="row">
 			<div class="col-lg-4 budget-type">{_$task->ref('budget_type','budget_type')->budget_type}</div>
@@ -54,5 +55,6 @@
 		</div> 	
 
 	{/snippet}
+		</div>
 	</div>
 {/block}
