@@ -1,0 +1,348 @@
+/* -- modals -- */
+.modal-holder {
+	position: fixed; 
+	top: 0; 
+	bottom: 0; 
+	left: 0; 
+	right: 0; 
+	width: 100%; 
+	overflow: auto; 
+	z-index: 900; 
+	display: none; 
+}
+
+.modal {
+	z-index: 501; 
+	width: 570px; 
+	margin: 50px auto; 
+	background-color: #fff; 
+	text-align: center; 
+	position: relative; 
+	border: 1px solid #d5d5d9; 
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px; 
+	border-radius: 5px; 
+	-moz-background-clip: padding; 
+	-webkit-background-clip: padding-box; 
+	background-clip: padding-box; 
+	background-color: #fff;-moz-box-shadow: 0 5px 20px rgba(0,0,0,.1); 
+	-webkit-box-shadow: 0 5px 20px rgba(0,0,0,.1); 
+	box-shadow: 0 5px 20px rgba(0,0,0,.1); 
+	-webkit-transform: translate(0,-25%); 
+	-ms-transform: translate(0,-25%); 
+	transform: translate(0,-25%); 
+	-webkit-transition: all .3s ease; 
+	-moz-transition: all .3s ease; 
+	-o-transition: all .3s ease; 
+	transition: all .3s ease;
+}
+
+.modal-opened .modal {
+	-webkit-transform: translate(0,0); 
+	-ms-transform: translate(0,0); 
+	transform: translate(0,0); 
+}
+
+.modal .inner {
+	padding: 40px 40px 10px 40px; 
+}
+
+.modal h1 {
+	color: #169dd8; 
+	font-weight: normal; 
+	margin-bottom: 15px; 
+}
+
+.modal .price {
+	color: #4ece97; 
+	font-weight: normal 
+}
+
+.modal .details {
+	border: 1px solid #f5f5f5; 
+	font-size: 13px; 
+	color: #6d6e70; 
+	-moz-border-radius: 3px; 
+	-webkit-border-radius: 3px; 
+	border-radius: 3px; 
+	line-height: 20px; 
+	padding: 9px; 
+	text-align: center; 
+	margin-bottom: 20px; 
+}
+
+.modal .details li {
+	display: inline-block; 
+	padding: 0 20px; 
+}
+
+.modal textarea {
+	margin-bottom: 10px; 
+}
+
+.modal .btn-large {
+	margin-bottom: 15px !important; 
+}
+
+.modal .count {
+	font-weight: normal 
+}
+
+.pull-right {
+	float: right; 
+}
+
+.modal-close {
+	position: absolute; 
+	top: 10px;; 
+	right: 10px; 
+	height: 14px; 
+	width: 14px; 
+	display: block; 
+	background: url('../img/modal-close.png') no-repeat; 
+}
+
+.modal-corner {
+	position: absolute; 
+	top: -1px;; 
+	left: -1px; 
+	height: 20px; 
+	display: block; 
+	background: url('../img/corner-green.png') no-repeat; 
+	line-height: 20px; 
+	color: #b0b0bc; 
+	font-size: 11px; 
+	text-transform: uppercase; 
+	padding-left: 20px; 
+	padding-top: 8px;
+}
+
+.modal-overlay {
+	background-color: #fff; 
+	opacity: 0.8; 
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	bottom: 0; 
+	right: 0; 
+	width: 100%; 
+	height: 100%; 
+	z-index: 800;
+}
+
+.form-addjob {
+	padding-top: 8px; 
+	margin: 20px 40px; 
+}
+
+
+.form-addjob .textinput {
+	display: block; 
+	text-align: center; 
+	margin: 0 auto; 
+	padding: 0; 
+	-webkit-box-sizing: border-box; 
+	-moz-box-sizing: border-box; 
+	box-sizing: border-box; 
+	width: 100%; 
+	border: none; 
+	background: none; 
+}
+
+.modal-inputs {
+	width: 80%; 
+	margin: 0 auto; 
+}
+
+.modal-col {
+	-webkit-box-sizing: border-box; 
+	-moz-box-sizing: border-box; 
+	box-sizing: border-box; 
+	width: 33%; 
+	padding: 0 10px; 
+	float: left;
+}
+
+.modal-col input {
+	font-size: 13px; 
+	height: 23px; 
+	color: #6b6e70; 
+	margin-bottom: 33px; 
+	line-height: 23px 
+}
+
+.modal-col input::-webkit-input-placeholder {
+	color: #6b6e70; 
+}
+
+.modal-col input:-moz-placeholder {
+	color: #6b6e70; 
+}
+
+.modal-col input::-moz-placeholder {
+	color: #6b6e70; 
+}
+
+.modal-col input:-ms-input-placeholder {
+	color: #6b6e70;
+}
+
+.input-tag {
+	font-size: 15px; 
+	height: 25px; 
+	color: #6d6e70; 
+	margin-bottom: 12px; 
+	line-height: 25px; 
+	margin-top: 10px; 
+}
+
+.input-tag::-webkit-input-placeholder {
+	color: #6d6e70; 
+}
+
+.input-tag:-moz-placeholder {
+	color: #6d6e70; 
+}
+
+.input-tag::-moz-placeholder {
+	color: #6d6e70; 
+}
+
+.input-tag:-ms-input-placeholder {
+	color: #6d6e70; 
+}
+
+.form-addjob .input-title {
+	font-size: 30px; 
+	height: 40px; 
+	color: #169dd8; 
+	margin-bottom: 20px; 
+	line-height: 40px 
+}
+
+.input-title::-webkit-input-placeholder {
+	color: #169dd8; 
+}
+
+.input-title:-moz-placeholder {
+	color: #169dd8; 
+}
+
+.input-title::-moz-placeholder {
+	color: #169dd8; 
+}
+
+.input-title:-ms-input-placeholder {
+	color: #169dd8; 
+
+}
+
+.form-addjob .input-price {
+	font-size: 30px; 
+	height: 40px; 
+	color: #4ece97; 
+	margin-bottom: 33px; 
+	line-height: 40px 
+}
+
+.input-price::-webkit-input-placeholder {
+	color: #4ece97; 
+}
+
+.input-price:-moz-placeholder {
+	color: #4ece97; 
+}
+
+.input-price::-moz-placeholder {
+	color: #4ece97; 
+}
+
+.input-price:-ms-input-placeholder {
+	color: #4ece97; 
+}
+
+.input-description {
+	font-size: 15px; 
+	color: #3b3c3d; 
+	margin-bottom: 20px; 
+	text-align: center; 
+	display: block; 
+	-webkit-box-sizing: border-box; 
+	-moz-box-sizing: border-box; 
+	box-sizing: border-box; 
+	padding-top: 5px; 
+	border: none; 
+	background: none; 
+	height: 100px; 
+}
+
+.input-description::-webkit-input-placeholder {
+	color: #3b3c3d; 
+}
+
+.input-description:-moz-placeholder {
+	color: #3b3c3d; 
+}
+
+.input-description::-moz-placeholder {
+	color: #3b3c3d; 
+}
+
+.input-description:-ms-input-placeholder {
+	color: #3b3c3d; 
+}
+
+.attachements li {
+	display: inline-block 
+}
+
+.attachements li a {
+	font-size: 11px; 
+	line-height: 15px; 
+	color: #169dd8; 
+	-webkit-box-sizing: border-box; 
+	-moz-box-sizing: border-box; 
+	box-sizing: border-box; 
+	width: 90px; 
+	height: 100px; 
+	display: inline-block; 
+	margin: 5px; 
+	padding-top: 56px; 
+	border: 1px solid #fff;-moz-border-radius: 3px; 
+	-webkit-border-radius: 3px; 
+	border-radius: 3px; 
+}
+
+.attachements li a:hover {
+	text-decoration: none; 
+	border: 1px solid #e9e9eb; 
+	-moz-box-shadow: inset 0 0 15px rgba(234,234,236,.15); 
+	-webkit-box-shadow: inset 0 0 15px rgba(234,234,236,.15); 
+	box-shadow: inset 0 0 15px rgba(234,234,236,.15); 
+}
+
+.attachements .file-size {
+	display: block; 
+	color: #6d6e70
+}
+
+.file-doc {
+	background: url('../img/icon-doc.png') center 12px no-repeat; 
+
+}
+
+.file-avi {
+	background: url('../img/icon-avi.png') center 16px no-repeat; 
+
+}
+
+.file-jpg {
+	background: url('../img/icon-jpg.png') center 10px no-repeat; 
+
+}
+
+.file-mp3 {
+	background: url('../img/icon-mp3.png') center 10px no-repeat; 
+
+}
+

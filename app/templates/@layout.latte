@@ -14,11 +14,7 @@
         <meta name="viewport" content="width=device-width">
 
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="{$basePath}/css/jquery.custombox.css">
-        <link rel="stylesheet" href="{$basePath}/css/icheck-default.css">
-        <link rel="stylesheet" href="{$basePath}/css/icheck-large.css">
-        <link rel="stylesheet" href="{$basePath}/css/customselect.css">
-        <link rel="stylesheet" href="{$basePath}/css/main.css">
+        <link rel="stylesheet" href="{$basePath}/css/main.min.css">
 
 		{block #head}{/block}
 	</head>
@@ -112,23 +108,13 @@
 			</div>
 		</div>
 	</div>
-
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="{!$basePath}/js/build/jquery-1.10.1.min.js"><\/script>')</script>
-	<script src="{$basePath}/js/build/common.min.js"></script>
-	<script src="{$basePath}/js/build/nette.min.js"></script>
-	<script src="{$basePath}/js/build/main.min.js"></script>
-	*}
-
-        <script src="{$basePath}/js/vendor/jquery-1.9.1.min.js"></script>
-        <script src="{$basePath}/js/vendor/jquery.idTabs.min.js"></script>
-        <script src="{$basePath}/js/vendor/masonry.pkgd.min.js"></script>
-        <script src="{$basePath}/js/vendor/jquery.custombox.js"></script>
-        <script src="{$basePath}/js/vendor/typeahead.min.js"></script>
-        <script src="{$basePath}/js/vendor/jquery.icheck.min.js"></script>        
-        <script src="{$basePath}/js/vendor/jquery.customSelect.min.js"></script>   
-        <script src="{$basePath}/js/main.js"></script>
-
+*}
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="{!$basePath}/js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+	<script src="{$basePath}/js/common.min.js"></script>
+	<script src="{$basePath}/js/nette.min.js"></script>
+	<script src="{$basePath}/js/main.min.js"></script>
+	
 
 	{block #scripts}
 	{/block}

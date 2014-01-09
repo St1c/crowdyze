@@ -31,10 +31,10 @@ module.exports = function(grunt) {
     less: {
       dist: {
         options: {
-          paths: ["less/", "/Users/stic/Sites/bootstrap/framework/less/"]
+          paths: ["assets/less/", "/Users/stic/Sites/bootstrap/framework/less/"]
         },
         files: {
-          'css/main.css': 'less/main.less'
+          'www/css/main.css': 'assets/less/main.less'
         }
       }
     },
@@ -63,9 +63,13 @@ module.exports = function(grunt) {
     cssmin: {
       combine: {
         files: {
-          'css/main.css': [
-				'css/main.css'
-				]
+          'www/css/main.min.css': [
+    				'www/css/main.css',
+            'www/css/customselect.css',
+            'www/css/icheck-default.css',
+            'www/css/icheck-large.css',
+            'www/css/jquery.custombox.css'
+    				]
         }
       }
     },
@@ -75,20 +79,26 @@ module.exports = function(grunt) {
       dist: {
         files: {
           'www/js/common.min.js':[
-//					'libs/js/vendor/jquery-ui-1.10.3.datepicker.js',
-					'libs/js/vendor/tagmanager.js',
-					'libs/js/vendor/typeahead.js',
-					'libs/js/vendor/imagesloaded.pkgd.js',
-					'libs/js/vendor/masonry.js',
-					'libs/js/vendor/jquery.ias.js',
+          // 'libs/js/vendor/jquery-ui-1.10.3.datepicker.js',
+  				// 'libs/js/vendor/tagmanager.js',
+  				// 'libs/js/vendor/typeahead.js',
+  				// 'libs/js/vendor/imagesloaded.pkgd.js',
+  				// 'libs/js/vendor/masonry.js',
+  				// 'libs/js/vendor/jquery.ias.js',
+          'libs/js/vendor/jquery.idTabs.min.js',
+          'libs/js/vendor/masonry.pkgd.min.js',
+          'libs/js/vendor/jquery.custombox.js',
+          'libs/js/vendor/typeahead.min.js',
+          'libs/js/vendor/jquery.icheck.min.js',
+          'libs/js/vendor/jquery.customSelect.min.js',
 					'vendor/tacoberu/nette-form-controls/assets/js/jquery.filePreuploader.js'
 					],
           'www/js/nette.min.js': [
-					'libs/js/vendor/netteForms.js',
-                    'libs/js/vendor/nette.ajax.js'
-                    ],
+              'libs/js/nette/netteForms.js',
+              'libs/js/nette/nette.ajax.js'
+          ],
           'www/js/main.min.js': [
-					'assets/js/main.js'
+            'assets/js/main.js'
 					]
         }
       }
@@ -114,9 +124,9 @@ module.exports = function(grunt) {
       dynamic: {
         files: [{
           expand: true,
-          cwd: 'images/',
+          cwd: 'www/img/',
           src: ['**/*.{png,jpg,gif}'],
-          dest: 'images/'
+          dest: 'www/img/'
         }]
       }
     },
