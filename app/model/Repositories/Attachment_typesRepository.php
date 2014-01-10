@@ -19,10 +19,11 @@ class Attachment_typeRepository extends BaseRepository
 	{
 		Validators::assert($contentType, 'string');
 		
+		list($type, $mime) = explode('/', $contentType, 2);
 		if (!$ret = $this->getTable()
-				->where('mime', $contentType)
+				->where('type', $type)
+				->where('mime', $mime)
 				->fetch()) { // ?: self::UNKNOW_MIME_TYPE;
-			list($type, $mime) = explode('/', $contentType, 2);
 			$res = $this->getTable()->insert(array(
 					'type' => $type,
 					'mime' => $mime,

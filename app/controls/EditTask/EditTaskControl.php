@@ -42,7 +42,8 @@ class EditTaskControl extends BaseControl
 		
 		$attachments = array();
 		foreach ($task->related('task_attachment') as $attachment) {
-			$attachments[] = new FileUploaded($attachment->path);
+			$type = $attachment->ref('type_id')->toArray();
+			$attachments[] = new FileUploaded($attachment->path, $type['type'] . '/' . $type['mime']);
 		}
 
 		$component = new Form($this, $name);
@@ -82,10 +83,12 @@ class EditTaskControl extends BaseControl
 			->setAttribute('placeholder', 'addTask.form.departments');
 
 		$component['attachments'] = new MultipleUploadControl('attachments');
+		$component['attachments']->setAttribute('class', 'attachements file-uploader');
+		//~ $component['attachments']->getItemPrototype()->setAttribute('class', 'attachements');
 		$component['attachments']->setDefaultValue($attachments);
 		$component->addSubmit('attachmentPreload', 'Preload')
 				->setValidationScope(False);
-		
+
 		$component->addSubmit('submit', 'addTask.form.submit');
 		$component->addSubmit('cancel', 'addTask.form.cancel')
 				->setValidationScope(False);

@@ -198,7 +198,10 @@ $(function(){
 	$.nette.init();
 	budget.init();
 
-
+	/*
+	 
+	 ! Toto znefunkčnilo checkboxy u mazání soborů.
+	 
     $('input').iCheck({
         checkboxClass: 'icheckbox_default',
         radioClass: 'iradio_default',
@@ -207,7 +210,7 @@ $(function(){
     $('.job input').iCheck({
         checkboxClass: 'icheckbox_large'
     });
-
+	*/
 
     $('.job input').on('ifChecked', function() {
         $(this).closest('.job').addClass('job-checked');
