@@ -1,11 +1,13 @@
-{block #content}
-    <div class="single-task">
-    {snippet task}
-        {control editTask}
-    {/snippet}
-    </div>
-{/block}
+{block notifier}{/block}
 
+
+{block #content}
+	<div class="wrapper-narrow">
+		<div class="content">
+			{control editTask}
+		</div>
+	</div>
+{/block}
 
 {block #scripts}
     <script type="application/javascript">

@@ -122,7 +122,7 @@ class EditTaskControl extends BaseControl
 		if ($component['submit']->isSubmittedBy()) {
 
 			//	Reformat
-			$values = $component->getValues();			
+			$values = $component->getValues();
 
 			// Parsing tags
 			if (isset($values['tags']) && $value = self::parseTags($values['tags'])) {
@@ -134,11 +134,12 @@ class EditTaskControl extends BaseControl
 				$task = $this->taskService->getTaskByToken($this->presenter->getParameter('token'));
 				$this->taskService->update($task, (array)$values);
 				$this->presenter->flashMessage('addTask.flashes.task_edited', 'alert-success');
-				$this->presenter->redirect('detail', array('token' => $this->presenter->getParameter('token')));
 			}
 			catch (\RuntimeException $e) {
 				$component->addError($e->getMessage());
+				return;
 			}
+			$this->presenter->redirect('detail', array('token' => $this->presenter->getParameter('token')));
 		}
 	}
 

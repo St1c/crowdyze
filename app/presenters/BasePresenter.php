@@ -2,10 +2,12 @@
 
 namespace App;
 
+
 use Nette,
-	Model,
-	Controls,
-	Kdyby\Translation\Translator;
+	Nette\Latte\Engine;
+use	Model,
+	Controls;
+use	Kdyby\Translation\Translator;
 
 
 /**

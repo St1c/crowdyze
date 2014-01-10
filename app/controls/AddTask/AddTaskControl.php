@@ -124,13 +124,14 @@ class AddTaskControl extends BaseControl
 			try {
 				$task = $this->taskService->createTask((array)$values);
 				$this->presenter->flashMessage('addTask.flashes.task_edited', 'alert-success');
-				$this->presenter->redirect('detail', array('token' => $task->token));
 			}
 			catch (\RuntimeException $e) {
 				$component->addError(
 					$this->parent->translator->translate($e->getMessage())
 				);
+				return;
 			}
+			$this->presenter->redirect('detail', array('token' => $task->token));
 		}
 	}
 

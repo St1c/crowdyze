@@ -7,7 +7,7 @@ use Nette;
 
 
 /**
- * Homepage presenter.
+ * Common helpers.
  */
 class Helpers extends Nette\Object
 {
@@ -20,9 +20,15 @@ class Helpers extends Nette\Object
     }
 
 
-    public static function promotionClass($s)
+
+	/**
+	 * Translate mime type to class name.
+	 * @param int $type
+	 * @return string
+	 */
+    public static function promotionClass($type)
     {
-		switch ($s) {
+		switch ($type) {
 			case 2:
 				return 'promo-max';
 			case 1:
@@ -34,12 +40,35 @@ class Helpers extends Nette\Object
 
 
 
+	/**
+	 * Translate mime type to class name.
+	 * @param string $type
+	 * @return string
+	 */
+	public static function mediaType($type)
+	{
+		switch ($type) {
+			case 'x':
+				return 'file-avi';
+			case 'x':
+				return 'file-mp3';
+			case 'image':
+				return 'file-jpg';
+			default:
+				return 'file-doc';
+		}
+    }
+
+
 
 	/**
-	 * 
+	 * Human text from date.
+	 * @return string
 	 */
-	public static function daysLeft($deadline)
+	public static function daysLeft(\DateTime $deadline = Null)
 	{
+		//~ dump($deadline);
+		//~ exit;
 		if (!$deadline) {
 			return '';
 		}
