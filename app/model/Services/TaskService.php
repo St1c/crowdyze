@@ -156,13 +156,13 @@ class TaskService extends Nette\Object
 
 		try {
 			$task = $this->taskRepository->update($task, self::array_filter_key($values, [
-				'title',
-				'description',
-				'salary',
-				'budget_type',
-				'workers',
-				'deadline',
-				]));
+					'title',
+					'description',
+					'salary',
+					'budget_type',
+					'workers',
+					'deadline',
+					]));
 
 			// Saving tags
 			if (isset($values['tags'])) {
@@ -183,7 +183,7 @@ class TaskService extends Nette\Object
 					if ($file->isRemove()) {
 						$this->removeAttachment($task, $file);
 					}
-					else {
+					elseif (! $file->isCommited()) {
 						$this->saveAttachment($task, $file);
 					}
 				}
@@ -192,8 +192,8 @@ class TaskService extends Nette\Object
 				}
 			}
 
-			$this->taskRepository->commitTransaction();
 			$this->fileManager->commitTransaction();
+			$this->taskRepository->commitTransaction();
 		}
 		catch (\Exception $e) {
 			$this->taskRepository->rollbackTransaction();
