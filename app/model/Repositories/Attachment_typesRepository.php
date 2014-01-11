@@ -18,8 +18,13 @@ class Attachment_typeRepository extends BaseRepository
 	public function findContentType($contentType)
 	{
 		Validators::assert($contentType, 'string');
+
+		if (strpos($contentType, '/') === False) {
+			return self::UNKNOW_MIME_TYPE;
+		}
 		
 		list($type, $mime) = explode('/', $contentType, 2);
+
 		if (!$ret = $this->getTable()
 				->where('type', $type)
 				->where('mime', $mime)
