@@ -194,6 +194,49 @@ class TaskRepository extends BaseRepository
 
 
 	/** 
+ 	 * Get all promoted tasks
+ 	 * 
+ 	 * @param int limit for one page
+ 	 * @param int offset for current page in paginator
+ 	 * 
+ 	 * @return Nette\Database\Table\Selection
+ 	 */
+	public function getPromotedTasks($limit, $offset)
+	{
+		return $this->getTable()
+			->select('task.*, sum(:accepted_task.status <> (4) AND IFNULL(:accepted_task.status,0)) AS finished')
+			->where('task.promotion >= (?)', 1)
+			->group('task.id')
+			->having('finished < task.workers')
+			->limit($limit, $offset)
+			->order('created DESC');
+	}
+
+
+	/**
+	 * Get promoted tasks not assigned to current user
+	 * 
+	 * @param  int $limit  Paginator limit
+	 * @param  int $offset Paginator offset
+	 * @param  int $userId User's ID
+	 * 
+	 * @return Table\Selection         Filtered Results
+	 */
+	public function getPromotedTasksFilterByUserAccepted($limit, $offset, $userId)
+	{
+		// Subquery in where(NOT IN (?)) must not be NULL !
+		return $this->getTable()
+			->select('task.*, sum(:accepted_task.status <> (4) AND IFNULL(:accepted_task.status,0)) AS finished')
+			->where('task.id NOT IN (?)', $this->table('accepted_task')->select('task_id')->where('user_id', $userId) )
+			->where('task.promotion >= (?)', 1)
+			->group('task.id')
+			->having('finished < task.workers')
+			->limit($limit, $offset)
+			->order('created DESC');
+	}
+
+
+	/** 
  	 * Get task's tags
  	 * 
  	 * @param int task id

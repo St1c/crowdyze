@@ -38,6 +38,10 @@ class HomepagePresenter extends BaseSignedPresenter
 	{
 		$paginator = $this['paginator']->getPaginator();
 		$this['paginator']->paginator->itemCount = $this->taskService->count;
+		$this->template->promoted = $this->taskService->getPromotedTasks($paginator->itemsPerPage, 
+				$paginator->offset, 
+				$this->getUser()->id
+				);
 		$this->template->tasks = $this->taskService->getTasks($paginator->itemsPerPage, 
 				$paginator->offset, 
 				$this->getUser()->id

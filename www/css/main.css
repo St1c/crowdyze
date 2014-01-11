@@ -649,9 +649,7 @@ legend {
 }
 .job-tag {
   line-height: 18px;
-  color: #000;
-  font-size: 11px;
-  text-transform: uppercase;
+  min-width: 5px;
   position: relative;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -660,10 +658,15 @@ legend {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+.job-tag a {
+  color: #000;
+  font-size: 11px;
+  text-transform: uppercase;
+}
 .tag-label {
   opacity: 0.4;
 }
-.tag-corner {
+.box-corner {
   border-right: 20px solid transparent;
   border-bottom: 20px solid transparent;
   height: 0px;
@@ -681,25 +684,24 @@ legend {
   left: -1px;
   padding-left: 14px;
 }
-.modal .tag-corner {
+.modal .box-corner {
   border-left: 20px solid transparent;
   border-right: none;
   left: 0;
 }
-.tag-cat1 .tag-corner {
-  border-right-color: #4fc1e9;
-  border-left-color: #4fc1e9;
-}
-.tag-cat2 .tag-corner {
-  border-right-color: #ed5565;
-}
-.tag-cat3 .tag-corner {
-  border-right-color: #48cfad;
-}
-.tag-cat4 .tag-corner {
+.box-corner-cat1 .box-corner {
   border-right-color: #ac92ec;
 }
-.tag-cat5 .tag-corner {
+.box-corner-cat2 .box-corner {
+  border-right-color: #4fc1e9;
+}
+.box-corner-cat3 .box-corner {
+  border-right-color: #ed5565;
+}
+.box-corner-cat4 .box-corner {
+  border-right-color: #48cfad;
+}
+.box-corner-cat5 .box-corner {
   border-right-color: #a0d468;
 }
 .box-holder {
@@ -881,7 +883,7 @@ legend {
 .jobs-table tr:first-child td {
   border: none;
 }
-.jobs-table .tag-corner {
+.jobs-table .box-corner {
   border-right-width: 15px;
   border-bottom-width: 15px;
 }
