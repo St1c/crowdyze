@@ -29,9 +29,9 @@ class Helpers extends Nette\Object
     public static function promotionClass($type)
     {
 		switch ($type) {
-			case 2:
+			case 3:
 				return 'promo-max';
-			case 1:
+			case 2:
 				return 'promo-medium';
 			default:
 				return Null;
