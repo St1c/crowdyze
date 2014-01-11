@@ -167,24 +167,34 @@ $(function(){
 	$.nette.ext('ias', {
 		load: function () {
 			jQuery.ias({
-				container : '.box',
+				container : '#jobs-table',
 				item: '.job-row',
 				pagination: '.paginator',
 				next: '.next',
 				trigger: 'Show more',
 				loader: '<div class="preloader"></div>',
 				triggerPageThreshold: 2,
-				// onLoadItems: function(items) {
-				// 	// hide new items while they are loading
-				// 	var $newElems = $(items).show().css({ opacity: 0 });
-				// 	// ensure that images load before adding to masonry layout
-				// 	// $newElems.imagesLoaded(function(){
-				// 		// show elems now they're ready
-				// 		$newElems.animate({ opacity: 1 });
-				// 		// $('#container').masonry( 'appended', $newElems, true );
-				// 	// });
-				// 	return true;
-				// }
+				onRenderComplete: function(items) {
+					// hide new items while they are loading
+					var $newElems = $(items).show().css({ opacity: 0 });
+					var $checkBox = $('.job-checkbox');
+
+					$checkBox.iCheck({
+						checkboxClass: 'icheckbox_large'
+					});	
+
+					$checkBox.on('ifChecked', function() {
+						$(this).closest('.job').addClass('job-checked');
+					});
+
+					$checkBox.on('ifUnchecked', function() {
+						$(this).closest('.job').removeClass('job-checked');
+					});
+
+					// show elems now they're ready
+					$newElems.animate({ opacity: 1 });
+					return true;
+				}
 			});
 		}
 	});
@@ -196,12 +206,15 @@ $(function(){
 	 */
 	$.nette.ext('customCheck', {
 		load: function () {
+
+			// default checkboxex
 			$('.custom-checkbox').iCheck({
 				checkboxClass: 'icheckbox_default',
 				radioClass: 'iradio_default',
 				increaseArea: '20%'
 			});
 
+			// Job overview checkboxes
 			$('.job-checkbox').iCheck({
 				checkboxClass: 'icheckbox_large'
 			});
