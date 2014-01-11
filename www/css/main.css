@@ -1521,6 +1521,8 @@ legend {
   color: #6d6e70;
   font-weight: bold;
   background-color: #f6f6f6;
+  text-decoration: none;
+  cursor: default;
 }
 
 .tabmenu-legend {
@@ -1532,6 +1534,12 @@ legend {
 .info-message {
   color: #b0b0bc;
   text-align: center;
+}
+
+.user-details-form {
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* -- search -- */

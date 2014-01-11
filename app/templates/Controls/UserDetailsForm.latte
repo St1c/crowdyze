@@ -1,18 +1,53 @@
 {snippet 'userDetailsForm'}
-	{form userDetailsForm class => ''}
+	{form userDetailsForm class => 'user-details-form'}
 		
-		<div>{input profile_photo}</div>
+		<div class="form-row clearfix">
+			{input profile_photo}
+		</div>
+	
+		<div class="form-row clearfix">
+			<div class="label">
+				{label first_name /}
+			</div>
+			<div class="input-holder">
+				{input first_name, class=>'textinput'}
+			</div>	
+		</div>
+		
 
-
-		<div class="controls">
-			{input submit, class=>'btn btn-xs btn-success'}
-			{input cancel, class=>'btn btn-xs btn-danger'}
+		<div class="form-row clearfix">
+			<div class="label">
+				{label last_name /}
+			</div>
+			<div class="input-holder">
+				{input last_name, class=>'textinput'}		
+			</div>	
+		</div>
+		
+		<div class="form-row clearfix">
+			<div class="label">
+				{label city /}
+			</div>
+			<div class="input-holder">
+				{input city, class=>'textinput'}	
+			</div>	
 		</div>
 
-		<div>{input first_name, class=>'title'} {input last_name, class=>'title'}</div>
-		<div>{input city, class=>'title'}</div>
 
-		<div>{input country, class=>'description'}</div>
+		<div class="form-row clearfix">
+			<div class="label">
+				{label country /}
+			</div>
+			<div class="input-holder">
+				{input country, class=>'textinput'}	
+			</div>	
+		</div>
+
+
+		<div class="buttons">
+			{input submit, class=>'btn'}
+			{input cancel, class=>'btn btn-warning'}
+		</div>
 
 	{/form}
 {/snippet}
