@@ -3,12 +3,12 @@
 namespace App;
 
 use Nette,
-	Model\Repositories\UsersRepository;
+	Model\Services\UserService;
 
 class MessagesPresenter extends BaseSignedPresenter 
 {
-	/** @var Model\Repositories\UsersRepository @inject */
-	public $usersRepository;
+	/** @var Model\Services\UserService @inject */
+	public $userService;
 
 
 }

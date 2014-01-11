@@ -23,7 +23,7 @@
 	<body class="no-js cbp-spmenu-push">
         <div class="main">
             <div class="header clearfix">
-                <strong class="logo"><a n:href="Homepage:"><img src="{$basePath}/img/logo.png"></a></strong>
+                <strong class="logo"><a n:href="Task:"><img src="{$basePath}/img/logo.png"></a></strong>
                 <div class="filter-holder"><a href="#" class="filter" id="showLeft"></a></div>
                 <form class="search large-screen">
                     <div class="searchinput-holder">
@@ -34,7 +34,7 @@
                 <ul class="toolbar">
 					{if $user->isLoggedIn()}
                     <li><a n:href="Task:add" class="btn btn-primary btn-large btn-addjob"><span class="addjob-text">Add a job</span><span class="addjob-icon">+</span></a></li>
-                    <li class="large-screen"><a n:href=":User:email" class="email"><span class="badge">9999</span></a></li>
+                    <li class="large-screen"><a n:href=":Messages:default" class="email"><span class="badge">9</span></a></li>
                     <li class="large-screen"><a n:href=":User:" class="user">
 						{if isset($userData['profile_photo'])}
 						<img src="{thumbnail $userData['profile_photo'] small}" class="img-circle" alt="{_layout.menu.profile}" title="{_layout.menu.profile}" />
@@ -68,13 +68,13 @@
                     <a href="">Messages</a>
                     <a href="">Profile</a>
                 </div>
-                <?php
-              /*
-                foreach ($pages as $single) {
-                    echo '<a id="temp-' . $single . '" href="index.php?p=' . $single . '">' . $single . '</a>';
-                }
-                * */
-                ?>
+                {if $user->isLoggedIn()}
+                <a n:href="Task:add">{_layout.menu.add}</a>
+                <a n:href="User:">{_layout.menu.profile}</a>
+                <a n:href="changeLocale!, en">en</a>
+                <a n:href="changeLocale!, sk">sk</a>
+                <a n:href="SignOut!">{_layout.menu.logout}</a>
+                {/if}
             </div>
         </nav>
 

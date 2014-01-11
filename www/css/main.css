@@ -347,6 +347,10 @@ hr {
   background: url('../img/preloader.gif') center no-repeat;
 }
 
+.img-circle {
+  border-radius: 50%;
+}
+
 /* -- buttons -- */
 
 .btn {

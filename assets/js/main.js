@@ -201,7 +201,8 @@ $(function(){
 
 
 	/**
-	 * JS from kodujeme.sk
+	 * Custom checkbox
+	 * @author  kodujeme.sk
 	 * ! Toto znefunkčnilo checkboxy u mazání soborů.
 	 */
 	$.nette.ext('customCheck', {
@@ -234,51 +235,68 @@ $(function(){
 
 
 	/**
+	 * Modal window behaviour
+	 * @author  kodujeme.sk
+	 */
+	$.nette.ext('modals', {
+		load: function () {
+			$('#temp-modal1').on('click', function(e) {
+				openModal('#modal-1');
+				e.preventDefault();
+			});
+
+
+			$('#temp-modal2').on('click', function(e) {
+				openModal('#modal-2');
+				e.preventDefault();
+			});
+
+			$('.modal-close').on('click', function(e) {
+				e.preventDefault();
+				modal = $(this).parent().parent();
+				closeModal(modal);
+			});
+		}
+	})
+
+
+	/**
+	 * Searchbox routines
+	 * @author  kodujeme.sk
+	 */
+	$.nette.ext('searchbox', {
+		load: function () {
+			$('.searchinput-holder').on('click', function(e) {
+				$(this).addClass('searchinput-expanded');
+			});
+			$('.searchinput').on('blur', function(e) {
+
+				if ($(this).val() === "") {
+					$(this).closest('.searchinput-holder').removeClass('searchinput-expanded');
+				}
+			});
+
+
+			$('.menu-search input').on('click', function(e) {
+				$(this).addClass('nobgr');
+			});
+			$('.menu-search input').on('blur', function(e) {
+
+				if ($(this).val() === "") {
+					$(this).removeClass('nobgr');
+				}
+			});
+		}
+	})
+
+
+	/**
 	 * Initialize JS methods and AJAX
 	 */
 	$.nette.ext('init').linkSelector = 'a.ajax';
 	$.nette.init();
 	budget.init();
-	 
 
-    $('#temp-modal1').on('click', function(e) {
-        openModal('#modal-1');
-        e.preventDefault();
-    });
-
-
-    $('#temp-modal2').on('click', function(e) {
-        openModal('#modal-2');
-        e.preventDefault();
-    });
-
-    $('.modal-close').on('click', function(e) {
-        e.preventDefault();
-        modal = $(this).parent().parent();
-        closeModal(modal);
-    });
-
-
-    $('.searchinput-holder').on('click', function(e) {
-        $(this).addClass('searchinput-expanded');
-    });
-    $('.searchinput').on('blur', function(e) {
-
-        if ($(this).val() === "") {
-            $(this).closest('.searchinput-holder').removeClass('searchinput-expanded');
-        }
-    });
-
-
-    $('.menu-search input').on('click', function(e) {
-        $(this).addClass('nobgr');
-    });
-    $('.menu-search input').on('blur', function(e) {
-
-        if ($(this).val() === "") {
-            $(this).removeClass('nobgr');
-        }
-    });
 
 
     $('#showLeft').on('click', function(e) {
@@ -305,8 +323,6 @@ $(function(){
 function openModal(modalId) {
     //skryje menu, docasna ukazka
     $('#showLeft').click();
-
-
 
     $(modalId).show();
     setTimeout(function() {

@@ -25,13 +25,26 @@ class TaskPresenter extends BaseSignedPresenter
 	public $editTaskControlFactory;
 
 
+	protected function beforeRender()
+	{
+		parent::beforeRender();
+		$this->template->activeJobs = $this->userService->getAcceptedUserTasksCount($this->user->id);
+	}
 
-	public function actionDefault($filter = Null)
+
+	public function actionDefault($tag = Null)
 	{
 		$paginator = $this['paginator']->getPaginator();
-		if ($filter) {
-			$this['paginator']->paginator->itemCount = $this->taskService->getTagsTasksCount($filter);
-			$this->template->tasks = $this->taskService->getTaggedTasks($filter,
+		if ($tag) {
+			$this['paginator']->paginator->itemCount = $this->taskService->getTagsTasksCount($tag);
+
+			$this->template->promoted = $this->taskService->getPromotedTaggedTasks($tag, 
+					 $paginator->itemsPerPage, 
+					 0, // @TODO promoted tasks pagination! 
+					 $this->getUser()->id
+					 );
+
+			$this->template->tasks = $this->taskService->getTaggedTasks($tag,
 					 $paginator->itemsPerPage, 
 					 $paginator->offset, 
 					 $this->getUser()->id
@@ -39,6 +52,12 @@ class TaskPresenter extends BaseSignedPresenter
 		}
 		else {
 			$this['paginator']->paginator->itemCount = $this->taskService->count;
+
+			$this->template->promoted = $this->taskService->getPromotedTasks($paginator->itemsPerPage, 
+					0, // @TODO promoted tasks pagination! 
+					$this->getUser()->id
+					);
+
 			$this->template->tasks = $this->taskService->getTasks($paginator->itemsPerPage, 
 					$paginator->offset, 
 					$this->getUser()->id
@@ -84,14 +103,6 @@ class TaskPresenter extends BaseSignedPresenter
 		$this->template->userId = $this->getUser()->id;
 		$this->template->accepted = $this->taskService->isAccepted($task->token, $this->getUser()->id);
 		// $this->template->owner = $this->taskService->getOwnerTasks($this->getUser()->id);
-	}
-
-
-
-	protected function beforeRender()
-	{
-		parent::beforeRender();
-		$this->template->activeJobs = $this->userService->getAcceptedUserTasksCount($this->user->id);
 	}
 
 

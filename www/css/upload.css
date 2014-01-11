@@ -1,11 +1,11 @@
 .attachements li {
-	width: 90px;
-	height: 100px;
-	overflow: hidden;
-	}
+  width: 90px;
+  height: 100px;
+  overflow: hidden;
+}
 
 .attachements li.file.new-file {
-	background-image: url(/img/icon-new.png);
-	background-position: center center;
-	background-repeat: no-repeat;
-	}
+  background-image: url(/img/icon-new.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+}
