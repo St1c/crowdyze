@@ -297,6 +297,53 @@ class TaskRepository extends BaseRepository
 
 
 	/**
+	 * Get Promoted Tasks with tag ID
+	 * 
+	 * @param  string $tag    Tag
+	 * @param  int $limit  Paginator limit
+	 * @param  int $offset Paginator offset
+	 * 
+	 * @return Table\Selection         Filtered Results
+	 */
+	public function getPromotedTaggedTasks($tag, $limit, $offset)
+	{
+		return $this->getTable()
+			->select('task.*, sum(:accepted_task.status <> (4) AND IFNULL(:accepted_task.status,0)) AS finished')
+			->where('task.promotion >= (?)', 1)
+			->where(':task_has_tag.tag.tag', $tag)
+			->group('task.id')
+			->having('finished < task.workers')
+			->limit($limit, $offset)
+			->order('created DESC');
+	}
+
+
+	/**
+	 * Get Promoted tasks with tag not assigned to current user
+	 * 
+	 * @param  string $tag Tag
+	 * @param  int $limit  Paginator limit
+	 * @param  int $offset Paginator offset
+	 * @param  int $userId User's ID
+	 * 
+	 * @return Table\Selection         Filtered Results
+	 */
+	public function getPromotedTaggedTasksFilterByUserAccepted($tag, $limit, $offset, $userId)
+	{
+		// Subquery in where(NOT IN (?)) must not be NULL !
+		return $this->getTable()
+			->select('task.*, sum(:accepted_task.status <> (4) AND IFNULL(:accepted_task.status,0)) AS finished')
+			->where('task.promotion >= (?)', 1)
+			->where(':task_has_tag.tag.tag', $tag)
+			->where('task.id NOT IN (?)', $this->table('accepted_task')->select('task_id')->where('user_id', $userId) )
+			->group('task.id')
+			->having('finished < task.workers')
+			->limit($limit, $offset)
+			->order('created DESC');
+	}
+
+
+	/**
 	 * Get tasks where current user is owner
 	 * @param  int $userId 
 	 * 

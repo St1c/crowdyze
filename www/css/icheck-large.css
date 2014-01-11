@@ -1,19 +1,21 @@
 /* iCheck plugin Default skin
 ----------------------------------- */
-.icheckbox_large{
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    width: 25px;
-    height: 25px;
-    background: url("../img/icheck-large.png") no-repeat;
-    border: none;
-    cursor: pointer;
+
+.icheckbox_large {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  width: 25px;
+  height: 25px;
+  background: url("../img/icheck-large.png") no-repeat;
+  border: none;
+  cursor: pointer;
 }
 
 .icheckbox_large {
-    background-position: 0 0;
+  background-position: 0 0;
 }
+
 .icheckbox_large.checked {
-    background-position: -27px 0;
+  background-position: -27px 0;
 }

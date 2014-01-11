@@ -489,6 +489,39 @@ class TaskService extends Nette\Object
 
 
 
+	/**
+	 * Get promoted tasks with certain tag which are not assigned to current user
+	 * 
+	 * @param  int $limit  Paginator Limit
+	 * @param  int $offset Paginator offset
+	 * @param  int $userId Users ID
+	 * 
+	 * @return Table\Selection         Filtered results
+	 */
+	public function getPromotedTaggedTasks($tag, $limit, $offset, $userId)
+	{
+		if ( $this->acceptedTaskRepository->getUsersNumberOfAssignedTasks($userId) > 0 ) {
+			return $this->taskRepository->getPromotedTaggedTasksFilterByUserAccepted($tag, $limit, $offset, $userId);
+		} else {
+			return $this->getAllPromotedTaggedTasks($tag, $limit, $offset);
+		}
+	}
+
+
+
+	/**
+	 * Get promoted tasks with certain tag
+	 * 
+	 * @param int Tag ID
+	 * 
+	 * @return Table\Selection
+	 */
+	public function getAllPromotedTaggedTasks($tag, $limit, $offset)
+	{
+		return $this->taskRepository->getPromotedTaggedTasks($tag, $limit, $offset);
+	}
+
+
 	/** 
  	 * Get number of tasks
  	 * 

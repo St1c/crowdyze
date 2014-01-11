@@ -39,9 +39,10 @@ class HomepagePresenter extends BaseSignedPresenter
 		$paginator = $this['paginator']->getPaginator();
 		$this['paginator']->paginator->itemCount = $this->taskService->count;
 		$this->template->promoted = $this->taskService->getPromotedTasks($paginator->itemsPerPage, 
-				$paginator->offset, 
+				0, // @TODO promoted tasks pagination! 
 				$this->getUser()->id
 				);
+
 		$this->template->tasks = $this->taskService->getTasks($paginator->itemsPerPage, 
 				$paginator->offset, 
 				$this->getUser()->id
@@ -55,6 +56,13 @@ class HomepagePresenter extends BaseSignedPresenter
 		$this['paginator']->paginator->itemCount = $this->taskService->getTagsTasksCount($id);
 
 		$this->template->setFile(__DIR__ . '/../templates/Homepage/default.latte');
+
+		$this->template->promoted = $this->taskService->getPromotedTaggedTasks($id, 
+				 $paginator->itemsPerPage, 
+				 0, // @TODO promoted tasks pagination! 
+				 $this->getUser()->id
+				);
+
 		$this->template->tasks = $this->taskService->getTaggedTasks($id, 
 				 $paginator->itemsPerPage, 
 				 $paginator->offset, 

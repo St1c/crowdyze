@@ -55,8 +55,8 @@ module.exports = function(grunt) {
 			multiple_files: {
 				expand: true,
 				flatten: true,
-				src: 'css/*.css',
-				dest: 'css/'
+				src: 'www/css/*.css',
+				dest: 'www/css/'
 			}
 		},
 
@@ -80,11 +80,10 @@ module.exports = function(grunt) {
 				files: {
 					'www/js/common.min.js':[
 							// 'libs/js/vendor/jquery-ui-1.10.3.datepicker.js',
-							// 'libs/js/vendor/tagmanager.js',
 							// 'libs/js/vendor/typeahead.js',
 							// 'libs/js/vendor/imagesloaded.pkgd.js',
-							// 'libs/js/vendor/masonry.js',
-							// 'libs/js/vendor/jquery.ias.js',
+							'libs/js/vendor/tagmanager.js',
+							'libs/js/vendor/jquery.ias.js',
 							'libs/js/vendor/jquery.idTabs.min.js',
 							'libs/js/vendor/masonry.pkgd.min.js',
 							'libs/js/vendor/jquery.custombox.js',

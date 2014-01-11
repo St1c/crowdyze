@@ -1,22 +1,20 @@
 span.customSelect {
-    font-size:13px;
-    background-color: #fff;
-    color:#7c7c7c;
-    padding: 0;
-    border:1px solid #cccccf;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    height: 28px;
-    background:url("../img/customselect.png") top repeat-x;
+  font-size: 13px;
+  background-color: #fff;
+  color: #7c7c7c;
+  padding: 0;
+  border: 1px solid #cccccf;
+  border-radius: 3px;
+  height: 28px;
+  background: url("../img/customselect.png") top repeat-x;
 }
+
 span.customSelect.changed {
-    background-color: #f0dea4;
+  background-color: #f0dea4;
 }
+
 .customSelectInner {
-    background:url("../img/customselect-arrow.png") no-repeat top right;
-    padding: 0px 50px 0px 10px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+  background: url("../img/customselect-arrow.png") no-repeat top right;
+  padding: 0px 50px 0px 10px;
+  border-radius: 3px;
 }

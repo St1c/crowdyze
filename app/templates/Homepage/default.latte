@@ -46,22 +46,31 @@
 
 		<div class="box">
 			<table class="jobs-table">
-				<tbody>
+				<tbody id="jobs-table">
 					<tr class="job-row job" n:foreach="$tasks as $task">
-					<td class="job-checkbox-col"><input type="checkbox"></td>
-					<td class="table-title">
-						<a n:href="Task:detail $task->token" class="job-title">{$task->title}</a>
-					</td>
-					<td class="table-time"><span class="job-time">{$task->deadline|daysLeft}</span></td>
-					<td class="table-price"><span class="job-price">Get <strong>&euro; {$task->salary|number:2}</strong></span></td>
-					<td class="table-tag box-corner-cat{$task->budget_type}">
-						{foreach $task->related('task_has_tag')->limit(1) as $tag}
-							<a n:href="Homepage:tag $tag->tag->tag" class="job-tag">
-								<span class="tag-label">{$tag->tag->tag}</span>
-								<span class="box-corner"></span>
-							</a>
-						{/foreach}
-					</td>
+						<td class="job-checkbox-col">
+							<input type="checkbox" class="job-checkbox">
+						</td>
+						
+						<td class="table-title">
+							<a n:href="Task:detail $task->token" class="job-title">{$task->title}</a>
+						</td>
+						
+						<td class="table-time">
+							<span class="job-time">{$task->deadline|daysLeft}</span>
+						</td>
+						
+						<td class="table-price">
+							<span class="job-price">Get <strong>&euro; {$task->salary|number:2}</strong></span>
+						</td>
+						<td class="table-tag box-corner-cat{$task->budget_type}">
+							{foreach $task->related('task_has_tag')->limit(1) as $tag}
+								<a n:href="Homepage:tag $tag->tag->tag" class="job-tag">
+									<span class="tag-label">{$tag->tag->tag}</span>
+									<span class="box-corner"></span>
+								</a>
+							{/foreach}
+						</td>
 					</tr>
 				</tbody>
 			</table>

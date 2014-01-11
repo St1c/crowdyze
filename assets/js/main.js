@@ -131,65 +131,94 @@ $(function(){
 	/**
 	 * Twitter tagsmanager
 	 */
-	// $.nette.ext('tagsmanager', {
-	// 	load: function () {
+	$.nette.ext('tagsmanager', {
+		load: function () {
 
-	// 		var tagApi = $('.tm-input').tagsManager({
-	// 			tagsContainer: $('#tags-container'),
-	// 			prefilled: $('.tm-input').val()
-	// 		});
+			var tagApi = $('.tm-input').tagsManager({
+				tagsContainer: $('#tags-container'),
+				prefilled: $('.tm-input').val()
+			});
 
-	// 		// $('.tm-input').typeahead({
-	// 		// 	name: 'countries',
-	// 		// 	prefetch: '/homepage/countries'
-	// 		// }).on('typeahead:selected', function (e,d) {
-	// 		// 	tagApi.tagsManager("pushTag", d.value);
-	// 		// });
-	// 	}
-	// });
+			// $('.tm-input').typeahead({
+			// 	name: 'countries',
+			// 	prefetch: '/homepage/countries'
+			// }).on('typeahead:selected', function (e,d) {
+			// 	tagApi.tagsManager("pushTag", d.value);
+			// });
+		}
+	});
 
 
 	/**
 	 * Responsive layout for tasks
 	 */
-	// $.nette.ext('masonry', {
-	// 	load: function () {
-	// 		$('#container').masonry({
-	// 			columnWidth: '.item',
-	// 			gutter: 30,
-	// 			itemSelector: '.item'
-	// 		});
-	// 	}
-	// });
+	$.nette.ext('masonry', {
+		load: function () {
+			$('.jobs-grid').masonry({
+				itemSelector: '.box-holder'
+			});
+		}
+	});
 
 
 	/**
 	 * Infinite AJAX scroll
 	 */
-	// $.nette.ext('ias', {
-	// 	load: function () {
-	// 		jQuery.ias({
-	// 			container : '#container',
-	// 			item: '.item',
-	// 			pagination: '.paginator',
-	// 			next: '.next',
-	// 			trigger: 'Show more',
-	// 			loader: '<img src="/images/loader.gif"/>',
-	// 			triggerPageThreshold: 2,
-	// 			onLoadItems: function(items) {
-	// 				// hide new items while they are loading
-	// 				var $newElems = $(items).show().css({ opacity: 0 });
-	// 				// ensure that images load before adding to masonry layout
-	// 				$newElems.imagesLoaded(function(){
-	// 					// show elems now they're ready
-	// 					$newElems.animate({ opacity: 1 });
-	// 					$('#container').masonry( 'appended', $newElems, true );
-	// 				});
-	// 				return true;
-	// 			}
-	// 		});
-	// 	}
-	// });
+	$.nette.ext('ias', {
+		load: function () {
+			jQuery.ias({
+				container : '.box',
+				item: '.job-row',
+				pagination: '.paginator',
+				next: '.next',
+				trigger: 'Show more',
+				loader: '<div class="preloader"></div>',
+				triggerPageThreshold: 2,
+				// onLoadItems: function(items) {
+				// 	// hide new items while they are loading
+				// 	var $newElems = $(items).show().css({ opacity: 0 });
+				// 	// ensure that images load before adding to masonry layout
+				// 	// $newElems.imagesLoaded(function(){
+				// 		// show elems now they're ready
+				// 		$newElems.animate({ opacity: 1 });
+				// 		// $('#container').masonry( 'appended', $newElems, true );
+				// 	// });
+				// 	return true;
+				// }
+			});
+		}
+	});
+
+
+	/**
+	 * JS from kodujeme.sk
+	 * ! Toto znefunkčnilo checkboxy u mazání soborů.
+	 */
+	$.nette.ext('customCheck', {
+		load: function () {
+			$('.custom-checkbox').iCheck({
+				checkboxClass: 'icheckbox_default',
+				radioClass: 'iradio_default',
+				increaseArea: '20%'
+			});
+
+			$('.job-checkbox').iCheck({
+				checkboxClass: 'icheckbox_large'
+			});
+
+
+			$('.job-checkbox').on('ifChecked', function() {
+				$(this).closest('.job').addClass('job-checked');
+			});
+
+			$('.job-checkbox').on('ifUnchecked', function() {
+				$(this).closest('.job').removeClass('job-checked');
+			});
+
+			$('.custom-select').customSelect();
+		}
+	});
+
 
 	/**
 	 * Initialize JS methods and AJAX
@@ -197,33 +226,8 @@ $(function(){
 	$.nette.ext('init').linkSelector = 'a.ajax';
 	$.nette.init();
 	budget.init();
-
-	/*
 	 
-	 ! Toto znefunkčnilo checkboxy u mazání soborů.
-	 
-    $('input').iCheck({
-        checkboxClass: 'icheckbox_default',
-        radioClass: 'iradio_default',
-        increaseArea: '20%'
-    });
-    $('.job input').iCheck({
-        checkboxClass: 'icheckbox_large'
-    });
-	*/
 
-    $('.job input').on('ifChecked', function() {
-        $(this).closest('.job').addClass('job-checked');
-    });
-
-    $('.job input').on('ifUnchecked', function() {
-        $(this).closest('.job').removeClass('job-checked');
-    });
-
-    $('select').customSelect();
-    $('.jobs-grid').masonry({
-        itemSelector: '.box-holder'
-    });
     $('#temp-modal1').on('click', function(e) {
         openModal('#modal-1');
         e.preventDefault();
