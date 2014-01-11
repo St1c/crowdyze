@@ -69,6 +69,14 @@ class ResultsPresenter extends BaseSignedPresenter
 	}
 
 
+
+	public function renderAdd($token)
+	{
+		$this->template->task = $this->task;
+	}
+
+
+
 	/**
 	 * Create Result Form
 	 */

@@ -1,30 +1,66 @@
 {layout '../@layout.latte'}
 {block #content}
 
-<table class="table table-striped table-bordered">
-	<thead>
-		<tr>
-			<th>Result ID</th>
-			<th>User ID</th>
-			<th>Result</th>
-			<th>Status</th>
-		</tr>
-	</thead>
-	<tbody>
-		{foreach $results as $result}
-		<tr>
-			<td>{$result->id}</td>
-			<td>{$result->user->id}</td>
-			<td>{$result->result}</td>
-			<td>
-			{if ($result->status == 2 )}
-				<a n:href="accept! $result->user_id" class="btn btn-xs btn-success">Satisfied</a>
-				<a n:href="reject! $result->user_id" class="btn btn-xs btn-danger">Unsatisfied</a>
-			{else}
-				{$result->stat->status}
-			{/if}
-			</td>
-		</tr>
-		{/foreach}
-	</tbody>
-</table>
+<div class="wrapper">
+
+	<table class="jobs-table">
+		<thead>
+			<tr class="job-row job">
+				<th>Result ID</th>
+				<th>User ID</th>
+				<th class="table-title">Result</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+		{dump $results}
+			{foreach $results as $result}
+			<tr class="job-row job">
+				<td>{$result->id}</td>
+				<td>{$result->user->id}</td>
+				<td class="table-title">{$result->result}</td>
+				<td>
+				{if ($result->status == 2 )}
+					<a n:href="accept! $result->user_id" class="btn btn-xs btn-success">Satisfied</a>
+					<a n:href="reject! $result->user_id" class="btn btn-xs btn-danger">Unsatisfied</a>
+				{else}
+					{$result->stat->status}
+				{/if}
+				</td>
+			</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>
+{*
+    <div class="box">
+        <table class="jobs-table">
+            <tbody>
+                <tr class="job-row job">
+                    <td class="job-checkbox-col"><input type="checkbox"></td>
+                    <td class="table-title"><a href class="job-title">eCommerce solution
+                            needs a logo design</a></td>
+                    <td class="table-time"><span class="job-time">7 days left</span></td>
+                    <td class="table-price"><span class="job-price">Get <strong>$0.15</strong></span></td>
+                    <td class="table-tag"><a href="" class="job-tag tag-cat4"><span class="tag-label">Coding</span><span class="tag-corner"></span></a></td>
+                </tr>
+                <tr class="job-row job">
+                    <td class="job-checkbox-col"><input type="checkbox"></td>
+                    <td class="table-title"><a href class="job-title">eCommerce solution
+                            needs a logo design</a></td>
+                    <td class="table-time"><span class="job-time">7 days left</span></td>
+                    <td class="table-price"><span class="job-price">Get <strong>$0.15</strong></span></td>
+                    <td class="table-tag"><a href="" class="job-tag tag-cat2"><span class="tag-label">Coding</span><span class="tag-corner"></span></a></td>
+                </tr>
+                <tr class="job-row job">
+                    <td class="job-checkbox-col"><input type="checkbox"></td>
+                    <td class="table-title"><a href class="job-title">eCommerce solution
+                            needs a logo design</a></td>
+                    <td class="table-time"><span class="job-time">7 days left</span></td>
+                    <td class="table-price"><span class="job-price">Get <strong>$0.15</strong></span></td>
+                    <td class="table-tag"><a href="" class="job-tag tag-cat1"><span class="tag-label">Coding C++</span><span class="tag-corner"></span></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+*}

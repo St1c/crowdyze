@@ -1,28 +1,42 @@
 {layout '../@layout.latte'}
 {block #content}
 
-	{form resultForm class => ""}
+	<div class="wrapper-narrow">
+		<div class="content">
+			<h2>{_"Add Results to Task"}</h2>
+			{form resultForm class => ""}
 
-		<ul class="errors" n:if="$form->hasErrors()">
-			<li n:foreach="$form->errors as $error">{$error}</li>
-		</ul>
+				<ul class="errors" n:if="$form->hasErrors()">
+					<li n:foreach="$form->errors as $error">{$error}</li>
+				</ul>
 
-		<div class="controls">
-			{input submit, class=>'btn btn-xs btn-success'}
-			{input cancel, class=>'btn btn-xs btn-danger'}
+				<h1 class="title">{$task->title|capitalize}</h1>
+
+				<div class="description"><p>{$task->description}</p></div>
+
+				<div class="controls">
+					{input submit, class=>'btn'}
+					{input cancel, class=>'btn'}
+				</div>
+
+				<div>
+					{input result, class=>'result'}
+				</div>
+
+				<hr />
+
+				<div class="attachements">
+					<h5>Attachements</h5>
+					{input attachments}{errors attachments}
+					{input attachmentPreload, style=>"visibility:hidden"}
+					<div style="clear:both"></div>
+				</div>
+
+
+			{/form}
 		</div>
+	</div>
 
-		<div>
-			{input result, class=>'result'}
-		</div>
-
-		<div class="attachments">
-			<h6>Attachments:</h6>
-			{input attachments}{errors attachments}
-			{input attachmentPreload, style=>"visibility:hidden"}
-			<div style="clear:both"></div>
-		</div>
-	{/form}
 
 {/block}
 
@@ -31,8 +45,8 @@
 	$(document).ready(function () {
 		$('.file-uploader').filePreuploader({
 			autoSubmitBy: 'input[name="attachmentPreload"]',
-			snippet: '.attachments',
-			spinnerUrl: '/images/spinner.gif'
+			snippet: '.attachements',
+			spinnerUrl: '/img/preloader.gif'
 		});
 	});
     </script>
