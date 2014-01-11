@@ -75,6 +75,33 @@ class FileManager extends Nette\Object
 	/**
 	 * @param enum $category tasks | users
 	 * @param string $token Next level of directory.
+	 * @param Nette\Http\FileUpload $file
+	 * 
+	 * @throws Nette\InvalidStateException
+	 * 
+	 * @return string
+	 */
+	public function saveFileUpload($category, $token, FileUpload $file)
+	{
+		$this->assertCategory($category);
+		Validators::assert($token, 'string');
+
+		$filename = array (
+				rtrim($this->wwwDir, '\\/'),
+				trim($this->uploadFolders[$category], '\\/'),
+				trim((string) $token, '\\/'),
+				trim($file->name, '\\/'),
+				);
+		$this->filesystem->saveFileUpload($file, implode(DIRECTORY_SEPARATOR, $filename));
+
+		return implode(DIRECTORY_SEPARATOR, array_slice($filename, 1));
+	}
+
+
+
+	/**
+	 * @param enum $category tasks | users
+	 * @param string $token Next level of directory.
 	 * @param FileUpload $file
 	 * 
 	 * @throws Nette\InvalidStateException

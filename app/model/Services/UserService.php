@@ -77,23 +77,10 @@ class UserService extends Nette\Object
 	 */
 	public function update(ActiveRow $user, array $data)
 	{
+		$data['profile_photo'] = $this->fileManager->saveFileUpload('users', (string)$user->id, $data['profile_photo']);
 		return $user->update($data);
 	}
 
-
-	/**
-	 * @deprecated Use ::update() instead
-	 * Update details from profile Form
-	 * 
-	 * @param  ActiveRow $user 
-	 * @param  array     $data 
-	 * 
-	 * @return ActiveRow 
-	 */
-	public function updateFromProfile(ActiveRow $user, array $data)
-	{
-		return $user->update($data);
-	}
 
 
 	/**

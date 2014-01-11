@@ -31,6 +31,8 @@ class UserDetailsControl extends BaseControl
 			->setAttribute('placeholder', 'userProfile.form.first_name')
 			->setDefaultValue($user['first_name']);
 
+		$userDetailsForm->addUpload('profile_photo', 'Profile photo');
+
 		$userDetailsForm->addText('last_name', 'userProfile.form.last_name')
 			->setAttribute('placeholder', 'userProfile.form.last_name')
 			->setDefaultValue($user['last_name']);
@@ -44,7 +46,8 @@ class UserDetailsControl extends BaseControl
 			->setDefaultValue($user['country']);
 
 		$userDetailsForm->addSubmit('submit', 'userProfile.form.submit');
-		$userDetailsForm->addSubmit('cancel', 'userProfile.form.cancel');
+		$userDetailsForm->addSubmit('cancel', 'userProfile.form.cancel')
+				->setValidationScope(False);
 
 		$userDetailsForm->onError[] = $this->processError;
 		$userDetailsForm->onSubmit[] = $this->processSubmitted;
@@ -61,7 +64,6 @@ class UserDetailsControl extends BaseControl
 	 */
 	public function processError(Form $form)
 	{
-		die('error');
 		if ($this->isAjax() ) {
 			$this->invalidateControl();
 		}
@@ -76,32 +78,32 @@ class UserDetailsControl extends BaseControl
 	 */
 	public function processSubmitted(Form $form)
 	{
-		$values = $form->getValues();
-		
 		if ($form['cancel']->isSubmittedBy()) {
-			//~ if ($this->presenter->isAjax()) {
-				//~ $this->presenter->invalidateControl('userProfile');
-			//~ }
 		}
 		
 		if ($form['submit']->isSubmittedBy()) {
+			$values = $form->getValues();
 			foreach ($values as $key => $value) {
 				empty($value) ?: $update[$key] = $value;
 			}
-			$userData = $this->userService->getUserData($this->presenter->getUser()->id);
-			$this->userService->update($userData, $update);
+			
+			if (! $values->profile_photo->isOk()) {
+				$component->addError('Nepodařilo se načíst soubor: ' . $values->profile_photo->error);
+				return;
+			}
+			
+			$entry = $this->userService->getUserData($this->presenter->getUser()->id);
 
-			$this->presenter->flashMessage('userProfile.flashes.profile_edited', 'alert-success');
-			//~ $this->presenter->template->userData = $userData;
+			try {
+				$this->userService->update($entry, $update);
+				$this->presenter->flashMessage('userProfile.flashes.profile_edited', 'alert-success');
+			}
+			catch (\RuntimeException $e) {
+				$component->addError($e->getMessage());
+				return;
+			}
 		}
 
-		//~ $this->presenter->edit = FALSE;
-		//~ $this->presenter->template->edit = $this->presenter->edit;
-
-		//~ if ($this->presenter->isAjax()) {
-			//~ $this->presenter->invalidateControl('userProfile');
-		//~ }
-		
 		$this->presenter->redirect('default');
 	}
 

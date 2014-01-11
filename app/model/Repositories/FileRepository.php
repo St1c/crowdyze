@@ -112,6 +112,30 @@ class FileRepository extends Nette\Object
 
 
 	/**
+	 * @param string $src Source file name.
+	 * @param string $desc Destination file name.
+	 * 
+	 * @throws Nette\InvalidStateException
+	 */
+	public function saveFileUpload(Nette\Http\FileUpload $src, $desc)
+	{
+		Validators::assert($desc, 'string');
+
+		if (! $this->isTransaction()) {
+			$this->fetchSaveFileUpload($src, $desc);
+		}
+		else {
+			$this->transactions[] = function() use ($src, $desc) {
+				$this->fetchSaveFileUpload($src, $desc);
+			};
+		}
+	}
+
+
+
+
+
+	/**
 	 * @param string $file Source file name.
 	 * 
 	 * @throws Nette\InvalidStateException
@@ -148,6 +172,26 @@ class FileRepository extends Nette\Object
 			$this->getFilesystem()->chmod(dirname($dest), 0777);
 		}
 		$this->getFilesystem()->rename($src, $dest, True);
+	}
+
+
+
+	/**
+	 * @param string $src Source file name.
+	 * @param string $desc Destination file name.
+	 * 
+	 * @throws Nette\InvalidStateException
+	 * 
+	 * @return string
+	 */
+	private function fetchSaveFileUpload($src, $dest)
+	{
+		$dir = dirname($dest);
+		if (! file_exists($dir)) {
+			$this->getFilesystem()->mkdir($dir, 0777, True);
+			$this->getFilesystem()->chmod(dirname($dest), 0777);
+		}
+		$src->move($dest);
 	}
 
 
