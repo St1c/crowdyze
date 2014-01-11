@@ -136,21 +136,21 @@ module.exports = function(grunt) {
 				livereload: true
 			},
 			scripts: {
-				files: ['js/*.js'],
+				files: ['assets/js/*.js'],
 				tasks: ['concat', 'uglify'],
 				options: {
 					spawn: false,
 				}
 			},
 			css: {
-				files: ['less/*.less'],
+				files: ['assets/less/*.less'],
 				tasks: ['less', 'autoprefixer', 'cssmin'],
 				options: {
 					spawn: false,
 				}
 			},
 			images: {
-				files: ['images/*.{png,jpg,gif}', 'images/*.{png,jpg,gif}'],
+				files: ['www/img/*.{png,jpg,gif}', 'img/*.{png,jpg,gif}'],
 				tasks: ['imagemin'],
 				options: {
 					spawn: false,
