@@ -16,31 +16,51 @@ use	Model\Repositories;
 class FileManager extends Nette\Object
 {
 
+	const SIZE_SMALL = 's';
+	const SIZE_MEDIUM = 'm';
+	const SIZE_BIG = 'b';
+
+
 	/**
 	 * @var string upload Folder 
 	 */
-	public $uploadFolders;
+	private $uploadFolders;
 	
 
 	/**
 	 * @var string www Dir 
 	 */
-	public $wwwDir;
+	private $wwwDir;
 
 
 	/**
 	 * @var Repositories\FileRepository
 	 */
 	private $filesystem;
-	
+
+
+	/**
+	 * Rozměry náhledu.
+	 * @var object | Null
+	 */
+	private $size;
 	
 
 	/**
 	 * DI
 	 */
-	public function __construct(Repositories\FileRepository $repository) 
+	public function __construct(Repositories\FileRepository $repository, $uploadFolders, $wwwDir, array $size) 
 	{
 		$this->filesystem = $repository;
+		$this->uploadFolders = $uploadFolders;
+		//~ $this->wwwDir = $repository->assertAccessDir($wwwDir);
+		$this->wwwDir = $wwwDir;
+		foreach ($size as $n => $thumb) {
+			$this->size[$n] = (object) array(
+					'width' => $thumb['w'],
+					'height' => $thumb['h'],
+					);
+		}
 	}
 
 
@@ -141,7 +161,8 @@ class FileManager extends Nette\Object
 			
 			return $savePath . '/' . $name;
 
-		} else {
+		}
+		else {
 			throw new \Exception("Error Processing Request", 1);
 		}
 	}
@@ -152,7 +173,8 @@ class FileManager extends Nette\Object
 	{
 		if (!$wwwDir) {
 			return is_dir($path) ? TRUE : mkdir($path);
-		} else {
+		}
+		else {
 			return is_dir($this->wwwDir . $path) ? TRUE : mkdir($this->wwwDir . $path);
 		}
 	}
@@ -190,6 +212,82 @@ class FileManager extends Nette\Object
 
 
 	/**
+	 * Důležité si uvědomit, že bez ohledu na rozměry, 
+	 * náhled je vždy jeden, takže nelze vytvářet DoS.
+	 * Aby se přegeneroval náhled, je nutné jej smazat.
+	 * 
+	 * @param string $path Source file name.
+	 * @param string $size Typ velikosti.
+	 * @param int $left Umístění výřezu z leva.
+	 * @param int $top Umístění výřezu ze zhora.
+	 * @param int $width Šířka výřezu.
+	 * @param int $height Víška výřezu.
+	 * 
+	 * @throws Nette\InvalidStateException
+	 */
+	public function getImageThumbBy($path, $size, $left, $top, $width, $height)
+	{
+		Validators::assert($path, 'string');
+		
+		switch (strtolower($size)) {
+			case 'big':
+			case self::SIZE_BIG:
+				$version = self::SIZE_BIG;
+				$size = $this->size['big'];
+				break;
+			case 'medium':
+			case self::SIZE_MEDIUM:
+				$version = self::SIZE_MEDIUM;
+				$size = $this->size['medium'];
+				break;
+			case 'small':
+			case self::SIZE_SMALL:
+				$version = self::SIZE_SMALL;
+				$size = $this->size['small'];
+				break;
+				
+			default:
+				throw new \InvalidArgumentException("Unknow size '$size'.");
+		}
+
+		//~ Validators::assert($left, 'int');
+		//~ Validators::assert($top, 'int');
+		//~ Validators::assert($width, 'int');
+		//~ Validators::assert($height, 'int');
+
+		$originalPath = implode(DIRECTORY_SEPARATOR, array(
+				$this->wwwDir,
+				$path,
+				));
+		if (! file_exists($originalPath)) {
+			throw new \RuntimeException("Original file '$originalPath' not found.");
+		}
+
+		$previewPath = implode(DIRECTORY_SEPARATOR, array(
+				$this->wwwDir,
+				$path,
+				));
+		$previewPath = self::decorateVersion($previewPath, $version);
+
+		//	Máme už náhled.
+		if (file_exists($previewPath)) {
+			return Image::fromFile($previewPath);
+		}
+
+		$originalFile = Image::fromFile($originalPath);
+		if ($width && $height) {
+			$originalFile->crop($left, $top, $width, $height);
+		}
+		$originalFile->resize($size->width, $size->height, Image::EXACT | Image::SHRINK_ONLY);
+		
+		$this->filesystem->saveImage($originalFile, $previewPath);
+		
+		return $originalFile;
+	}
+
+
+
+	/**
 	 * Validate of enums.
 	 */
 	private function assertCategory($category, $label = 'Unknow enum value: "%{category}". Choise from %{enums}')
@@ -202,6 +300,16 @@ class FileManager extends Nette\Object
 		}
 		
 		return $this->uploadFolders[$category];
+	}
+
+
+
+	private static function decorateVersion($file, $version)
+	{
+		return dirname($file)
+				. DIRECTORY_SEPARATOR
+				. ($version ? "{$version}-" : Null)
+				. basename($file);
 	}
 
 

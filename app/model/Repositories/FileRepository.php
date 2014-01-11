@@ -3,7 +3,8 @@ namespace Model\Repositories;
 
 use Nette,
 	Nette\Utils\Strings,
-	Nette\Utils\Validators;
+	Nette\Utils\Validators,
+	Nette\Utils\AssertionException;
 use Symfony\Component\Filesystem\Filesystem,
 	Symfony\Component\Filesystem\Exception\IOException;
 
@@ -112,7 +113,7 @@ class FileRepository extends Nette\Object
 
 
 	/**
-	 * @param string $src Source file name.
+	 * @param Nette\Http\FileUpload $src Source file name.
 	 * @param string $desc Destination file name.
 	 * 
 	 * @throws Nette\InvalidStateException
@@ -131,6 +132,26 @@ class FileRepository extends Nette\Object
 		}
 	}
 
+
+	/**
+	 * @param Nette\Image $src Source file name.
+	 * @param string $desc Destination file name.
+	 * 
+	 * @throws Nette\InvalidStateException
+	 */
+	public function saveImage(Nette\Image $src, $desc)
+	{
+		Validators::assert($desc, 'string');
+
+		if (! $this->isTransaction()) {
+			$this->fetchSaveImage($src, $desc);
+		}
+		else {
+			$this->transactions[] = function() use ($src, $desc) {
+				$this->fetchSaveImage($src, $desc);
+			};
+		}
+	}
 
 
 
@@ -153,6 +174,30 @@ class FileRepository extends Nette\Object
 			};
 		}
 	}
+
+
+
+	/**
+	 * Zkontrolujeme, zda adresář existuje, a je možné do něj zapisovat.
+	 * @param string $file
+	 * @return $file
+	 */
+	public function assertAccessDir($file, $label = 'dir')
+	{
+		if (! file_exists($file)) {
+			throw new AssertionException("The '$label': '$file' is not exists.");
+		}
+
+		if (! is_writable($file)) {
+			throw new AssertionException("The '$label': '$file' is not writable.");
+		}
+
+		return $file;
+	}
+
+
+
+	/******************************************************************/
 
 
 
@@ -192,6 +237,26 @@ class FileRepository extends Nette\Object
 			$this->getFilesystem()->chmod(dirname($dest), 0777);
 		}
 		$src->move($dest);
+	}
+
+
+
+	/**
+	 * @param string $src Source file name.
+	 * @param string $desc Destination file name.
+	 * 
+	 * @throws Nette\InvalidStateException
+	 * 
+	 * @return string
+	 */
+	private function fetchSaveImage(Nette\Image $src, $dest)
+	{
+		$dir = dirname($dest);
+		if (! file_exists($dir)) {
+			$this->getFilesystem()->mkdir($dir, 0777, True);
+			$this->getFilesystem()->chmod(dirname($dest), 0777);
+		}
+		$src->save($dest);
 	}
 
 

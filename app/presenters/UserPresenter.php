@@ -2,8 +2,10 @@
 
 namespace App;
 
+
 use Nette,
-	Model\Services;
+	Model\Services,
+	Model\Domains;
 
 
 /**
@@ -52,7 +54,7 @@ class UserPresenter extends BaseSignedPresenter
 		if (! $this->template->userData = $this->userService->getUserData($this->user->id)) {
 			$this->error('User is not found.');
 		}
-		
+
 		switch ($filter) {
 			case 'employer':
 				$this->template->tasks = $this->taskService->getOwnerTasks($this->user->id);
