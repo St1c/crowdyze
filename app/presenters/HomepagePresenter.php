@@ -26,6 +26,7 @@ class HomepagePresenter extends BaseSignedPresenter
 
 	protected function beforeRender()
 	{
+		parent::beforeRender();
 		$this->template->activeJobs = $this->userService->getAcceptedUserTasksCount($this->user->id);
 	}
 

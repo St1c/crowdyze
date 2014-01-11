@@ -35,7 +35,13 @@
 					{if $user->isLoggedIn()}
                     <li><a n:href="Task:add" class="btn btn-primary btn-large btn-addjob"><span class="addjob-text">Add a job</span><span class="addjob-icon">+</span></a></li>
                     <li class="large-screen"><a n:href=":User:email" class="email"><span class="badge">9999</span></a></li>
-                    <li class="large-screen"><a n:href=":User:" class="user"><img src="{$basePath}/img/userphoto.png" alt="{_layout.menu.profile}" title="{_layout.menu.profile}"></a></li>
+                    <li class="large-screen"><a n:href=":User:" class="user">
+						{if isset($userData['profile_photo'])}
+						<img src="{thumbnail $userData['profile_photo'] small}" class="img-circle" alt="{_layout.menu.profile}" title="{_layout.menu.profile}" />
+						{else}
+						<img src="{$basePath}/img/profile-small.png" class="img-circle" alt="{_layout.menu.profile}" title="{_layout.menu.profile}" />
+						{/if}			
+						</a></li>
                     {else}
                     <li><a n:href="Sign:" class="btn btn-primary btn-large btn-addjob"><span class="addjob-text">{_layout.menu.login}</span><span class="addjob-icon">+</span></a></li>
                     {/if}

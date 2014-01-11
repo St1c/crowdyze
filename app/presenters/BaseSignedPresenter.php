@@ -46,4 +46,15 @@ abstract class BaseSignedPresenter extends BasePresenter
 	}
 
 
+
+	/**
+	 * Default Action
+	 * @param string $filter worker | employer
+	 */
+	protected function beforeRender()
+	{
+		$this->template->userData = $this->userService->getUserData($this->user->id);
+	}
+
+
 }
