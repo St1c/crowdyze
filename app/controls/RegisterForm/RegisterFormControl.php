@@ -61,7 +61,7 @@ class RegisterFormControl extends BaseControl
 			return ;
 		}
 
-		$this->presenter->redirect('Homepage:');
+		$this->presenter->redirect(':Task:');
 	}
 
 
