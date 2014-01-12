@@ -25,20 +25,24 @@
 				from {$userData['city']}, 
 					 {$userData['country']}
 				<a n:href="edit" class="profile-edit">Edit</a></h3>
-        <p class="profile-details">Member since July 9, 2011 — Good reliability as a worker</p>
+        <p class="profile-details">Member since {$userData->registered|date:'F j, Y'} — Good reliability as a worker</p>
 	{/block}
 
         <div class="profile-panel">
             <p class="profile-balance">You’ve got <strong>&euro; {$balance|number:2}</strong> on your account</p>
-            <a n:if="$balance" n:href="Wallet:withdraw" class="profile-btnlink">withdraw</a>
-			<a n:if="!$balance" n:href="Wallet:deposit">Charge</a>
+			<a n:href="Wallet:deposit" class="profile-btnlink">Buy More Credit</a> OR 
+            <a n:if="$balance" n:href="Wallet:withdraw" class="profile-btnlink">Withdraw</a>
         </div>
 
 
         <div class="tabmenu">
             <span class="tabmenu-legend">My jobs as a</span>
-            <a n:href="default, worker" class="tabmenu-item {ifCurrent default, worker}active{/ifCurrent}">worker <span class='item-count'>(7)</span></a>
-            <a n:href="default, employer" class="tabmenu-item {ifCurrent default, employer}active{/ifCurrent}">employer <span class='item-count'>(3)</span></a>
+            <a n:href="default, worker" class="tabmenu-item {ifCurrent default, worker}active{/ifCurrent}">
+            	worker <span class='item-count'>({$activeJobs})</span>
+            </a>
+            <a n:href="default, employer" class="tabmenu-item {ifCurrent default, employer}active{/ifCurrent}">
+            	employer <span class='item-count'>({$ownerTasksCount})</span>
+            </a>
         </div>
     </div>
 </div>
@@ -47,21 +51,23 @@
 	{snippet tasks}
 	<div class="jobs-grid clearfix">
 		<div class="box-holder" n:foreach="$tasks as $task">
-			<div class="job job-box {$task->promotion|promotionClass}">
 
-				<span n:ifset="$task->finished">{($task->finished / $task->workers) * 100 |number:0}% finished</span>
+						{dump $task}
 
-{*
-{dump $tasks}
-{dump isset($task->related('task_has_tag'))}
+ 			<div class="job job-box {$task->promotion|promotionClass}">
 
-				<a n:href="Homepage:tag $tag->tag->tag" class="job-tag tag-cat2">
-					{foreach $task->related('task_has_tag') as $tag}
-					<span class="tag-label">{$tag->tag->tag}</span>
-					{/foreach}
-					<span class="tag-corner"></span>
-				</a>
- *}
+				<span n:ifset="$task->finished">
+					{($task->finished / $task->workers) * 100 |number:0}% finished
+				</span>
+
+				<div class="job-tag box-corner-cat{$task->budget_type}">
+{* 					{foreach $task->related('task_has_tag')->limit(1) as $tag}
+						<a n:href=":Task:default $tag->tag->tag">
+							<span class="tag-label">{$tag->tag->tag}</span>
+						</a>
+					{/foreach} *}
+					<span class="box-corner"></span>
+				</div>
 
 				<span class="job-time">{$task->deadline|daysLeft}</span>
 
@@ -69,49 +75,9 @@
 
 				<span class="job-price">Get <strong>&euro; {$task->salary|number:2}</strong></span>
 
-				<input type="checkbox" class="job-checkbox">
+				{* <input type="checkbox" class="job-checkbox"> *}
 			</div>
 		</div>
 	</div>
 	{/snippet}
 </div>
-
-
-
-
-{*
-
-<div class="user-profile">
-	<div class="profile-photo">
-	</div>
-	
-	{block #userProfile}
-		<div class="userData_details">
-			<div class="name">
-				{$userData['first_name']} 
-				{$userData['last_name']}
-			</div>
-
-			<div class="origin">
-				From {$userData['city']}, 
-					 {$userData['country']}
-			</div>
-
-		</div>
-	{/block}
-
-	<div class="member_since">Member since {$userData->registered|date:'F j, Y'}</div>
-	<div class="userData_details">Reliability: %</div>
-
-		<div class="tasks">
-			{foreach $tasks as $task}
-				<div>{$task->id}. <a n:href="Task:detail $task->token">{$task->title} </a>
-
-				<span>{$task->deadline|date:'%d.%m.%Y'}</span> 
-				Salary: {$task->salary|number:2}$</div>
-			{/foreach}
-		</div>
-
-
-</div>
-*}

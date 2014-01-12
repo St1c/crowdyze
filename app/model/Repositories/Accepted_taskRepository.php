@@ -93,10 +93,11 @@ class Accepted_taskRepository extends BaseRepository
 	 */
 	public function getAcceptedByUser($userId)
 	{
-		return $this->getTable()
+		return $this->table('task')
 			->select('task.*')
-			->where('accepted_task.user_id', $userId)
-			->where('accepted_task.status', self::STATUS_ACCEPTED);
+			->where(':accepted_task.status', self::STATUS_ACCEPTED)
+			->where(':accepted_task.user_id', $userId)
+			->order('deadline DESC');
 	}
 
 

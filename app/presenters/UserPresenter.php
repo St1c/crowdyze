@@ -49,24 +49,28 @@ class UserPresenter extends BaseSignedPresenter
 	 * Default Action
 	 * @param string $filter worker | employer
 	 */
-	public function renderDefault($filter = 'worker')
+	public function actionDefault($filter = 'worker')
 	{
 		if (! $this->template->userData = $this->userService->getUserData($this->user->id)) {
 			$this->error('User is not found.');
 		}
+		$tasks = NULL;
+		$this->template->ownerTasksCount = $this->taskService->getOwnerTasksCount($this->user->id);
+		$this->template->activeJobs = $this->userService->getAcceptedUserTasksCount($this->user->id);
 
 		switch ($filter) {
 			case 'employer':
-				$this->template->tasks = $this->taskService->getOwnerTasks($this->user->id);
+				$tasks = $this->taskService->getOwnerTasks($this->user->id);
 				break;
 			case 'worker':
-				$this->template->tasks = $this->userService->getAcceptedUserTasks($this->user->id);
+				$tasks = $this->userService->getAcceptedUserTasks($this->user->id);
 				break;
 			default:
 				$this->redirect('this', array( 'filter' => 'worker' ));
 		}
 
 		$this->template->balance = $this->payService->getWallet($this->user->id);
+		$this->template->tasks = $tasks;
 	}
 
 

@@ -560,6 +560,20 @@ class TaskService extends Nette\Object
 
 
 	/**
+	 * Get number of tasks where current user is owner
+	 * 
+	 * @param  int $userId 
+	 * 
+	 * @return Table\Selection
+	 */
+	public function getOwnerTasksCount($userId)
+	{
+		return $this->getOwnerTasks($userId)->count();
+	}
+
+
+
+	/**
 	 * Obtain info whether the task has been accepted
 	 * 
 	 * @param string $token task token 
