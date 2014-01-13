@@ -85,10 +85,13 @@ class UserDetailsControl extends BaseControl
 			$values = $form->getValues();
 			foreach ($values as $key => $value) {
 				empty($value) ?: $update[$key] = $value;
+				if ($value instanceof Nette\Http\FileUpload && empty($value->name)) {
+					unset($update[$key]);
+				}
 			}
 			
-			if (! $values->profile_photo->isOk()) {
-				$component->addError('Nepodařilo se načíst soubor: ' . $values->profile_photo->error);
+			if (isset($update['profile_photo']) && ! $update['profile_photo']->isOk()) {
+				$form->addError('Nepodařilo se načíst soubor: ' . $update['profile_photo']->error);
 				return;
 			}
 			

@@ -1,5 +1,9 @@
 {snippet 'userDetailsForm'}
 	{form userDetailsForm class => 'user-details-form'}
+
+		<ul class="errors" n:if="$form->hasErrors()">
+			<li n:foreach="$form->errors as $error">{$error}</li>
+		</ul>
 		
 		<div class="form-row clearfix">
 			{input profile_photo}
