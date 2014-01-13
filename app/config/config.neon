@@ -88,27 +88,35 @@ services:
 	googleSDK: 
 		class: Google([id: %google.id%, secret: %google.secret%])
 
-factories:
+# factories:
 	registerForm: 
 		implement: Controls\IRegisterFormControlFactory
+		inject: yes
+#		autowired: no
 
 	loginForm: 
 		implement: Controls\ILoginFormControlFactory
+		inject: yes
 
 	socialLogin: 
 		implement: Controls\ISocialLoginControlFactory
+		inject: yes
 
 	addTask:
 		implement: Controls\IAddTaskControlFactory
-
+		inject: yes
+		
 	editTask:
 		implement: Controls\IEditTaskControlFactory
+		inject: yes
 
 	userDetails:
 		implement: Controls\IUserDetailsControlFactory
+		inject: yes
 
 	paypal:
 		implement: Controls\IPaypalControlFactory
+		inject: yes
 		setup:
 			- $paypal(%paypal%)
 
@@ -146,7 +154,7 @@ parameters:
 		port: 465
 		username: info@dataworkers.eu
 		password: HDCDB20b4t2
-		defaultFrom: 'info@dataworkers.eu'
+#		defaultFrom: 'info@dataworkers.eu'
 
 	facebook:
 		appId: '347648758678722'

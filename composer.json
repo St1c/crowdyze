@@ -18,7 +18,7 @@
 		"php": ">= 5.3.0",
 		"ext-curl": "*",
 		"ext-json": "*",
-		"nette/nette": "2.1.*@dev",
+		"nette/nette": "2.1.*",
 		"dg/adminer-custom": "1",
 		"facebook/php-sdk": "dev-master",
 		"mikulas/nette-google-oauth2": "dev-master",
