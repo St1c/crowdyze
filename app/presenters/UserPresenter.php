@@ -64,6 +64,7 @@ class UserPresenter extends BaseSignedPresenter
 				break;
 			case 'worker':
 				$tasks = $this->userService->getAcceptedUserTasks($this->user->id);
+				$this->template->finishedTasks = $this->userService->getFinishedUserTasks($this->user->id);
 				break;
 			default:
 				$this->redirect('this', array( 'filter' => 'worker' ));

@@ -99,4 +99,23 @@ class Helpers extends Nette\Object
 	}
 
 
+	/**
+	 * Translate result status to class.
+	 * @param int $type
+	 * @return string
+	 */
+    public static function resultClass($type)
+    {
+		switch ($type) {
+			case 4:
+				return 'not-satisfied';
+			case 3:
+				return 'satisfied';
+			case 2:
+				return 'pending';
+			default:
+				return 'accepted';
+		}
+    }
+
 }

@@ -47,12 +47,9 @@
     </div>
 </div>
 <div class="wrapper">
-    <p class="info-message">You've earned $69.35 with these jobs</p>
 	{snippet tasks}
 	<div class="jobs-grid clearfix">
 		<div class="box-holder" n:foreach="$tasks as $task">
-
-						{dump $task}
 
  			<div class="job job-box {$task->promotion|promotionClass}">
 
@@ -79,5 +76,56 @@
 			</div>
 		</div>
 	</div>
+
+	{ifCurrent default, worker}
+	<!-- Jobs Table -->
+    <p class="info-message">You've earned $69.35 with these jobs</p>
+
+	<div class="box" id="jobs-table">
+		<table class="jobs-table">
+			<tbody>
+				<tr class="job-row job" n:foreach="$finishedTasks as $finished">
+					<td class="job-checkbox-col">
+						{* <input type="checkbox" class="job-checkbox"> *}
+					</td>
+					
+					<td class="table-title">
+						<a n:href="Task:detail $finished->token" class="job-title">{$finished->title}</a>
+					</td>
+					
+					<td class="table-time">
+						<span class="job-time">{$finished->deadline|daysLeft}</span>
+					</td>
+					
+					<td class="table-price">
+						<span class="job-price">Get <strong>&euro; {$finished->salary|number:2}</strong></span>
+					</td>
+					<td class="table-tag box-corner-cat{$finished->budget_type}">
+{* 						{foreach $task->related('task_has_tag')->limit(1) as $tag}
+							<a n:href="default $tag->tag->tag" class="job-tag">
+								<span class="tag-label">{$tag->tag->tag}</span>
+								<span class="box-corner"></span>
+							</a>
+						{/foreach} *}
+					</td>
+					<td>
+						<span class="job-status {$finished->status|resultClass}">
+							{$finished->status|resultClass|firstUpper}
+						</span>
+					</td>
+
+					<td class="table-tag box-corner-cat{$finished->budget_type}">
+						<a href="">
+							<span class="tag-label">tag</span>
+						</a>
+						{* <span class="box-corner"></span> *}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	{/ifCurrent}
+	
 	{/snippet}
 </div>

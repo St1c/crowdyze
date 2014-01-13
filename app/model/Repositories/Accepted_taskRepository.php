@@ -102,7 +102,23 @@ class Accepted_taskRepository extends BaseRepository
 
 
 	/**
-	 * Get user's finished tasks 
+	 * Get user's finished tasks - pending, satisfied and unsatisfied 
+	 * 
+	 * @param  int $userId 	User ID
+	 * 
+	 * @return ActiveRow 	User's finished tasks
+	 */
+	public function getFinishedByUser($userId)
+	{
+		return $this->getTable()
+			->select('task.*, accepted_task.status')
+			->where('accepted_task.user_id', $userId)
+			->where('accepted_task.status >= (?)', self::STATUS_PENDING);
+	}
+
+
+	/**
+	 * Get user's tasks where result has been sent, but not yet valued
 	 * 
 	 * @param  int $userId 	User ID
 	 * 

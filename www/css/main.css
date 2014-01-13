@@ -746,6 +746,18 @@ legend {
   text-transform: uppercase;
 }
 
+.job-status.pending {
+  color: #b0b0bc;
+}
+
+.job-status.satisfied {
+  color: #4ece97;
+}
+
+.job-status.unsatisfied {
+  color: #ff7d63;
+}
+
 .tag-label {
   opacity: 0.4;
 }
