@@ -91,7 +91,7 @@ class UserDetailsControl extends BaseControl
 			}
 			
 			if (isset($update['profile_photo']) && ! $update['profile_photo']->isOk()) {
-				$form->addError('Nepodařilo se načíst soubor: ' . $update['profile_photo']->error);
+				$form->addError('Nepodařilo se načíst soubor: ' . self::formatUploadError($update['profile_photo']->error));
 				return;
 			}
 			
@@ -116,6 +116,31 @@ class UserDetailsControl extends BaseControl
 	{
 		$this->template->setFile(__DIR__ . '/../../templates/Controls/UserDetailsForm.latte');
 		$this->template->render();
+	}
+
+
+
+	private static function formatUploadError($code)
+	{
+		switch ($code) {
+			case UPLOAD_ERR_INI_SIZE:
+				return 'Nahrávaný soubor je příliš velký.';
+				return 'The uploaded file exceeds the upload_max_filesize directive in php.ini.';
+			case UPLOAD_ERR_FORM_SIZE:
+				return 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.';
+			case UPLOAD_ERR_PARTIAL:
+				return 'The uploaded file was only partially uploaded.';
+			case UPLOAD_ERR_NO_FILE:
+				return 'No file was uploaded.';
+			case UPLOAD_ERR_NO_TMP_DIR:
+				return 'Missing a temporary folder. Introduced in PHP 4.3.10 and PHP 5.0.3.';
+			case UPLOAD_ERR_CANT_WRITE:
+				return 'Failed to write file to disk. Introduced in PHP 5.1.0.';
+			case UPLOAD_ERR_EXTENSION:
+				return 'A PHP extension stopped the file upload. PHP does not provide a way to ascertain which extension caused the file upload to stop; examining the list of loaded extensions with phpinfo() may help. Introduced in PHP 5.2.0.';
+			default:
+				return "Při uploadu nastala chyba: '$code'. Zkuste prosím nahrát soubor znovu.";
+		}
 	}
 
 }
