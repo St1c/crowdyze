@@ -48,6 +48,8 @@
 </div>
 <div class="wrapper">
 	{snippet tasks}
+   <p class="info-message">You've accepted these jobs. Please submit results for them.</p>
+
 	<div class="jobs-grid clearfix">
 		<div class="box-holder" n:foreach="$tasks as $task">
 
@@ -58,11 +60,11 @@
 				</span>
 
 				<div class="job-tag box-corner-cat{$task->budget_type}">
-{* 					{foreach $task->related('task_has_tag')->limit(1) as $tag}
+ 					{foreach $task->related('task_has_tag')->limit(1) as $tag}
 						<a n:href=":Task:default $tag->tag->tag">
 							<span class="tag-label">{$tag->tag->tag}</span>
 						</a>
-					{/foreach} *}
+					{/foreach}
 					<span class="box-corner"></span>
 				</div>
 
