@@ -84,6 +84,10 @@ class UserPresenter extends BaseSignedPresenter
 		$this->template->userData = $this->userService->getUserData($this->user->id);
 		$this->template->balance = $this->payService->getWallet($this->user->id);
 		$this->template->tasks = $this->userService->getAcceptedUserTasks($this->user->id);
+
+		$this->template->activeJobs = $this->userService->getAcceptedUserTasksCount($this->user->id);
+		$this->template->ownerTasksCount = $this->taskService->getOwnerTasksCount($this->user->id);
+		$this->template->activeJobs = $this->userService->getAcceptedUserTasksCount($this->user->id);
 		//~ $this->validateControl();
 		//~ $this->invalidateControl('userProfile');
 	}

@@ -48,21 +48,6 @@
 	}
 }
 
-.job-status {
-
-	&.pending {
-		color: #b0b0bc;
-	}
-
-	&.satisfied {
-		color: #4ece97;
-	}
-
-	&.unsatisfied {
-		color: #ff7d63;
-	}
-}
-
 .tag-label {
 	opacity: 0.4;
 }
@@ -93,7 +78,23 @@
 	left: 0;
 }
 
-.box-corner-cat1 .box-corner {
+// .job-status {
+
+// 	&.pending {
+// 		color: #b0b0bc;
+// 	}
+
+// 	&.satisfied {
+// 		color: #4ece97;
+// 	}
+
+// 	&.unsatisfied {
+// 		color: #ff7d63;
+// 	}
+// }
+
+.box-corner-cat1 .box-corner,
+.box-corner-pending .box-corner {
 	border-right-color: #ac92ec;
 	// border-left-color: #4fc1e9;
 }
@@ -102,7 +103,8 @@
 	border-right-color: #4fc1e9;
 }
 
-.box-corner-cat3 .box-corner {
+.box-corner-cat3 .box-corner,
+.box-corner-not-satisfied .box-corner {
 	border-right-color: #ed5565;
 }
 
@@ -110,6 +112,7 @@
 	border-right-color: #48cfad;
 }
 
-.box-corner-cat5 .box-corner {
+.box-corner-cat5 .box-corner,
+.box-corner-satisfied .box-corner {
 	border-right-color: #a0d468;
 }

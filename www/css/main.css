@@ -746,18 +746,6 @@ legend {
   text-transform: uppercase;
 }
 
-.job-status.pending {
-  color: #b0b0bc;
-}
-
-.job-status.satisfied {
-  color: #4ece97;
-}
-
-.job-status.unsatisfied {
-  color: #ff7d63;
-}
-
 .tag-label {
   opacity: 0.4;
 }
@@ -788,7 +776,8 @@ legend {
   left: 0;
 }
 
-.box-corner-cat1 .box-corner {
+.box-corner-cat1 .box-corner,
+.box-corner-pending .box-corner {
   border-right-color: #ac92ec;
 }
 
@@ -796,7 +785,8 @@ legend {
   border-right-color: #4fc1e9;
 }
 
-.box-corner-cat3 .box-corner {
+.box-corner-cat3 .box-corner,
+.box-corner-not-satisfied .box-corner {
   border-right-color: #ed5565;
 }
 
@@ -804,7 +794,8 @@ legend {
   border-right-color: #48cfad;
 }
 
-.box-corner-cat5 .box-corner {
+.box-corner-cat5 .box-corner,
+.box-corner-satisfied .box-corner {
   border-right-color: #a0d468;
 }
 
@@ -1029,6 +1020,12 @@ legend {
 .table-tag {
   text-align: right;
   padding-right: 20px !important;
+}
+
+.table-tag a {
+  color: #000;
+  font-size: 11px;
+  text-transform: uppercase;
 }
 
 .overflow-hidden {

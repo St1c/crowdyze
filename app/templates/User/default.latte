@@ -17,13 +17,13 @@
 		</div>
 
         <h1 class="profile-name">
-			{$userData['first_name']} 
-			{$userData['last_name']}
+			{$userData['first_name']|firstUpper} 
+			{$userData['last_name']|firstUpper}
         </h1>
 
         <h3 class="profile-location">
-				from {$userData['city']}, 
-					 {$userData['country']}
+				from {$userData['city']|firstUpper}, 
+					 {$userData['country']|firstUpper}
 				<a n:href="edit" class="profile-edit">Edit</a></h3>
         <p class="profile-details">Member since {$userData->registered|date:'F j, Y'} — Good reliability as a worker</p>
 	{/block}
@@ -108,17 +108,14 @@
 							</a>
 						{/foreach} *}
 					</td>
-					<td>
-						<span class="job-status {$finished->status|resultClass}">
-							{$finished->status|resultClass|firstUpper}
-						</span>
-					</td>
 
-					<td class="table-tag box-corner-cat{$finished->budget_type}">
-						<a href="">
-							<span class="tag-label">tag</span>
+					<td class="table-tag box-corner-{$finished->status|resultClass}">
+						<a href="" class="job-tag">
+							<span class="tag-label">
+								{$finished->status|resultClass|firstUpper}
+							</span>
+							<span class="box-corner"></span>
 						</a>
-						{* <span class="box-corner"></span> *}
 					</td>
 				</tr>
 			</tbody>
