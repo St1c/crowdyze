@@ -30,12 +30,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/facebook-php-sdk.git",
-                "reference": "43a66ce32cec82ad5b00c28fc80b0e3e579cfbb0"
+                "reference": "5c5a3e80af30ea00e7682e94b31112c505051f50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/facebook-php-sdk/zipball/43a66ce32cec82ad5b00c28fc80b0e3e579cfbb0",
-                "reference": "43a66ce32cec82ad5b00c28fc80b0e3e579cfbb0",
+                "url": "https://api.github.com/repos/facebook/facebook-php-sdk/zipball/5c5a3e80af30ea00e7682e94b31112c505051f50",
+                "reference": "5c5a3e80af30ea00e7682e94b31112c505051f50",
                 "shasum": ""
             },
             "require": {
@@ -68,7 +68,7 @@
                 "facebook",
                 "sdk"
             ],
-            "time": "2013-12-03 19:19:43"
+            "time": "2014-01-09 21:38:48"
         },
         {
             "name": "kdyby/translation",
@@ -76,22 +76,22 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Translation.git",
-                "reference": "138a97222f62578b360aca26d8474f16822083c5"
+                "reference": "f495b54252fb51ae954f64459b51031cf6787823"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Translation/zipball/138a97222f62578b360aca26d8474f16822083c5",
-                "reference": "138a97222f62578b360aca26d8474f16822083c5",
+                "url": "https://api.github.com/repos/Kdyby/Translation/zipball/f495b54252fb51ae954f64459b51031cf6787823",
+                "reference": "f495b54252fb51ae954f64459b51031cf6787823",
                 "shasum": ""
             },
             "require": {
-                "nette/nette": "@dev",
-                "symfony/config": "~2.3",
-                "symfony/translation": "~2.3"
+                "nette/nette": "~2.1@dev",
+                "symfony/config": "~2.4",
+                "symfony/translation": "~2.4"
             },
             "require-dev": {
                 "nette/tester": "@dev",
-                "symfony/console": "~2.3"
+                "symfony/console": "~2.4"
             },
             "suggest": {
                 "kdyby/console": "If you wanna use extract command and much others, install also console.",
@@ -130,7 +130,7 @@
                 "nette",
                 "translation"
             ],
-            "time": "2013-11-23 12:02:53"
+            "time": "2014-01-07 20:23:53"
         },
         {
             "name": "mikulas/nette-google-oauth2",
@@ -329,17 +329,17 @@
         },
         {
             "name": "symfony/config",
-            "version": "v2.4.0",
+            "version": "v2.4.1",
             "target-dir": "Symfony/Component/Config",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config.git",
-                "reference": "16068f76c0af74968f3ad8fcec3eb90df1fde394"
+                "reference": "27d0b35879ebefcfee6d218512c32ab2d6cd6a6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/16068f76c0af74968f3ad8fcec3eb90df1fde394",
-                "reference": "16068f76c0af74968f3ad8fcec3eb90df1fde394",
+                "url": "https://api.github.com/repos/symfony/Config/zipball/27d0b35879ebefcfee6d218512c32ab2d6cd6a6a",
+                "reference": "27d0b35879ebefcfee6d218512c32ab2d6cd6a6a",
                 "shasum": ""
             },
             "require": {
@@ -373,21 +373,21 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "http://symfony.com",
-            "time": "2013-11-26 16:40:27"
+            "time": "2014-01-01 08:14:50"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.4.0",
+            "version": "v2.4.1",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "79acd777762e81d0f3414ca25a602deeeb48240d"
+                "reference": "b3c3b5a8108b3e5d604dc23241b4ea84a067fc78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/79acd777762e81d0f3414ca25a602deeeb48240d",
-                "reference": "79acd777762e81d0f3414ca25a602deeeb48240d",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/b3c3b5a8108b3e5d604dc23241b4ea84a067fc78",
+                "reference": "b3c3b5a8108b3e5d604dc23241b4ea84a067fc78",
                 "shasum": ""
             },
             "require": {
@@ -420,21 +420,21 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2013-11-16 15:13:54"
+            "time": "2013-12-31 13:43:26"
         },
         {
             "name": "symfony/translation",
-            "version": "v2.4.0",
+            "version": "v2.4.1",
             "target-dir": "Symfony/Component/Translation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "0919e0fc709217f8c9e5049f2603419fdd4a34ff"
+                "reference": "7f76dffd7eaf2c9a3a8f47649404c71440d18c8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/0919e0fc709217f8c9e5049f2603419fdd4a34ff",
-                "reference": "0919e0fc709217f8c9e5049f2603419fdd4a34ff",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/7f76dffd7eaf2c9a3a8f47649404c71440d18c8b",
+                "reference": "7f76dffd7eaf2c9a3a8f47649404c71440d18c8b",
                 "shasum": ""
             },
             "require": {
@@ -475,7 +475,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-11-28 10:27:26"
+            "time": "2013-12-31 13:43:26"
         },
         {
             "name": "tacoberu/nette-form-controls",
@@ -524,12 +524,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tester.git",
-                "reference": "b1bc89b634376154214552d3e984364e24855573"
+                "reference": "b3ec23cb5dad7591cf47d20e8c6a02c5730b3651"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tester/zipball/b1bc89b634376154214552d3e984364e24855573",
-                "reference": "b1bc89b634376154214552d3e984364e24855573",
+                "url": "https://api.github.com/repos/nette/tester/zipball/b3ec23cb5dad7591cf47d20e8c6a02c5730b3651",
+                "reference": "b3ec23cb5dad7591cf47d20e8c6a02c5730b3651",
                 "shasum": ""
             },
             "require": {
@@ -568,7 +568,7 @@
                 "testing",
                 "unit"
             ],
-            "time": "2013-11-18 00:03:02"
+            "time": "2014-01-13 11:22:25"
         }
     ],
     "aliases": [
