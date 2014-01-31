@@ -93,6 +93,15 @@ class TaskPresenter extends BaseSignedPresenter
 
 
 
+	public function renderAdd()
+	{
+		if ($this->isAjax()) {
+			$this->redrawControl('add');
+		}
+	}
+
+
+
 	/**
 	 * @param string $token
 	 */

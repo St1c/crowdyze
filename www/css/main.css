@@ -1126,8 +1126,10 @@ legend {
   background-clip: padding-box;
   background-color: #fff;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  /*
   -webkit-transform: translate(0, -25%);
   transform: translate(0, -25%);
+  */
   -webkit-transition: all .3s ease;
   transition: all .3s ease;
 }

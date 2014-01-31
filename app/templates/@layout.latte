@@ -16,6 +16,16 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{$basePath}/css/main.min.css">
 
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="{!$basePath}/js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js"></script>
+		<script>$.ui || document.write('<script src="{!$basePath}/js/vendor/jquery-ui-1.10.3.js"><\/script>')</script>
+
+		<script src="{$basePath}/js/common.min.js"></script>
+		<script src="{$basePath}/js/nette.min.js"></script>
+		<script src="{$basePath}/js/main.min.js"></script>
+
 		{block #head}{/block}
 	</head>
 
@@ -33,7 +43,7 @@
 
                 <ul class="toolbar">
 					{if $user->isLoggedIn()}
-                    <li><a n:href="Task:add" class="btn btn-primary btn-large btn-addjob"><span class="addjob-text">Add a job</span><span class="addjob-icon">+</span></a></li>
+                    <li><a n:href="Task:add" class="btn btn-primary btn-large btn-addjob" data-toggle="modal" data-target="#modal-place"><span class="addjob-text">Add a job</span><span class="addjob-icon">+</span></a></li>
                     <li class="large-screen"><a n:href=":Messages:default" class="email"><span class="badge">9</span></a></li>
                     <li class="large-screen"><a n:href=":User:" class="user">
 						{if isset($userData['profile_photo'])}
@@ -51,6 +61,8 @@
 			<div class="toppanel" n:block="notifier">
 				You have no active jobs. Pick some from the offer below...
 			</div>
+
+
 
 			{include #content}			
 
@@ -79,206 +91,65 @@
         </nav>
 
 {*
-	<div n:foreach="$flashes as $flash" class="alert {$flash->type}">{$flash->message}</div>
-	<div class="navigation">
-		<div class="submenu">
-			<ul class="">
-				<li n:if="!$user->isLoggedIn()"><a n:href="Sign:">{_layout.menu.login}</a></li>
-				<li n:if="$user->isLoggedIn()"><a n:href="Homepage:">{_layout.menu.tasks}</a></li>
-			</ul>			
-		</div>
+		<div n:foreach="$flashes as $flash" class="alert {$flash->type}">{$flash->message}</div>
+		<div class="navigation">
+			<div class="submenu">
+				<ul class="">
+					<li n:if="!$user->isLoggedIn()"><a n:href="Sign:">{_layout.menu.login}</a></li>
+					<li n:if="$user->isLoggedIn()"><a n:href="Homepage:">{_layout.menu.tasks}</a></li>
+				</ul>			
+			</div>
 
-		<!-- <a n:href="Homepage:">Crowdyze<span>me</span></a> -->
-		<div class="submenu right">
-			<ul class="">
-				{if $user->isLoggedIn()}
-				<li><a n:href="Task:add">{_layout.menu.add}</a></li>
-				<li><a n:href="User:">{_layout.menu.profile}</a></li>
-				{/if}
-			</ul>
-		</div>
-	</div>
-
-	<div class="container">
-		<div class="body-wp">
-			{include #content}			
-		</div>
-
-		<hr>
-		<div class="footer">
-			&copy; Dataworkers.eu 2013
-			<div class="pull-right">
-				<a n:href="changeLocale!, en">en</a>
-				<a n:href="changeLocale!, sk">sk</a>
-				<a n:href="SignOut!">{_layout.menu.logout}</a>
+			<!-- <a n:href="Homepage:">Crowdyze<span>me</span></a> -->
+			<div class="submenu right">
+				<ul class="">
+					{if $user->isLoggedIn()}
+					<li><a n:href="Task:add">{_layout.menu.add}</a></li>
+					<li><a n:href="User:">{_layout.menu.profile}</a></li>
+					{/if}
+				</ul>
 			</div>
 		</div>
-	</div>
+
+		<div class="container">
+			<div class="body-wp">
+				{include #content}			
+			</div>
+
+			<hr>
+			<div class="footer">
+				&copy; Dataworkers.eu 2013
+				<div class="pull-right">
+					<a n:href="changeLocale!, en">en</a>
+					<a n:href="changeLocale!, sk">sk</a>
+					<a n:href="SignOut!">{_layout.menu.logout}</a>
+				</div>
+			</div>
+		</div>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="{!$basePath}/js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+		<script src="{$basePath}/js/common.min.js"></script>
+		<script src="{$basePath}/js/nette.min.js"></script>
+		<script src="{$basePath}/js/main.min.js"></script>
 *}
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="{!$basePath}/js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-	<script src="{$basePath}/js/common.min.js"></script>
-	<script src="{$basePath}/js/nette.min.js"></script>
-	<script src="{$basePath}/js/main.min.js"></script>
 	
 
-	{block #scripts}
-	{/block}
+		{block #scripts}
+		{/block}
 
-	<script n:syntax="asp">
-		// var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-		// (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-		// g.src='//www.google-analytics.com/ga.js';
-		// s.parentNode.insertBefore(g,s)}(document,'script'));
-	</script>
+		<script n:syntax="asp">
+			// var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+			// (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+			// g.src='//www.google-analytics.com/ga.js';
+			// s.parentNode.insertBefore(g,s)}(document,'script'));
+		</script>
 
 
-
-        <div class="modal-holder" style="" id="modal-1">
+		<div class="modal-holder" id="modal-place">
             <div class="modal">
-                <a href="" class="modal-close"></a>
-                <span class="modal-corner">Coding</span>
-                <div class="inner">
-                    <h1>We need to get as many
-                        sign-ups as possible</h1>
-                    <h2 class="price">Get $1.49</h2>
-                    <div class="details">
-                        <li>Payments for all the same</li>
-                        <li>3 workers needed  </li>
-                        <li>4 days left</li>
-                    </div>
-                    <p>Aenean semper placerat erat, a tempus ante rhoncus non. Nullam
-                        tempor risus at iaculis lobortis. Vivamus nulla dui, porta at auctor
-                        non, ultricies id odio. Sed sit amet sem quis felis vestibulum
-                        interdum ac interdum erat.</p>
-                    <a href="" class="btn btn-large btn-primary">
-                        Apply to this Job
-                    </a>
-                    <p>
-                        or <a href="">Share on Facebook</a>
-                    </p>
-                    <hr>
-                    <h5>Atachements</h5>
-
-                    <ul class="attachements">
-                        <li>
-                            <a href="" class="file-doc">
-                                Document.doc <span class="file-size">468 KB</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="file-avi">
-                                Document.doc <span class="file-size">468 KB</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="file-mp3">
-                                Document.doc <span class="file-size">468 KB</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="file-jpg">
-                                Document.doc <span class="file-size">468 KB</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <form class="form clearfix">
-                    <legend>Comments <span class="count">(0)</span></legend>
-                    <textarea></textarea>
-                    <input type="submit" class="btn pull-right" value="Send">
-                </form>
-                <div class="inner">
-                    <div class="comment">
-                        <div class="comment-avatar">
-                            <a href=""><img src="{$basePath}/img/userphoto.png"></a>
-                        </div>
-                        <div class="comment-content">
-                            <h4 class="comment-author"><a href="">Meno komentujuceho</a></h4>
-                            <div class="comment-message">
-                                <p>Pellentesque fringilla nec lorem quis elementum. Nullam tristique
-                                    venenatis tristique. Nulla interdum consectetur ligula, sed volutpat
-                                    enim interdum in.</p>
-                                <div class="comment-time">27 mins. ago</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-avatar">
-                            <img src="{$basePath}/img/userphoto.png">
-                        </div>
-                        <div class="comment-content">
-                            <h4 class="comment-author"><a href="">Meno komentujuceho</a></h4>
-                            <div class="comment-message">
-                                <p>Pellentesque fringilla nec lorem quis elementum. Nullam tristique
-                                    venenatis tristique. Nulla interdum consectetur ligula, sed volutpat
-                                    enim interdum in.</p>
-                                <div class="comment-time">27 mins. ago</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <span class="modal-close" data-dismiss="modal"></span>
+				<div class="modal-body"></div>
             </div>
-        </div>
-
-        <div class="modal-holder" id="modal-2">
-            <div class="modal">
-                <a href="" class="modal-close"></a>
-
-                <form class="form-modal form-addjob">
-                    <fieldset>
-                        <input type="submit" class="btn-large btn-primary btn" value="Apply to this job">
-                        <input type="text" class="textinput input-tag" placeholder="Insert category tag ...">
-                        <input type="text" class="textinput input-title" placeholder="We need to ...">
-                        <input type="text" class="textinput input-price" placeholder="Get $ Inser amount ...">
-                        <div class="modal-inputs">
-                            <div class="modal-col">
-                                <input type="text" class="textinput input-payment" placeholder="Payment ...">
-                            </div>
-                            <div class="modal-col">
-                                <input type="text" class="textinput input-workers" placeholder="... workers needed">
-                            </div>
-                            <div class="modal-col">
-                                <input type="text" class="textinput input-date" placeholder="Due on ...">
-                            </div>
-                        </div>
-                        <textarea class="input-description" placeholder="Type description"></textarea>
-                        <input type="submit" class="btn-large btn-primary btn" value="Apply to this job">
-                        <p>
-                            or <a href="">Share on Facebook</a>
-                        </p>
-                    </fieldset>
-                    <div class="">
-                        <hr>
-                        <h5>Atachements</h5>
-
-                        <ul class="attachements">
-                            <li>
-                                <a href="" class="file-doc">
-                                    Document.doc <span class="file-size">468 KB</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" class="file-avi">
-                                    Document.doc <span class="file-size">468 KB</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" class="file-mp3">
-                                    Document.doc <span class="file-size">468 KB</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" class="file-jpg">
-                                    Document.doc <span class="file-size">468 KB</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="modal-overlay" style="display: none"></div>
-
+		</div>
 	</body>
 </html>

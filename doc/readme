@@ -28,3 +28,7 @@ grunt-contrib-cssmin grunt-contrib-jshint grunt-uncss grunt-ucss
 
 ### Spojení souborů
 - grunt concat
+
+### Minifikace souborů
+- grunt uglify
+- grunt cssmin

@@ -236,10 +236,34 @@ $(function(){
 
 	/**
 	 * Modal window behaviour
-	 * @author  kodujeme.sk
+	 * @author  Taco
 	 */
 	$.nette.ext('modals', {
 		load: function () {
+
+			/**
+			 * Překlad snippetů na obsah.
+			 */
+			$('[data-toggle="modal"]').modal({
+				transform: function(content) {
+					return content.snippets['snippet--add'];
+				}
+			});
+			
+
+			/**
+			 * Při zobrazní okna upevnit pozadí, aby se nehejbalo.
+			 * Určitě by to šlo udělat lépe css.
+			 */
+			$('#modal-place').on('show', function() {
+				$('body').css({'position': 'fixed', 'width': '100%'});
+			});
+			$('#modal-place').on('hide', function() {
+				$('body').attr('style', null);
+			});
+
+
+			/*
 			$('#temp-modal1').on('click', function(e) {
 				openModal('#modal-1');
 				e.preventDefault();
@@ -256,8 +280,10 @@ $(function(){
 				modal = $(this).parent().parent();
 				closeModal(modal);
 			});
+			*/
 		}
-	})
+	});
+	//*/
 
 
 	/**
@@ -287,7 +313,7 @@ $(function(){
 				}
 			});
 		}
-	})
+	});
 
 
 	/**
@@ -319,7 +345,7 @@ $(function(){
 
 });
 
-
+/*
 function openModal(modalId) {
     //skryje menu, docasna ukazka
     $('#showLeft').click();
@@ -342,3 +368,4 @@ function closeModal(modalId) {
     $('body').css('overflow', 'visible');
     history.back();
 }
+*/
