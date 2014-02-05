@@ -37,55 +37,58 @@
 	transition: all .3s ease;
 }
 
+.modal,
+.single {
+	.inner {
+		padding: 40px 40px 10px 40px; 
+	}
+
+	h1 {
+		color: #169dd8; 
+		font-weight: normal; 
+		margin-bottom: 15px; 
+	}
+
+	.price {
+		color: #4ece97; 
+		font-weight: normal 
+	}
+
+	.details {
+		border: 1px solid #f5f5f5; 
+		font-size: 13px; 
+		color: #6d6e70; 
+		-moz-border-radius: 3px; 
+		-webkit-border-radius: 3px; 
+		border-radius: 3px; 
+		line-height: 20px; 
+		padding: 9px; 
+		text-align: center; 
+		margin-bottom: 20px; 
+	}
+
+	.details li {
+		display: inline-block; 
+		padding: 0 20px; 
+	}
+
+	textarea {
+		margin-bottom: 10px; 
+	}
+
+	.btn-large {
+		margin-bottom: 15px !important; 
+	}
+
+	.count {
+		font-weight: normal 
+	}
+}
+
 .modal-opened .modal {
 	-webkit-transform: translate(0,0); 
 	-ms-transform: translate(0,0); 
 	transform: translate(0,0); 
-}
-
-.modal .inner {
-	padding: 40px 40px 10px 40px; 
-}
-
-.modal h1 {
-	color: #169dd8; 
-	font-weight: normal; 
-	margin-bottom: 15px; 
-}
-
-.modal .price {
-	color: #4ece97; 
-	font-weight: normal 
-}
-
-.modal .details {
-	border: 1px solid #f5f5f5; 
-	font-size: 13px; 
-	color: #6d6e70; 
-	-moz-border-radius: 3px; 
-	-webkit-border-radius: 3px; 
-	border-radius: 3px; 
-	line-height: 20px; 
-	padding: 9px; 
-	text-align: center; 
-	margin-bottom: 20px; 
-}
-
-.modal .details li {
-	display: inline-block; 
-	padding: 0 20px; 
-}
-
-.modal textarea {
-	margin-bottom: 10px; 
-}
-
-.modal .btn-large {
-	margin-bottom: 15px !important; 
-}
-
-.modal .count {
-	font-weight: normal 
 }
 
 .pull-right {
@@ -110,11 +113,15 @@
 	display: block; 
 	background: url('../img/corner-green.png') no-repeat; 
 	line-height: 20px; 
-	color: #b0b0bc; 
 	font-size: 11px; 
-	text-transform: uppercase; 
 	padding-left: 20px; 
 	padding-top: 8px;
+
+	a {
+		text-transform: uppercase; 
+		color: #b0b0bc;
+		text-decoration: none;	
+	}
 }
 
 .modal-overlay {
@@ -144,8 +151,9 @@
 	-webkit-box-sizing: border-box; 
 	-moz-box-sizing: border-box; 
 	box-sizing: border-box; 
-	width: 100%; 
+	width: 100%;
 	border: none; 
+	border-bottom: 1px dashed #e5e5e7; 
 	background: none; 
 }
 

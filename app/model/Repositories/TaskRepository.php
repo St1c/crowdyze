@@ -33,7 +33,6 @@ class TaskRepository extends BaseRepository
 	}
 
 
-
 	/** 
  	 * Update task
  	 * 
@@ -72,7 +71,6 @@ class TaskRepository extends BaseRepository
 	}
 
 
-
 	/**
 	 * @param Task
 	 * @param string $path
@@ -105,7 +103,6 @@ class TaskRepository extends BaseRepository
 	}
 
 
-
 	/**
 	 * @param Task
 	 * @param string $path
@@ -118,10 +115,6 @@ class TaskRepository extends BaseRepository
 				->where('path', $path)
 				->delete();
 	}
-
-
-
-
 
 
 	/**

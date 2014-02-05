@@ -1,20 +1,20 @@
 header:
 	add_new_task: "Add new task"
 form:
-	title: "Title"
+	title: "We need to..."
 	title_missing: "You did not enter any title"
 	description: "Description"
 	description_missing: "You forgot to describe the task..."
-	salary: "Pay"
+	salary: "Get &euro; Insert amount..."
 	salary_missing: "How much do you want to pay?"
 	budget_type: "Budget type"
-	tags: "Tags"
+	tags: "Insert category tags ..."
 	upload:	"Upload"
 	workers_required: "How many workers do you need?"
 	deadline: "Deadline"
 	departments: "Departments"
 	promotion: "Promotions:"
-	submit: "Submit"
+	submit: "I'm done, publish the job"
 	cancel: "Cancel"
 
 budgetType:

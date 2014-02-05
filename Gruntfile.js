@@ -50,7 +50,7 @@ module.exports = function(grunt) {
 
 		autoprefixer: {
 			options: {
-				browsers: ['last 2 version']
+				browsers: ['last 4 version']
 			},
 			multiple_files: {
 				expand: true,
@@ -163,6 +163,7 @@ module.exports = function(grunt) {
 	require('load-grunt-tasks')(grunt);
 
 	// Default Task is basically a rebuild
-	grunt.registerTask('default', ['concat', 'uglify', 'less', 'autoprefixer', 'cssmin', 'imagemin']);
+	// grunt.registerTask('default', ['concat', 'uglify', 'less', 'autoprefixer', 'cssmin', 'imagemin']);
+	grunt.registerTask('default', ['concat', 'uglify', 'less', 'autoprefixer', 'imagemin']);
 
 };
