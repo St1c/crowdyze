@@ -64,8 +64,19 @@
 
 		<div class="controls">
 			{input submit, class=>'btn btn-success'}
-			{input cancel, class=>'btn', 'data-dismiss'=>"modal"}
+			{input cancel, class=>'btn', 'data-dismiss'=>"modal", 'data-toggle'=>"modal"}
 		</div>
 
 	{/form}
+
+	<script type="application/javascript">
+	$(document).ready(function () {
+		$('.file-uploader').filePreuploader({
+			autoSubmitBy: 'input[name="attachmentPreload"]',
+			snippet: '.attachements',
+			spinnerUrl: '/img/preloader.gif'
+		});
+	});
+	</script>
+
 {/snippet}

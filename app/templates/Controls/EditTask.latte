@@ -58,4 +58,16 @@
 		<hr />
 
 	{/form}
+
+
+	<script type="application/javascript">
+	$(document).ready(function () {
+		$('.file-uploader').filePreuploader({
+			autoSubmitBy: 'input[name="attachmentPreload"]',
+			snippet: '.attachements',
+			spinnerUrl: '/img/preloader.gif'
+		});
+	});
+	</script>
+
 {/snippet}
