@@ -70,7 +70,7 @@
 
 				<span class="job-time">{$task->deadline|daysLeft}</span>
 
-				<h3 class="job-title"><a n:href="Task:detail $task->token">{$task->title}</a></h3>
+				<h3 class="job-title"><a n:href="Task:detail $task->token" data-toggle="modal">{$task->title}</a></h3>
 
 				<span class="job-price">Get <strong>&euro; {$task->salary|number:2}</strong></span>
 
@@ -92,7 +92,7 @@
 					</td>
 					
 					<td class="table-title">
-						<a n:href="Task:detail $finished->token" class="job-title">{$finished->title}</a>
+						<a n:href="Task:detail $finished->token" class="job-title" data-toggle="modal">{$finished->title}</a>
 					</td>
 					
 					<td class="table-time">
