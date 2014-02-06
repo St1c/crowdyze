@@ -34,8 +34,10 @@
   top: 50%;
   left: 50%;
   -webkit-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
   backface-visibility: hidden;
   -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
 
@@ -86,6 +88,7 @@
 
 .custombox-perspective body {
   -webkit-perspective: 600px;
+  -ms-perspective: 600px;
   perspective: 600px;
 }
 
@@ -110,6 +113,7 @@
 
 .custombox-fadein .custombox-modal-content {
   -webkit-transform: scale(0.7);
+  -ms-transform: scale(0.7);
   transform: scale(0.7);
   -webkit-transition-property: all;
   transition-property: all;
@@ -118,6 +122,7 @@
 
 .custombox-show.custombox-fadein .custombox-modal-content {
   -webkit-transform: scale(1);
+  -ms-transform: scale(1);
   transform: scale(1);
   opacity: 1;
 }
@@ -136,6 +141,7 @@ Slide and stick to top
 .custombox-close.custombox-slide-left-top .custombox-modal-content,
 .custombox-close.custombox-slide-right-top .custombox-modal-content {
   -webkit-transform: translateY(-200%);
+  -ms-transform: translateY(-200%);
   transform: translateY(-200%);
   -webkit-transition-property: all;
   transition-property: all;
@@ -144,6 +150,7 @@ Slide and stick to top
 
 .custombox-show.custombox-slide-top .custombox-modal-content {
   -webkit-transform: translateY(0%);
+  -ms-transform: translateY(0%);
   transform: translateY(0%);
   border-radius: 0 0 3px 3px;
   opacity: 1;
@@ -154,6 +161,7 @@ Slide and stick to top
 .custombox-close.custombox-slide-bottom-bottom .custombox-modal-content,
 .custombox-close.custombox-slide-left-bottom .custombox-modal-content {
   -webkit-transform: translateY(200%);
+  -ms-transform: translateY(200%);
   transform: translateY(200%);
 }
 
@@ -168,6 +176,7 @@ Slide and stick to top
 .custombox-close.custombox-slide-top-right .custombox-modal-content,
 .custombox-close.custombox-slide-center-right .custombox-modal-content {
   -webkit-transform: translateX(20%);
+  -ms-transform: translateX(20%);
   transform: translateX(20%);
   opacity: 0;
   -webkit-transition-timing-function: cubic-bezier(0.25, 0.5, 0.5, 0.9);
@@ -178,12 +187,14 @@ Slide and stick to top
 
 .custombox-show.custombox-slide-right .custombox-modal-content {
   -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
   transform: translateX(0);
   opacity: 1;
 }
 
 .custombox-close.custombox-slide-right-left .custombox-modal-content {
   -webkit-transform: translateX(-20%);
+  -ms-transform: translateX(-20%);
   transform: translateX(-20%);
 }
 
@@ -195,6 +206,7 @@ Slide from the bottom
 
 .custombox-slide-bottom .custombox-modal-content {
   -webkit-transform: translateY(20%);
+  -ms-transform: translateY(20%);
   transform: translateY(20%);
   opacity: 0;
   -webkit-transition-property: all;
@@ -203,12 +215,14 @@ Slide from the bottom
 
 .custombox-show.custombox-slide-bottom .custombox-modal-content {
   -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
   transform: translateY(0);
   opacity: 1;
 }
 
 .custombox-close.custombox-slide-bottom-top .custombox-modal-content {
   -webkit-transform: translateY(-20%);
+  -ms-transform: translateY(-20%);
   transform: translateY(-20%);
 }
 
@@ -222,6 +236,7 @@ Slide from the bottom
 .custombox-close.custombox-slide-top-left .custombox-modal-content,
 .custombox-close.custombox-slide-center-left .custombox-modal-content {
   -webkit-transform: translateX(-20%);
+  -ms-transform: translateX(-20%);
   transform: translateX(-20%);
   opacity: 0;
   -webkit-transition-timing-function: cubic-bezier(0.25, 0.5, 0.5, 0.9);
@@ -232,12 +247,14 @@ Slide from the bottom
 
 .custombox-show.custombox-slide-left .custombox-modal-content {
   -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
   transform: translateX(0);
   opacity: 1;
 }
 
 .custombox-close.custombox-slide-left-right .custombox-modal-content {
   -webkit-transform: translateX(20%);
+  -ms-transform: translateX(20%);
   transform: translateX(20%);
 }
 
@@ -249,6 +266,7 @@ Slide and stick to center
 
 .custombox-slide-center .custombox-modal-content {
   -webkit-transform: translateY(-200%);
+  -ms-transform: translateY(-200%);
   transform: translateY(-200%);
   -webkit-transition-property: all;
   transition-property: all;
@@ -257,6 +275,7 @@ Slide and stick to center
 
 .custombox-show.custombox-slide-center .custombox-modal-content {
   -webkit-transform: translateY(0%);
+  -ms-transform: translateY(0%);
   transform: translateY(0%);
   border-radius: 0 0 3px 3px;
   opacity: 1;
@@ -270,6 +289,7 @@ Newspaper
 
 .custombox-newspaper .custombox-modal-content {
   -webkit-transform: scale(0) rotate(720deg);
+  -ms-transform: scale(0) rotate(720deg);
   transform: scale(0) rotate(720deg);
   opacity: 0;
 }
@@ -282,6 +302,7 @@ Newspaper
 
 .custombox-show.custombox-newspaper .custombox-modal-content {
   -webkit-transform: scale(1) rotate(0deg);
+  -ms-transform: scale(1) rotate(0deg);
   transform: scale(1) rotate(0deg);
   opacity: 1;
 }
@@ -294,13 +315,16 @@ Fall
 
 .custombox-fall.custombox-modal {
   -webkit-perspective: 1300px;
+  -ms-perspective: 1300px;
   perspective: 1300px;
 }
 
 .custombox-fall .custombox-modal-content {
   -webkit-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
   transform-style: preserve-3d;
   -webkit-transform: translateZ(600px) rotateX(20deg);
+  -ms-transform: translateZ(600px) rotateX(20deg);
   transform: translateZ(600px) rotateX(20deg);
   opacity: 0;
 }
@@ -311,6 +335,7 @@ Fall
   -webkit-transition-property: all;
   transition-property: all;
   -webkit-transform: translateZ(0) rotateX(0deg);
+  -ms-transform: translateZ(0) rotateX(0deg);
   transform: translateZ(0) rotateX(0deg);
   opacity: 1;
 }
@@ -323,13 +348,16 @@ Side fall
 
 .custombox-sidefall.custombox-modal {
   -webkit-perspective: 1300px;
+  -ms-perspective: 1300px;
   perspective: 1300px;
 }
 
 .custombox-sidefall .custombox-modal-content {
   -webkit-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
   transform-style: preserve-3d;
   -webkit-transform: translate(30%) translateZ(600px) rotate(10deg);
+  -ms-transform: translate(30%) translateZ(600px) rotate(10deg);
   transform: translate(30%) translateZ(600px) rotate(10deg);
   opacity: 0;
 }
@@ -340,6 +368,7 @@ Side fall
   -webkit-transition-property: all;
   transition-property: all;
   -webkit-transform: translate(0%) translateZ(0) rotate(0deg);
+  -ms-transform: translate(0%) translateZ(0) rotate(0deg);
   transform: translate(0%) translateZ(0) rotate(0deg);
   opacity: 1;
 }
@@ -364,6 +393,7 @@ Blur
 
 .custombox-blur .custombox-modal-content {
   -webkit-transform: translateY(-5%);
+  -ms-transform: translateY(-5%);
   transform: translateY(-5%);
   opacity: 0;
 }
@@ -376,6 +406,7 @@ Blur
 
 .custombox-show.custombox-blur .custombox-modal-content {
   -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
   transform: translateY(0);
   opacity: 1;
 }
@@ -388,13 +419,16 @@ Blur
 
 .custombox-flip-horizontal.custombox-modal {
   -webkit-perspective: 1300px;
+  -ms-perspective: 1300px;
   perspective: 1300px;
 }
 
 .custombox-flip-horizontal .custombox-modal-content {
   -webkit-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
   transform-style: preserve-3d;
   -webkit-transform: rotateY(-70deg);
+  -ms-transform: rotateY(-70deg);
   transform: rotateY(-70deg);
   -webkit-transition-property: all;
   transition-property: all;
@@ -403,6 +437,7 @@ Blur
 
 .custombox-show.custombox-flip-horizontal .custombox-modal-content {
   -webkit-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
   transform: rotateY(0deg);
   opacity: 1;
 }
@@ -415,13 +450,16 @@ Blur
 
 .custombox-flip-vertical.custombox-modal {
   -webkit-perspective: 1300px;
+  -ms-perspective: 1300px;
   perspective: 1300px;
 }
 
 .custombox-flip-vertical .custombox-modal-content {
   -webkit-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
   transform-style: preserve-3d;
   -webkit-transform: rotateX(-70deg);
+  -ms-transform: rotateX(-70deg);
   transform: rotateX(-70deg);
   -webkit-transition-property: all;
   transition-property: all;
@@ -430,6 +468,7 @@ Blur
 
 .custombox-show.custombox-flip-vertical .custombox-modal-content {
   -webkit-transform: rotateX(0deg);
+  -ms-transform: rotateX(0deg);
   transform: rotateX(0deg);
   opacity: 1;
 }
@@ -442,15 +481,19 @@ Blur
 
 .custombox-sign.custombox-modal {
   -webkit-perspective: 1300px;
+  -ms-perspective: 1300px;
   perspective: 1300px;
 }
 
 .custombox-sign .custombox-modal-content {
   -webkit-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
   transform-style: preserve-3d;
   -webkit-transform: rotateX(-60deg);
+  -ms-transform: rotateX(-60deg);
   transform: rotateX(-60deg);
   -webkit-transform-origin: 50% 0;
+  -ms-transform-origin: 50% 0;
   transform-origin: 50% 0;
   opacity: 0;
   -webkit-transition-property: all;
@@ -459,6 +502,7 @@ Blur
 
 .custombox-show.custombox-sign .custombox-modal-content {
   -webkit-transform: rotateX(0deg);
+  -ms-transform: rotateX(0deg);
   transform: rotateX(0deg);
   opacity: 1;
 }
@@ -471,6 +515,7 @@ Super scaled
 
 .custombox-superscaled .custombox-modal-content {
   -webkit-transform: scale(2);
+  -ms-transform: scale(2);
   transform: scale(2);
   opacity: 0;
   -webkit-transition-property: all;
@@ -479,6 +524,7 @@ Super scaled
 
 .custombox-show.custombox-superscaled .custombox-modal-content {
   -webkit-transform: scale(1);
+  -ms-transform: scale(1);
   transform: scale(1);
   opacity: 1;
 }
@@ -491,13 +537,16 @@ Super scaled
 
 .custombox-slit.custombox-modal {
   -webkit-perspective: 1300px;
+  -ms-perspective: 1300px;
   perspective: 1300px;
 }
 
 .custombox-slit .custombox-modal-content {
   -webkit-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
   transform-style: preserve-3d;
   -webkit-transform: translateZ(-3000px) rotateY(90deg);
+  -ms-transform: translateZ(-3000px) rotateY(90deg);
   transform: translateZ(-3000px) rotateY(90deg);
   opacity: 0;
 }
@@ -537,6 +586,7 @@ Super scaled
 @keyframes slit {
   50% {
     -webkit-transform: translateZ(-250px) rotateY(89deg);
+    -ms-transform: translateZ(-250px) rotateY(89deg);
     transform: translateZ(-250px) rotateY(89deg);
     opacity: 1;
     -webkit-animation-timing-function: ease-out;
@@ -545,6 +595,7 @@ Super scaled
 
   100% {
     -webkit-transform: translateZ(0) rotateY(0deg);
+    -ms-transform: translateZ(0) rotateY(0deg);
     transform: translateZ(0) rotateY(0deg);
     opacity: 1;
   }
@@ -558,15 +609,19 @@ Super scaled
 
 .custombox-rotate-bottom.custombox-modal {
   -webkit-perspective: 1300px;
+  -ms-perspective: 1300px;
   perspective: 1300px;
 }
 
 .custombox-rotate-bottom .custombox-modal-content {
   -webkit-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
   transform-style: preserve-3d;
   -webkit-transform: translateY(100%) rotateX(90deg);
+  -ms-transform: translateY(100%) rotateX(90deg);
   transform: translateY(100%) rotateX(90deg);
   -webkit-transform-origin: 0 100%;
+  -ms-transform-origin: 0 100%;
   transform-origin: 0 100%;
   opacity: 0;
   -webkit-transition-timing-function: ease-out;
@@ -577,6 +632,7 @@ Super scaled
 
 .custombox-show.custombox-rotate-bottom .custombox-modal-content {
   -webkit-transform: translateY(0%) rotateX(0deg);
+  -ms-transform: translateY(0%) rotateX(0deg);
   transform: translateY(0%) rotateX(0deg);
   opacity: 1;
 }
@@ -589,15 +645,19 @@ Super scaled
 
 .custombox-rotate-left.custombox-modal {
   -webkit-perspective: 1300px;
+  -ms-perspective: 1300px;
   perspective: 1300px;
 }
 
 .custombox-rotate-left .custombox-modal-content {
   -webkit-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
   transform-style: preserve-3d;
   -webkit-transform: translateZ(100px) translateX(-30%) rotateY(90deg);
+  -ms-transform: translateZ(100px) translateX(-30%) rotateY(90deg);
   transform: translateZ(100px) translateX(-30%) rotateY(90deg);
   -webkit-transform-origin: 0 100%;
+  -ms-transform-origin: 0 100%;
   transform-origin: 0 100%;
   opacity: 0;
   -webkit-transition-property: all;
@@ -606,6 +666,7 @@ Super scaled
 
 .custombox-show.custombox-rotate-left .custombox-modal-content {
   -webkit-transform: translateZ(0px) translateX(0%) rotateY(0deg);
+  -ms-transform: translateZ(0px) translateX(0%) rotateY(0deg);
   transform: translateZ(0px) translateX(0%) rotateY(0deg);
   opacity: 1;
 }
@@ -626,21 +687,26 @@ Slide in from bottom with perspective on container
 .custombox-show.custombox-letmein ~ .custombox-container,
 .custombox-show.custombox-letmein ~ .custombox-overlay {
   -webkit-transform: rotateX(-2deg);
+  -ms-transform: rotateX(-2deg);
   transform: rotateX(-2deg);
   -webkit-transform-origin: 50% 0%;
+  -ms-transform-origin: 50% 0%;
   transform-origin: 50% 0%;
   -webkit-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
 
 .custombox-letmein .custombox-modal-content {
   opacity: 0;
   -webkit-transform: translateY(200%);
+  -ms-transform: translateY(200%);
   transform: translateY(200%);
 }
 
 .custombox-show.custombox-letmein .custombox-modal-content {
   -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
   transform: translateY(0);
   opacity: 1;
   -webkit-transition-property: all;
@@ -670,7 +736,9 @@ Slide from right with perspective on container
   -webkit-transform-origin: 0% 50%;
   -webkit-animation: rotateRightSideFirst 0.5s forwards ease-in;
   -ms-animation: rotateRightSideFirst 0.5s forwards ease-in;
+  -ms-transform-style: preserve-3d;
   transform-style: preserve-3d;
+  -ms-transform-origin: 0% 50%;
   transform-origin: 0% 50%;
   animation: rotateRightSideFirst 0.5s forwards ease-in;
 }
@@ -700,6 +768,7 @@ Slide from right with perspective on container
 @keyframes rotateRightSideFirst {
   50% {
     -webkit-transform: translateZ(-50px) rotateY(5deg);
+    -ms-transform: translateZ(-50px) rotateY(5deg);
     transform: translateZ(-50px) rotateY(5deg);
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
@@ -707,18 +776,21 @@ Slide from right with perspective on container
 
   100% {
     -webkit-transform: translateZ(-200px);
+    -ms-transform: translateZ(-200px);
     transform: translateZ(-200px);
   }
 }
 
 .custombox-makeway .custombox-modal-content {
   -webkit-transform: translateX(200%);
+  -ms-transform: translateX(200%);
   transform: translateX(200%);
   opacity: 0;
 }
 
 .custombox-show.custombox-makeway .custombox-modal-content {
   -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
   transform: translateX(0);
   opacity: 1;
   -webkit-transition-property: all;
@@ -747,7 +819,9 @@ Slip in from the top with perspective on container
   -webkit-transform-origin: 50% 100%;
   -webkit-animation: OpenTop 0.5s forwards ease-in;
   -ms-animation: OpenTop 0.5s forwards ease-in;
+  -ms-transform-style: preserve-3d;
   transform-style: preserve-3d;
+  -ms-transform-origin: 50% 100%;
   transform-origin: 50% 100%;
   animation: OpenTop 0.5s forwards ease-in;
 }
@@ -769,6 +843,7 @@ Slip in from the top with perspective on container
 @keyframes OpenTop {
   50% {
     -webkit-transform: rotateX(10deg);
+    -ms-transform: rotateX(10deg);
     transform: rotateX(10deg);
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
@@ -777,12 +852,14 @@ Slip in from the top with perspective on container
 
 .custombox-slip .custombox-modal-content {
   -webkit-transform: translateY(-200%);
+  -ms-transform: translateY(-200%);
   transform: translateY(-200%);
   opacity: 0;
 }
 
 .custombox-show.custombox-slip .custombox-modal-content {
   -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
   transform: translateY(0);
   opacity: 1;
   -webkit-transition-property: all;

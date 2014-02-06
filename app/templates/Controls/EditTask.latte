@@ -1,40 +1,54 @@
 {snippet 'editTaskForm'}
 
-	<h2>{_"Edit of Task"}</h2>
+	<!-- <h2>{_"Edit of Task"}</h2> -->
 
-	{form editTaskForm class => ''}
+	{form editTaskForm class => 'form-modal form-addjob'}
+        <fieldset>
+			<ul class="errors" n:if="$form->hasErrors()">
+				<li n:foreach="$form->errors as $error">{$error}</li>
+			</ul>
 
-		<ul class="errors" n:if="$form->hasErrors()">
-			<li n:foreach="$form->errors as $error">{$error}</li>
-		</ul>
+			<div class="tags">
+				<div id="tags-container"></div>
+				{input tags class => "textinput input-tag tm-input"}
+			</div>
 
-		<h1>{input title, class=>'title'}</h1>
+			{input title, class=>'textinput input-title'}
 
-		<h2 class="price">Get &euro; {input salary class=>'salary', id => "salary"}</h2>
-		<div id="budget">
-			<p>Estimated costs: <span class="value"></span> &euro;</p>
-		</div>
+			Get &euro; {input salary class=>'textinput input-price salary', id => "salary"}
 
-		<div class="details">
-			<li class="budget-type">{input budget_type class => "budget-type", id => "budget_type"}</li>
-			<li class="workers">{input workers class => "workers" , id => "workers"} workers needed</li>
-			<li class="deadline">{input deadline}{errors deadline}</li>
-		</div>
+			<div id="budget">
+				<p>Estimated costs: <span class="value"></span> &euro;</p>
+			</div>
+			
+			
+			<div class="modal-inputs clearfix">
+				<div class="modal-col">
+					{input budget_type class => "input-payment", id => "budget_type"}
+				</div>
+				<div class="modal-col">
+					{input workers class => "textinput input-workers" , id => "workers"}
+				</div>
+				<div class="modal-col">
+					{input deadline class => "textinput input-date"}{errors deadline}
+				</div>
+			</div>
 
-		<div class="description">{input description, class=>'description'}</div>
+			{input description class=>'input-description'}
 
-		<div class="tags">
-			<div id="tags-container"></div>
-			{input tags class => "tm-input"}
-		</div>
+			<div id="promotion">
+				promotion
+			</div>
 
-		<div id="promotion">
-			promotion
-		</div>
-
-		<hr />
+			<div class="controls">
+				{input submit, class=>'btn btn-large btn-primary'}
+				{input cancel, class=>'btn btn-large btn-warning'}
+			</div>
+	    </fieldset>
 
 		<div class="attachements">
+			<hr />
+			
 			<h5>Atachements</h5>
 			{input attachments}{errors attachments}
 			{input attachmentPreload, style=>"visibility:hidden"}
@@ -42,11 +56,6 @@
 		</div>
 
 		<hr />
-
-		<div class="controls">
-			{input submit, class=>'btn btn-success'}
-			{input cancel, class=>'btn'}
-		</div>
 
 	{/form}
 {/snippet}

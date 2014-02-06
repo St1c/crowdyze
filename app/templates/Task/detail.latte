@@ -1,55 +1,67 @@
 {block notifier}{/block}
 {block #content}
 	<div class="wrapper-narrow">
-		<div class="content">
+		<div class="single">
 			{snippet task}
-
-				<h1 class="title">{$task->title|capitalize}</h1>
-
-				<h2 class="price">Get &euro; {$task->salary|number:2}</h2>
-
-				<div class="details">
-					<li class="budget-type">{_$task->ref('budget_type','budget_type')->budget_type}</li>
-					<li class="workers">{$task->workers} workers needed</li>
-					<li class="deadline">{$task->deadline|daysLeft}</li>
-				</div>
-
-				<div class="description"><p>{$task->description}</p></div>
-
-				<div class="controls">
-					<a n:if="$userId == $task->owner" n:href="edit, $task->token" class="btn">Edit</a>
-					{if $task->owner == $userId}
-						<a n:href="Results:default $task->token" class="btn">Show Results</a>
-					{else}
-						<a n:if="!$accepted" n:href="acceptTask! $task->token" class="btn">{_tasks.single.accept_btn}</a>
-						<a n:if="$accepted" n:href="Results:add $task->token" class="btn">{_tasks.single.post_result_btn}</a>
-					{/if}
-				</div>
-				
-				<hr />
-				<div class="attachements">
-					<h5>Atachements</h5>
-					<ul class="attachements">
-						<li n:foreach="$task->related('task_attachment') as $attachment">
-							<a href="{$basePath}/{$attachment->path}" 
-									class="file-doc {$attachment->ref('type_id')->type|mediaType}">
-								<?php echo basename($attachment->path); ?>
-								<span class="file-size">468 KB</span>
-							</a>
-						</li>
-					</ul>
-				</div> 	
-
-
-				<div class="tags">
-					<h5>Tags</h5>
+				<span class="modal-corner">
 					{foreach $task->related('task_has_tag') as $tag}
 						<a n:href="default $tag->tag->tag" class="tag">
-							<span class="label label-default">{$tag->tag->tag|capitalize}</span>
+							{$tag->tag->tag|capitalize}{sep}, {/sep}
 						</a>
 					{/foreach}
-				</div>
+				</span>
+				<div class="inner">					
+					<a n:if="$userId == $task->owner" n:href="edit, $task->token" class="btn btn-warning">
+						Edit
+					</a>
 
+					<h1 class="title">{$task->title|capitalize}</h1>
+
+					<h2 class="price">Get &euro; {$task->salary|number:2}</h2>
+
+					<div class="details">
+						<li class="budget-type">{_$task->ref('budget_type','budget_type')->budget_type}</li>
+						<li class="workers">{$task->workers} workers needed</li>
+						<li class="deadline">{$task->deadline|daysLeft}</li>
+					</div>
+
+					<div class="description">
+						<p>{$task->description}</p>
+					</div>
+
+					<a n:if="$userId == $task->owner" n:href="Results:default $task->token" class="btn btn-large btn-primary">
+						Show Results
+					</a>
+
+					{if $task->owner != $userId}
+						<a n:if="!$accepted" n:href="acceptTask! $task->token" class="btn-large btn-primary btn">
+							{_tasks.single.accept_btn}
+						</a>
+
+						<a n:if="$accepted" n:href="Results:add $task->token" class="btn-large btn-warning btn">
+							{_tasks.single.post_result_btn}
+						</a>
+
+						<p>
+                        	or <a href="">Share on Facebook</a>
+                    	</p>
+					{/if}
+					
+					<hr />
+					<div class="attachements">
+						<h5>Attachments</h5>
+						<ul class="attachements">
+							<li n:foreach="$task->related('task_attachment') as $attachment">
+								<a href="{$basePath}/{$attachment->path}" 
+										class="file-doc {$attachment->ref('type_id')->type|mediaType}">
+									<?php echo basename($attachment->path); ?>
+									<span class="file-size">468 KB</span>
+								</a>
+							</li>
+						</ul>
+					</div> 	
+					
+				</div>
 			{/snippet}
 		</div>
 	</div>
