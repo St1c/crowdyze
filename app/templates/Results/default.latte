@@ -1,7 +1,7 @@
 {layout '../@layout.latte'}
 {block #content}
 
-<div class="wrapper">
+<div class="wrapper" n:snippet="result">
 
 	<table class="jobs-table">
 		<thead>
@@ -21,8 +21,8 @@
 				<td class="table-title">{$result->result}</td>
 				<td>
 				{if ($result->status == 2 )}
-					<a n:href="accept! $result->user_id" class="btn btn-xs btn-success">Satisfied</a>
-					<a n:href="reject! $result->user_id" class="btn btn-xs btn-danger">Unsatisfied</a>
+					<a n:href="accept! $result->user_id" class="btn btn-xs btn-success" data-toggle="modal">Satisfied</a>
+					<a n:href="reject! $result->user_id" class="btn btn-xs btn-danger" data-toggle="modal">Unsatisfied</a>
 				{else}
 					{$result->stat->status}
 				{/if}

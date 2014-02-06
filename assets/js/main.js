@@ -257,12 +257,14 @@ $(function(){
 			});
 
 			//	Dialog content via url.
-			$('[data-toggle="modal"]').click(function(e) {
+			function openModal(e)
+			{
 				$('#dialog').dialog('open');
 
 				$.ajax({ url: $(this).attr('href') })
 					.done(function(data, status, xhr) {
 						try {
+							//	Replacing content
 							for(var key in data.snippets) break;
 							$('#dialog .modal-body').html(data.snippets[key]);
 
@@ -272,6 +274,9 @@ $(function(){
 								e.preventDefault();
 								return false;
 							});
+
+							//	Handle open in modal.
+							$('#dialog [data-toggle="modal"]').click(openModal);
 						}
 						catch (e) {
 							$('#dialog').dialog('close');
@@ -280,7 +285,9 @@ $(function(){
 
 				e.preventDefault();
 				return false;
-			});
+			}
+
+			$('[data-toggle="modal"]').click(openModal);
 
 		}
 	});

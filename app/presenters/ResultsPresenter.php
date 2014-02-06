@@ -50,6 +50,16 @@ class ResultsPresenter extends BaseSignedPresenter
 	}
 
 
+
+	public function renderDefault($token)
+	{
+		if ($this->isAjax()) {
+			$this->redrawControl('result');
+		}
+	}
+
+
+
 	/**
 	 * Add new result
 	 */
