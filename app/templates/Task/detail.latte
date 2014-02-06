@@ -1,8 +1,7 @@
 {block notifier}{/block}
 {block #content}
 	<div class="wrapper-narrow">
-		<div class="single">
-			{snippet task}
+		<div class="single" n:snippet="task">
 				<span class="modal-corner">
 					{foreach $task->related('task_has_tag') as $tag}
 						<a n:href="default $tag->tag->tag" class="tag">
@@ -62,7 +61,6 @@
 					</div> 	
 					
 				</div>
-			{/snippet}
 		</div>
 	</div>
 {/block}

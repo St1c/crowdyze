@@ -246,7 +246,6 @@ $(function(){
 			//	Vytvořit a nakonfiguovat dialogové okno.
 			$('#dialog').dialog({ 
 				modal: true,
-				show: false,
 				autoOpen: false,
 				// events
 				open: function( event, ui ) {
@@ -263,15 +262,20 @@ $(function(){
 
 				$.ajax({ url: $(this).attr('href') })
 					.done(function(data, status, xhr) {
-						for(var key in data.snippets) break;
-						$('#dialog .modal-body').html(data.snippets[key]);
+						try {
+							for(var key in data.snippets) break;
+							$('#dialog .modal-body').html(data.snippets[key]);
 
-						//	Close dialogs by data-dismiss
-						$('#dialog [data-dismiss="modal"]').click(function(e) {
+							//	Close dialogs by data-dismiss
+							$('#dialog [data-dismiss="modal"]').click(function(e) {
+								$('#dialog').dialog('close');
+								e.preventDefault();
+								return false;
+							});
+						}
+						catch (e) {
 							$('#dialog').dialog('close');
-							e.preventDefault();
-							return false;
-						});
+						}
 					});
 
 				e.preventDefault();

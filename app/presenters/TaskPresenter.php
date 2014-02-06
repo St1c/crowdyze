@@ -81,6 +81,15 @@ class TaskPresenter extends BaseSignedPresenter
 
 
 
+	public function renderDetail()
+	{
+		if ($this->isAjax()) {
+			$this->redrawControl('task');
+		}
+	}
+
+
+
 	/**
 	 * Adding new task routine
 	 */
@@ -96,7 +105,7 @@ class TaskPresenter extends BaseSignedPresenter
 	public function renderAdd()
 	{
 		if ($this->isAjax()) {
-			$this->redrawControl('add');
+			$this->redrawControl('task');
 		}
 	}
 
@@ -112,6 +121,15 @@ class TaskPresenter extends BaseSignedPresenter
 		$this->template->userId = $this->getUser()->id;
 		$this->template->accepted = $this->taskService->isAccepted($task->token, $this->getUser()->id);
 		// $this->template->owner = $this->taskService->getOwnerTasks($this->getUser()->id);
+	}
+
+
+
+	public function renderEdit()
+	{
+		if ($this->isAjax()) {
+			$this->redrawControl('task');
+		}
 	}
 
 
