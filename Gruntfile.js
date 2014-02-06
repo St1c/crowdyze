@@ -97,7 +97,6 @@ module.exports = function(grunt) {
 							'libs/js/nette/nette.ajax.js'
 							],
 					'www/js/main.min.js': [
-							'assets/js/bootstrap-2.3.2.js',
 							'assets/js/main.js'
 							]
 				}

@@ -234,56 +234,54 @@ $(function(){
 	});
 
 
+
+
 	/**
-	 * Modal window behaviour
+	 * Modal window behaviour. Loading from nette snippets.
 	 * @author  Taco
 	 */
 	$.nette.ext('modals', {
 		load: function () {
 
-			/**
-			 * Překlad snippetů na obsah.
-			 */
-			$('[data-toggle="modal"]').modal({
-				transform: function(content) {
-					return content.snippets['snippet--add'];
+			//	Vytvořit a nakonfiguovat dialogové okno.
+			$('#dialog').dialog({ 
+				modal: true,
+				show: false,
+				autoOpen: false,
+				// events
+				open: function( event, ui ) {
+					$('body').css({'overflow': 'hidden'});
+				},
+				close: function( event, ui ) {
+					$('body').css({'overflow': 'visible'});
 				}
 			});
-			
 
-			/**
-			 * Při zobrazní okna upevnit pozadí, aby se nehejbalo.
-			 * Určitě by to šlo udělat lépe css.
-			 */
-			$('#modal-place').on('show', function() {
-				$('body').css({'position': 'fixed', 'width': '100%'});
-			});
-			$('#modal-place').on('hide', function() {
-				$('body').attr('style', null);
-			});
+			//	Dialog content via url.
+			$('[data-toggle="modal"]').click(function(e) {
+				$('#dialog').dialog('open');
 
+				$.ajax({ url: $(this).attr('href') })
+					.done(function(data, status, xhr) {
+						for(var key in data.snippets) break;
+						$('#dialog .modal-body').html(data.snippets[key]);
 
-			/*
-			$('#temp-modal1').on('click', function(e) {
-				openModal('#modal-1');
+						//	Close dialogs by data-dismiss
+						$('#dialog [data-dismiss="modal"]').click(function(e) {
+							$('#dialog').dialog('close');
+							e.preventDefault();
+							return false;
+						});
+					});
+
 				e.preventDefault();
+				return false;
 			});
 
-
-			$('#temp-modal2').on('click', function(e) {
-				openModal('#modal-2');
-				e.preventDefault();
-			});
-
-			$('.modal-close').on('click', function(e) {
-				e.preventDefault();
-				modal = $(this).parent().parent();
-				closeModal(modal);
-			});
-			*/
 		}
 	});
-	//*/
+
+
 
 
 	/**

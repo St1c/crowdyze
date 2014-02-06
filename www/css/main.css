@@ -1034,6 +1034,7 @@ legend {
 
 /* -- menu -- */
 
+.ui-widget-overlay,
 .cbp-overlay {
   background-color: #000;
   opacity: 0.4;
@@ -1046,6 +1047,10 @@ legend {
   height: 100%;
   z-index: 800;
   display: none;
+}
+
+.ui-widget-overlay {
+	display: block !important;
 }
 
 .cbp-spmenu {
