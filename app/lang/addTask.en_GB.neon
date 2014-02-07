@@ -5,7 +5,7 @@ form:
 	title_missing: "You did not enter any title"
 	description: "Description"
 	description_missing: "You forgot to describe the task..."
-	salary: "Get &euro; Insert amount..."
+	salary: "Insert amount..."
 	salary_missing: "How much do you want to pay?"
 	budget_type: "Budget type"
 	tags: "Insert category tags ..."

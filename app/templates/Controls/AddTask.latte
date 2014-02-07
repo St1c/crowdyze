@@ -19,18 +19,17 @@
 
 		{input title, class=>'textinput input-title'}
 
-		{input salary class=>'textinput input-price salary', id => "salary"}
-
-		<div id="budget">
-			<p>Estimated costs: <span class="value"></span> &euro;</p>
+		<div class='salary'>
+			<span>Get &euro;</span>
+			{input salary class=>'textinput input-price', id => "salary"}
 		</div>
 
 		<div class="modal-inputs">
 			<div class="modal-col">
-				{input budget_type class => "textinput input-payment", id => "budget_type"}
+				{input budget_type class => "custom-select input-payment", id => "budget_type"}
 			</div>
 			<div class="modal-col">
-				{input workers class => "textinput input-workers" , id => "workers"} workers needed
+				{input workers class => "textinput input-workers" , id => "workers"}
 			</div>
 			<div class="modal-col">
 				{input deadline}{errors deadline}
@@ -44,13 +43,17 @@
 		<div class="form-group">
 			{input departments type => "text", class => "form-control"}
 		</div>
-*}
+
 
 		<div id="promotion">
 			{label promotion /}
 			{input promotion class=>'promotion'}
 		</div>
 
+		<div id="budget">
+			<p>Estimated costs: <span class="value"></span> &euro;</p>
+		</div>
+*}
 		<hr />
 
 		<div class="attachements">
@@ -63,8 +66,8 @@
 		<hr />
 
 		<div class="controls">
-			{input submit, class=>'btn btn-success'}
-			{input cancel, class=>'btn', 'data-dismiss'=>"modal", 'data-toggle'=>"modal"}
+			{input submit, class=>'btn btn-large btn-primary'}
+			<!-- {input cancel, class=>'btn', 'data-dismiss'=>"modal", 'data-toggle'=>"modal"} -->
 		</div>
 
 	{/form}
