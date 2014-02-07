@@ -241,53 +241,127 @@ $(function(){
 	 * @author  Taco
 	 */
 	$.nette.ext('modals', {
-		load: function () {
+		load: function (x, nette) {
 
-			//	Vytvořit a nakonfiguovat dialogové okno.
-			$('#dialog').dialog({ 
-				modal: true,
-				autoOpen: false,
-				// events
-				open: function( event, ui ) {
-					$('body').css({'overflow': 'hidden'});
-				},
-				close: function( event, ui ) {
-					$('body').css({'overflow': 'visible'});
-				}
-			});
-
-			//	Dialog content via url.
-			function openModal(e)
+			//	Původní adresa, ze které se otevíralo okno.
+			var originalUrl;
+			var originalHistory;
+			var changeCount = 0;
+			var deep = 0;
+			
+			
+			//	Je okno otevřeno?
+			function isModalOpened()
 			{
-				$('#dialog').dialog('open');
+				return $('#modal-window')
+					.hasClass('modal-opened');
+			}
 
-				$.ajax({ url: $(this).attr('href') })
+
+			//	Vlastní otevření okna.
+			function doShowModal()
+			{
+				$('#cbp-overlay')
+					.addClass('show');
+				$('body')
+					.css('overflow', 'hidden');
+				$('#modal-window')
+					.addClass('modal-opened')
+					.fadeIn();
+			}
+
+
+			//	Vlastní zavření okna.
+			function doCloseModal()
+			{
+				$('#cbp-overlay')
+					.removeClass('show');
+				$('body')
+					.css('overflow', 'visible');
+				$('#modal-window')
+					.removeClass('modal-opened')
+					.fadeOut();
+			}
+
+
+			//	Nahrazení obsahu modalu
+			function replacingContent(s)
+			{
+				$('#modal-window .modal-body').html(s);
+			}
+
+
+			//	Nahrání obsahu
+			function doLoadContent(url)
+			{
+				$.ajax({ url: url })
 					.done(function(data, status, xhr) {
 						try {
 							//	Replacing content
 							for(var key in data.snippets) break;
-							$('#dialog .modal-body').html(data.snippets[key]);
-
-							//	Close dialogs by data-dismiss
-							$('#dialog [data-dismiss="modal"]').click(function(e) {
-								$('#dialog').dialog('close');
-								e.preventDefault();
-								return false;
-							});
-
-							//	Handle open in modal.
-							$('#dialog [data-toggle="modal"]').click(openModal);
+							replacingContent(data.snippets[key]);
 						}
 						catch (e) {
-							$('#dialog').dialog('close');
+							doCloseModal();
+							//	@FIXME
+							history.go(changeCount);
+							changeCount = 0;
 						}
 					});
+			}
+			
 
+			//	Handler pro otevření okna.
+			function onOpenModal(e) 
+			{
+				if (! isModalOpened()) {
+					originalUrl = window.location.href;
+					doShowModal();
+					originalHistory = window.history;
+					deep += 1;
+				}
+				doLoadContent($(this).attr('href'));
+				changeCount -= 1;
+				history.pushState({'url': $(this).attr('href'), deep: deep, changeCount: changeCount}, null, $(this).attr('href'));
 				e.preventDefault();
 				return false;
 			}
 
-			$('[data-toggle="modal"]').click(openModal);
+
+			//	Handler pro zavření okna
+			function onCloseModal(e)
+			{
+				doCloseModal();
+				history.go(changeCount);
+				changeCount = 0;
+				e.preventDefault();
+				return false;
+			}
+
+			
+			//	Odkazy mající modal
+			$(document).on('click', 'a[data-toggle="modal"]', onOpenModal);
+			$(document).on('click', '#modal-window [data-dismiss="modal"]', onCloseModal);
+
+			//	Aktualizace stránky během historie.
+			window.onpopstate = function(e) {
+				if (e.state) {
+					if (isModalOpened()) {
+						doLoadContent(e.state.url)
+						changeCount = e.state.changeCount;
+						deep = e.state.deep;
+					}
+					else {
+						window.location.href = e.state.url;
+					}
+				}
+				else {
+					if (isModalOpened()) {
+						doCloseModal();
+					}
+				}
+			};
+
 
 		}
 	});
@@ -353,28 +427,3 @@ $(function(){
 
 
 });
-
-/*
-function openModal(modalId) {
-    //skryje menu, docasna ukazka
-    $('#showLeft').click();
-
-    $(modalId).show();
-    setTimeout(function() {
-        $(modalId).addClass('modal-opened');
-    }, 1);
-    $('.modal-overlay').fadeIn();
-    $('body').css('overflow', 'hidden');
-    history.pushState({'id': 1}, 'Detail1', 'detail/1');
-}
-
-function closeModal(modalId) {
-    $(modalId).removeClass('modal-opened');
-    setTimeout(function() {
-        $(modalId).hide();
-    }, 200);
-    $('.modal-overlay').fadeOut();
-    $('body').css('overflow', 'visible');
-    history.back();
-}
-*/

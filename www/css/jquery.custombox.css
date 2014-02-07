@@ -737,9 +737,12 @@ Slide from right with perspective on container
   -webkit-animation: rotateRightSideFirst 0.5s forwards ease-in;
   -ms-animation: rotateRightSideFirst 0.5s forwards ease-in;
   -ms-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   -ms-transform-origin: 0% 50%;
+  -webkit-transform-origin: 0% 50%;
   transform-origin: 0% 50%;
+  -webkit-animation: rotateRightSideFirst 0.5s forwards ease-in;
   animation: rotateRightSideFirst 0.5s forwards ease-in;
 }
 
@@ -820,9 +823,12 @@ Slip in from the top with perspective on container
   -webkit-animation: OpenTop 0.5s forwards ease-in;
   -ms-animation: OpenTop 0.5s forwards ease-in;
   -ms-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   -ms-transform-origin: 50% 100%;
+  -webkit-transform-origin: 50% 100%;
   transform-origin: 50% 100%;
+  -webkit-animation: OpenTop 0.5s forwards ease-in;
   animation: OpenTop 0.5s forwards ease-in;
 }
 
