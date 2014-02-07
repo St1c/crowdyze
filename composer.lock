@@ -483,12 +483,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tacoberu/nette-form-controls.git",
-                "reference": "89142423f6d84926a0c6544aacbc829c4a735722"
+                "reference": "2fb5b3e4a98762819b58eea13f445cd148c979e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tacoberu/nette-form-controls/zipball/89142423f6d84926a0c6544aacbc829c4a735722",
-                "reference": "89142423f6d84926a0c6544aacbc829c4a735722",
+                "url": "https://api.github.com/repos/tacoberu/nette-form-controls/zipball/2fb5b3e4a98762819b58eea13f445cd148c979e8",
+                "reference": "2fb5b3e4a98762819b58eea13f445cd148c979e8",
                 "shasum": ""
             },
             "require": {
@@ -514,7 +514,7 @@
                 "source": "https://github.com/tacoberu/nette-form-controls/tree/master",
                 "issues": "https://github.com/tacoberu/nette-form-controls/issues"
             },
-            "time": "2014-02-06 16:13:15"
+            "time": "2014-02-07 15:49:13"
         }
     ],
     "packages-dev": [

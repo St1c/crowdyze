@@ -61,7 +61,7 @@ class AddTaskControl extends BaseControl
 			->setDefaultValue(1)
 			->setAttribute('placeholder', 'addTask.form.workers_required');
 		
-		$component['deadline'] = new DateInput('Deadline:');
+		$component['deadline'] = new DateInput('Deadline:', DateInput::STYLE_SELECTS);
 		$component['deadline']->setDefaultValue((new DateTime())->add(new DateInterval('P1M')));
 		
 		$component->addText('departments', 'addTask.form.department')

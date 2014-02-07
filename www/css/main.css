@@ -554,6 +554,9 @@ legend {
 .buttons {
   margin-left: 20%;
 }
+.input {
+  white-space: nowrap;
+}
 /* - header - */
 .header {
   background-color: #f2f2f4;
