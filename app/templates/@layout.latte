@@ -78,7 +78,7 @@
                     <a href="">Profile</a>
                 </div>
                 {if $user->isLoggedIn()}
-                <a n:href="Task:add">{_layout.menu.add}</a>
+                <a n:href="Task:add" data-toggle="modal">{_layout.menu.add}</a>
                 <a n:href="User:">{_layout.menu.profile}</a>
                 <a n:href="changeLocale!, en">en</a>
                 <a n:href="changeLocale!, sk">sk</a>
@@ -101,7 +101,7 @@
 			<div class="submenu right">
 				<ul class="">
 					{if $user->isLoggedIn()}
-					<li><a n:href="Task:add">{_layout.menu.add}</a></li>
+					<li><a n:href="Task:add" data-toggle="modal">{_layout.menu.add}</a></li>
 					<li><a n:href="User:">{_layout.menu.profile}</a></li>
 					{/if}
 				</ul>
