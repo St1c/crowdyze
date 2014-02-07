@@ -334,6 +334,7 @@ $(function(){
 				doCloseModal();
 				history.go(changeCount);
 				changeCount = 0;
+				replacingContent('<p>Loading...</p>');
 				e.preventDefault();
 				return false;
 			}
