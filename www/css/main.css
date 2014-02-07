@@ -308,6 +308,9 @@ hr {
 .img-circle {
   border-radius: 50%;
 }
+.pull-right {
+  float: right;
+}
 /* -- buttons -- */
 .btn {
   padding: 4px 39px;
@@ -947,29 +950,25 @@ legend {
 .modal-holder {
   position: fixed;
   top: 0;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
-  width: 100%;
-  overflow: auto;
   z-index: 900;
   display: none;
+  overflow: auto;
+  width: 100%;
 }
 .modal {
-  z-index: 501;
-  width: 570px;
-  min-height: 400px;
-  margin: 50px auto;
-  text-align: center;
   position: relative;
+  z-index: 501;
+  margin: 50px auto;
+  width: 570px;
   border: 1px solid #d5d5d9;
   border-radius: 5px;
-  background-clip: padding-box;
   background-color: #fff;
+  background-clip: padding-box;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  -webkit-transform: translate(0, -25%);
-  -ms-transform: translate(0, -25%);
-  transform: translate(0, -25%);
+  text-align: center;
   -webkit-transition: all .3s ease;
   transition: all .3s ease;
 }
@@ -979,9 +978,9 @@ legend {
 }
 .modal h1,
 .single h1 {
+  margin-bottom: 15px;
   color: #169dd8;
   font-weight: normal;
-  margin-bottom: 15px;
 }
 .modal .price,
 .single .price {
@@ -990,14 +989,14 @@ legend {
 }
 .modal .details,
 .single .details {
-  border: 1px solid #f5f5f5;
-  font-size: 13px;
-  color: #6d6e70;
-  border-radius: 3px;
-  line-height: 20px;
-  padding: 9px;
-  text-align: center;
   margin-bottom: 20px;
+  padding: 9px;
+  border: 1px solid #f5f5f5;
+  border-radius: 3px;
+  color: #6d6e70;
+  text-align: center;
+  font-size: 13px;
+  line-height: 20px;
 }
 .modal .details li,
 .single .details li {
@@ -1016,84 +1015,91 @@ legend {
 .single .count {
   font-weight: normal;
 }
+.modal input:not([type="file"]):not([type="submit"]),
+.single input:not([type="file"]):not([type="submit"]),
+.modal textarea,
+.single textarea,
+.modal select,
+.single select,
+.modal .custom-select,
+.single .custom-select {
+  border: none;
+  border-bottom: 1px dashed #e5e5e7;
+}
 .modal-opened .modal {
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   transform: translate(0, 0);
 }
-.pull-right {
-  float: right;
-}
 .modal-close {
   position: absolute;
   top: 10px;
   right: 10px;
-  height: 14px;
-  width: 14px;
   display: block;
+  width: 14px;
+  height: 14px;
   background: url('../img/modal-close.png') no-repeat;
 }
 .modal-corner {
   position: absolute;
   top: -1px;
   left: -1px;
-  height: 20px;
   display: block;
-  background: url('../img/corner-green.png') no-repeat;
-  line-height: 20px;
-  font-size: 11px;
-  padding-left: 20px;
   padding-top: 8px;
+  padding-left: 20px;
+  height: 20px;
+  font-size: 11px;
+  line-height: 20px;
 }
 .modal-corner a {
-  text-transform: uppercase;
   color: #b0b0bc;
   text-decoration: none;
+  text-transform: uppercase;
 }
 .modal-overlay {
-  background-color: #fff;
-  opacity: 0.8;
   position: absolute;
   top: 0;
-  left: 0;
-  bottom: 0;
   right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 800;
   width: 100%;
   height: 100%;
-  z-index: 800;
+  background-color: #fff;
+  opacity: 0.8;
 }
 .form-addjob {
-  padding-top: 8px;
   margin: 20px 40px;
+  padding-top: 8px;
 }
 .form-addjob .textinput {
   display: block;
-  text-align: center;
-  margin: 0 auto;
-  padding: 0;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0;
   width: 100%;
   border: none;
   border-bottom: 1px dashed #e5e5e7;
   background: none;
+  text-align: center;
 }
 .modal-inputs {
-  width: 80%;
   margin: 0 auto;
+  width: 80%;
 }
 .modal-col {
+  float: left;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  width: 33%;
   padding: 0 10px;
-  float: left;
+  width: 33%;
 }
 .modal-col input {
-  font-size: 13px;
+  margin-bottom: 33px;
   height: 23px;
   color: #6b6e70;
-  margin-bottom: 33px;
+  font-size: 13px;
   line-height: 23px;
 }
 .modal-col input::-webkit-input-placeholder {
@@ -1102,58 +1108,86 @@ legend {
 .modal-col input:-ms-input-placeholder {
   color: #6b6e70;
 }
-.input-tag {
-  font-size: 15px;
+.modal-col input::placeholder {
+  color: #6b6e70;
+}
+.modal-col .input-payment {
+  width: 100%;
+  border: none;
+  border-radius: none;
+  height: 22px;
+  margin: -1px 0 0 0;
+}
+.modal-col .input-payment .customSelectInner {
+  background: none;
+  width: 0;
+  padding: 0;
+  border: 0;
+}
+.form-addjob .input-tag {
+  margin-top: 10px;
+  margin-bottom: 12px;
   height: 25px;
   color: #6d6e70;
-  margin-bottom: 12px;
+  font-size: 15px;
   line-height: 25px;
-  margin-top: 10px;
 }
-.input-tag::-webkit-input-placeholder {
+.form-addjob .input-tag::-webkit-input-placeholder {
   color: #6d6e70;
 }
-.input-tag:-ms-input-placeholder {
+.form-addjob .input-tag:-ms-input-placeholder {
+  color: #6d6e70;
+}
+.form-addjob .input-tag::placeholder {
   color: #6d6e70;
 }
 .form-addjob .input-title {
-  font-size: 30px;
+  margin-bottom: 20px;
   height: 40px;
   color: #169dd8;
-  margin-bottom: 20px;
+  font-size: 30px;
   line-height: 40px;
 }
-.input-title::-webkit-input-placeholder {
+.form-addjob .input-title::-webkit-input-placeholder {
   color: #169dd8;
 }
-.input-title:-ms-input-placeholder {
+.form-addjob .input-title:-ms-input-placeholder {
   color: #169dd8;
+}
+.form-addjob .input-title::placeholder {
+  color: #169dd8;
+}
+.form-addjob .salary span {
+  display: inline-block;
 }
 .form-addjob .input-price {
-  font-size: 30px;
+  margin-bottom: 33px;
   height: 40px;
   color: #4ece97;
-  margin-bottom: 33px;
+  font-size: 30px;
   line-height: 40px;
 }
-.input-price::-webkit-input-placeholder {
+.form-addjob .input-price::-webkit-input-placeholder {
   color: #4ece97;
 }
-.input-price:-ms-input-placeholder {
+.form-addjob .input-price:-ms-input-placeholder {
+  color: #4ece97;
+}
+.form-addjob .input-price::placeholder {
   color: #4ece97;
 }
 .input-description {
-  font-size: 15px;
-  color: #3b3c3d;
-  margin-bottom: 20px;
-  text-align: center;
   display: block;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  margin-bottom: 20px;
   padding-top: 5px;
+  height: 100px;
   border: none;
   background: none;
-  height: 100px;
+  color: #3b3c3d;
+  text-align: center;
+  font-size: 15px;
 }
 .input-description::-webkit-input-placeholder {
   color: #3b3c3d;
@@ -1161,27 +1195,30 @@ legend {
 .input-description:-ms-input-placeholder {
   color: #3b3c3d;
 }
+.input-description::placeholder {
+  color: #3b3c3d;
+}
 .attachements li {
   display: inline-block;
 }
 .attachements li a {
-  font-size: 11px;
-  line-height: 15px;
-  color: #169dd8;
+  display: inline-block;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  width: 90px;
-  height: 100px;
-  display: inline-block;
   margin: 5px;
   padding-top: 56px;
+  width: 90px;
+  height: 100px;
   border: 1px solid #fff;
   border-radius: 3px;
+  color: #169dd8;
+  font-size: 11px;
+  line-height: 15px;
 }
 .attachements li a:hover {
-  text-decoration: none;
   border: 1px solid #e9e9eb;
   box-shadow: inset 0 0 15px rgba(234, 234, 236, 0.15);
+  text-decoration: none;
 }
 .attachements .file-size {
   display: block;
