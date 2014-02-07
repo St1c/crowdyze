@@ -3,7 +3,8 @@
 namespace App;
 
 
-use Nette\Application\UI\Presenter;
+use Nette\Application\UI\Presenter,
+	Nette\Application\Responses\FileResponse;
 use Model\Services\FileManager;
 use Taco\Nette\Application\Responses\ImageResponse;
 
@@ -30,6 +31,14 @@ class FilePresenter extends BasePresenter
 	{
 		$entry = $this->filesystemModel->getImageThumbBy($path, $type, $x, $y, $w, $h);
 		$this->sendResponse(new ImageResponse($entry));
+	}
+
+
+
+	public function renderFile($category, $token, $path)
+	{
+		$entry = $this->filesystemModel->getFileBy($category, $token, $path);
+		$this->sendResponse(new FileResponse($entry));
 	}
 
 

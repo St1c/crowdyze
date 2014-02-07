@@ -287,6 +287,19 @@ class FileManager extends Nette\Object
 
 
 
+	public function getFileBy($category, $token, $path)
+	{
+		$path = implode(DIRECTORY_SEPARATOR, array(
+				$this->wwwDir, 
+				$category, 
+				$token, 
+				$path
+				));
+		return $path;
+	}
+
+
+
 	/**
 	 * Validate of enums.
 	 */

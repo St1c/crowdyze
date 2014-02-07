@@ -20,6 +20,14 @@ class RouterFactory
 	public function createRouter()
 	{
 		$router = new RouteList();
+		$router[] = new Route('article/<id>', 'Article:view');
+		$router[] = new Route('content/<category>/<token>/<path>', array(
+			'presenter' => 'File',
+			'action' 	=> 'file',
+			'category'	=> NULL,
+			'token'		=> NULL,
+			'path'		=> NULL,
+		));
 		$router[] = new Route('<presenter>/<action>[/<token>]', array(
 			'presenter' => 'Task',
 			'action' 	=> 'default',
