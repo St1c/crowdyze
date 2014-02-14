@@ -1,4 +1,17 @@
 /* - base styles - */
+@white: 			#fff;
+@color-text: 		#868687;
+@primary-color: 	#4ece97;
+// @primary-color: 	#53da6a;
+@facebook-color: 	#4D95DA;
+@google-color: 		#F37B63;
+
+::before, 
+::after, 
+* {
+	box-sizing: border-box;
+}
+
 body {
 	font-size:15px;
 	color:#3b3c3d;
@@ -23,7 +36,7 @@ h1 {
 	font-size:30px;
 	font-family:'Open Sans',sans-serif;
 	font-weight:normal;
-	color:#4ece97;
+	color:@primary-color;
 	margin-bottom:22px;
 	padding-top:10px;
 	line-height:40px;

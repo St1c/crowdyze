@@ -7,6 +7,29 @@
 	height: 80px;
 }
 
+.header-lg {
+
+	height: 130px;
+
+	&.logo-lg a {
+		color: @primary-color;		
+		display: inline-block;
+		line-height: 130px;
+		font-size: 57px;
+		vertical-align: middle;
+		text-align: center;
+		text-decoration: none;
+		cursor: pointer;
+		font-family: Arial;
+		margin: 0;
+		padding: 0;
+
+		span {
+			color: #B1AEBD;
+		}
+	}
+}
+
 .logo {
 	position: relative;
 	vertical-align: middle;
@@ -30,7 +53,7 @@
 }
 
 .toppanel {
-	background-color: #4ece97;
+	background-color: @primary-color;
 	color: #fff;
 	font-size: 20px;
 	line-height: 30px;

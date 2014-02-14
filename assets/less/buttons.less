@@ -1,71 +1,66 @@
 /* -- buttons -- */
-.btn {
+.btn { 
+	display:inline-block;
 	padding:4px 39px; 
-	line-height:20px; 
-	background-color:#dedee3; 
 	border:1px solid #ceced2; 
-	font-size:15px; 
+	border-radius:3px; 
+	background-color:#dedee3; 
+	background-image:url('../img/btn-default.png'); 
+	background-size:1px 100%; 
+	box-shadow:0 1px 3px rgba(0,0,0,.15); 
 	color:#515157; 
 	text-decoration:none; 
-	-moz-box-shadow:0 1px 3px rgba(0,0,0,.15); 
-	-webkit-box-shadow:0 1px 3px rgba(0,0,0,.15); 
-	box-shadow:0 1px 3px rgba(0,0,0,.15); 
-	-moz-border-radius:3px; 
-	-webkit-border-radius:3px; 
-	border-radius:3px; 
-	background-size:1px 100%; 
-	background-image:url('../img/btn-default.png'); 
-	cursor:pointer; 
-	display:inline-block;
+	font-size:15px; 
+	line-height:20px; 
+	cursor:pointer;
 
-	&:hover {
-		text-decoration: none; 
-		background-image: url('../img/btn-default_hover.png'); 
+	&:hover { 
 		border: 1px solid #cacacd; 
+		background-image: url('../img/btn-default_hover.png');
+		text-decoration: none; 
 	}
 
-	&:active {
-		background-image:url('../img/btn-default_active.png'); 
+	&:active { 
 		border:1px solid #ceced2;
+		background-image:url('../img/btn-default_active.png');
 	}
 }
 
 .btn-large {
 	padding:9px 39px; 
-	-moz-border-radius:5px; 
-	-webkit-border-radius:5px; 
 	border-radius:5px; 
 }
 
-.btn-primary {
-	background-image:url('../img/btn-primary.png');background-color:#59d19d; 
-	border:1px solid #45b584; 
+.btn-primary { 
+	border:1px solid #45b584;
+	background-color:#59d19d;
+	background-image:url('../img/btn-primary.png'); 
 	color:#fff; 
 
 	&:active {
 		background-image:url('../img/btn-primary_active.png');
 	}
 
-	&:hover {
+	&:hover { 
+		border:1px solid #40a87b;
 		background-image:url('../img/btn-primary_hover.png'); 
-		border:1px solid #40a87b 
 	}
 }
 
 
-.btn-warning {
-	background-image:url('../img/btn-warning.png'); 
-	background-color:#ff846c; 
+.btn-warning { 
 	border:1px solid #e6715a; 
+	background-color:#ff846c;
+	background-image:url('../img/btn-warning.png'); 
 	color:#fff;
 
 	&:active {
 		background-image:url('../img/btn-warning_active.png');
 	}
 
-	&:hover {
-		background-image:url('../img/btn-warning_hover.png'); 
+	&:hover { 
 		border:1px solid #d96b55;
+		background-image:url('../img/btn-warning_hover.png');
 	}
 }
 
