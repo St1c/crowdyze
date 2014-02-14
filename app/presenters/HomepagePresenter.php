@@ -12,7 +12,7 @@ use Model,
 /**
  * Homepage presenter.
  */
-class HomepagePresenter extends BaseSignedPresenter
+class HomepagePresenter extends BasePresenter
 {
 	/** @var Nette\Mail\IMailer @inject */
 	public $mailer;
@@ -24,5 +24,12 @@ class HomepagePresenter extends BaseSignedPresenter
 	public $userService;
 
 
+	/** @var Controls\ISocialLoginControlFactory @inject */
+	public $socialLoginControlFactory;
+
+	public function createComponentSocialLogin()
+	{
+		return $this->socialLoginControlFactory->create();
+	}
 
 }

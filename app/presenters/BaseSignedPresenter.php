@@ -27,7 +27,7 @@ abstract class BaseSignedPresenter extends BasePresenter
 		parent::startup();
 
 		if (!$this->getUser()->isLoggedIn()) {
-			$this->redirect('Sign:', array( 'backlink' => $this->storeRequest() ));
+			$this->redirect('Homepage:', array( 'backlink' => $this->storeRequest() ));
 		}
 		else {
 			$this->backlink = NULL;
@@ -42,7 +42,7 @@ abstract class BaseSignedPresenter extends BasePresenter
 	{
 		$this->getUser()->logout(TRUE);
 		$this->flashMessage('Successfully signed out!', 'alert-success');
-		$this->redirect('Sign:');
+		$this->redirect('Homepage:');
 	}
 
 

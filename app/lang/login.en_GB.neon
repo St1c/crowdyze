@@ -1,7 +1,7 @@
 button:
-	google: "Log in with Google"
-	facebook: "Log in with Facebook"
-	email_login: "Log in with your email"
+	google: "Sign up with Google+"
+	facebook: "Sign up with Facebook"
+	email_login: "Sign up with E-mail"
 
 form: 
 	email: "Email"
@@ -21,7 +21,7 @@ registerForm:
 
 template:
 	login: "Login"
-	email_sign_up: "Sign up with your email"
+	email_sign_up: "Sign up with your E-mail"
 	already_registered: "Already registered?"
 	not_registered: "You don't have account yet?"
 	log_in_email: "Login with your email"

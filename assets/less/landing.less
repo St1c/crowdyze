@@ -1,0 +1,108 @@
+.jumbotron {
+	position: relative;
+	width: 100%;
+	height: 350px;
+	background-color: @primary-color;
+
+	.container {
+		margin: auto;
+		padding: 10px 30px;
+		width: 980px;
+		text-align: center;
+
+		.slogan {
+			margin: 0 auto 10px;
+			max-width: 600px;
+		}
+
+		h1, h2, h3, h4, h5, h6 {
+			margin: auto;
+			color: @white;
+			font-weight: 300 !important;
+		}
+
+		h1 {
+			margin-bottom: 5px;
+			padding-top: 15px;
+			letter-spacing: 0.03em;
+		}
+
+		p {
+			color: @white;
+
+			a {
+				color: #3B3C3D;
+				text-decoration: underline;
+			}
+		}
+	}
+
+	.login-wrapper {
+		margin-bottom: 10px;
+	}
+
+	.btn-login {
+		box-sizing: border-box;
+		margin: 15px;
+		padding: 20px 20px;
+		width: 270px;
+		border: 0px;
+		background-image: none;
+		box-shadow: none;
+		color: @white; 
+		text-align: center;
+		font-size: 17px;
+		line-height: 1.7;
+
+			&:hover {
+				text-decoration: none; 
+				// border: 0; 
+				background-image: none; 
+			}
+
+			&:active { 
+				// border: 0;
+				background-image: none;
+			}
+
+	}
+
+	.btn-facebook {
+		border: 1px solid @facebook-color;
+		background-color: @facebook-color;
+	}
+
+	.btn-google {
+		border: 1px solid @google-color;
+		background-color: @google-color;
+	}
+
+	.btn-email {
+		border: 1px solid #ADEBC9;
+		background-color: @primary-color;
+	}
+}
+
+.wrapper-home {
+	// box-sizing: border-box;
+	position: relative;
+	margin-top: -30px;
+	padding-top: 0;
+
+	h2 {
+		color: @primary-color;
+		font-weight: 300;
+		text-align: center;
+	}
+
+	.content {
+		padding: 0;
+	}
+}
+
+.footer {
+	margin: 15px;
+	color: @color-text;
+	text-align: center;
+	font-size: 12px;
+}

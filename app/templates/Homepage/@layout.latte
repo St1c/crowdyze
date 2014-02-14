@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>{block #title|striptags|capitalize}Crowdyze.me{/block}</title>
+        <link rel="shortcut icon" href="favicon.ico" />
+
+		<meta name="description" content="The right place for sharing small jobs and earning nice money" />
+		<meta name="keywords" content="crowdsourcing, jobs, small tasks" />
+		<meta name="robots" content="{$robots}" n:ifset="$robots">
+
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'>
+        <meta name="viewport" content="width=device-width">
+
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{$basePath}/css/main.min.css">
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="{!$basePath}/js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+
+		<script src="{$basePath}/js/common.min.js"></script>
+		<script src="{$basePath}/js/nette.min.js"></script>
+		<script src="{$basePath}/js/main.min.js"></script>
+
+		{block #head}{/block}
+	</head>
+
+	<body class="no-js cbp-spmenu-push">
+
+        <div class="header header-lg logo-lg">
+        	<a>crowdyze<span>me</span></a>
+        </div>
+
+		{include #content}			
+
+		<div class="footer">
+			&copy; Copyright 2014, Crowdyze.me
+		</div>
+		
+		{block #scripts}
+		{/block}
+		<script n:syntax="asp">
+			// var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+			// (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+			// g.src='//www.google-analytics.com/ga.js';
+			// s.parentNode.insertBefore(g,s)}(document,'script'));
+		</script>
+		
+	</body>
+</html>
