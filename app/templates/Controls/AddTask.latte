@@ -19,8 +19,8 @@
 
 		{input title, class=>'textinput input-title'}
 
-		<div class='salary'>
-			<span>Get &euro;</span>
+		<div class='salary clearfix'>
+			<span>Get &euro;&nbsp;</span>
 			{input salary class=>'textinput input-price', id => "salary"}
 		</div>
 
@@ -32,7 +32,7 @@
 				{input workers class => "textinput input-workers" , id => "workers"}
 			</div>
 			<div class="modal-col">
-				{input deadline class => "custom-select input-date input"}{errors deadline}
+				{input deadline class => "input-date input"}{errors deadline}
 			</div>
 		</div>
 
@@ -49,26 +49,26 @@
 			{label promotion /}
 			{input promotion class=>'promotion'}
 		</div>
+*}
 
 		<div id="budget">
 			<p>Estimated costs: <span class="value"></span> &euro;</p>
 		</div>
-*}
-		<hr />
-
-		<div class="attachements">
-			<h5>Atachements</h5>
-			{input attachments}{errors attachments}
-			{input attachmentPreload, style=>"visibility:hidden"}
-			<div style="clear:both"></div>
-		</div>
-
-		<hr />
 
 		<div class="controls">
 			{input submit, class=>'btn btn-large btn-primary'}
 			<!-- {input cancel, class=>'btn', 'data-dismiss'=>"modal", 'data-toggle'=>"modal"} -->
 		</div>
+
+		<hr />
+
+		<div class="attachements">
+			<h5>Attachments</h5>
+			{input attachments}{errors attachments}
+			{input attachmentPreload, style=>"visibility:hidden"}
+			<div style="clear:both"></div>
+		</div>
+
 
 	{/form}
 

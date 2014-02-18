@@ -1,87 +1,91 @@
 /* -- header -- */
-.toolbar {
-	z-index: 50;
-	right: 0;
-	top: 14px;
-	position: absolute;
+.toolbar
+{
+    position: absolute;
+    z-index: 50;
+    top: 14px;
+    right: 0;
+	
+	li {
+	    line-height: 40px;
+
+	    display: inline-block;
+
+	    padding: 5px 20px;
+
+	    vertical-align: top;
+
+	    border-left: 1px solid #e1e1e3;
+	    
+	    &:first-child {
+		    border: none;
+		}
+		img {
+		    display: block;
+		}
+	}
 }
 
-.toolbar li {
-	padding: 5px 20px;
-	line-height: 40px;
-	border-left: 1px solid #e1e1e3;
-	display: inline-block;
-	vertical-align: top;
+.filter
+{
+    position: absolute;
+    z-index: 600 !important;
+    top: 20px;
+    left: 20px;
+
+    display: block;
+
+    width: 40px;
+    height: 40px;
+
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    background: url('../img/icon-filter.png') center no-repeat;
 }
 
-.toolbar li:first-child {
-	border: none;
+.filter-close
+{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+
+    border-color: @primary-color;
+    background-image: url('../img/icon-filter-active.png');
 }
 
-.toolbar li img {
-	display: block;
+.user
+{
+    height: 40px;
 }
 
+.email
+{
+    position: relative;
 
-.filter {
-	background: url('../img/icon-filter.png') center no-repeat;
-	width: 40px;
-	display: block;
-	height: 40px;
-	border: 1px solid #ccc;
-	-moz-border-radius: 25px;
-	-webkit-border-radius: 25px;
-	border-radius: 25px;z-index: 600 !important;
-	position: absolute;
-	top: 20px;
-	left: 20px;
+    display: block;
+
+    width: 40px;
+    height: 40px;
+
+    background: url('../img/icon-mail.png') center no-repeat;
 }
 
-.filter-close {
-	position: absolute;
-	top: 20px;
-	left: 20px;
-	border-color: @primary-color;
-	background-image: url('../img/icon-filter-active.png');
+.badge
+{
+    font-size: 14px;
+    line-height: 20px;
+
+    position: absolute;
+    top: -8px;
+    right: -8px;
+
+    width: 26px;
+    height: 26px;
+
+    color: #fff;
+    border: 3px solid #f2f2f4;
+    border-radius: 13px;
+    background-color: #ff836a;
+    background-image: linear-gradient(to bottom,rgba(0,0,0,.01) 0%,rgba(255,255,255,.01) 100%);
+    box-shadow: 0 2px 4px rgba(0,0,0,.19);
 }
-
-.user {
-	height: 40px;
-
-}
-
-.email {
-	background: url('../img/icon-mail.png') center no-repeat;
-	width: 40px;
-	display: block;
-	height: 40px;
-	position: relative 
-}
-
-.badge {
-	position: absolute;
-	height: 22px;
-	height: 20px;
-	width: 20px;
-	line-height: 20px;
-	background-color: #ff836a;
-	-moz-border-radius: 11px;
-	-webkit-border-radius: 11px;
-	border-radius: 11px;
-	border: 3px solid #f2f2f4;
-	color: #fff;
-	font-size: 14px;
-	right: -8px;
-	top: -8px;
-	-moz-border-radius: 13px;
-	-webkit-border-radius: 13px;
-	border-radius: 13px;
-	-moz-box-shadow: 0 2px 4px rgba(0,0,0,.19);
-	-webkit-box-shadow: 0 2px 4px rgba(0,0,0,.19);
-	box-shadow: 0 2px 4px rgba(0,0,0,.19);
-	background-image: -moz-linear-gradient(bottom,rgba(0,0,0,.01) 0%,rgba(255,255,255,.01) 100%);
-	background-image: -o-linear-gradient(bottom,rgba(0,0,0,.01) 0%,rgba(255,255,255,.01) 100%);
-	background-image: -webkit-linear-gradient(bottom,rgba(0,0,0,.01) 0%,rgba(255,255,255,.01) 100%);
-	background-image: linear-gradient(bottom,rgba(0,0,0,.01) 0%,rgba(255,255,255,.01) 100%);
-}
-

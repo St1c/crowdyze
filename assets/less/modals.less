@@ -73,11 +73,14 @@
 	}
 
 	input:not([type="file"]):not([type="submit"]), 
-	textarea,
 	select,
 	.custom-select {
 		border: none;
 		border-bottom: 1px dashed #e5e5e7;
+	}
+
+	#budget p {
+		margin-bottom: 0;
 	}
 }
 
@@ -103,9 +106,8 @@
 	padding-top: 8px; 
 	padding-left: 20px; 
 	height: 20px; 
-	// background: url('../img/corner-green.png') no-repeat; 
-	font-size: 11px; 
-	line-height: 20px;
+	line-height: 20px; 
+	font-size: 11px;
 
 	a { 
 		color: #b0b0bc;
@@ -169,17 +171,17 @@
 	}
 
 	.input-payment {
+		margin: -1px 0 0 0;
 		width:100%;
+		height: 22px;
 		border: none;
 		border-radius: none;
-		height: 22px;
-		margin: -1px 0 0 0;
 
 		.customSelectInner {
-			background: none;
-			width:0;
 			padding: 0;
+			width:0;
 			border: 0;
+			background: none;
 		}
 	}
 
@@ -213,12 +215,27 @@
 	}
 
 	.salary {
+		display: inline-block;
+		margin-left: auto;
+		text-align: center;
 
-		// float: left;
-		// clear: right;
-// 
 		span {
+			display: inline-block;		
+			float: left;
+			margin-bottom: 33px; 
+			height: 40px;
+			border: none;
+			border-bottom: 1px dashed #e5e5e7; 
+			color: @primary-color;
+			font-size: 30px; 
+			line-height: 40px;
+		}
+
+		.input-price {
 			display: inline-block;
+			float: left;
+			min-width: 68px;
+			width: 68px;
 		}
 	}
 
@@ -250,54 +267,4 @@
 	&::placeholder {
 		color: #3b3c3d; 
 	}
-}
-
-.attachements li {
-
-	display: inline-block;
-	
-	a { 
-		display: inline-block; 
-		box-sizing: border-box; 
-		margin: 5px; 
-		padding-top: 56px; 
-		width: 90px; 
-		height: 100px; 
-		border: 1px solid #fff;
-		border-radius: 3px; 
-		color: #169dd8;
-		font-size: 11px; 
-		line-height: 15px; 
-		
-		&:hover { 
-			border: 1px solid #e9e9eb; 
-			box-shadow: inset 0 0 15px rgba(234,234,236,.15);
-			text-decoration: none;
-		}
-	}
-}
-
-.attachements .file-size {
-	display: block; 
-	color: #6d6e70;
-}
-
-.file-doc {
-	background: url('../img/icon-doc.png') center 12px no-repeat; 
-
-}
-
-.file-avi {
-	background: url('../img/icon-avi.png') center 16px no-repeat; 
-
-}
-
-.file-jpg {
-	background: url('../img/icon-jpg.png') center 10px no-repeat; 
-
-}
-
-.file-mp3 {
-	background: url('../img/icon-mp3.png') center 10px no-repeat; 
-
 }

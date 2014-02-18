@@ -48,12 +48,12 @@ class Helpers extends Nette\Object
 	public static function mediaType($type)
 	{
 		switch ($type) {
-			case 'x':
+			case 'video':
 				return 'file-avi';
-			case 'x':
+			case 'music':
 				return 'file-mp3';
 			case 'image':
-				return 'file-jpg';
+				return 'file-img';
 			default:
 				return 'file-doc';
 		}

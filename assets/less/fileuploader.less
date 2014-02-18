@@ -1,62 +1,72 @@
+.file-uploader {
+	li {
+		position: relative;
+		float: left;
+		margin: 5px;
+		width: 90px;
+		height: 100px;
+		border: 1px solid white;
+		list-style: none;
+		
+		input[type="checkbox"] {
+			visibility: hidden;
+			position: absolute;
+			right: 0;
+		}
 
-.single-task input:not([type="submit"]), 
-.single-task textarea, 
-.single-task select, 
-.single-task button, 
-.user-profile input:not([type="submit"]), 
-.user-profile textarea, 
-.user-profile select, 
-.user-profile button {
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border: 1px solid gray;
-    color: inherit;
-    display: inline-block;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    line-height: inherit;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-	}
+		span {
+			display: inline-block; 
+			padding-top: 56px; 
+			border: 1px solid #fff;
+			color: #169dd8;
+			font-size: 11px; 
+			line-height: 15px; 
+			text-align: center;
+		}
 
-div.attachments div.tail,
-div.attachments ul li {
-	border: 1px solid white;
-	width: 90px;
-	height: 100px;
-	float: left;
-	margin: 5px;
-	}
-div.attachments div.tail a,
-div.attachments ul li.file span {
-    font-size: 9pt;
-    position: relative;
-    top: 50px;
-	}
-div.attachments input.file-add,
-div.attachments ul li.file.new-file {
-	width: 90px;
-	height: 100px;
-	background-image: url("/images/ico-attachments-new.png");
+		&:hover {
+			border: 1px solid #e9e9eb; 
+			border-radius: 3px; 
+			box-shadow: inset 0 0 15px rgba(234,234,236,.15);
+			text-decoration: none;
+
+			input[type="checkbox"] {
+				visibility: visible;
+			}
+		}
 	}
 
-div.attachments div.tail.image,
-div.attachments ul li.file {
-	background-image: url("/images/ico-attachments-image.png");
+	.new-file {
+		cursor: pointer;
+		background: url("../img/icon-new.png") center center no-repeat;
+		
+		input {
+			display: none;
+		}
+		
+		&:hover {
+			border: 1px solid @white;
+		}
 	}
-div.attachments div.tail:hover,
-div.attachments ul li:hover {
-	border: 1px solid gray;
+}
+
+.uploading-file,
+.uploaded {
+
+	.file-doc {
+		background: url('../img/icon-doc.png') center 12px no-repeat; 
 	}
-div.attachments ul {
-	margin: 0;
-	padding:0;
+
+	.file-avi {
+		background: url('../img/icon-avi.png') center 16px no-repeat; 
 	}
-div.attachments ul li.file.new-file input {
-	margin-left: 90px;
+
+	.file-img,
+	.image {
+		background: url('../img/icon-jpg.png') center 10px no-repeat; 
 	}
-div.attachments ul li.file {
-	list-style: none;
-	padding: 0;
+
+	.file-mp3 {
+		background: url('../img/icon-mp3.png') center 10px no-repeat; 
 	}
+}
