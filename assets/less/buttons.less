@@ -64,6 +64,21 @@
 	}
 }
 
+.btn-color(@color, @border-color: @color, @darken: 5%) {
+  border: 1px solid @border-color;
+  background-color: @color;
+
+  &:hover {
+    border: 1px solid @border-color;
+    background-color: darken(@color, @darken)
+  }
+
+  &:active { 
+    border: 1px solid @border-color;
+    background-color: darken(@color, @darken)
+  }
+} 
+
 .addjob-icon {
 	display:none;
 }

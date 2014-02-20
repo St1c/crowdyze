@@ -4,3 +4,7 @@ jumbo:
 body: 
 	header-worker: "Chcem zarobiť"
 	header-employer: "Chcem ušetriť"
+	saved: "Už ste ušetrili"
+	earned: "Už ste zarobili"
+	want-save: "Chcem znížiť náklady"
+	want-earn: "Chcem si zarobiť"

@@ -1,10 +1,11 @@
 header:
 	add_new_task: "Add new task"
 form:
-	title: "We need to...(click to edit)"
+	title: "We need to..."
 	title_missing: "You did not enter any title"
 	description: "Description"
 	description_missing: "You forgot to describe the task..."
+	get_salary: "Get"
 	salary: "..."
 	salary_missing: "How much do you want to pay?"
 	budget_type: "Budget type"
@@ -14,8 +15,10 @@ form:
 	deadline: "Deadline"
 	departments: "Departments"
 	promotion: "Promotions:"
+	costs: "Estimated costs"
 	submit: "I'm done, publish the job"
 	cancel: "Cancel"
+	attachments: "Attachments"
 
 budgetType:
 	Pay_only_the_best_one: "Pay only the best one"

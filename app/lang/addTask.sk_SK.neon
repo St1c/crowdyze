@@ -1,21 +1,24 @@
 header:
 	add_new_task: "Pridať úlohu"
 form:
-	title: "Nadpis"
+	title: "Potrebujem urobiť..."
 	title_missing: "Nezadali ste nadpis"
-	description: "Popis"
+	description: "Sem zadajte popis úlohy"
 	description_missing: "Zabudli ste napísať popis úlohy..."
-	salary: "Zaplať"
+	get_salary: "Zarob"
+	salary: "..."
 	salary_missing: "Nezadali ste žiadnu hodnotu"
 	budget_type: "Typ ohodnotenia"
-	tags: "Tagy"
+	tags: "Tagy pre zaradenie"
 	upload:	"Nahraj"
 	workers_required: "Koľko potrebujete pracovnikov?"
 	deadline: "Deadline"
 	departments: "Oddelenia"
 	promotion: "Zvýraznenie"
-	submit: "Odoslať"
+	costs: "Celkové náklady"
+	submit: "Hotovo, odoslať zadanie!"
 	cancel: "Zrušiť"
+	attachments: "Prílohy"
 
 budgetType:
 	Pay_only_the_best_one: "Iba najlepší"
@@ -23,5 +26,5 @@ budgetType:
 	Pay_all: "Všetkým"
 
 flashes:
-	task_added: "Úloha pridana!"
+	task_added: "Úloha pridaná!"
 	task_edited: "Úloha upravená!"

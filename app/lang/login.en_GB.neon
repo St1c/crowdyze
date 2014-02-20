@@ -1,34 +1,34 @@
 button:
 	google: "Sign up with Google+"
 	facebook: "Sign up with Facebook"
-	email_login: "Sign up with E-mail"
+	email-login: "Sign up with E-mail"
 
 form: 
 	email: "Email"
-	email_warning: "You did not enter yor email"
+	email-warning: "You did not enter yor email"
 	password: "Password"
-	password_warning: "You did not enter your password"
-	sign_in: "Sign in"
+	password-warning: "You did not enter your password"
+	sign-in: "Sign in now"
 
 loginForm:
 
 registerForm:
-	password_length: "Password must be at least %length% characters long."
-	password_match: "Passwords must match."
-	password_repeat: "Repeat password"
-	password_repeat_warning: "You did not repeat your password."
-	sign_up: "Sign up"
+	password-length: "Password must be at least %length% characters long."
+	password-match: "Passwords must match."
+	password-repeat: "Repeat password"
+	password-repeat-warning: "You did not repeat your password."
+	sign-up: "Sign up now"
 
 template:
 	login: "Login"
-	email_sign_up: "Sign up with your E-mail"
-	already_registered: "Already registered?"
-	not_registered: "You don't have account yet?"
-	log_in_email: "Login with your email"
-	sign_up_email: "Sign up with your email"
+	email-sign-up: "Sign up with your E-mail"
+	already-registered: "Already have an account?"
+	not-registered: "You don't have account yet?"
+	log-in-email: "Login with your email"
+	sign-up-email: "Sign up with your email"
 
 flashes:
-	register_success: "Successfully registered!"
-	login_success: "Logged in"
-	social_login_success: "Successfully logged in with your %type% account."
-	google_permission: "Please allow this application to access your Google account in order to log in."
+	register-success: "Successfully registered!"
+	login-success: "Logged in"
+	social-login-success: "Successfully logged in with your %type% account."
+	google-permission: "Please allow this application to access your Google account in order to log in."

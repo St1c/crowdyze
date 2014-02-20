@@ -1,34 +1,34 @@
 button:
-	google: "Prihlásiť cez Google"
+	google: "Prihlásiť cez Google+"
 	facebook: "Prihlásiť cez Facebook"
-	email_login: "Prihlásiť emailom"
+	email-login: "Prihlásiť emailom"
 
 form:
 	email: "Email"
-	email_warning: "Nezadali ste email"
+	email-warning: "Nezadali ste email"
 	password: "Heslo"
-	password_warning: "Nezadali ste heslo"
-	sign_in: "Prihlásiť"
+	password-warning: "Nezadali ste heslo"
+	sign-in: "Prihláste sa"
 
 loginForm:
 
 registerForm:
-	password_length: "Heslo musí mať min. %length% znakov"
-	password_match: "Heslá sa musia zhodovať"
-	password_repeat: "Zopakovať heslo"
-	password_repeat_warning: "Nezopakovali ste heslo"
-	sign_up: "Registrovať"
+	password-length: "Heslo musí mať min. %length% znakov"
+	password-match: "Heslá sa musia zhodovať"
+	password-repeat: "Zopakovať heslo"
+	password-repeat-warning: "Nezopakovali ste heslo"
+	sign-up: "Registrovať"
 
 template:
 	login: "Prihlásiť"
-	email_sign_up: "Registrovať emailom"
-	already_registered: "Ste registrovaný?"
-	not_registered: "Ešte nemáte účet?"
-	log_in_email: "Prihlásiť emailom"
-	sign_up_email: "Registrovať s emailom"
+	email-sign-up: "Registrovať emailom"
+	already-registered: "Už ste registrovaný?"
+	not-registered: "Ešte nemáte účet?"
+	log-in-email: "Prihlásiť emailom"
+	sign-up-email: "Registrovať s emailom"
 
 flashes:
-	register_success: "Registrácia úspešná!"
-	login_success: "Prihlásenie úspešné"
-	social_login_success: "Úspešné prihlásenie pomocou %type% účtu."
-	google_permission: "Prosím povoľte prístup k údajom z Vášho Google účtu kvôli úspešnému prihláseniu."
+	register-success: "Registrácia úspešná!"
+	login-success: "Prihlásenie úspešné"
+	social-login-success: "Úspešné prihlásenie pomocou %type% účtu."
+	google-permission: "Prosím povoľte prístup k údajom z Vášho Google účtu kvôli úspešnému prihláseniu."

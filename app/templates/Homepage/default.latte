@@ -1,7 +1,7 @@
 {block content}
 
 	<div class="jumbotron">
-		<div class="container">
+		<div class="bs-container-fluid">
 			
 			<div class="slogan">
 				<h1>{_homepage.jumbo.slogan-main}</h1>
@@ -10,10 +10,61 @@
 
 			<div class="login-wrapper">
 				{control socialLogin}
-				<a class="btn btn-login btn-email">Sign up with E-mail</a>			
+				<a class="btn btn-login btn-email">
+					<span class="btn-icon icon-email"></span> {_login.button.email-login}
+				</a>
 			</div>
 
-			<p>Already have an account? <a n:href="Sign:login">Sign in now</a></p>
+			<p>{_login.template.already-registered} <a n:href="Sign:login">{_login.form.sign-in}</a></p>
+
+			<div class="job-teaser bs-container-fluid">
+				<div class="row">
+					
+					<div class="job job-box">
+		               <div class="job-tag box-corner-cat3">
+								<a href="/?tag=promoted">
+									<span class="tag-label">Coding</span>
+								</a>
+							<span class="box-corner"></span>
+						</div>
+		                <span class="job-time">7 days left</span>
+		                <h3 class="job-title"><a href="">eCommerce solution for brand new e-shop</a></h3>
+		                <span class="job-price">Get <strong>$150</strong></span>
+					</div>
+
+	                <div class="job job-box hidden-xs">
+		                <div class="job-tag box-corner-cat2">
+								<a href="/?tag=promoted">
+									<span class="tag-label">Design</span>
+								</a>
+							<span class="box-corner"></span>
+						</div>
+		                <span class="job-time">12 days left</span>
+		                <h3 class="job-title"><a href="">Logo for our page</a></h3>
+		                <span class="job-price">Get <strong>$75</strong></span>
+					</div>
+
+	                <div class="job job-box hidden-sm hidden-xs">
+		                <div class="job-tag box-corner-cat1">
+								<a href="/?tag=promoted">
+									<span class="tag-label">Survey</span>
+								</a>
+							<span class="box-corner"></span>
+						</div>
+		                <span class="job-time">1 day left</span>
+		                <h3 class="job-title"><a href="">Answer our customer support questinaire</a></h3>
+		                <span class="job-price">Get <strong>$1.50</strong></span>
+	            	</div>
+
+            	</div>
+
+
+			</div>
+			
+			<a class="btn btn-teaser">
+				Add job
+			</a>
+
 		</div>
 	</div>
 
@@ -22,14 +73,61 @@
 		<div class="bs-container-fluid content">
 
 			<div class="bs-row">
-				<div class="col-md-6">
+				<div class="col-md-6 cols">
 					<h2>{_homepage.body.header-worker}</h2>
+					<h3>Lorem ipsum dolor sit amet</h3>
+
+					<p class="sparse">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, excepturi magni optio.
+					</p>
+
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, harum, assumenda laborum quam eligendi soluta rem minima minus porro consectetur voluptates quibusdam dolorum accusantium natus animi velit illo nobis ad.</p>
+					<img src="{$basePath}/img/imgface1.png">
+					<h4>Simply dummy text</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+					
+					<div class="savings">
+						<h5>{_homepage.body.saved}</h5>
+						<h2>$ 2,706,850.40</h2>
+						<a n:href="Task:default" class="btn btn-large btn-primary">{_homepage.body.want-earn}</a>
+					</div>
+
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6 cols">
 					<h2>{_homepage.body.header-employer}</h2>
+					<h3>Lorem ipsum dolor sit amet</h3>
+
+					<p class="sparse">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, excepturi magni optio.
+					</p>
+
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, harum, assumenda laborum quam eligendi soluta rem minima minus porro consectetur voluptates quibusdam dolorum accusantium natus animi velit illo nobis ad.</p>
+					<img src="{$basePath}/img/imgface2.png">
+					<h4>Simply dummy text</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+
+					<div class="savings">
+						<h5>{_homepage.body.saved}</h5>
+						<h2>$ 17,145,902.40</h2>
+						<a n:href="Task:default" class="btn btn-large btn-primary">{_homepage.body.want-save}</a>
+					</div>
+
 				</div>
 			</div>
-		</div>		
+
+			<hr />
+			
+			<div class="sponsors">
+				<img src="{$basePath}/img/logo-tc.png">
+				<img src="{$basePath}/img/logo-google.png">
+				<img src="{$basePath}/img/logo-apple.gif">
+				<img src="{$basePath}/img/logo-yahoo.png">
+				<img src="{$basePath}/img/logo-gizmodo.png">
+				<span class="stretch"></span>
+			</div>
+
+		</div>
+
 	</div>
 
 {/block}
