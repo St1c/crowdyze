@@ -75,7 +75,7 @@ class SocialLoginControl extends BaseControl
 			$this->presenter->getUser()->login($type, $loginData);
 
 			// Authentication successful, login in!
-			$this->presenter->flashMessage("login.flashes.social_login_success", 'alert-success', NULL, array( 'type' => ucfirst($type) ));
+			$this->presenter->flashMessage("login.flashes.social-login-success", 'alert-success', NULL, array( 'type' => ucfirst($type) ));
 			$this->presenter->redirect(':Task:');
 	}
 
@@ -88,7 +88,7 @@ class SocialLoginControl extends BaseControl
 		$error = $this->presenter->getParameter('error');
 
 		if( isset( $error ) ) {
-			$this->presenter->flashMessage('login.flashes.google_permission');
+			$this->presenter->flashMessage('login.flashes.google-permission');
 			$this->presenter->redirect('Signup:');
 		}
 

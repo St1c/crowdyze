@@ -58,8 +58,10 @@
 			<div class="toppanel" n:block="notifier">
 				You have no active jobs. Pick some from the offer below...
 			</div>
-
-
+			
+			<div class="alert-wp">
+				<div n:foreach="$flashes as $flash" class="alert {$flash->type}">{$flash->message}</div>
+			</div>
 
 			{include #content}			
 
