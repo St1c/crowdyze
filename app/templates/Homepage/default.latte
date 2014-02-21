@@ -1,3 +1,5 @@
+{layout '../@layout-unsigned.latte'}
+
 {block content}
 
 	<div class="jumbotron">
@@ -10,12 +12,11 @@
 
 			<div class="login-wrapper">
 				{control socialLogin}
-				<a class="btn btn-login btn-email">
+				<a n:href="Sign:register" class="btn btn-login btn-email">
 					<span class="btn-icon icon-email"></span> {_login.button.email-login}
 				</a>
 			</div>
-
-			<p>{_login.template.already-registered} <a n:href="Sign:login">{_login.form.sign-in}</a></p>
+			<p>{_login.template.already-registered} <a n:href="Sign:default">{_login.form.sign-in}</a></p>
 
 			<div class="job-teaser bs-container-fluid">
 				<div class="row">
@@ -87,8 +88,8 @@
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
 					
 					<div class="savings">
-						<h5>{_homepage.body.saved}</h5>
-						<h2>$ 2,706,850.40</h2>
+						<h5>{_homepage.body.earned}</h5>
+						<h2>&euro; 2,706,850.40</h2>
 						<a n:href="Task:default" class="btn btn-large btn-primary">{_homepage.body.want-earn}</a>
 					</div>
 
@@ -108,7 +109,7 @@
 
 					<div class="savings">
 						<h5>{_homepage.body.saved}</h5>
-						<h2>$ 17,145,902.40</h2>
+						<h2>&euro; 17,145,902.40</h2>
 						<a n:href="Task:default" class="btn btn-large btn-primary">{_homepage.body.want-save}</a>
 					</div>
 

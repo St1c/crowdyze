@@ -1,10 +1,10 @@
 .jumbotron {
   position: relative;
+  padding-bottom: 30px;
   width: 100%;
   background-color: @primary-color;
-  font-weight: 300;
   text-align: center;
-  padding-bottom: 30px;
+  font-weight: 300;
 
   .slogan {
     margin: 0 auto 10px;
@@ -33,11 +33,11 @@
   }
 
   .job-teaser {
-    max-width: 980px;
     padding: 30px 50px 50px;
+    max-width: 980px;
     border: 1px solid #42AF80;
-    background-color: #4BC691;
     border-radius: 6px;
+    background-color: #4BC691;
     font-weight: 400;
 
     @media (max-width: @screen-sm-max){
@@ -45,35 +45,41 @@
     }
 
     .job-box {
-      margin: 0;
       display: inline-block;
       box-sizing: border-box;
+      margin: 0;
       width: 256px;
+      background-image: linear-gradient(to bottom, #ffffff 10%, #EFF7FC 100%);
 
       &:nth-child(even) {
         margin: 0 30px;
+      }
+
+      &:hover {
+        border: 1px solid #169dd8;
+        box-shadow: 0 2px 6px #169dd8;
       }
     }
   }
 
   .btn-teaser {
     margin: -22px 0 30px;
+    width: 256px;
     height: 44px;
-    line-height: 32px;
-    vertical-align: middle;
-    width: 250px;
     border: 2px solid #169dd8;
     border-radius: 6px;
-    color: #169dd8;
     background-color: @white;
     background-image: none;
     background-image: linear-gradient(to bottom, #ffffff 10%, #E1F0F9 100%);
     background-size: auto;
+    color: #169dd8;
+    vertical-align: middle;
     font-weight: 400;
+    line-height: 32px;
 
     &:hover {
-      box-shadow: 0 2px 6px #169dd8;
       background-image: linear-gradient(to bottom, #ffffff 50%, #ADffff 100%);
+      box-shadow: 0 2px 6px #169dd8;
     }
   }
 }
@@ -90,18 +96,18 @@
   border: 0px;
   background-image: none;
   box-shadow: none;
-  color: @white; 
+  color: @white;
+  vertical-align: middle; 
   text-align: center;
+  white-space: nowrap;
+  font-weight: 300;
   font-size: 17px;
   line-height: 32px;
-  vertical-align: middle;
-  font-weight: 300;
-  white-space: nowrap;
 
-  &:hover {
-    text-decoration: none; 
+  &:hover { 
     background-image: none;
     box-shadow:0 3px 6px rgba(0,0,0,.15);
+    text-decoration: none;
   }
 
   &:active { 
@@ -126,9 +132,9 @@
 
 .btn-icon {
   display: inline-block;
+  margin-right: 5px;
   width: 32px;
   height: 32px;
-  margin-right: 5px;
   vertical-align: middle;
   text-align: center;
 
@@ -147,12 +153,12 @@
 }
 
 .wrapper-home {
+  position: relative;
   margin-top: -30px;
   padding-top: 0;
-  position: relative;
+  color: @color-text;
   font-size: 13px;
   line-height: 20px;
-  color: @color-text;
 
   .content {
     padding: 30px 60px;
@@ -168,18 +174,18 @@
   }
 
   h3 {
-    font-size: 17px;
-    line-height: 40px;
+    margin-bottom: 10px;
     color: @color-text;
     font-weight: 400;
-    margin-bottom: 10px;
+    font-size: 17px;
+    line-height: 40px;
   }
 
   h4 {
+    margin-bottom: 0;
+    font-weight: 400;
     font-size: 15px;
     line-height: 40px;
-    font-weight: 400;
-    margin-bottom: 0;
   }
 
   .sparse {
@@ -191,15 +197,15 @@
     text-align: center;
 
     h2 {
+      margin: 0;
+      color: @secondary-color;
       font-size: 20px;
       line-height: 30px;
-      color: @secondary-color;
-      margin: 0;
     }
 
     h5 {
-      color: @secondary-color;
       margin: 0;
+      color: @secondary-color;
     }
 
   }
@@ -213,15 +219,20 @@
     text-align: justify;
 
     img {
-      vertical-align: top;
       display: inline-block;
-      *display: inline;
+      vertical-align: top;
+      
+      // Fixes inline-block element for IE7 and lower - not necessary, but only 2 lines, what the heck...
       zoom: 1;
+      *display: inline;
     }
 
+    // Allows justifyfaction of the line content
     .stretch {
-      width: 100%;
       display: inline-block;
+      width: 100%;
+
+      // Fixes minor issue in IE6
       font-size: 0;
       line-height: 0;
     }

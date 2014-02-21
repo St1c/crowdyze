@@ -4,28 +4,24 @@
 
 <div class="jumbotron">
 	<div class="bs-container-fluid">
-
 		<div class="socials">
 			{control socialLogin}
-		</div>
-
-		<div class="slogan">
-			<h2>{_login.template.prefer}</h2>			
 		</div>
 
 		<div class="bs-row">
 			<div class="col-sm-4 col-sm-offset-4 email-login">
 			{snippet registration}
 
-				{control loginForm}
+				{control registerForm}
 
 				<div class="sign-info">
-					<p>{_login.template.not-registered} <a n:href="Sign:register" class="ajax">{_login.template.sign-up}</a></p>
+					<p>{_login.template.already-registered} <a n:href="Sign:" class="ajax">{_login.form.sign-in}</a></p>
 				</div>
+
 			{/snippet}
 			</div>
 		</div>
+
 	</div>
 </div>
-
 {/block}

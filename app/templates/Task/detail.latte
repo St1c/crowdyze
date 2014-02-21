@@ -47,14 +47,15 @@
 				{/if}
 				
 				<hr />
-				<div class="attachements">
+				<div class="attachements clearfix">
 					<h5>Attachments</h5>
-					<ul class="attachements">
-						<li n:foreach="$task->related('task_attachment') as $attachment">
-							<a href="{$basePath}/content/{$attachment->path}" 
-									class="file-doc {$attachment->ref('type_id')->type|mediaType}">
-								<?php echo basename($attachment->path); ?>
-								<span class="file-size">468 KB</span>
+					<ul class="file-uploader">
+						<li n:foreach="$task->related('task_attachment') as $attachment" class="uploaded">
+							<a href="{$basePath}/content/{$attachment->path}">
+								<span class="{$attachment->ref('type_id')->type|mediaType}">
+									<?php echo basename($attachment->path); ?>
+								</span>
+								<!-- <span class="file-size">468 KB</span> -->
 							</a>
 						</li>
 					</ul>

@@ -2,8 +2,11 @@
 namespace App;
 
 use Nette,
-	Controls,
-	VojtechDobes\MultiAuthenticator;
+	Nette\Latte\MacroNode,
+	Nette\Latte\PhpWriter;
+use Model,
+	Controls;
+
 
 /**
  * Sign in/out presenters.
@@ -18,13 +21,6 @@ class SignPresenter extends BasePresenter
 	/** @var Controls\ISocialLoginControlFactory @inject */
 	public $socialLoginControlFactory;
 
-	public $register;
-
-	public function startup()
-	{
-		parent::startup();
-		$this->template->register = TRUE;
-	}
 
 	public function createComponentRegisterForm()
 	{
@@ -41,13 +37,17 @@ class SignPresenter extends BasePresenter
 		return $this->socialLoginControlFactory->create();
 	}
 
-	public function handleRegister($type = 'register')
+	public function actionDefault()
 	{
-		if ($type == 'register') {
-			$this->template->register = true;			
-		} else {
-			$this->template->register = false;
+
+		if ($this->isAjax()) {
+			$this->invalidateControl('registration');
 		}
+
+	}
+
+	public function actionRegister()
+	{
 
 		if ($this->isAjax()) {
 			$this->invalidateControl('registration');

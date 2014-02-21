@@ -21,11 +21,11 @@ registerForm:
 
 template:
 	login: "Login"
+	sign-up: "Sign up"
 	email-sign-up: "Sign up with your E-mail"
 	already-registered: "Already have an account?"
 	not-registered: "You don't have account yet?"
-	log-in-email: "Login with your email"
-	sign-up-email: "Sign up with your email"
+	prefer: "Prefer e-mail?"
 
 flashes:
 	register-success: "Successfully registered!"

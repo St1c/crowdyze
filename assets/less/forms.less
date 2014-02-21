@@ -34,6 +34,14 @@
 	background-image: none; 
 	border: 1px solid #cccccf; 
 	border-radius: 3px; 
+
+	&.textinput-lg {
+		height: 40px;
+		padding: 20px 10px;
+		line-height: 25px;
+		font-size: 15px;
+		border-radius: 6px;
+	}
 }
 
 textarea {
@@ -79,3 +87,11 @@ legend {
 .input {
 	white-space: nowrap;
 }
+
+.input:-webkit-autofill, 
+.textarea:-webkit-autofill {
+	background-color: rgb(250, 189, 255);
+	background-image: none;
+	color: rgb(0, 0, 0);
+}
+

@@ -4,7 +4,7 @@ jumbo:
 body: 
 	header-worker: "I want to earn money"
 	header-employer: "I want to save money"
-	saved: "You earned already"
-	earned: "You saved already"
+	saved: "You saved already"
+	earned: "You earned already"
 	want-save: "I want to save"
 	want-earn: "I want to earn"

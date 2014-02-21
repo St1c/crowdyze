@@ -1,6 +1,4 @@
 {form signInForm class => "login-form" }
-
-	<h5>{_login.template.log_in_email}</h5>
 	
 	<!--  Error messages for current form -->
 	<div class="errors" n:if="$form->hasErrors()">
@@ -10,10 +8,16 @@
 		</div>
 	</div>
 
-	{input email class => "form-control", type => 'email'}
+    <div class="form-row clearfix">
+	{input email class => "textinput textinput-lg"}
+	</div>
 
-	{input password class => "form-control", type => 'password'}
-
-	{input submit type=>'submit', class=>'btn btn-outline btn-sign'}
+    <div class="form-row clearfix">
+	{input password class => "textinput textinput-lg"}
+	</div>
+    
+    <div class="form-row clearfix">
+		{input submit type=>'submit', class=>'btn btn-login btn-email'}
+	</div>
 
 {/form}
