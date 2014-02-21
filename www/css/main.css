@@ -1588,7 +1588,7 @@ hr {
   z-index: 5;
 }
 
-.alert {
+.alert-wp .alert {
   position: relative;
   left: -50%;
 }
@@ -2028,7 +2028,7 @@ legend {
 
 .job-box .job-title {
   margin-bottom: 5px;
-  height: 75px;
+  height: 80px;
   line-height: 25px;
 }
 
@@ -2042,6 +2042,7 @@ legend {
 .job-box .job-time {
   margin-bottom: 6px;
   line-height: 20px;
+  min-height: 20px;
 }
 
 .job-box .job-price {
@@ -2219,6 +2220,10 @@ legend {
   padding: 0;
   vertical-align: middle;
   margin-left: 15px;
+}
+
+.jobs-table .job-time {
+  width: auto;
 }
 
 .table-tag {
