@@ -13,6 +13,8 @@ use Model,
  */
 class SignPresenter extends BasePresenter
 {
+	/** @persistent */
+	public $backlink = '';
 
 	/** @var Controls\IRegisterFormControlFactory @inject */
 	public $registerFormControlFactory;	

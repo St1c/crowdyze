@@ -29,7 +29,7 @@ class RouterFactory
 			'path'		=> NULL,
 		));
 		$router[] = new Route('<presenter>/<action>[/<token>]', array(
-			'presenter' => 'Task',
+			'presenter' => 'Homepage',
 			'action' 	=> 'default',
 			'token'		=> NULL
 		));

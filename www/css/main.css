@@ -1266,6 +1266,34 @@ select {
   color: #843534;
 }
 
+.bs-close {
+  float: right;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000000;
+  text-shadow: 0 1px 0 #ffffff;
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+}
+
+.bs-close:hover,
+.bs-close:focus {
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+button.bs-close {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
+
 @-ms-viewport {
   width: device-width;
 }
@@ -1593,6 +1621,16 @@ hr {
   left: -50%;
 }
 
+.loader {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: url('../img/preloader.gif') 50% 50% no-repeat #f9f9f9;
+}
+
 /* -- buttons -- */
 
 .btn {
@@ -1768,17 +1806,16 @@ hr {
   box-sizing: border-box;
   width: 100%;
   min-width: 100%;
-  padding: 10px 5px;
+  padding: 0 5px;
   line-height: 20px;
   height: 30px;
   background-image: none;
   border: 1px solid #cccccf;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 
 .textinput.textinput-lg {
   height: 40px;
-  padding: 20px 10px;
   line-height: 25px;
   font-size: 15px;
   border-radius: 6px;

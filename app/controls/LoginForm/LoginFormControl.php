@@ -42,7 +42,7 @@ class LoginFormControl extends BaseControl
 			$this->presenter->getUser()->login('email', $values);						
 			// Authentication successful, login in!
 			$this->presenter->flashMessage('login.flashes.login-success', 'alert-success');
-			// $this->presenter->restoreRequest($this->presenter->backlink);
+			$this->presenter->restoreRequest($this->presenter->backlink);
 			$this->presenter->redirect(':Task:');
 
 		} catch (\Nette\Security\AuthenticationException $e) {

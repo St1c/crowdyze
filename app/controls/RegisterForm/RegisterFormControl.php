@@ -53,8 +53,8 @@ class RegisterFormControl extends BaseControl
 			$this->presenter->getUser()->setExpiration('+15 days', FALSE);
 			$this->presenter->getUser()->login('email', $values);		
 			
-			$this->presenter->flashMessage('login.flashes.register-success.', 'alert-success');
-			// $this->presenter->restoreRequest($this->presenter->backlink);
+			$this->presenter->flashMessage('login.flashes.register-success', 'alert-success');
+			$this->presenter->restoreRequest($this->presenter->backlink);
 		} 
 		catch (\Nette\Security\AuthenticationException $e) {
 			$register->addError($e->getMessage(), 'alert-error');

@@ -18,6 +18,7 @@ class SocialLoginControl extends BaseControl
 		$fbUrl = $this->facebook->getLoginUrl( array(
 					'scope' 		=> $this->presenter->context->parameters['facebook']['scope'],
 					'redirect_uri' 	=> $this->link('//fbLogin'), //Absolute path
+					'backlink' 		=> $this->presenter->backlink
 		));
 		$this->presenter->redirectUrl($fbUrl);
 	}
@@ -33,7 +34,7 @@ class SocialLoginControl extends BaseControl
 			$this->performLogin('facebook', $userProfile);
 		} catch ( Nette\Security\AuthenticationException $e) {  	// Authentication Error
 			$this->presenter->flashMessage($e->getMessage(),'alert-error');
-			$this->presenter->redirect('Signup:');
+			$this->presenter->redirect('Sign:');
 		}
 	}
 
@@ -45,6 +46,7 @@ class SocialLoginControl extends BaseControl
 		$url = $this->google->getLoginUrl(array(
 			'scope' 		=> $this->presenter->context->parameters['google']['scope'],
 			'redirect_uri' 	=> $this->link('//googleLogin'),
+			'backlink' 		=> $this->presenter->backlink
 		));
 		$this->presenter->redirectUrl($url);
 	}
@@ -60,7 +62,7 @@ class SocialLoginControl extends BaseControl
 			$this->performLogin('google', $userProfile);
 		} catch ( Nette\Security\AuthenticationException $e) {  	// Authentication Error
 			$this->presenter->flashMessage($e->getMessage(),'alert-error');
-			$this->presenter->redirect('Signup:');
+			$this->presenter->redirect('Sign:');
 		}
 	}
 
@@ -76,6 +78,7 @@ class SocialLoginControl extends BaseControl
 
 			// Authentication successful, login in!
 			$this->presenter->flashMessage("login.flashes.social-login-success", 'alert-success', NULL, array( 'type' => ucfirst($type) ));
+			$this->presenter->restoreRequest($this->presenter->getParameter('backlink'));
 			$this->presenter->redirect(':Task:');
 	}
 
@@ -89,7 +92,7 @@ class SocialLoginControl extends BaseControl
 
 		if( isset( $error ) ) {
 			$this->presenter->flashMessage('login.flashes.google-permission');
-			$this->presenter->redirect('Signup:');
+			$this->presenter->redirect('Sign:');
 		}
 
 		$g 			 = $this->google;

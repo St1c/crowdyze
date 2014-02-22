@@ -3,20 +3,20 @@
 	<!--  Error messages for current form -->
 	<div class="errors" n:if="$form->hasErrors()">
 		<div n:foreach="$form->errors as $error" class="alert alert-danger">
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<button type="button" class="bs-close" data-dismiss="alert">&times;</button>
 			{$error}
 		</div>
 	</div>
 
-    <div class="form-row clearfix">
-	{input email class => "textinput textinput-lg"}
+	<div class="form-row clearfix">
+		{input email class => "textinput textinput-lg"}{errors email}
 	</div>
 
-    <div class="form-row clearfix">
-	{input password class => "textinput textinput-lg"}
+	<div class="form-row clearfix">
+		{input password class => "textinput textinput-lg"}{errors password}
 	</div>
-    
-    <div class="form-row clearfix">
+	
+	<div class="form-row clearfix">
 		{input submit type=>'submit', class=>'btn btn-login btn-email'}
 	</div>
 

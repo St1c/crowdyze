@@ -426,5 +426,6 @@ $(function(){
         $('#showLeft').click();
     });
 
+	$(".loader").css('background-image', 'none').fadeOut(1000);
 
 });
