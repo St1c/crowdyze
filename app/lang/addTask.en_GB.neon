@@ -3,7 +3,7 @@ header:
 form:
 	title: "We need to..."
 	title_missing: "You did not enter any title"
-	description: "Description"
+	description: "Type description..."
 	description_missing: "You forgot to describe the task..."
 	get_salary: "Get"
 	salary: "..."

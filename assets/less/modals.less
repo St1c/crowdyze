@@ -62,6 +62,7 @@
 
 	textarea {
 		margin-bottom: 10px; 
+		text-align: left;
 	}
 
 	.btn-large {
@@ -118,48 +119,6 @@
 	background-color: #fff; 
 	opacity: 0.8;
 }
-
-
-// .modal-inputs { 
-// 	margin: 0 auto;
-// 	width: 95%; 
-// }
-
-.modal-col { 
-	float: left;
-	box-sizing: border-box; 
-	padding: 0 10px; 
-	width: 33%;
-
-	input { 
-		color: #6b6e70;
-		font-size: 13px; 
-		line-height: 23px; 
-		// margin-bottom: 33px; 
-		height: 23px;
-
-		&::placeholder {
-			color: #6b6e70; 
-		}
-	}
-
-	.input-budget-type {
-		margin: -1px 0 0 0;
-		width:100%;
-		height: 22px;
-		border: none;
-		border-radius: none;
-
-		.customSelectInner {
-			padding: 0;
-			width:0;
-			border: 0;
-			background: none;
-		}
-	}
-
-}
-
 
 .form-addjob {
 	
@@ -262,7 +221,7 @@
 		color: #6d6e70; 
 		text-align: center;
 		font-size: 15px; 
-		// border: none; 
+		border: none; 
 		background: none;
 		border-radius: 6px; 
 		
@@ -281,6 +240,49 @@
 	#budget p {
 		margin-bottom: 0;
 		color: @secondary-color;
+	}
+
+}
+
+.modal-inputs { 
+	color: #6d6e70;
+	margin: 0 auto 30px;
+	// width: 95%; 
+}
+
+.modal-col { 
+	float: left;
+	padding: 0 7px; 
+	width: 33%;
+	height: 23px;
+	// border-bottom: 1px dashed #e5e5e7;
+
+	input { 
+		color: #6b6e70;
+		font-size: 13px; 
+		line-height: 23px; 
+		height: 23px;
+
+		&::placeholder {
+			color: #6b6e70; 
+		}
+	}
+
+	.input-budget-type {
+		width:100%;
+		height: 23px;
+		border-radius: none;
+
+		.customSelectInner {
+			padding: 0;
+			width:0;
+			border: 0;
+			background: none;
+		}
+	}
+
+	.textinput {
+		width: 100%;
 	}
 
 }

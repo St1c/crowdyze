@@ -27,13 +27,16 @@
 
 		<div class="modal-inputs clearfix">
 			<div class="modal-col">
-				{input budget_type class => "custom-select input-budget-type", id => "budget_type"}
+				<div class="select-style">
+					{input budget_type class => "input-budget-type", id => "budget_type"}					
+				</div>
 			</div>
 			<div class="modal-col">
 				{input workers class => "textinput input-workers" , id => "workers"}
 			</div>
 			<div class="modal-col">
-				{input deadline class => "input-date input"}{errors deadline}
+				<!-- <span class="icon-time"></span> -->
+				{input deadline class => "textinput input-date", id => "datepicker" }{errors deadline}
 			</div>
 		</div>
 
@@ -46,12 +49,16 @@
 		</div>
 
 
-		<div id="promotion">
-			{label promotion /}
-			{input promotion class=>'promotion'}
+		<div id="promotion form-row clearfix">
+			<div class="label">
+				{label promotion /}
+			</div>
+			<div class="input-holder radio">
+				{input promotion class=>'promotion'}				
+			</div>
 		</div>
-*}
 
+*}
 		<div id="budget">
 			<p>{_addTask.form.costs} <b><span class="value"></span> &euro;</b></p>
 		</div>

@@ -66,7 +66,6 @@ module.exports = function(grunt) {
 				files: {
 					'www/css/main.min.css': [
 						'www/css/main.css',
-						'www/css/customselect.css',
 						'www/css/icheck-default.css',
 						'www/css/icheck-large.css',
 						'www/css/jquery.custombox.css'
@@ -91,6 +90,8 @@ module.exports = function(grunt) {
 							'libs/js/vendor/typeahead.min.js',
 							'libs/js/vendor/jquery.icheck.min.js',
 							'libs/js/vendor/jquery.customSelect.min.js',
+							'libs/js/vendor/moment.min.js',
+							'libs/js/vendor/pikaday.js',
 							'vendor/tacoberu/nette-form-controls/assets/js/jquery.filePreuploader.js'
 							],
 					'www/js/nette.min.js': [

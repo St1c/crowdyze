@@ -3,7 +3,7 @@ header:
 form:
 	title: "Potrebujem urobiť..."
 	title_missing: "Nezadali ste nadpis"
-	description: "Sem zadajte popis úlohy"
+	description: "Sem zadajte popis úlohy..."
 	description_missing: "Zabudli ste napísať popis úlohy..."
 	get_salary: "Zarob"
 	salary: "..."

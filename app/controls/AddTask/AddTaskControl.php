@@ -60,9 +60,13 @@ class AddTaskControl extends BaseControl
 		$component->addText('workers', 'addTask.form.workers_required')
 			->setDefaultValue(1)
 			->setAttribute('placeholder', 'addTask.form.workers_required');
+
+		$component->addText('deadline', 'addTask.form.deadline')
+			->setDefaultValue(date('d/m/y',strtotime("+1 month")))
+			->setAttribute('placeholder', 'addTask.form.deadline');
 		
-		$component['deadline'] = new DateInput('Deadline:', DateInput::STYLE_SELECTS);
-		$component['deadline']->setDefaultValue((new DateTime())->add(new DateInterval('P1M')));
+		// $component['deadline'] = new DateInput('Deadline:', DateInput::STYLE_SELECTS);
+		// $component['deadline']->setDefaultValue((new DateTime())->add(new DateInterval('P1M')));
 		
 		$component->addText('departments', 'addTask.form.department')
 			->setAttribute('placeholder', 'addTask.form.departments');
@@ -120,6 +124,11 @@ class AddTaskControl extends BaseControl
 				$values['tags'] = $value;
 			}
 
+			// Parsing date
+			if (isset($values['deadline']) && $value = self::parseDate($values['deadline'])) {
+				$values['deadline'] = $value;
+			}
+
 			//	Process store
 			try {
 				$task = $this->taskService->createTask((array)$values);
@@ -171,4 +180,18 @@ class AddTaskControl extends BaseControl
 		return implode(',', $tags);
 	}
 
+
+	/**
+	 * Reformat date to format needed for recording in DB
+	 * 
+	 * @param string $value
+	 * 
+	 * @return string
+	 */
+	private static function parseDate($value)
+	{
+		$date = DateTime::createFromFormat('d/m/y', $value);
+		return $date->format('Y-m-d');
+	}
+	
 }
