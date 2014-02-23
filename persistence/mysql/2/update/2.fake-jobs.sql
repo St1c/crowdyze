@@ -318,4 +318,3 @@ INSERT INTO `budget` (`id`,`user_id`,`task_id`,`fee`,`budget`,`commission`,`prom
 INSERT INTO `budget` (`id`,`user_id`,`task_id`,`fee`,`budget`,`commission`,`promotion`) VALUES (98,3,98,0.50,1.53,0.0765,0.0459);
 INSERT INTO `budget` (`id`,`user_id`,`task_id`,`fee`,`budget`,`commission`,`promotion`) VALUES (99,1,99,0.50,1.4,0.07,0.098);
 INSERT INTO `budget` (`id`,`user_id`,`task_id`,`fee`,`budget`,`commission`,`promotion`) VALUES (100,2,100,0.50,24.6,1.23,0.738);
-
