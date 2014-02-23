@@ -2660,40 +2660,54 @@ legend {
   height: 23px;
 }
 
-.modal-col input {
+.modal-col input,
+.modal-col select {
   color: #6b6e70;
   font-size: 13px;
   line-height: 23px;
   height: 23px;
 }
 
-.modal-col input::-webkit-input-placeholder {
+.modal-col input::-webkit-input-placeholder,
+.modal-col select::-webkit-input-placeholder {
   color: #6b6e70;
 }
 
-.modal-col input::-moz-placeholder {
+.modal-col input::-moz-placeholder,
+.modal-col select::-moz-placeholder {
   color: #6b6e70;
 }
 
-.modal-col input:-ms-input-placeholder {
+.modal-col input:-ms-input-placeholder,
+.modal-col select:-ms-input-placeholder {
   color: #6b6e70;
 }
 
-.modal-col input::placeholder {
+.modal-col input::placeholder,
+.modal-col select::placeholder {
   color: #6b6e70;
 }
 
-.modal-col .input-budget-type {
+.modal-col .select-style {
   width: 100%;
   height: 23px;
-  border-radius: none;
+  line-height: 23px;
+  vertical-align: middle;
+  overflow: hidden;
+  border-bottom: 1px dashed #ccc;
 }
 
-.modal-col .input-budget-type .customSelectInner {
-  padding: 0;
-  width: 0;
-  border: 0;
-  background: none;
+.modal-col .select-style select {
+  padding: 0 8px;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+}
+
+.modal-col .select-style select:focus {
+  outline: none;
 }
 
 .modal-col .textinput {
@@ -3714,26 +3728,4 @@ legend {
   background: url("../img/customselect-arrow.png") no-repeat top right;
   padding: 0px 50px 0px 10px;
   border-radius: 3px;
-}
-
-.form-modal .select-style {
-  width: 100%;
-  height: 23px;
-  line-height: 23px;
-  vertical-align: middle;
-  overflow: hidden;
-  border-bottom: 1px dashed #ccc;
-}
-
-.form-modal .select-style select {
-  padding: 0 8px;
-  border: none;
-  box-shadow: none;
-  background: transparent;
-  background-image: none;
-  -webkit-appearance: none;
-}
-
-.form-modal .select-style select:focus {
-  outline: none;
 }
