@@ -2915,9 +2915,12 @@ legend {
   position: relative;
   padding-bottom: 30px;
   width: 100%;
-  background-color: #4ece97;
   text-align: center;
   font-weight: 300;
+}
+
+.jumbotron.jumbotron-colored {
+  background-color: #4ece97;
 }
 
 .jumbotron .slogan {
