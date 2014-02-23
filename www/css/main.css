@@ -2088,6 +2088,7 @@ legend {
 
 .job-box .job-tag {
   height: 40px;
+  min-width: 40px;
   line-height: 36px;
   position: absolute;
   top: -1px;
@@ -2415,6 +2416,7 @@ legend {
 .modal textarea,
 .single textarea {
   margin-bottom: 10px;
+  text-align: left;
 }
 
 .modal .btn-large,
@@ -2472,52 +2474,6 @@ legend {
   height: 100%;
   background-color: #fff;
   opacity: 0.8;
-}
-
-.modal-col {
-  float: left;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 0 10px;
-  width: 33%;
-}
-
-.modal-col input {
-  color: #6b6e70;
-  font-size: 13px;
-  line-height: 23px;
-  height: 23px;
-}
-
-.modal-col input::-webkit-input-placeholder {
-  color: #6b6e70;
-}
-
-.modal-col input::-moz-placeholder {
-  color: #6b6e70;
-}
-
-.modal-col input:-ms-input-placeholder {
-  color: #6b6e70;
-}
-
-.modal-col input::placeholder {
-  color: #6b6e70;
-}
-
-.modal-col .input-budget-type {
-  margin: -1px 0 0 0;
-  width: 100%;
-  height: 22px;
-  border: none;
-  border-radius: none;
-}
-
-.modal-col .input-budget-type .customSelectInner {
-  padding: 0;
-  width: 0;
-  border: 0;
-  background: none;
 }
 
 .form-addjob {
@@ -2659,6 +2615,7 @@ legend {
   color: #6d6e70;
   text-align: center;
   font-size: 15px;
+  border: none;
   background: none;
   border-radius: 6px;
 }
@@ -2689,6 +2646,58 @@ legend {
 .form-addjob #budget p {
   margin-bottom: 0;
   color: #ff7d63;
+}
+
+.modal-inputs {
+  color: #6d6e70;
+  margin: 0 auto 30px;
+}
+
+.modal-col {
+  float: left;
+  padding: 0 7px;
+  width: 33%;
+  height: 23px;
+}
+
+.modal-col input {
+  color: #6b6e70;
+  font-size: 13px;
+  line-height: 23px;
+  height: 23px;
+}
+
+.modal-col input::-webkit-input-placeholder {
+  color: #6b6e70;
+}
+
+.modal-col input::-moz-placeholder {
+  color: #6b6e70;
+}
+
+.modal-col input:-ms-input-placeholder {
+  color: #6b6e70;
+}
+
+.modal-col input::placeholder {
+  color: #6b6e70;
+}
+
+.modal-col .input-budget-type {
+  width: 100%;
+  height: 23px;
+  border-radius: none;
+}
+
+.modal-col .input-budget-type .customSelectInner {
+  padding: 0;
+  width: 0;
+  border: 0;
+  background: none;
+}
+
+.modal-col .textinput {
+  width: 100%;
 }
 
 /* -- singles -- */
@@ -3510,4 +3519,221 @@ legend {
 .ias_trigger a:hover {
   border: 1px solid #40a87b;
   background-image: url('../img/btn-primary_hover.png');
+}
+
+@charset "UTF-8";
+
+/*!
+ * Pikaday
+ * Copyright © 2014 David Bushell | BSD & MIT license | http://dbushell.com/
+ */
+
+.pika-single {
+  z-index: 9999;
+  display: block;
+  position: relative;
+  width: 240px;
+  padding: 8px;
+  color: #333;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-bottom-color: #bbb;
+}
+
+.pika-single.is-hidden {
+  display: none;
+}
+
+.pika-single.is-bound {
+  position: absolute;
+  box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.5);
+}
+
+.pika-title {
+  position: relative;
+  text-align: center;
+}
+
+.pika-label {
+  display: inline-block;
+  *display: inline;
+  position: relative;
+  z-index: 9999;
+  overflow: hidden;
+  margin: 0;
+  padding: 5px 3px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: bold;
+  background-color: #fff;
+}
+
+.pika-title select {
+  cursor: pointer;
+  position: absolute;
+  z-index: 9998;
+  margin: 0;
+  left: 0;
+  top: 5px;
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+
+.pika-prev,
+.pika-next {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  border: 0;
+  padding: 0;
+  width: 20px;
+  height: 30px;
+  /* hide text using text-indent trick, using width value (it's enough) */
+  text-indent: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 75% 75%;
+  opacity: .5;
+  *position: absolute;
+  *top: 0;
+}
+
+.pika-prev:hover,
+.pika-next:hover {
+  opacity: 1;
+}
+
+.pika-prev,
+.is-rtl .pika-next {
+  float: left;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAUklEQVR42u3VMQoAIBADQf8Pgj+OD9hG2CtONJB2ymQkKe0HbwAP0xucDiQWARITIDEBEnMgMQ8S8+AqBIl6kKgHiXqQqAeJepBo/z38J/U0uAHlaBkBl9I4GwAAAABJRU5ErkJggg==');
+  *left: 0;
+}
+
+.pika-next,
+.is-rtl .pika-prev {
+  float: right;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAU0lEQVR42u3VOwoAMAgE0dwfAnNjU26bYkBCFGwfiL9VVWoO+BJ4Gf3gtsEKKoFBNTCoCAYVwaAiGNQGMUHMkjGbgjk2mIONuXo0nC8XnCf1JXgArVIZAQh5TKYAAAAASUVORK5CYII=');
+  *right: 0;
+}
+
+.pika-prev.is-disabled,
+.pika-next.is-disabled {
+  cursor: default;
+  opacity: .2;
+}
+
+.pika-select {
+  display: inline-block;
+  *display: inline;
+}
+
+.pika-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 0;
+}
+
+.pika-table th,
+.pika-table td {
+  width: 14.285714285714286%;
+  padding: 0;
+}
+
+.pika-table th {
+  color: #999;
+  font-size: 12px;
+  line-height: 25px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.pika-button {
+  cursor: pointer;
+  display: block;
+  outline: none;
+  border: 0;
+  margin: 0;
+  width: 100%;
+  padding: 5px;
+  color: #666;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: right;
+  background: #f5f5f5;
+}
+
+.is-today .pika-button {
+  color: #33aaff;
+  font-weight: bold;
+}
+
+.is-selected .pika-button {
+  color: #fff;
+  font-weight: bold;
+  background: #4ece97;
+  box-shadow: inset 0 1px 3px #178fe5;
+  border-radius: 3px;
+}
+
+.is-disabled .pika-button {
+  pointer-events: none;
+  cursor: default;
+  color: #999;
+  opacity: .3;
+}
+
+.pika-button:hover {
+  color: #fff !important;
+  background: #ff7d63 !important;
+  box-shadow: none !important;
+  border-radius: 3px !important;
+}
+
+.customSelect {
+  font-size: 13px;
+  background-color: #fff;
+  color: #7c7c7c;
+  padding: 0;
+  border: 1px solid #cccccf;
+  border-radius: 3px;
+  height: 28px;
+  background: url("../img/customselect.png") top repeat-x;
+}
+
+.customSelect.changed {
+  background-color: #f0dea4;
+}
+
+.customSelectInner {
+  background: url("../img/customselect-arrow.png") no-repeat top right;
+  padding: 0px 50px 0px 10px;
+  border-radius: 3px;
+}
+
+.form-modal .select-style {
+  width: 100%;
+  height: 23px;
+  line-height: 23px;
+  vertical-align: middle;
+  overflow: hidden;
+  border-bottom: 1px dashed #ccc;
+}
+
+.form-modal .select-style select {
+  padding: 0 8px;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+}
+
+.form-modal .select-style select:focus {
+  outline: none;
 }
