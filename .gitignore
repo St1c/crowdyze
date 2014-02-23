@@ -13,3 +13,4 @@ web.config
 /www/tasks
 /www/users
 /node_modules
+/persistance/schema-manage-ws.xml
