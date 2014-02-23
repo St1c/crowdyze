@@ -11,7 +11,7 @@ form:
 	budget_type: "Budget type"
 	tags: "Insert category tags ..."
 	upload:	"Upload"
-	workers_required: "How many workers do you need?"
+	workers_required: "Number of results"
 	deadline: "Deadline"
 	departments: "Departments"
 	promotion: "Promotions:"
