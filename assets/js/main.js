@@ -386,6 +386,16 @@ $(function(){
 
 
 	/**
+	 * Budget calculator for modals
+	 * @author  crowdyze.me
+	 */
+	$.nette.ext('budget-calc', {
+		load: function () {
+			budget.init();
+		}
+	});
+
+	/**
 	 * Initialize JS methods and AJAX
 	 */
 //	$.nette.ext('init').linkSelector = 'a.ajax';
@@ -393,7 +403,7 @@ $(function(){
 	
 	
 	$.nette.init();
-	budget.init();
+	// budget.init();
 
 	$.nette.ext('snippets').getElement = function (id) {
 		if (id == 'snippet--modal') {
