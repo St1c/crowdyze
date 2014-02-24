@@ -54,7 +54,7 @@ class ResultsPresenter extends BaseSignedPresenter
 	public function renderDefault($token)
 	{
 		if ($this->isAjax()) {
-			$this->redrawControl('result');
+			$this->redrawControl('modal');
 		}
 	}
 

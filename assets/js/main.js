@@ -396,9 +396,10 @@ $(function(){
 	budget.init();
 
 	$.nette.ext('snippets').getElement = function (id) {
-		//~ console.log('snippet', id);
+		if (id == 'snippet--modal') {
+			return $('#modal-window .modal-body');
+		}
 		return $('#' + this.escapeSelector(id));
-		return $('#modal-window .modal-body');
 	},
 
 
