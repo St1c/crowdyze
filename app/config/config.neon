@@ -184,4 +184,5 @@ parameters:
 
 extensions:
 	authentication: VojtechDobes\MultiAuthenticatorExtension
+	ajaxhistory: VojtechDobes\NetteAjax\Extension
 	translation: Kdyby\Translation\DI\TranslationExtension

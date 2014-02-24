@@ -95,7 +95,9 @@ module.exports = function(grunt) {
 							],
 					'www/js/nette.min.js': [
 							'libs/js/nette/netteForms.js',
-							'libs/js/nette/nette.ajax.js'
+							'libs/vojtechDobes/nette.ajax.js/nette.ajax.js',
+							'libs/vojtechDobes/history/history.ajax.js'
+//							'libs/js/nette/nette.ajax.js'
 							],
 					'www/js/main.min.js': [
 							'assets/js/main.js'
@@ -137,7 +139,7 @@ module.exports = function(grunt) {
 			},
 			scripts: {
 				files: ['assets/js/*.js'],
-				tasks: ['concat', 'uglify'],
+				tasks: ['concat' /*, 'uglify' */],
 				options: {
 					spawn: false,
 				}

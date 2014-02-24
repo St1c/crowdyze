@@ -84,7 +84,7 @@ class TaskPresenter extends BaseSignedPresenter
 	public function renderDetail()
 	{
 		if ($this->isAjax()) {
-			$this->redrawControl('task');
+			$this->redrawControl('modal');
 		}
 	}
 
@@ -105,7 +105,7 @@ class TaskPresenter extends BaseSignedPresenter
 	public function renderAdd()
 	{
 		if ($this->isAjax()) {
-			$this->redrawControl('task');
+			$this->redrawControl('modal');
 		}
 	}
 
@@ -128,7 +128,7 @@ class TaskPresenter extends BaseSignedPresenter
 	public function renderEdit()
 	{
 		if ($this->isAjax()) {
-			$this->redrawControl('task');
+			$this->redrawControl('modal');
 		}
 	}
 

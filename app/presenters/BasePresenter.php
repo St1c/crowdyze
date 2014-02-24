@@ -28,6 +28,20 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
 
 
+
+	/**
+	 * Default Action
+	 */
+	protected function beforeRender()
+	{
+		if ($this->isAjax()) {
+			$this->invalidateControl('title');
+			//~ $this->invalidateControl('content');
+		}
+	}
+
+
+
 	/**
 	 * Handle singal for language change
 	 * @FIXME Zrušit ukládání jazyka do session.

@@ -241,130 +241,87 @@ $(function(){
 	 * @author  Taco
 	 */
 	$.nette.ext('modals', {
-		load: function (x, nette) {
+		init: function (x, nette) {
+			var self = this;
+			self.originalUrl = window.location.href;
+		},
 
-			//	Původní adresa, ze které se otevíralo okno.
-			var originalUrl;
-			var originalHistory;
-			var changeCount = 0;
-			var deep = 0;
-			
-			
-			//	Je okno otevřeno?
-			function isModalOpened()
-			{
-				return $('#modal-window')
-					.hasClass('modal-opened');
+		//	Volá se těsně před zahájením Ajaxového požadavku. Jako argumenty 
+		//	dostává objekt jqXHR a objekt vlastností požadavku.
+		start: function (jqXHR, settings, x) {
+			this.doShowModal();
+		},
+		
+		//	Volá se při úspěšném dokončení Ajaxového požadavku. 
+		//	Ekvivalentní s $.ajax( ... ).done( ....
+		success: function (payload, status, jqXHR, settings, x) {
+			if (this.isModalOpened()) {
+				this.changeCount -= 1;
 			}
 
-
-			//	Vlastní otevření okna.
-			function doShowModal()
-			{
-				$('#cbp-overlay')
-					.addClass('show');
-				$('body')
-					.css('overflow', 'hidden');
-				$('#modal-window')
-					.addClass('modal-opened')
-					.fadeIn();
-			}
-
-
-			//	Vlastní zavření okna.
-			function doCloseModal()
-			{
-				$('#cbp-overlay')
-					.removeClass('show');
-				$('body')
-					.css('overflow', 'visible');
-				$('#modal-window')
-					.removeClass('modal-opened')
-					.fadeOut();
-			}
-
-
-			//	Nahrazení obsahu modalu
-			function replacingContent(s)
-			{
-				$('#modal-window .modal-body').html(s);
-			}
-
-
-			//	Nahrání obsahu
-			function doLoadContent(url)
-			{
-				$.ajax({ url: url })
-					.done(function(data, status, xhr) {
-						try {
-							//	Replacing content
-							for(var key in data.snippets) break;
-							replacingContent(data.snippets[key]);
-						}
-						catch (e) {
-							doCloseModal();
-							//	@FIXME
-							history.go(changeCount);
-							changeCount = 0;
-						}
-					});
-			}
-			
-
-			//	Handler pro otevření okna.
-			function onOpenModal(e) 
-			{
-				if (! isModalOpened()) {
-					originalUrl = window.location.href;
-					doShowModal();
-					originalHistory = window.history;
-					deep += 1;
-				}
-				doLoadContent($(this).attr('href'));
-				changeCount -= 1;
-				history.pushState({'url': $(this).attr('href'), deep: deep, changeCount: changeCount}, null, $(this).attr('href'));
+			var self = this;
+			$(document).on('click', '#modal-window [data-dismiss="modal"]', function(e) {
+			///$('#modal-window [data-dismiss="modal"]').click(function(e) {
+				self.doCloseModal();
+				history.replaceState(null, null, self.originalUrl);
+				self.changeCount = 0;
+				self.replacingContent('<p>Loading...</p>');
 				e.preventDefault();
 				return false;
-			}
-
-
-			//	Handler pro zavření okna
-			function onCloseModal(e)
-			{
-				doCloseModal();
-				history.go(changeCount);
-				changeCount = 0;
-				replacingContent('<p>Loading...</p>');
-				e.preventDefault();
-				return false;
-			}
-
-			
-			//	Odkazy mající modal
-			$(document).on('click', 'a[data-toggle="modal"]', onOpenModal);
-			$(document).on('click', '#modal-window [data-dismiss="modal"]', onCloseModal);
-
-			//	Aktualizace stránky během historie.
-			window.onpopstate = function(e) {
-				if (e.state) {
-					if (isModalOpened()) {
-						doLoadContent(e.state.url)
-						changeCount = e.state.changeCount;
-						deep = e.state.deep;
-					}
-					else {
-						window.location.href = e.state.url;
-					}
-				}
-				else {
-					if (isModalOpened()) {
-						doCloseModal();
-					}
-				}
-			};
-
-
+			});
+		},
+		
+	}, {
+		//	Původní adresa, ze které se otevíralo okno.
+		originalUrl: null,
+		changeCount: 0,
+		//	Vlastní otevření okna.
+		doShowModal: function ()
+		{
+			$('#cbp-overlay')
+				.addClass('show');
+			$('body')
+				.css('overflow', 'hidden');
+			$('#modal-window')
+				.addClass('modal-opened')
+				.fadeIn();
+		},
+		//	Je okno otevřeno?
+		isModalOpened: function ()
+		{
+			return $('#modal-window')
+				.hasClass('modal-opened');
+		},
+		//	Replacing content
+		doLoadContent: function (data)
+		{
+			for(var key in data.snippets) break;
+			this.replacingContent(data.snippets[key]);
+		},
+		//	Nahrazení obsahu modalu
+		replacingContent: function (s)
+		{
+			$('#modal-window .modal-body').html(s);
+		},
+		//	Vlastní zavření okna.
+		doCloseModal: function ()
+		{
+			$('#cbp-overlay')
+				.removeClass('show');
+			$('body')
+				.css('overflow', 'visible');
+			$('#modal-window')
+				.removeClass('modal-opened')
+				.fadeOut();
+		},
+		//	Uložíme do historie
+		pushState: function(url)
+		{
+			history.pushState({'url': url, changeCount: this.changeCount}, 
+					null, 
+					url);
 		}
+		
 	});
 
 
@@ -403,11 +360,20 @@ $(function(){
 	/**
 	 * Initialize JS methods and AJAX
 	 */
-	$.nette.ext('init').linkSelector = 'a.ajax';
+//	$.nette.ext('init').linkSelector = 'a.ajax';
+	$.nette.ext('init').linkSelector = 'a[data-toggle="modal"]';
+	
+	
 	$.nette.init();
 	budget.init();
 
-
+	$.nette.ext('snippets').getElement = function (id) {
+		//~ console.log('snippet', id);
+		return $('#' + this.escapeSelector(id));
+		return $('#modal-window .modal-body');
+	},
+/*
+*/
 
     $('#showLeft').on('click', function(e) {
         $(this).toggleClass('active');
