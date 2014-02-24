@@ -1,0 +1,5 @@
+--
+-- Create user
+--
+CREATE USER %DBUSER% IDENTIFIED BY '%DBPASSWORD%';
+

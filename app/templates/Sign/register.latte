@@ -1,0 +1,27 @@
+{layout '../@layout-unsigned.latte'}
+
+{block content}
+
+<div class="jumbotron jumbotron-colored">
+	<div class="bs-container-fluid">
+		<div class="socials">
+			{control socialLogin}
+		</div>
+
+		<div class="bs-row">
+			<div class="col-sm-4 col-sm-offset-4 email-login">
+			{snippet registration}
+
+				{control registerForm}
+
+				<div class="sign-info">
+					<p>{_login.template.already-registered} <a n:href="Sign:" class="ajax">{_login.form.sign-in}</a></p>
+				</div>
+
+			{/snippet}
+			</div>
+		</div>
+
+	</div>
+</div>
+{/block}

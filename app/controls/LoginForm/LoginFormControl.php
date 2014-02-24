@@ -19,11 +19,11 @@ class LoginFormControl extends BaseControl
 
 		$signIn->addText('email', 'login.form.email')
 			->setAttribute('placeholder', 'login.form.email')
-			->addrule(Form::FILLED, 'login.form.email_warning');
+			->addrule(Form::FILLED, 'login.form.email-warning');
 		$signIn->addPassword('password', 'login.form.password')
 			->setAttribute('placeholder', 'login.form.password')
-			->AddRule(Form::FILLED, 'login.form.password_warning');
-		$signIn->addSubmit('submit', 'login.form.sign_in');
+			->AddRule(Form::FILLED, 'login.form.password-warning');
+		$signIn->addSubmit('submit', 'login.form.sign-in');
 
 		$signIn->onSuccess[] = $this->signInFormSubmitted;
 
@@ -41,8 +41,8 @@ class LoginFormControl extends BaseControl
 			$this->presenter->getUser()->setExpiration('+15 days', FALSE);
 			$this->presenter->getUser()->login('email', $values);						
 			// Authentication successful, login in!
-			$this->presenter->flashMessage('login.flashes.login_success', 'alert-success');
-			// $this->presenter->restoreRequest($this->presenter->backlink);
+			$this->presenter->flashMessage('login.flashes.login-success', 'alert-success');
+			$this->presenter->restoreRequest($this->presenter->backlink);
 			$this->presenter->redirect(':Task:');
 
 		} catch (\Nette\Security\AuthenticationException $e) {

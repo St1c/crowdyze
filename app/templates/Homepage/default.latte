@@ -1,6 +1,8 @@
+{layout '../@layout-unsigned.latte'}
+
 {block content}
 
-	<div class="jumbotron">
+	<div class="jumbotron jumbotron-colored">
 		<div class="bs-container-fluid">
 			
 			<div class="slogan">
@@ -10,49 +12,48 @@
 
 			<div class="login-wrapper">
 				{control socialLogin}
-				<a class="btn btn-login btn-email">
+				<a n:href="Sign:register" class="btn btn-login btn-email">
 					<span class="btn-icon icon-email"></span> {_login.button.email-login}
 				</a>
 			</div>
-
-			<p>{_login.template.already-registered} <a n:href="Sign:login">{_login.form.sign-in}</a></p>
+			<p>{_login.template.already-registered} <a n:href="Sign:default">{_login.form.sign-in}</a></p>
 
 			<div class="job-teaser bs-container-fluid">
 				<div class="row">
 					
 					<div class="job job-box">
 		               <div class="job-tag box-corner-cat3">
-								<a href="/?tag=promoted">
+								<a n:href="Task:default">
 									<span class="tag-label">Coding</span>
 								</a>
 							<span class="box-corner"></span>
 						</div>
 		                <span class="job-time">7 days left</span>
-		                <h3 class="job-title"><a href="">eCommerce solution for brand new e-shop</a></h3>
+		                <h3 class="job-title"><a n:href="Task:default">eCommerce solution for brand new e-shop</a></h3>
 		                <span class="job-price">Get <strong>$150</strong></span>
 					</div>
 
 	                <div class="job job-box hidden-xs">
 		                <div class="job-tag box-corner-cat2">
-								<a href="/?tag=promoted">
+								<a n:href="Task:default">
 									<span class="tag-label">Design</span>
 								</a>
 							<span class="box-corner"></span>
 						</div>
 		                <span class="job-time">12 days left</span>
-		                <h3 class="job-title"><a href="">Logo for our page</a></h3>
+		                <h3 class="job-title"><a n:href="Task:default">Logo for our page</a></h3>
 		                <span class="job-price">Get <strong>$75</strong></span>
 					</div>
 
 	                <div class="job job-box hidden-sm hidden-xs">
 		                <div class="job-tag box-corner-cat1">
-								<a href="/?tag=promoted">
+								<a n:href="Task:default">
 									<span class="tag-label">Survey</span>
 								</a>
 							<span class="box-corner"></span>
 						</div>
 		                <span class="job-time">1 day left</span>
-		                <h3 class="job-title"><a href="">Answer our customer support questinaire</a></h3>
+		                <h3 class="job-title"><a n:href="Task:default">Answer our customer support questinaire</a></h3>
 		                <span class="job-price">Get <strong>$1.50</strong></span>
 	            	</div>
 
@@ -61,8 +62,8 @@
 
 			</div>
 			
-			<a class="btn btn-teaser">
-				Add job
+			<a n:href="Task:add" class="btn btn-teaser">
+				{_homepage.body.add-job}
 			</a>
 
 		</div>
@@ -87,8 +88,8 @@
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
 					
 					<div class="savings">
-						<h5>{_homepage.body.saved}</h5>
-						<h2>$ 2,706,850.40</h2>
+						<h5>{_homepage.body.earned}</h5>
+						<h2>&euro; 2,706,850.40</h2>
 						<a n:href="Task:default" class="btn btn-large btn-primary">{_homepage.body.want-earn}</a>
 					</div>
 
@@ -108,7 +109,7 @@
 
 					<div class="savings">
 						<h5>{_homepage.body.saved}</h5>
-						<h2>$ 17,145,902.40</h2>
+						<h2>&euro; 17,145,902.40</h2>
 						<a n:href="Task:default" class="btn btn-large btn-primary">{_homepage.body.want-save}</a>
 					</div>
 

@@ -1,4 +1,13 @@
 {layout '../@layout.latte'}
-{block #content}
+{block content}
+<div class="jumbotron">
+	<div class="bs-container-fluid">
+		<div class="bs-row">
+			<div class="col-sm-4 col-sm-offset-4">
+				{control paypal}
+			</div>
+		</div>
+	</div>
+</div>
 
-{control paypal}
+{/block}

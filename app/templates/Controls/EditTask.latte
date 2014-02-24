@@ -15,12 +15,10 @@
 
 			{input title, class=>'textinput input-title'}
 
-			Get &euro; {input salary class=>'textinput input-price salary', id => "salary"}
-
-			<div id="budget">
-				<p>Estimated costs: <span class="value"></span> &euro;</p>
+			<div class='salary clearfix'>
+				<span>{_addTask.form.get_salary} &euro;&nbsp;</span>
+				{input salary class=>'textinput input-price', id => "salary"}
 			</div>
-			
 			
 			<div class="modal-inputs clearfix">
 				<div class="modal-col">
@@ -36,10 +34,13 @@
 
 			{input description class=>'input-description'}
 
-			<div id="promotion">
+<!-- 			<div id="promotion">
 				promotion
-			</div>
+			</div> -->
 
+			<div id="budget">
+				<p>{_addTask.form.costs} <b><span class="value"></span> &euro;</b></p>
+			</div>
 			<div class="controls">
 				{input submit, class=>'btn btn-large btn-primary'}
 				{input cancel, class=>'btn btn-large btn-warning', 'data-toggle'=>"modal", 'data-dismiss'=>"modal"}

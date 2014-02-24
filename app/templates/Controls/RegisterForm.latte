@@ -1,7 +1,5 @@
 {form registerForm class => "login-form" } 
 			
-	<h5>{_login.template.sign_up_email}</h5>
-
 	<!--  Error messages for current form -->
 	<div class="errors" n:if="$form->hasErrors()">
 		<div n:foreach="$form->errors as $error" class="alert alert-danger">
@@ -9,13 +7,20 @@
 			{$error}
 		</div>
 	</div>
+    
+    <div class="form-row clearfix">
+	{input email class => "textinput textinput-lg"}
+	</div>
 
-	{input email class => "form-control"}
+    <div class="form-row clearfix">
+	{input password class => "textinput textinput-lg"}
+	</div>
+    
+    <div class="form-row clearfix">
+	{input repeatPassword class => "textinput textinput-lg"}
+	</div>
 
-	{input password class => "form-control"}
-
-	{input repeatPassword class => "form-control"}
-
-	{input submit type=>'submit', class=>'btn btn-outline btn-sign'}
-
+    <div class="form-row clearfix">
+	{input submit type=>'submit', class=>'btn btn-login btn-email'}
+	</div>
 {/form}

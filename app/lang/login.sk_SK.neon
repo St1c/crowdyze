@@ -21,11 +21,11 @@ registerForm:
 
 template:
 	login: "Prihlásiť"
+	sign-up: "Zaregistrujte sa"
 	email-sign-up: "Registrovať emailom"
 	already-registered: "Už ste registrovaný?"
 	not-registered: "Ešte nemáte účet?"
-	log-in-email: "Prihlásiť emailom"
-	sign-up-email: "Registrovať s emailom"
+	prefer: "Prefer e-mail?"
 
 flashes:
 	register-success: "Registrácia úspešná!"

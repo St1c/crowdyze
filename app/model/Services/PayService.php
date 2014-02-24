@@ -188,6 +188,7 @@ class PayService extends Nette\Object
 			case 2: 
 				// Pay the best 10
 				$budget = 10 * $task->salary;
+				break;
 
 			default: 
 				// Pay all

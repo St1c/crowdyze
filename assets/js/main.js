@@ -209,7 +209,7 @@ $(function(){
 		load: function () {
 
 			// default checkboxex
-			$('.custom-checkbox').iCheck({
+			$('.custom-checkbox, input[type="radio"]').iCheck({
 				checkboxClass: 'icheckbox_default',
 				radioClass: 'iradio_default',
 				increaseArea: '20%'
@@ -232,8 +232,6 @@ $(function(){
 			$('.custom-select').customSelect();
 		}
 	});
-
-
 
 
 	/**
@@ -358,6 +356,36 @@ $(function(){
 
 
 	/**
+	 * Custom checkbox
+	 * @author  kodujeme.sk
+	 * ! Toto znefunkčnilo checkboxy u mazání soborů.
+	 */
+	// $.nette.ext('autoGrowInput', {
+	// 	load: function () {
+	// 		$('input[name="title"]').autoGrowInput({
+	// 			comfortZone: 50,
+	// 			// minWidth: 20,
+	// 			// maxWidth: 2000
+	// 		});
+	// 	}
+	// });
+
+	/**
+	 * Datepicker
+	 * @author  crowdyze.me
+	 */
+	$.nette.ext('datepicker', {
+		load: function () {
+			var	picker = new Pikaday({ 
+				field: $('.input-date')[0],
+				format: 'DD/MM/YY',
+				position: 'Bottom right'
+			});
+		}
+	});
+
+
+	/**
 	 * Initialize JS methods and AJAX
 	 */
 //	$.nette.ext('init').linkSelector = 'a.ajax';
@@ -372,8 +400,7 @@ $(function(){
 		return $('#' + this.escapeSelector(id));
 		return $('#modal-window .modal-body');
 	},
-/*
-*/
+
 
     $('#showLeft').on('click', function(e) {
         $(this).toggleClass('active');
@@ -392,5 +419,6 @@ $(function(){
         $('#showLeft').click();
     });
 
+	$(".loader").css('background-image', 'none').fadeOut(1000);
 
 });

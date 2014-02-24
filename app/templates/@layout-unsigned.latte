@@ -8,8 +8,9 @@
 
 		<meta name="description" content="The right place for sharing small jobs and earning nice money" />
 		<meta name="keywords" content="crowdsourcing, jobs, small tasks" />
-		<meta name="robots" content="{$robots}" n:ifset="$robots">
-
+		{* <meta name="robots" content="{$robots}" n:ifset="$robots"> *}
+		<meta name="robots" content="noindex,nofollow" />
+        
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'>
         <meta name="viewport" content="width=device-width">
 
@@ -27,9 +28,9 @@
 	</head>
 
 	<body class="no-js cbp-spmenu-push">
-
+	<div class="loader"></div>
         <div class="header header-lg logo-lg">
-        	<a>crowdyze<span>me</span></a>
+        	<a n:href="Homepage:"><img src="{$basePath}/img/logo-home.png"></a>
         </div>
 
 		{include #content}			

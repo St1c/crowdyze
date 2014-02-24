@@ -8,8 +8,9 @@
 
 		<meta name="description" content="The right place for sharing small jobs and earning nice money" />
 		<meta name="keywords" content="crowdsourcing, jobs, small tasks" />
-		<meta name="robots" content="{$robots}" n:ifset="$robots">
-
+		{* <meta name="robots" content="{$robots}" n:ifset="$robots"> *}
+		<meta name="robots" content="noindex,nofollow" />
+        
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'>
         <meta name="viewport" content="width=device-width">
 
@@ -28,6 +29,8 @@
 
 
 	<body class="no-js cbp-spmenu-push">
+		<div class="loader"></div>
+
         <div class="main">
             <div class="header clearfix">
                 <strong class="logo"><a n:href="Task:"><img src="{$basePath}/img/logo.png"></a></strong>
@@ -57,6 +60,10 @@
 
 			<div class="toppanel" n:block="notifier">
 				You have no active jobs. Pick some from the offer below...
+			</div>
+			
+			<div class="alert-wp">
+				<div n:foreach="$flashes as $flash" class="alert {$flash->type}">{$flash->message}</div>
 			</div>
 
 			{snippet content}

@@ -13,7 +13,8 @@ use Nette,
 use Taco\Nette\Forms\Controls\DateInput,
 	Taco\Nette\Forms\Controls\MultipleUploadControl,
 	Taco\Nette\Http\FileUploaded;
-
+use DateTime,
+	DateInterval;
 
 class EditTaskControl extends BaseControl
 {
@@ -76,8 +77,12 @@ class EditTaskControl extends BaseControl
 			->setAttribute('placeholder', 'addTask.form.workers_required')
 			->setDefaultValue($task->workers);
 
-		$component['deadline'] = new DateInput('Deadline:', DateInput::STYLE_SELECTS);
-		$component['deadline']->setDefaultValue($task->deadline);
+		$component->addText('deadline', 'addTask.form.deadline')
+			->setDefaultValue(date('d/m/y',strtotime("+1 month")))
+			->setAttribute('placeholder', 'addTask.form.deadline');
+
+		// $component['deadline'] = new DateInput('Deadline:', DateInput::STYLE_SELECTS);
+		// $component['deadline']->setDefaultValue($task->deadline);
 		
 		$component->addText('departments', 'addTask.form.department')
 			->setAttribute('placeholder', 'addTask.form.departments');
@@ -132,6 +137,11 @@ class EditTaskControl extends BaseControl
 				$values['tags'] = $value;
 			}
 
+			// Parsing date
+			if (isset($values['deadline']) && $value = self::parseDate($values['deadline'])) {
+				$values['deadline'] = $value;
+			}
+
 			//	Process store
 			try {
 				$task = $this->taskService->getTaskByToken($this->presenter->getParameter('token'));
@@ -182,4 +192,17 @@ class EditTaskControl extends BaseControl
 		return implode(',', $tags);
 	}
 
+
+	/**
+	 * Reformat date to format needed for recording in DB
+	 * 
+	 * @param string $value
+	 * 
+	 * @return string
+	 */
+	private static function parseDate($value)
+	{
+		$date = DateTime::createFromFormat('d/m/y', $value);
+		return $date->format('Y-m-d');
+	}
 }

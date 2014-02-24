@@ -27,7 +27,7 @@ abstract class BaseSignedPresenter extends BasePresenter
 		parent::startup();
 
 		if (!$this->getUser()->isLoggedIn()) {
-			$this->redirect('Homepage:', array( 'backlink' => $this->storeRequest() ));
+			$this->redirect('Sign:register', array( 'backlink' => $this->storeRequest() ));
 		}
 		else {
 			$this->backlink = NULL;

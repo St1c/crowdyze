@@ -10,7 +10,8 @@ class WalletPresenter extends BaseSignedPresenter
 	/** @var Controls\IPaypalControlFactory @inject */
 	public $paypalControlFactory;
 
-
+	/** @var Model\Services\UserService @inject */
+	public $userService;
 
 	public function createComponentPaypal()
 	{

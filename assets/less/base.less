@@ -1,16 +1,4 @@
 /* - base styles - */
-@white: 				#fff;
-@black: 				#000;
-@color-text: 			#3b3c3d;
-@color-text-light: 		#6d6e70;
-@color-text-lighter: 	#b0b0bc;
-
-@primary-color: 		#4ece97;
-@secondary-color: 		#ff7d63;
-
-@facebook-color: 		#169DD8;
-@google-color: 			#ff7d63;
-
 ::before, 
 ::after, 
 * {
@@ -183,4 +171,28 @@ hr {
 
 .pull-right {
 	float: right; 
+}
+
+.alert-wp {
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	width: 40%;
+	text-align: center;
+	z-index: 5;
+
+	.alert {
+		position: relative;
+		left: -50%;
+	}
+}
+
+.loader {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url('../img/preloader.gif') 50% 50% no-repeat rgb(249,249,249);
 }

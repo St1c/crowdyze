@@ -2,9 +2,10 @@ jumbo:
 	slogan-main: "Looking for fast solutions? Crowdyze it..."
 	slogan-side: "Image your tasks solved in no-time. Reliably and efficiently, with the help of our online crowd."
 body: 
+	add-job: "Add job"
 	header-worker: "I want to earn money"
 	header-employer: "I want to save money"
-	saved: "You earned already"
-	earned: "You saved already"
+	saved: "You saved already"
+	earned: "You earned already"
 	want-save: "I want to save"
 	want-earn: "I want to earn"

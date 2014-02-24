@@ -3,13 +3,14 @@
 	{form addTaskForm class => "form-modal form-addjob"}
 
 		<ul class="errors" n:if="$form->hasErrors()">
-			<li n:foreach="$form->errors as $error">{$error}</li>
+			<li n:foreach="$form->errors as $error" class="alert alert-danger">{$error}</li>
 		</ul>
-		
+{* 		
 		<div class="controls">
 			{input submit, class=>'btn btn-large btn-primary'}
 			<!-- {input cancel, class=>'btn'} -->
-		</div>
+		</div> 
+*}
 
 		<div class="tags">
 			<div id="tags-container"></div>
@@ -19,19 +20,22 @@
 		{input title, class=>'textinput input-title'}
 
 		<div class='salary clearfix'>
-			<span>Get &euro;&nbsp;</span>
+			<span>{_addTask.form.get_salary} &euro;&nbsp;</span>
 			{input salary class=>'textinput input-price', id => "salary"}
 		</div>
 
-		<div class="modal-inputs">
+		<div class="modal-inputs clearfix">
 			<div class="modal-col">
-				{input budget_type class => "custom-select input-payment", id => "budget_type"}
+				<div class="select-style">
+					{input budget_type class => "input-budget-type", id => "budget_type"}					
+				</div>
 			</div>
 			<div class="modal-col">
 				{input workers class => "textinput input-workers" , id => "workers"}
 			</div>
 			<div class="modal-col">
-				{input deadline class => "input-date input"}{errors deadline}
+				<!-- <span class="icon-time"></span> -->
+				{input deadline class => "textinput input-date", id => "datepicker" }{errors deadline}
 			</div>
 		</div>
 
@@ -44,25 +48,30 @@
 		</div>
 
 
-		<div id="promotion">
-			{label promotion /}
-			{input promotion class=>'promotion'}
+		<div id="promotion form-row clearfix">
+			<div class="label">
+				{label promotion /}
+			</div>
+			<div class="input-holder radio">
+				{input promotion class=>'promotion'}				
+			</div>
 		</div>
-*}
 
+*}
 		<div id="budget">
-			<p>Estimated costs: <span class="value"></span> &euro;</p>
+			<p>{_addTask.form.costs} <b><span class="value"></span> &euro;</b></p>
 		</div>
 
 		<div class="controls">
 			{input submit, class=>'btn btn-large btn-primary'}
-			<!-- {input cancel, class=>'btn', 'data-dismiss'=>"modal", 'data-toggle'=>"modal"} -->
+			{* {input cancel, class=>'btn', 'data-dismiss'=>"modal", 'data-toggle'=>"modal"} *}
+			<p>or <a href="http://www.facebook.com">Share on Facebook</a></p>
 		</div>
 
 		<hr />
 
 		<div class="attachements">
-			<h5>Attachments</h5>
+			<h5>{_addTask.form.attachments}</h5>
 			{input attachments}{errors attachments}
 			{input attachmentPreload, style=>"visibility:hidden"}
 			<div style="clear:both"></div>

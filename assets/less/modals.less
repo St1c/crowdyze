@@ -62,6 +62,7 @@
 
 	textarea {
 		margin-bottom: 10px; 
+		text-align: left;
 	}
 
 	.btn-large {
@@ -72,16 +73,6 @@
 		font-weight: normal; 
 	}
 
-	input:not([type="file"]):not([type="submit"]), 
-	select,
-	.custom-select {
-		border: none;
-		border-bottom: 1px dashed #e5e5e7;
-	}
-
-	#budget p {
-		margin-bottom: 0;
-	}
 }
 
 .modal-opened .modal {
@@ -106,8 +97,8 @@
 	padding-top: 8px; 
 	padding-left: 20px; 
 	height: 20px; 
-	line-height: 20px; 
-	font-size: 11px;
+	font-size: 11px; 
+	line-height: 20px;
 
 	a { 
 		color: #b0b0bc;
@@ -129,65 +120,23 @@
 	opacity: 0.8;
 }
 
-.form-addjob { 
+.form-addjob {
+	
 	margin: 20px 40px;
 	padding-top: 8px; 
-}
 
-
-.form-addjob .textinput {
-	display: block; 
-	box-sizing: border-box; 
-	margin: 0 auto; 
-	padding: 0; 
-	width: 100%;
-	border: none; 
-	border-bottom: 1px dashed #e5e5e7; 
-	background: none; 
-	text-align: center; 
-}
-
-.modal-inputs { 
-	margin: 0 auto;
-	width: 80%; 
-}
-
-.modal-col { 
-	float: left;
-	box-sizing: border-box; 
-	padding: 0 10px; 
-	width: 33%;
-
-	input { 
-		margin-bottom: 33px; 
-		height: 23px; 
-		color: #6b6e70;
-		font-size: 13px; 
-		line-height: 23px;
-
-		&::placeholder {
-			color: #6b6e70; 
-		}
+	.textinput {
+		display: block; 
+		box-sizing: border-box; 
+		margin: 0 auto; 
+		padding: 0; 
+		min-width: 0;
+		width: auto;
+		border: none; 
+		border-bottom: 1px dashed #e5e5e7; 
+		background: none; 
+		text-align: center; 
 	}
-
-	.input-payment {
-		margin: -1px 0 0 0;
-		width:100%;
-		height: 22px;
-		border: none;
-		border-radius: none;
-
-		.customSelectInner {
-			padding: 0;
-			width:0;
-			border: 0;
-			background: none;
-		}
-	}
-
-}
-
-.form-addjob {
 
 	.input-tag { 
 		margin-top: 10px; 
@@ -199,6 +148,21 @@
 
 		&::placeholder {
 			color: #6d6e70; 
+		}
+	}
+
+	.tm-tag {
+		display: inline-block;
+		padding: 3px 6px;
+		background-color: @primary-color;
+		border-radius: 3px;
+		margin: 3px;
+		color: @white;
+		border: 1px solid darken(@primary-color, 20%);
+
+		.tm-tag-remove {
+			margin-left: 10px;
+			color: darken(@primary-color, 20%);
 		}
 	}
 
@@ -234,37 +198,107 @@
 		.input-price {
 			display: inline-block;
 			float: left;
+			margin-bottom: 33px;
 			min-width: 68px;
-			width: 68px;
+			width: 68px; 
+			height: 40px; 
+			color: @primary-color;
+			font-size: 30px; 
+			line-height: 40px;
+			
+			&::placeholder {
+				color: @primary-color;
+			}
 		}
 	}
 
-	.input-price { 
-		margin-bottom: 33px; 
-		height: 40px; 
-		color: @primary-color;
-		font-size: 30px; 
-		line-height: 40px;
+	.input-description { 
+		display: block; 
+		box-sizing: border-box; 
+		margin: 20px 0; 
+		padding-top: 5px; 
+		height: 100px; 
+		color: #6d6e70; 
+		text-align: center;
+		font-size: 15px; 
+		border: none; 
+		background: none;
+		border-radius: 6px; 
 		
 		&::placeholder {
-			color: @primary-color;
+			color: #6d6e70; 
 		}
 	}
+	
+	select,
+	input:not([type="file"]):not([type="submit"]),
+	.custom-select {
+		border: none;
+		border-bottom: 1px dashed #e5e5e7;
+	}
+
+	#budget p {
+		margin-bottom: 0;
+		color: @secondary-color;
+	}
+
 }
 
-.input-description { 
-	display: block; 
-	box-sizing: border-box; 
-	margin-bottom: 20px; 
-	padding-top: 5px; 
-	height: 100px; 
-	border: none; 
-	background: none; 
-	color: #3b3c3d; 
-	text-align: center;
-	font-size: 15px; 
-	
-	&::placeholder {
-		color: #3b3c3d; 
+.modal-inputs { 
+	color: #6d6e70;
+	margin: 0 auto 30px;
+	// width: 95%; 
+}
+
+.modal-col { 
+	float: left;
+	padding: 0 7px; 
+	width: 33%;
+	height: 23px;
+	// border-bottom: 1px dashed #e5e5e7;
+
+	input,
+	select { 
+		color: #6b6e70;
+		font-size: 13px; 
+		line-height: 23px; 
+		height: 23px;
+
+		&::placeholder {
+			color: #6b6e70; 
+		}
 	}
+	.select-style {
+		width: 100%;
+		height: 23px;
+		line-height: 23px;
+		vertical-align: middle;
+		overflow: hidden;
+		// background: #fff url("data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==") no-repeat 90% 50%;
+		border-bottom: 1px dashed #ccc;
+	}
+
+	.select-style select {
+		padding: 0 8px;
+		// width: 130%;
+		border: none;
+		box-shadow: none;
+		background: transparent;
+		background-image: none;
+		-webkit-appearance: none;
+	}
+
+	.select-style select:focus {
+		outline: none;
+	}
+
+	.textinput {
+		width: 100%;
+	}
+
+}
+
+
+.form-modal {
+
 }
