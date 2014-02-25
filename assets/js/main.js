@@ -356,9 +356,8 @@ $(function(){
 
 
 	/**
-	 * Custom checkbox
-	 * @author  kodujeme.sk
-	 * ! Toto znefunkčnilo checkboxy u mazání soborů.
+	 * Auto Grow Input
+	 * @author  crowdyze.me
 	 */
 	// $.nette.ext('autoGrowInput', {
 	// 	load: function () {
