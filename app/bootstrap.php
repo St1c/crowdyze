@@ -26,7 +26,7 @@ $configurator->createRobotLoader()
 // Create Dependency Injection container from config.neon file
 $configurator->addConfig(__DIR__ . '/config/config.neon');
 
-$environment = Nette\Configurator::detectDebugMode('vaše ip adresa')
+$environment = Nette\Configurator::detectDebugMode()
     ? $configurator->addConfig(__DIR__ . '/config/config.local.neon')
     : $configurator->addConfig(__DIR__ . '/config/config.remote.neon');
 
