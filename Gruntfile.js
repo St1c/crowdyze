@@ -124,16 +124,17 @@ module.exports = function(grunt) {
 			}
 		},
 
-		// imagemin: {
-		// 	dynamic: {
-		// 		files: [{
-		// 			expand: true,
-		// 			cwd: 'www/img/',
-		// 			src: ['**/*.{png,jpg,gif}'],
-		// 			dest: 'www/img/'
-		// 		}]
-		// 	}
-		// },
+		imagemin: {
+			dynamic: {
+				files: [{
+					expand: true,
+					cache: false,
+					cwd: 'assets/img/',
+					src: ['*.{png,jpg,gif}'],
+					dest: 'www/img/'
+				}]
+			}
+		},
 
 		watch: {
 			options: {
@@ -141,7 +142,7 @@ module.exports = function(grunt) {
 			},
 			scripts: {
 				files: ['assets/js/*.js'],
-				tasks: ['concat' /*, 'uglify' */],
+				tasks: ['concat'],
 				options: {
 					spawn: false,
 				}
@@ -153,13 +154,13 @@ module.exports = function(grunt) {
 					spawn: false,
 				}
 			},
-			// images: {
-			// 	files: ['www/img/*.{png,jpg,gif}', 'img/*.{png,jpg,gif}'],
-			// 	tasks: ['imagemin'],
-			// 	options: {
-			// 		spawn: false,
-			// 	}
-			// }
+			images: {
+				files: ['assets/img/*.{png,jpg,gif}'],
+				tasks: ['imagemin'],
+				options: {
+					spawn: false,
+				}
+			}
 		}
 
 	});
@@ -168,7 +169,5 @@ module.exports = function(grunt) {
 	require('load-grunt-tasks')(grunt);
 
 	// Default Task is basically a rebuild
-	grunt.registerTask('default', ['concat', 'uglify', 'less', 'autoprefixer', 'csscomb', 'cssmin', /*'imagemin'*/]);
-	// grunt.registerTask('default', ['concat', 'uglify', 'less', 'autoprefixer', 'imagemin']);
-
+	grunt.registerTask('default', ['concat', 'uglify', 'less', 'autoprefixer', 'csscomb', 'cssmin', 'imagemin']);
 };
