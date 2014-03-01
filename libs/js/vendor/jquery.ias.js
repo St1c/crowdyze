@@ -1,9 +1,9 @@
 /*!
  * Infinite Ajax Scroll, a jQuery plugin
- * Version 1.0.2
+ * Version 1.1.0
  * https://github.com/webcreate/infinite-ajax-scroll
  *
- * Copyright (c) 2011-2013 Jeroen Fiege
+ * Copyright (c) 2011-2014 Jeroen Fiege
  * Licensed under MIT:
  * https://raw.github.com/webcreate/infinite-ajax-scroll/master/MIT-LICENSE.txt
  */
@@ -92,16 +92,16 @@
         function reset()
         {
             hide_pagination();
-
-            opts.scrollContainer.scroll(scroll_handler);
+            opts.scrollContainer.scroll(scroll_handler_a);
         }
+
 
         /**
          * Scroll event handler
          *
          * @return void
          */
-        function scroll_handler()
+        function scroll_handler_a()
         {
             var curScrOffset,
                 scrThreshold;
@@ -120,6 +120,7 @@
                     paginate(curScrOffset);
                 }
             }
+            opts.onScroll(curScrOffset, get_current_page(), scrThreshold);
         }
 
         /**
@@ -129,7 +130,7 @@
          */
         function stop_scroll()
         {
-            opts.scrollContainer.unbind('scroll', scroll_handler);
+            opts.scrollContainer.unbind('scroll', scroll_handler_a);
         }
 
         /**
@@ -181,9 +182,6 @@
 
             urlNextPage = $(opts.next).attr('href');
             if (!urlNextPage) {
-                if (opts.noneleft) {
-                    $(opts.container).find(opts.item).last().after(opts.noneleft);
-                }
                 return stop_scroll();
             }
 
@@ -212,6 +210,7 @@
                     $(items).fadeIn();
                 }
 
+                //~ urlNextPage = $(opts.next, data.snippets['snippet--jobstable']).attr('href');
                 urlNextPage = $(opts.next, data).attr('href');
 
                 // update pagination
@@ -224,6 +223,9 @@
                     reset();
                 }
                 else {
+                    if (opts.noneleft) {
+                        $(opts.container).find(opts.item).last().after(opts.noneleft);
+                    }
                     stop_scroll();
                 }
 
@@ -255,15 +257,41 @@
 
             delay = delay || opts.loaderDelay;
 
-            $.get(url, null, function (data) {
+
+			function selectResponseFromNetteSnipped(data) 
+			{
+				return data.snippets['snippet--jobstable'];
+			}
+
+
+			function parseResponseFromNetteSnipped(data) 
+			{
+				return $(data.snippets['snippet--jobstable']);
+			}
+
+
+			function parseResponseFromHtml(data)
+			{
                 // walk through the items on the next page
                 // and add them to the items array
                 container = $(opts.container, data).eq(0);
+
                 if (0 === container.length) {
                     // incase the element is a root element (body > element),
                     // try to filter it
                     container = $(data).filter(opts.container).eq(0);
                 }
+                
+                return container;
+			}
+
+			//~ var dataType = 'html';
+			var dataType = 'json';
+            $.get(url, null, function (data) {
+
+				//~ container = parseResponseFromNetteSnipped(data);
+				data = selectResponseFromNetteSnipped(data);
+				container = parseResponseFromHtml(data);
 
                 if (container) {
                     container.find(opts.item).each(function () {
@@ -282,8 +310,10 @@
                         onCompleteHandler.call(self, data, items);
                     }
                 }
-            }, 'html');
+            }, dataType);
         }
+
+
 
         /**
          * Paginate to a certain page number.
@@ -350,7 +380,7 @@
             if (opts.customLoaderProc !== false) {
                 opts.customLoaderProc(loader);
             } else {
-                el = $(opts.container);//.find(opts.item).last();
+                el = $(opts.container).find(opts.item).last();
                 el.after(loader);
                 loader.fadeIn();
             }
@@ -400,7 +430,7 @@
             if (opts.customTriggerProc !== false) {
                 opts.customTriggerProc(trigger);
             } else {
-                el = $(opts.container);//.find(opts.item).last();
+                el = $(opts.container).find(opts.item).last();
                 el.after(trigger);
                 trigger.fadeIn();
             }
@@ -437,6 +467,7 @@
         beforePageChange: function () {},
         onLoadItems: function () {},
         onRenderComplete: function () {},
+        onScroll: function () {},
         customLoaderProc: false,
         customTriggerProc: false
     };
@@ -456,7 +487,7 @@
          */
         function init()
         {
-            $(window).load(function () {
+            $(document).ready(function () {
                 wndIsLoaded = true;
             });
         }
@@ -522,7 +553,7 @@
          */
         function init()
         {
-            $(window).scroll(scroll_handler);
+            $(window).scroll(scroll_handler_b);
         }
 
         // initialize
@@ -535,7 +566,7 @@
          *
          * @return void
          */
-        function scroll_handler()
+        function scroll_handler_b()
         {
             var curScrOffset,
                 curPageNum,

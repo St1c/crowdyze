@@ -8,6 +8,7 @@
 
 
 {block content}
+
 	<div class="wrapper">
 
 		<!-- Promoted Tasks -->
@@ -42,8 +43,8 @@
 		</div>
 
 
+		{snippet jobstable}
 		<!-- Jobs Table -->
-
 		<div class="box" id="jobs-table">
 			<table class="jobs-table">
 				<tbody>
@@ -76,10 +77,10 @@
 			</table>
 		</div>
 
-	</div>
-	
-	<div class="paginate" id="paginate">
-		{control paginator}
+		<div class="paginate" id="paginate">
+			{control paginator}
+		</div>
+		{/snippet}
 	</div>
 
 {/block}

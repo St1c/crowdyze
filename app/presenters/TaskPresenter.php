@@ -81,6 +81,15 @@ class TaskPresenter extends BaseSignedPresenter
 
 
 
+	public function renderDefault($tag = Null)
+	{
+		if ($this->isAjax()) {
+			$this->redrawControl('jobstable');
+		}
+	}
+
+
+
 	public function renderDetail()
 	{
 		if ($this->isAjax()) {
