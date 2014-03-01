@@ -34,18 +34,9 @@ module.exports = function(grunt) {
 					paths: ["assets/less/", "/Users/stic/Sites/bootstrap/framework/less/"]
 				},
 				files: {
-					'www/css/main.css': 'assets/less/main.less'
+					'assets/css/main.css': 'assets/less/main.less'
 				}
 			}
-		},
-
-		// Remove unused CSS across multiple files
-		uncss: {
-			dist: {
-				files: {
-					'css/tidy.css': ['../app/templates/**/*.latte', '../app/templates/*.latte']
-					}
-				}
 		},
 
 		autoprefixer: {
@@ -56,19 +47,30 @@ module.exports = function(grunt) {
 			multiple_files: {
 				expand: true,
 				flatten: true,
-				src: 'www/css/*.css',
-				dest: 'www/css/'
+				src: 'assets/css/*.css',
+				dest: 'assets/css/'
 			}
+		},
+
+		csscomb: {
+			options: {
+				config: 'assets/css/csscomb.json'
+			},
+			dist: {
+				files: {
+					'assets/css/main.css': 'assets/css/main.css',
+				}
+			},
 		},
 
 		cssmin: {
 			combine: {
 				files: {
 					'www/css/main.min.css': [
-						'www/css/main.css',
-						'www/css/icheck-default.css',
-						'www/css/icheck-large.css',
-						'www/css/jquery.custombox.css'
+						'assets/css/main.css',
+						'assets/css/icheck-default.css',
+						'assets/css/icheck-large.css',
+						'assets/css/jquery.custombox.css'
 						]
 				}
 			}
@@ -98,7 +100,6 @@ module.exports = function(grunt) {
 							'libs/js/nette/netteForms.js',
 							'libs/vojtechDobes/nette.ajax.js/nette.ajax.js',
 							'libs/vojtechDobes/history/history.ajax.js'
-//							'libs/js/nette/nette.ajax.js'
 							],
 					'www/js/main.min.js': [
 							'assets/js/main.js'
@@ -127,10 +128,13 @@ module.exports = function(grunt) {
 			dynamic: {
 				files: [{
 					expand: true,
-					cwd: 'www/img/',
-					src: ['**/*.{png,jpg,gif}'],
+					cwd: 'assets/img/',
+					src: ['*.{png,jpg,gif}'],
 					dest: 'www/img/'
-				}]
+				}],
+				options: {
+					cache: false
+				}
 			}
 		},
 
@@ -140,20 +144,20 @@ module.exports = function(grunt) {
 			},
 			scripts: {
 				files: ['assets/js/*.js'],
-				tasks: ['concat' /*, 'uglify' */],
+				tasks: ['concat'],
 				options: {
 					spawn: false,
 				}
 			},
 			css: {
 				files: ['assets/less/*.less'],
-				tasks: ['less', 'autoprefixer', 'cssmin'],
+				tasks: ['less', 'autoprefixer', 'csscomb', 'cssmin'],
 				options: {
 					spawn: false,
 				}
 			},
 			images: {
-				files: ['www/img/*.{png,jpg,gif}', 'img/*.{png,jpg,gif}'],
+				files: ['assets/img/*.{png,jpg,gif}'],
 				tasks: ['imagemin'],
 				options: {
 					spawn: false,
@@ -167,7 +171,5 @@ module.exports = function(grunt) {
 	require('load-grunt-tasks')(grunt);
 
 	// Default Task is basically a rebuild
-	grunt.registerTask('default', ['concat', 'uglify', 'less', 'autoprefixer', 'cssmin', 'imagemin']);
-	// grunt.registerTask('default', ['concat', 'uglify', 'less', 'autoprefixer', 'imagemin']);
-
+	grunt.registerTask('default', ['concat', 'uglify', 'less', 'autoprefixer', 'csscomb', 'cssmin', 'imagemin']);
 };
