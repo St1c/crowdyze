@@ -272,7 +272,8 @@ class TaskService extends Nette\Object
 		$this->taskRepository->saveAttachment(
 				$task,
 				$this->fileManager->saveFile('tasks', $task->token, $file),
-				$contentType
+				$contentType,
+				filesize($file->path)
 				);
 	}
 

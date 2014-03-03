@@ -88,6 +88,11 @@ class EditTaskControl extends BaseControl
 			->setAttribute('placeholder', 'addTask.form.departments');
 
 		$component['attachments'] = new MultipleUploadControl('attachments');
+		$component['attachments']->setMimeTypeClassFunction(function($type) {
+			$p = explode('/', $type, 2);
+			return \App\Helpers::mediaType($p[0]);
+		});
+		
 		$component['attachments']->setAttribute('class', 'attachements file-uploader');
 		//~ $component['attachments']->getItemPrototype()->setAttribute('class', 'attachements');
 		$component['attachments']->setDefaultValue($attachments);

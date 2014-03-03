@@ -76,9 +76,10 @@ class TaskRepository extends BaseRepository
 	 * @param string $path
 	 * @param int $contentType
 	 */
-	public function saveAttachment(Task $task, $path, $contentType)
+	public function saveAttachment(Task $task, $path, $contentType, $size)
 	{
 		Validators::assert($path, 'string');
+		Validators::assert($size, 'int');
 		//~ Validators::assert($contentType, 'int');
 
 		try {
@@ -86,6 +87,7 @@ class TaskRepository extends BaseRepository
 					->insert(array(
 							'path' => $path,
 							'type_id' => $contentType,
+							'size' => $size,
 							));
 		}
 		catch (\PDOException $e) {
