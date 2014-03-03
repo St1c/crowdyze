@@ -75,6 +75,10 @@ class AddTaskControl extends BaseControl
 			->setDefaultValue(0);
 
 		$component['attachments'] = new MultipleUploadControl('attachments');
+		$component['attachments']->setMimeTypeClassFunction(function($type) {
+			$p = explode('/', $type, 2);
+			return \App\Helpers::mediaType($p[0]);
+		});
 		$component->addSubmit('attachmentPreload', 'Preload')
 				->setValidationScope(False);
 		
