@@ -1231,6 +1231,7 @@ hr {
 /* -- buttons -- */
 .btn {
   display: inline-block;
+  -webkit-appearance: none;
   padding: 4px 39px;
   font-size: 15px;
   line-height: 20px;
@@ -2798,6 +2799,7 @@ legend {
 }
 .ias_trigger a {
   display: inline-block;
+  -webkit-appearance: none;
   padding: 4px 39px;
   font-size: 15px;
   line-height: 20px;
