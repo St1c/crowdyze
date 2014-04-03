@@ -20,28 +20,28 @@ TO DO
 5) Can this Gruntfile.js be abstracted into smaller parts?
 	 - https://github.com/cowboy/wesbos/commit/5a2980a7818957cbaeedcd7552af9ce54e05e3fb
 
-*/		
+	 */		
 
-module.exports = function(grunt) {
+	 module.exports = function(grunt) {
 
-	grunt.initConfig({
+	 	grunt.initConfig({
 
-		pkg: grunt.file.readJSON('package.json'),
+	 		pkg: grunt.file.readJSON('package.json'),
 
-		less: {
-			dist: {
-				options: {
-					paths: ["assets/less/", "/Users/stic/Sites/bootstrap/framework/less/"]
-				},
-				files: {
-					'assets/css/main.css': 'assets/less/main.less'
-				}
-			}
-		},
+	 		less: {
+	 			dist: {
+	 				options: {
+	 					paths: ["assets/less/", "/Users/stic/Sites/bootstrap/framework/less/"]
+	 				},
+	 				files: {
+	 					'assets/css/main.css': 'assets/less/main.less'
+	 				}
+	 			}
+	 		},
 
-		autoprefixer: {
-			options: {
-				browsers: ['last 4 versions']
+	 		autoprefixer: {
+	 			options: {
+	 				browsers: ['last 4 versions']
 				// browsers: ['> 0%']
 			},
 			multiple_files: {
@@ -67,11 +67,11 @@ module.exports = function(grunt) {
 			combine: {
 				files: {
 					'www/css/main.min.css': [
-						'assets/css/main.css',
-						'assets/css/icheck-default.css',
-						'assets/css/icheck-large.css',
-						'assets/css/jquery.custombox.css'
-						]
+					'assets/css/main.css',
+					'assets/css/icheck-default.css',
+					'assets/css/icheck-large.css',
+					'assets/css/jquery.custombox.css'
+					]
 				}
 			}
 		},
@@ -96,44 +96,60 @@ module.exports = function(grunt) {
 							'libs/js/vendor/pikaday.js',
 							'vendor/tacoberu/nette-form-controls/assets/js/jquery.filePreuploader.js'
 							],
-					'www/js/nette.min.js': [
+							'www/js/nette.min.js': [
 							'libs/js/nette/netteForms.js',
 							'libs/vojtechDobes/nette.ajax.js/nette.ajax.js',
 							'libs/vojtechDobes/history/history.ajax.js'
 							],
-					'www/js/main.min.js': [
+							'www/js/main.min.js': [
 							'assets/js/main.js'
 							]
-				}
-			}
-		},
+						}
+					}
+				},
 
-		uglify: {
-			build: {
-				files: {
-					'www/js/common.min.js': [
+				uglify: {
+					build: {
+						files: {
+							'www/js/common.min.js': [
 							'www/js/common.min.js'
 							],
-					'www/js/main.min.js': [
+							'www/js/main.min.js': [
 							'www/js/main.min.js'
 							],
-					'www/js/nette.min.js': [
+							'www/js/nette.min.js': [
 							'www/js/nette.min.js'
 							]
-				}
-			}
-		},
+						}
+					}
+				},
 
-		imagemin: {
-			dynamic: {
-				files: [{
-					expand: true,
-					cwd: 'assets/img/',
-					src: ['*.{png,jpg,gif}'],
-					dest: 'www/img/'
-				}],
+				imagemin: {
+					dynamic: {
+						files: [{
+							expand: true,
+							cwd: 'assets/img/',
+							src: ['*.{png,jpg,gif}'],
+							dest: 'www/img/'
+						}],
+						options: {
+							cache: false
+						}
+					}
+				},
+
+				php: {
+					options: {
+						hostname: '0.0.0.0',
+						port: 8080,
+						keepalive: true,
+				// open: true,
+				base: 'www/',
+				livereload: true,
+			},
+			watch: {
 				options: {
-					cache: false
+					livereload: true					
 				}
 			}
 		},
@@ -147,6 +163,7 @@ module.exports = function(grunt) {
 				tasks: ['concat'],
 				options: {
 					spawn: false,
+					livereload: true
 				}
 			},
 			css: {
@@ -154,6 +171,7 @@ module.exports = function(grunt) {
 				tasks: ['less', 'autoprefixer', 'csscomb', 'cssmin'],
 				options: {
 					spawn: false,
+					livereload: true
 				}
 			},
 			images: {
@@ -161,6 +179,16 @@ module.exports = function(grunt) {
 				tasks: ['imagemin'],
 				options: {
 					spawn: false,
+					livereload: true
+				}
+			}
+		},
+
+		concurrent: {
+			target: {
+				tasks: ['php:watch', 'watch'],
+				options: {
+					logConcurrentOutput: true
 				}
 			}
 		}
@@ -172,4 +200,6 @@ module.exports = function(grunt) {
 
 	// Default Task is basically a rebuild
 	grunt.registerTask('default', ['concat', 'uglify', 'less', 'autoprefixer', 'csscomb', 'cssmin', 'imagemin']);
+	grunt.registerTask('phpwatch', ['concurrent:target']);
+
 };

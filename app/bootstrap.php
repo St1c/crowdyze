@@ -29,6 +29,7 @@ $configurator->addConfig(__DIR__ . '/config/config.neon');
 $environment = Nette\Configurator::detectDebugMode()
     ? $configurator->addConfig(__DIR__ . '/config/config.local.neon')
     : $configurator->addConfig(__DIR__ . '/config/config.remote.neon');
+    // : $configurator->addConfig(__DIR__ . '/config/config.local.neon');
 
 $container = $configurator->createContainer();
 
