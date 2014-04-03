@@ -1447,12 +1447,27 @@ legend {
 .header-lg {
   height: 130px;
 }
+@media screen and (max-width: 480px) {
+  .header-lg {
+    height: 80px;
+  }
+}
 .header-lg.logo-lg a {
   display: inline-block;
   width: 366px;
   height: 57px;
   padding: 0;
   margin: 36px auto 37px;
+  background-image: url('/img/logo-home.png');
+}
+@media screen and (max-width: 480px) {
+  .header-lg.logo-lg a {
+    width: 243px;
+    height: 38px;
+    margin: 21px auto;
+    vertical-align: middle;
+    background-image: url('/img/logo.png');
+  }
 }
 .logo {
   position: relative;
