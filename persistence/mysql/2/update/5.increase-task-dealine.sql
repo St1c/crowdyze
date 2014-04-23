@@ -1,0 +1,1 @@
+UPDATE `task` SET deadline = DATE_ADD(deadline, INTERVAL 6 MONTH);
