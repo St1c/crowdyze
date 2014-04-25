@@ -101,7 +101,6 @@ class DiscussFormControl extends BaseControl
 				return;
 			}
 			$this->presenter->redirect('this');
-			//~ $this->presenter->redirect('this', array('token' => $task->token));
 		}
 	}
 

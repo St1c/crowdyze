@@ -29,7 +29,7 @@ class TaskRepository extends BaseRepository
 			$data['promotion'] = Null;
 		}
 		
-		$data['token'] = $this->generateTaskToken();
+		$data['token'] = $this->generateToken();
 		return Task::createFromActiveRow($this->getTable()->insert($data)/*, $data->id*/);
 	}
 
@@ -393,7 +393,7 @@ class TaskRepository extends BaseRepository
 	 * 
 	 * @return boolean TRUE|FALSE
 	 */
-	private function isTokenInDatabase($token)
+	private function isEntryInDatabase($token)
 	{
 		return $this->getTaskByToken($token) ? TRUE : FALSE;
 	}
@@ -405,7 +405,7 @@ class TaskRepository extends BaseRepository
 	 * 
 	 * @return string 36^8 =  ~ 2.8 * 10^12 variations
 	 */
-	private function generateTaskToken()
+	private function generateToken()
 	{
 		$alpha = str_shuffle("abcdefghijklmnopqrstvwuxyz0123456789");
 		$length = 8;
@@ -416,7 +416,7 @@ class TaskRepository extends BaseRepository
 			}
 
 			// Check if it does not already exist in DB
-			$row = $this->isTokenInDatabase($token); //False if not found
+			$row = $this->isEntryInDatabase($token); //False if not found
 		}
 
 		return $token;

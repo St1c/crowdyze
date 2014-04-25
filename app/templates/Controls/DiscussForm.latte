@@ -17,7 +17,7 @@
 			<div class="inner">
 				<div class="comment" n:foreach="$control->task->discuss as $index => $comment">
 					<div class="comment-avatar">
-						<a href="{plink User:detail $comment->author->token}">
+						<a{if $comment->author->token} href="{plink User:detail $comment->author->token}"{/if}>
 						{if isset($comment->author->profilePhoto)}
 						<img src="{thumbnail $comment->author->profilePhoto small}" class="img-circle" />
 						{else}
@@ -26,7 +26,9 @@
 						</a>
 					</div>
 					<div class="comment-content">
-						<h4 class="comment-author">[{$index + 1}] <a href="{plink User:detail $comment->author->token}">{$comment->author->firstName} {$comment->author->lastName}</a></h4>
+						<h4 class="comment-author">[{$index + 1}] 
+							<a{if $comment->author->token} href="{plink User:detail $comment->author->token}"{/if}>{$comment->author->firstName} {$comment->author->lastName}</a>
+						</h4>
 						<div class="comment-message">
 							<p>{$comment->content}</p>
 							<div class="comment-time">{$comment->created|date}</div>

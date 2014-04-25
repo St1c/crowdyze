@@ -41,12 +41,13 @@ class UserRepository extends BaseRepository
 	/**
 	 * Insert new values in the table
 	 * 
-	 * @param  array  	$values 	Data to insert
-	 * @return ActiveRow         	Table row of newly inserted data
+	 * @param  array  	$data 	Data to insert
+	 * @return ActiveRow      	Table row of newly inserted data
 	 */
-	public function create(array $values)
+	public function create(array $data)
 	{
-		return $this->getTable()->insert($values);
+		$data['username'] = $this->generateToken();
+		return $this->getTable()->insert($data);
 	}
 
 
@@ -104,4 +105,65 @@ class UserRepository extends BaseRepository
 		unset($data['password']);
 		return new Nette\Security\Identity($user->id, $user->role, $data);
 	}
+
+
+
+	/**
+	 * Get single user by token
+	 * 
+	 * @param  string $token
+	 * 
+	 * @return User
+	 */
+	public function getUserByToken($token)
+	{
+		if ($row = $this->getTable()->where('username', $token)->fetch()) {
+			return User::createFromActiveRow($row/*, $row->id*/);
+		}
+	}
+
+
+
+	//	PRIVATES
+
+
+
+	/**
+	 * Check existance of the token (taks) in DB
+	 * 
+	 * @param  string  $token
+	 * 
+	 * @return boolean TRUE|FALSE
+	 */
+	private function isEntryInDatabase($token)
+	{
+		return $this->getUserByToken($token) ? TRUE : FALSE;
+	}
+
+
+
+	/**
+	 * Generate unique task ID
+	 * 
+	 * @return string 36^8 =  ~ 2.8 * 10^12 variations
+	 */
+	private function generateToken()
+	{
+		$alpha = str_shuffle("abcdefghijklmnopqrstvwuxyz0123456789");
+		$length = 8;
+		$row = True;
+		while ($row) {
+			for($i = 0, $token = '', $l = strlen($alpha) - 1; $i < $length; $i ++) {
+				$token .= $alpha{mt_rand(0, $l)};
+			}
+
+			// Check if it does not already exist in DB
+			$row = $this->isEntryInDatabase($token); //False if not found
+		}
+
+		return $token;
+	}
+
+
+
 }

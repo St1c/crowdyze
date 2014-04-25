@@ -2,3 +2,6 @@ form:
 	content: "Content"
 	send: "Send"
 	content-warning: "You forgot to content..."
+
+flashes:
+	comment-added: "Comment successfully added!"
