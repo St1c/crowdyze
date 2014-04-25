@@ -12,7 +12,7 @@ class Discuss extends Nette\Object
 	private $id;
 	private $created;
 	public $content;
-	public $author;
+	private $author;
 	private $task;
 
 
@@ -59,6 +59,10 @@ class Discuss extends Nette\Object
 	public static function createFromActiveRow(ActiveRow $data)
 	{
 		$inst = new self($data->id ?: Null, $data->created ?: Null);
+		$inst->id = $data->id;
+		$inst->author = User::createFromActiveRow($data->user);
+		$inst->content = $data->body;
+		$inst->created = $data->created;
 
 		return $inst;
 	}
@@ -102,6 +106,19 @@ class Discuss extends Nette\Object
 	public function getTask()
 	{
 		return $this->task;
+	}
+
+
+	public function setAuthor(User $value)
+	{
+		$this->author = $value;
+		return $this;
+	}
+
+
+	public function getAuthor()
+	{
+		return $this->author;
 	}
 
 

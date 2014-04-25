@@ -19,6 +19,9 @@ class DiscussFormControl extends BaseControl
 	private $task;
 
 
+	private $user;
+
+
 	private $discussService;
 
 
@@ -43,7 +46,7 @@ class DiscussFormControl extends BaseControl
 
 	public function setUser(Nette\Security\User $user)
 	{
-		$this->user = $user;
+		$this->user = Domains\User::createFromArray($user->identity->data);
 		return $this;
 	}
 

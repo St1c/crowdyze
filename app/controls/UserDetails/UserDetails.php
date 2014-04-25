@@ -102,7 +102,7 @@ class UserDetailsControl extends BaseControl
 				$this->presenter->flashMessage('userProfile.flashes.profile_edited', 'alert-success');
 			}
 			catch (\RuntimeException $e) {
-				$component->addError($e->getMessage());
+				$form->addError($e->getMessage());
 				return;
 			}
 		}
