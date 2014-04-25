@@ -92,6 +92,24 @@ class Task extends Nette\Object
 	}
 
 
+	
+	public function getDiscuss()
+	{
+		return array(
+				(object) [
+						'author' => ['token' => 'une', 'name' => 'Une'],
+						'created' => new \DateTime(),
+						'content' => 'one',
+						],
+				(object) [
+						'author' => ['token' => 'deux', 'name' => 'Deux'],
+						'created' => new \DateTime(),
+						'content' => 'lsjabjlkadjlb',
+						],
+				);
+	}
+
+
 
 	public function getActiveRow()
 	{
