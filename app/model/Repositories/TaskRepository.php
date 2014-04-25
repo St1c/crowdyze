@@ -23,14 +23,16 @@ class TaskRepository extends BaseRepository
  	 * 
  	 * @return Nette\Database\Table\ActiveRow
  	 */
-	public function create(array $task)
+	public function create(array $data)
 	{
-		if (array_key_exists('promotion', $task) && empty($task['promotion'])) {
-			$task['promotion'] = Null;
+		if (array_key_exists('promotion', $data) && empty($data['promotion'])) {
+			$data['promotion'] = Null;
 		}
 		
-		return self::createTask($this->getTable()->insert($task));
+		$data['token'] = $this->generateTaskToken();
+		return Task::createFromActiveRow($this->getTable()->insert($data)/*, $data->id*/);
 	}
+
 
 
 	/** 
@@ -142,7 +144,7 @@ class TaskRepository extends BaseRepository
 	public function getTaskByToken($token)
 	{
 		if ($row = $this->getTable()->where('token', $token)->fetch()) {
-			return self::createTask($row);
+			return Task::createFromActiveRow($row/*, $row->id*/);
 		}
 	}
 
@@ -381,14 +383,45 @@ class TaskRepository extends BaseRepository
 	}
 
 
+	//	PRIVATES
+
 
 	/**
-	 * @param Nette\Database\Table\ActiveRow $data
+	 * Check existance of the token (taks) in DB
+	 * 
+	 * @param  string  $token
+	 * 
+	 * @return boolean TRUE|FALSE
 	 */
-	private static function createTask(ActiveRow $data)
+	private function isTokenInDatabase($token)
 	{
-		$task = Task::createFromActiveRow($data/*, $data->id*/);
-		return $task;
+		return $this->getTaskByToken($token) ? TRUE : FALSE;
 	}
+
+
+
+	/**
+	 * Generate unique task ID
+	 * 
+	 * @return string 36^8 =  ~ 2.8 * 10^12 variations
+	 */
+	private function generateTaskToken()
+	{
+		$alpha = str_shuffle("abcdefghijklmnopqrstvwuxyz0123456789");
+		$length = 8;
+		$row = True;
+		while ($row) {
+			for($i = 0, $token = '', $l = strlen($alpha) - 1; $i < $length; $i ++) {
+				$token .= $alpha{mt_rand(0, $l)};
+			}
+
+			// Check if it does not already exist in DB
+			$row = $this->isTokenInDatabase($token); //False if not found
+		}
+
+		return $token;
+	}
+
+
 
 }

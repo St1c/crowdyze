@@ -80,9 +80,6 @@ class TaskService extends Nette\Object
 		try {
 			$task = $this->taskRepository->create(array(
 					'owner' 		=> $formValues['owner'],
-					//~ 'owner' => $user_id,
-					//	@TODO Move to repository
-					'token'			=> $this->generateTaskToken(),
 					'title' 		=> $formValues['title'],
 					'description' 	=> $formValues['description'],
 					'salary'		=> $formValues['salary'],
@@ -588,44 +585,6 @@ class TaskService extends Nette\Object
 		Validators::assert($token, 'string');
 		$task = $this->getTaskByToken($token);
 		return $this->acceptedTaskRepository->isAccepted($task->id, $userId);
-	}
-
-
-
-	/**
-	 * Check existance of the token (taks) in DB
-	 * 
-	 * @param  string  $token
-	 * 
-	 * @return boolean TRUE|FALSE
-	 */
-	public function isTokenInDatabase($token)
-	{
-		return $this->taskRepository->getTaskByToken($token) ? TRUE : FALSE;
-	}
-
-
-
-	/**
-	 * Generate unique task ID
-	 * 
-	 * @return string 36^8 =  ~ 2.8 * 10^12 variations
-	 */
-	private function generateTaskToken()
-	{
-		$alpha = str_shuffle("abcdefghijklmnopqrstvwuxyz0123456789");
-		$length = 8;
-		$row = True;
-		while ($row) {
-			for($i = 0, $token = '', $l = strlen($alpha) - 1; $i < $length; $i ++) {
-				$token .= $alpha{mt_rand(0, $l)};
-			}
-
-			// Check if it does not already exist in DB
-			$row = $this->isTokenInDatabase($token); //False if not found
-		}
-
-		return $token;
 	}
 
 
