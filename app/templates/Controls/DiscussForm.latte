@@ -1,0 +1,47 @@
+			{form discussForm class => "discuss-form form clearfix" }
+				
+				<!--  Error messages for current form -->
+				<div class="errors" n:if="$form->hasErrors()">
+					<div n:foreach="$form->errors as $error" class="alert alert-danger">
+						<button type="button" class="bs-close" data-dismiss="alert">&times;</button>
+						{$error}
+					</div>
+				</div>
+
+				<legend>Comments <span class="count">({count($control->task->discuss)})</span></legend>
+				{input content}{errors content}
+				{input submit type=>'submit', class=>'btn btn-right'}
+
+			{/form}
+
+{dump $control->task->discuss}
+{*
+			<form class="form clearfix">
+				<legend>Comments <span class="count">({count($task->discuss)})</span></legend>
+				<textarea />
+				<input type="submit" class="btn pull-right" value="Send" />
+			</form>
+*}
+
+
+
+			<div class="inner">
+				<div class="comment" n:foreach="$control->task->discuss as $index => $comment">
+					<div class="comment-avatar">
+						<a href="{plink User:detail $comment->author['token']}">
+						{if isset($comment->author['profile_photo'])}
+						<img src="{thumbnail $comment->author['profile_photo'] medium}" class="img-circle" />
+						{else}
+						<img src="{$basePath}/img/profile-small.png" class="img-circle" />
+						{/if}
+						</a>
+					</div>
+					<div class="comment-content">
+						<h4 class="comment-author">[{$index + 1}] <a href="{plink User:detail $comment->author['token']}">Meno komentujuceho</a></h4>
+						<div class="comment-message">
+							<p>{$comment->content}</p>
+							<div class="comment-time">{$comment->created|date}</div>
+						</div>
+					</div>
+				</div>
+			</div>

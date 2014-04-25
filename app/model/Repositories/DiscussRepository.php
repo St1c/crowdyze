@@ -32,4 +32,15 @@ class DiscussRepository extends BaseRepository
 	}
 
 
+ 	/**
+	 * Return string representing database tablename
+	 * 
+	 * @return string
+	 */
+	protected function getTableName()
+	{
+		return 'comment';
+	}
+
+
 }

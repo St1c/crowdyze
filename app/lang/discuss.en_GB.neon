@@ -1,0 +1,4 @@
+form: 
+	content: "Content"
+	send: "Send"
+	content-warning: "You forgot to content..."

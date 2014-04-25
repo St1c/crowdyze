@@ -48,7 +48,7 @@ class Task extends Nette\Object
 		unset($data['id']);
 		foreach ($data as $key => $val) {
 			$setter = 'set' . ucfirst($key);
-			if (method_exists($setter)) {
+			if (method_exists($inst, $setter)) {
 				$inst->$setter($val);
 			}
 			else {

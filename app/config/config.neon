@@ -67,12 +67,14 @@ services:
 	- Model\Repositories\QuestionRepository
 	fileRepository:
 		class: Model\Repositories\FileRepository
+	- Model\Repositories\DiscussRepository
 
 	- Model\Services\SignService
 	- Model\Services\TaskService
 	- Model\Services\UserService
 	- Model\Services\PollService
 	- Model\Services\FileManager(@fileRepository, %uploads%, %wwwDir%, %size%)
+	- Model\Services\DiscussService
 
 	payService:
 		class: Model\Services\payService
@@ -97,6 +99,11 @@ services:
 	loginForm: 
 		implement: Controls\ILoginFormControlFactory
 		inject: yes
+
+	discussForm: 
+		implement: Controls\IDiscussFormControlFactory
+		autowired: yes
+#		inject: yes
 
 	socialLogin: 
 		implement: Controls\ISocialLoginControlFactory

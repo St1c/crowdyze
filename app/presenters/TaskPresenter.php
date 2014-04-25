@@ -23,6 +23,9 @@ class TaskPresenter extends BaseSignedPresenter
 
 	/** @var Controls\IEditTaskControlFactory @inject */
 	public $editTaskControlFactory;
+	
+	/** @var Controls\IDiscussFormControlFactory @inject */
+	public $discussFormControlFactory;
 
 
 	protected function beforeRender()
@@ -77,6 +80,7 @@ class TaskPresenter extends BaseSignedPresenter
 		$this->template->userId = $this->getUser()->id;
 		$this->template->accepted = $this->taskService->isAccepted($task->token, $this->getUser()->id);
 		// $this->template->owner = $this->taskService->getOwnerTasks($this->getUser()->id);
+		$this['discussForm']->setValue($task);
 	}
 
 
@@ -167,6 +171,20 @@ class TaskPresenter extends BaseSignedPresenter
 		$paginator = new \Controls\PaginatorControl();
 		$paginator->paginator->itemsPerPage = self::ITEMS_PER_PAGE;
 		return $paginator;
+	}
+
+
+
+	/**
+	 * Add Discuss From control factory
+	 * 
+	 * @return 	\Nette\Application\UI\Control DiscussTaskControl
+	 */
+	protected function createComponentDiscussForm()
+	{
+		return $this->discussFormControlFactory
+				->create()
+				->setUser($this->user);
 	}
 
 
