@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema-manage version="0.11">
+<schema-manage version="0.11" replace-content="php:config-mapper.php">
 	<repository></repository>
+	<snapshots>../var/snaps</snapshots>
 
 	<access>
 		<database type="admin" login="root" password="root" />
