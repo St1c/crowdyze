@@ -68,6 +68,19 @@ class UserService extends Nette\Object
 
 
 	/**
+	 * Get user's details by Token
+	 * 
+	 * @param  string $token User's token
+	 * 
+	 * @return ActiveRow    User's details
+	 */
+	public function getUserDataByToken($token)
+	{
+		return $this->userRepository->find(array('username' => $token));
+	}
+
+
+	/**
 	 * Update profile
 	 * 
 	 * @param  ActiveRow $user 

@@ -4,6 +4,7 @@ namespace App;
 
 
 use Nette,
+	Nette\Application\BadRequestException,
 	Model\Services,
 	Model\Domains;
 
@@ -51,13 +52,11 @@ class UserPresenter extends BaseSignedPresenter
 	 */
 	public function actionDefault($filter = 'worker')
 	{
-		if (! $this->template->userData = $this->userService->getUserData($this->user->id)) {
-			$this->error('User is not found.');
-		}
-		$tasks = NULL;
+		$this->template->userData = $this->assertEmpty($this->userService->getUserData($this->user->id), 'User is not found.');
 		$this->template->ownerTasksCount = $this->taskService->getOwnerTasksCount($this->user->id);
 		$this->template->activeJobs = $this->userService->getAcceptedUserTasksCount($this->user->id);
 
+		$tasks = NULL;
 		switch ($filter) {
 			case 'employer':
 				$tasks = $this->taskService->getOwnerTasks($this->user->id);
@@ -72,6 +71,16 @@ class UserPresenter extends BaseSignedPresenter
 
 		$this->template->balance = $this->payService->getWallet($this->user->id);
 		$this->template->tasks = $tasks;
+	}
+
+
+
+	/**
+	 * Detail of user.
+	 */
+	public function renderDetail($token)
+	{
+		$this->template->userData = $this->assertEmpty($this->userService->getUserDataByToken($token));
 	}
 
 
@@ -100,6 +109,19 @@ class UserPresenter extends BaseSignedPresenter
 	protected function createComponentUserDetails()
 	{
 		return $this->userDetailsControlFactory->create();
+	}
+
+
+
+	/**
+	 * Validate for exist.
+	 */
+	private function assertEmpty($value, $label = 'Record is not found.')
+	{
+		if (empty($value)) {
+			$this->error($label);
+		}
+		return $value;
 	}
 
 }

@@ -1,0 +1,32 @@
+{layout '../@layout.latte'}
+
+{block notifier}{/block}
+
+{block #content}
+
+<div class="profile">
+    <div class="wrapper">
+
+	{block #userProfile}
+        <div class="profile-photo">
+			{if isset($userData['profile_photo'])}
+			<img src="{thumbnail $userData['profile_photo'] medium}" class="img-circle" />
+			{else}
+			<img src="{$basePath}/img/profile-medium.png" class="img-circle" />
+			{/if}			
+		</div>
+
+        <h1 class="profile-name">
+			{$userData['first_name']|firstUpper} 
+			{$userData['last_name']|firstUpper}
+        </h1>
+
+        <h3 class="profile-location">
+				from {$userData['city']|firstUpper}, 
+					 {$userData['country']|firstUpper}
+		</h3>
+        <p class="profile-details">Member since {$userData->registered|date:'F j, Y'} — Good reliability as a worker</p>
+	{/block}
+
+    </div>
+</div>
