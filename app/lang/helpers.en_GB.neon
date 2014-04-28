@@ -1,0 +1,7 @@
+daysAgo:
+	years: "%{val} years ago"
+	months: "%{val} months ago"
+	days: "%{val} days ago"
+	hours: "%{val} hours ago"
+	minutes: "%{val} minutes ago"
+	seconds: "%{val} seconds ago"

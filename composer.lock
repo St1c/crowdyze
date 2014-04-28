@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "84b0a331a51d541d7f22f12ebc0697ef",
+    "hash": "649a3de30e5c3fa8623ee7fbd57daca7",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -519,6 +519,42 @@
     ],
     "packages-dev": [
         {
+            "name": "jiriknesl/mockista",
+            "version": "1.2.1",
+            "source": {
+                "type": "hg",
+                "url": "https://bitbucket.org/jiriknesl/mockista",
+                "reference": "6bb5d4a341cd57f09776c3ff08516b548fc5c564"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://bitbucket.org/jiriknesl/mockista/get/6bb5d4a341cd57f09776c3ff08516b548fc5c564.zip",
+                "reference": "6bb5d4a341cd57f09776c3ff08516b548fc5c564",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Jiří Knesl",
+                    "homepage": "http://www.knesl.com/"
+                }
+            ],
+            "description": "Mockista is library for mocking, which I've written, because I find mocking in PHPUnit slow.",
+            "homepage": "http://www.mockista.com/",
+            "keywords": [
+                "BDD",
+                "TDD",
+                "mock",
+                "mocking",
+                "mockista",
+                "phpunit",
+                "testing",
+                "tests"
+            ],
+            "time": "2013-06-25 08:15:00"
+        },
+        {
             "name": "nette/tester",
             "version": "dev-master",
             "source": {
@@ -574,7 +610,7 @@
     "aliases": [
 
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "facebook/php-sdk": 20,
         "mikulas/nette-google-oauth2": 20,

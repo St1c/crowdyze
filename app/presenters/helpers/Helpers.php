@@ -12,10 +12,21 @@ use Nette;
 class Helpers extends Nette\Object
 {
 
-    public static function loader($helper)
+	private $translator;
+
+
+
+	function __construct($translator)
+	{
+		$this->translator = $translator;
+	}
+
+
+
+    public function loader($helper)
     {
-        if (method_exists(__CLASS__, $helper)) {
-            return array(__CLASS__, $helper);
+        if (method_exists($this, $helper)) {
+            return array($this, $helper);
         }
     }
 
@@ -26,7 +37,7 @@ class Helpers extends Nette\Object
 	 * @param int $type
 	 * @return string
 	 */
-    public static function promotionClass($type)
+    public function promotionClass($type)
     {
 		switch ($type) {
 			case 3:
@@ -45,7 +56,7 @@ class Helpers extends Nette\Object
 	 * @param string $type
 	 * @return string
 	 */
-	public static function mediaType($type)
+	public function mediaType($type)
 	{
 		switch ($type) {
 			case 'video':
@@ -65,17 +76,19 @@ class Helpers extends Nette\Object
 	 * Human text from date.
 	 * @return string
 	 */
-	public static function daysLeft(\DateTime $deadline = Null)
+	public function daysLeft(\DateTime $deadline = Null)
 	{
-		//~ dump($deadline);
-		//~ exit;
 		if (!$deadline) {
 			return '';
 		}
+
+		$deadline = $deadline->format('Y-m-d H:i:s');
 		
 		//Calculate difference
 		$seconds = strtotime($deadline) - time(); 	//time returns current time in seconds
-		if ($seconds < 0 ) return '';
+		if ($seconds < 0 ) {
+			return 'a';
+		}
 
 		$days 		= floor($seconds / 86400);
 		$seconds 	%= 86400;
@@ -97,6 +110,58 @@ class Helpers extends Nette\Object
 			return "$minutes minutes left";
 		}
 	}
+
+
+
+	/**
+	 * Human text from date.
+	 * @return string
+	 */
+	public function daysAgo(\DateTime $date = Null)
+	{
+		if (empty($date)) {
+			return Null;
+		}
+
+		$diff = $date->diff(new \DateTime());
+
+		if ($diff->y) {
+			return strtr($this->translator->translate('helpers.daysAgo.years', $diff->y), array(
+					'%{val}' => $diff->y,
+					));
+		}
+		
+		if ($diff->m) {
+			return strtr($this->translator->translate('helpers.daysAgo.months', $diff->m), array(
+					'%{val}' => $diff->m,
+					));
+		}
+		
+		if ($diff->d) {
+			return strtr($this->translator->translate('helpers.daysAgo.days', $diff->d), array(
+					'%{val}' => $diff->d,
+					));
+		}
+		
+		if ($diff->h) {
+			return strtr($this->translator->translate('helpers.daysAgo.hours', $diff->h), array(
+					'%{val}' => $diff->h,
+					));
+		}
+
+		if ($diff->i) {
+			return strtr($this->translator->translate('helpers.daysAgo.minutes', $diff->i), array(
+					'%{val}' => $diff->i,
+					));
+		}
+
+		if ($diff->s) {
+			return strtr($this->translator->translate('helpers.daysAgo.seconds', $diff->s), array(
+					'%{val}' => $diff->s,
+					));
+		}
+	}
+
 
 
 	/**

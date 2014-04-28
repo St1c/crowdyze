@@ -27,9 +27,11 @@
 		"paypal/rest-api-sdk-php" : "0.7.*"
 	},
 	"require-dev": {
-		"nette/tester": "@dev"
+		"nette/tester": "@dev",
+		"jiriknesl/mockista": "1.2.1"
 	},
 	"repositories": [
 		{ "type": "vcs", "url": "git://github.com/tacoberu/nette-form-controls.git"}
-	]
+	],
+	"minimum-stability": "dev"
 }

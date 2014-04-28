@@ -105,6 +105,22 @@ class DiscussFormControl extends BaseControl
 	}
 
 
+	/**
+	 * Add translator to templates
+	 * 
+	 * @param  {string|NULL} $class 
+	 * @return Template
+	 */
+	public function createTemplate($class = NULL)
+	{
+		$translator = $this->parent->translator;
+		$template = parent::createTemplate($class);
+		$template->registerHelperLoader(callback($this->parent->translator->createTemplateHelpers(), 'loader'));
+		$template->registerHelperLoader(array(new \App\Helpers($this->parent->translator), 'loader'));
+
+		return $template;
+	}
+
 
 	public function render()
 	{

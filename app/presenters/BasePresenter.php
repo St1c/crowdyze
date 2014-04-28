@@ -66,7 +66,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	{
 		$template = parent::createTemplate($class);
 		$template->registerHelperLoader(callback($this->translator->createTemplateHelpers(), 'loader'));
-		$template->registerHelperLoader(callback('App\Helpers', 'loader'));
+		$template->registerHelperLoader(array(new \App\Helpers($this->translator), 'loader'));
+
 		return $template;
 	}
 
