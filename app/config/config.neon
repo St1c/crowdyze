@@ -68,6 +68,7 @@ services:
 	fileRepository:
 		class: Model\Repositories\FileRepository
 	- Model\Repositories\DiscussRepository
+	- Model\Repositories\SearchRepository
 
 	- Model\Services\SignService
 	- Model\Services\TaskService
@@ -75,6 +76,7 @@ services:
 	- Model\Services\PollService
 	- Model\Services\FileManager(@fileRepository, %uploads%, %wwwDir%, %size%)
 	- Model\Services\DiscussService
+	- Model\Services\SearchService
 
 	payService:
 		class: Model\Services\payService

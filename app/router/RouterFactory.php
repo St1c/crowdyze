@@ -21,6 +21,7 @@ class RouterFactory
 	{
 		$router = new RouteList();
 		$router[] = new Route('article/<id>', 'Article:view');
+		$router[] = new Route('search/<q>', 'Search:default');
 		$router[] = new Route('content/<category>/<token>/<path>', array(
 			'presenter' => 'File',
 			'action' 	=> 'file',
