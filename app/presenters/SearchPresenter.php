@@ -10,6 +10,12 @@ use Nette,
 class SearchPresenter extends BaseSignedPresenter 
 {
 	
+	/**
+	 * Maximální počet promopoložek na stránce, které se zobrazují ve velkém boxu.
+	 */
+	const PROMO_COUNT = 15;
+	
+	
 	/** @var Model\Services\SearchService @inject */
 	public $searchService;
 
@@ -33,8 +39,9 @@ class SearchPresenter extends BaseSignedPresenter
 		//	Split to promoted and other tasks.
 		$promoted = array();
 		$other = array();
+		$counter = 0;
 		foreach ($this->searchService->findBy($q, $paginator->itemsPerPage, $paginator->offset) as $row) {
-			if ($row->promotion) {
+			if ($counter++ < self::PROMO_COUNT && $row->promotion) {
 				$promoted[] = $row;
 			}
 			else {
