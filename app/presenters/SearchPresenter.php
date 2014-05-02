@@ -33,7 +33,6 @@ class SearchPresenter extends BaseSignedPresenter
 		$paginator = $this['paginator']->getPaginator();
 		$this['paginator']->paginator->itemCount = $this->searchService->countBy($q);
 
-
 		$this->template->queryString = $q;
 
 		//	Split to promoted and other tasks.
@@ -51,6 +50,15 @@ class SearchPresenter extends BaseSignedPresenter
 		
 		$this->template->promotedResults = $promoted;
 		$this->template->otherResults = $other;
+	}
+
+
+
+	public function renderDefault($q)
+	{
+		if ($this->isAjax()) {
+			$this->redrawControl('jobstable');
+		}
 	}
 
 
