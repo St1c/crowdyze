@@ -258,15 +258,15 @@
             delay = delay || opts.loaderDelay;
 
 
-			function selectResponseFromNetteSnipped(data) 
+			function selectResponseFromNetteSnipped(data)
 			{
-				return data.snippets['snippet--jobstable'];
+				return data.snippets['snippet--tasks-other'];
 			}
 
 
-			function parseResponseFromNetteSnipped(data) 
+			function parseResponseFromNetteSnipped(data)
 			{
-				return $(data.snippets['snippet--jobstable']);
+				return $(data.snippets['snippet--tasks-other']);
 			}
 
 
@@ -281,7 +281,7 @@
                     // try to filter it
                     container = $(data).filter(opts.container).eq(0);
                 }
-                
+
                 return container;
 			}
 

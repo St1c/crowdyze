@@ -1,4 +1,4 @@
-<div class="toppanel" n:block="notifier">
+<div class="toppanel" n:block="notifier" n:snippet="notifier">
 	{if $activeJobs > 0}
 		You have {$activeJobs} active jobs. <a n:href="User:">Go to Your profile</a> and check them.
 	{else}
@@ -13,6 +13,7 @@
 
 		<!-- Promoted Tasks -->
 	
+		{snippet tasks-promoted}
 		<div class="jobs-grid clearfix">
 			<div class="box-holder" n:foreach="$promoted as $task">
 				<div class="job job-box {$task->promotion|promotionClass}">
@@ -41,9 +42,10 @@
 				</div>
 			</div>
 		</div>
+		{/snippet}
 
 
-		{snippet jobstable}
+		{snippet tasks-other}
 		<!-- Jobs Table -->
 		<div class="box" id="jobs-table">
 			<table class="jobs-table">

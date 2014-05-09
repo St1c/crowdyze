@@ -75,10 +75,10 @@ $(function(){
 	 * Calculate task costs and inform the user about it
 	 */
 	var budget = budget || {
-		
-		/** 
+
+		/**
 		 * Commission Fees SETUP
-		 * @todo  get values from config.neon 
+		 * @todo  get values from config.neon
 		 */
 		fees: {
 			fixFee: 0.50,
@@ -90,13 +90,13 @@ $(function(){
 		budgetType: function () { return $('#budget_type option:selected').val(); },
 		salary: 	function () { return $('#salary').val(); },
 		promotion: 	function () { return $('input[name=promotion]:checked', '#promotion').val(); },
-		workers: 	function () { return $('#workers').val(); },		
+		workers: 	function () { return $('#workers').val(); },
 
 
 		/** Budget methods */
 		getNettoBudget: function () {
 
-			switch (budget.budgetType()) 
+			switch (budget.budgetType())
 			{
 				// Pay only the best
 				case '1':
@@ -125,7 +125,7 @@ $(function(){
 		/** Calculate promotion costs */
 		getPromotion: function () {
 			if (budget.promotion() > 0) {
-				return budget.getNettoBudget() * budget.fees.promotionsFee[budget.promotion() - 1];				
+				return budget.getNettoBudget() * budget.fees.promotionsFee[budget.promotion() - 1];
 			} else {
 				return 0;
 			}
@@ -133,9 +133,9 @@ $(function(){
 
 		/** Calculate final budget costs */
 		calculateBudget: function () {
-			budget.finalPrice =  budget.getNettoBudget() 
-								+ budget.getCommission() 
-								+ budget.getPromotion() 
+			budget.finalPrice =  budget.getNettoBudget()
+								+ budget.getCommission()
+								+ budget.getPromotion()
 								+ budget.fees.fixFee;
 			// $('#workers').prop('disabled', false);
 			$('#budget .value').html( Math.round( budget.finalPrice * 100 ) / 100 );
@@ -163,7 +163,7 @@ $(function(){
 		}
 	};
 
-	/**	
+	/**
 	* Remove _fid parameter from URL
 	*/
 	if(window.history.replaceState) {
@@ -178,7 +178,7 @@ $(function(){
 		}
 	}
 
-	/** 
+	/**
 	 * Automatic flash messages dismissal
 	 */
 	$.nette.ext('SuccessfullFlashHide', {
@@ -241,7 +241,7 @@ $(function(){
 
 					$checkBox.iCheck({
 						checkboxClass: 'icheckbox_large'
-					});	
+					});
 
 					$checkBox.on('ifChecked', function() {
 						$(this).closest('.job').addClass('job-checked');
@@ -280,7 +280,6 @@ $(function(){
 				checkboxClass: 'icheckbox_large'
 			});
 
-
 			$('.job-checkbox').on('ifChecked', function() {
 				$(this).closest('.job').addClass('job-checked');
 			});
@@ -304,13 +303,13 @@ $(function(){
 			self.originalUrl = window.location.href;
 		},
 
-		//	Volá se těsně před zahájením Ajaxového požadavku. Jako argumenty 
+		//	Volá se těsně před zahájením Ajaxového požadavku. Jako argumenty
 		//	dostává objekt jqXHR a objekt vlastností požadavku.
 		start: function (jqXHR, settings, x) {
 			this.doShowModal();
 		},
-		
-		//	Volá se při úspěšném dokončení Ajaxového požadavku. 
+
+		//	Volá se při úspěšném dokončení Ajaxového požadavku.
 		//	Ekvivalentní s $.ajax( ... ).done( ....
 		success: function (payload, status, jqXHR, settings, x) {
 			if (this.isModalOpened()) {
@@ -328,7 +327,7 @@ $(function(){
 				return false;
 			});
 		},
-		
+
 	}, {
 		//	Původní adresa, ze které se otevíralo okno.
 		originalUrl: null,
@@ -375,11 +374,11 @@ $(function(){
 		//	Uložíme do historie
 		pushState: function(url)
 		{
-			history.pushState({'url': url, changeCount: this.changeCount}, 
-					null, 
+			history.pushState({'url': url, changeCount: this.changeCount},
+					null,
 					url);
 		}
-		
+
 	});
 
 
@@ -435,7 +434,7 @@ $(function(){
 	 */
 	$.nette.ext('datepicker', {
 		load: function () {
-			var	picker = new Pikaday({ 
+			var	picker = new Pikaday({
 				field: $('.input-date')[0],
 				format: 'DD/MM/YY',
 				position: 'Bottom right'
@@ -459,8 +458,8 @@ $(function(){
 	 */
 //	$.nette.ext('init').linkSelector = 'a.ajax';
 	$.nette.ext('init').linkSelector = 'a[data-toggle="modal"]';
-	
-	
+
+
 	$.nette.init();
 	// budget.init();
 
@@ -488,7 +487,7 @@ $(function(){
 	$('.filter-close, .cbp-overlay').on('click', function(e) {
 		$('#showLeft').click();
 	});
-		
+
 	$(".loader").css('background-image', 'none').fadeOut(1000);
 
 });
