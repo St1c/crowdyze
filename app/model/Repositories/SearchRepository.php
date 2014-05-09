@@ -52,11 +52,15 @@ class SearchRepository extends BaseRepository
 	{
 		$res = $this->connection->getContext()
 			->table('task')
-			->select('task.*, sum(:accepted_task.status <> (4) AND IFNULL(:accepted_task.status,0)) AS finished')
-			->where('(task.title LIKE ?) OR (:task_has_tag.tag.tag = ?)', '%' . $queryString . '%', $queryString)
-			->group('task.id')
-			->having('finished < task.workers')
-			;
+			->select('task.*, sum(:accepted_task.status <> (4) AND IFNULL(:accepted_task.status,0)) AS finished');
+
+		if ($queryString) {
+			$res->where('(task.title LIKE ?) OR (:task_has_tag.tag.tag = ?)', '%' . $queryString . '%', $queryString);
+		}
+
+		$res->group('task.id')
+			->having('finished < task.workers');
+
 		return $res;
 	}
 
