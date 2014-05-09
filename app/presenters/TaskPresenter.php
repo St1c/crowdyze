@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App;
 
@@ -6,9 +6,9 @@ use Nette,
 	Nette\Application\UI\Form,
 	Model\Services\TaskService;
 
-class TaskPresenter extends BaseSignedPresenter 
+class TaskPresenter extends BaseSignedPresenter
 {
-	
+
 	/** @var Model\Services\TaskService @inject */
 	public $taskService;
 
@@ -23,7 +23,7 @@ class TaskPresenter extends BaseSignedPresenter
 
 	/** @var Controls\IEditTaskControlFactory @inject */
 	public $editTaskControlFactory;
-	
+
 	/** @var Controls\IDiscussFormControlFactory @inject */
 	public $discussFormControlFactory;
 
@@ -41,28 +41,28 @@ class TaskPresenter extends BaseSignedPresenter
 		if ($tag) {
 			$this['paginator']->paginator->itemCount = $this->taskService->getTagsTasksCount($tag);
 
-			$this->template->promoted = $this->taskService->getPromotedTaggedTasks($tag, 
-					 $paginator->itemsPerPage, 
-					 0, // @TODO promoted tasks pagination! 
+			$this->template->promoted = $this->taskService->getPromotedTaggedTasks($tag,
+					 $paginator->itemsPerPage,
+					 0, // @TODO promoted tasks pagination!
 					 $this->getUser()->id
 					 );
 
 			$this->template->tasks = $this->taskService->getTaggedTasks($tag,
-					 $paginator->itemsPerPage, 
-					 $paginator->offset, 
+					 $paginator->itemsPerPage,
+					 $paginator->offset,
 					 $this->getUser()->id
 					 );
 		}
 		else {
 			$this['paginator']->paginator->itemCount = $this->taskService->count;
 
-			$this->template->promoted = $this->taskService->getPromotedTasks($paginator->itemsPerPage, 
-					0, // @TODO promoted tasks pagination! 
+			$this->template->promoted = $this->taskService->getPromotedTasks($paginator->itemsPerPage,
+					0, // @TODO promoted tasks pagination!
 					$this->getUser()->id
 					);
 
-			$this->template->tasks = $this->taskService->getTasks($paginator->itemsPerPage, 
-					$paginator->offset, 
+			$this->template->tasks = $this->taskService->getTasks($paginator->itemsPerPage,
+					$paginator->offset,
 					$this->getUser()->id
 					);
 		}
@@ -74,7 +74,7 @@ class TaskPresenter extends BaseSignedPresenter
 	{
 		$task = $this->redirectIfEmpty(
 				$this->taskService->getTaskByToken(
-						$this->redirectIfEmpty($token, $token)), 
+						$this->redirectIfEmpty($token, $token)),
 				$token);
 		$this->template->task = $task;
 		$this->template->userId = $this->getUser()->id;
@@ -88,7 +88,10 @@ class TaskPresenter extends BaseSignedPresenter
 	public function renderDefault($tag = Null)
 	{
 		if ($this->isAjax()) {
-			$this->redrawControl('tasks-promoted');
+			$paginator = $this['paginator']->getPaginator();
+			if ($paginator->page <= 1) {
+				$this->redrawControl('tasks-promoted');
+			}
 			$this->redrawControl('tasks-other');
 		}
 	}
@@ -178,7 +181,7 @@ class TaskPresenter extends BaseSignedPresenter
 
 	/**
 	 * Add Discuss From control factory
-	 * 
+	 *
 	 * @return 	\Nette\Application\UI\Control DiscussTaskControl
 	 */
 	protected function createComponentDiscussForm()
@@ -192,7 +195,7 @@ class TaskPresenter extends BaseSignedPresenter
 
 	/**
 	 * Add Task From control factory
-	 * 
+	 *
 	 * @return 	\Nette\Application\UI\Control AddTaskControl
 	 */
 	protected function createComponentAddTask()
@@ -211,7 +214,7 @@ class TaskPresenter extends BaseSignedPresenter
 
 	/**
 	 * Asserting $value by empty and if is empty, than redirect to default action of presenter.
-	 * 
+	 *
 	 * @param $value Asserted value.
 	 * @param $token Added value for message.
 	 */
