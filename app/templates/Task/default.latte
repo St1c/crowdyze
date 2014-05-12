@@ -1,19 +1,20 @@
-<div class="toppanel" n:block="notifier" n:snippet="notifier">
+{snippet notifier}
+<div class="toppanel" n:block="notifier">
 	{if $activeJobs > 0}
 		You have {$activeJobs} active jobs. <a n:href="User:">Go to Your profile</a> and check them.
 	{else}
 		You have no active jobs. Pick some from the offer below...
 	{/if}
 </div>
+{/snippet}
 
 
 {block content}
 
 	<div class="wrapper">
 
-		<!-- Promoted Tasks -->
-	
 		{snippet tasks-promoted}
+		<!-- Promoted Tasks -->
 		<div class="jobs-grid clearfix">
 			<div class="box-holder" n:foreach="$promoted as $task">
 				<div class="job job-box {$task->promotion|promotionClass}">
@@ -22,7 +23,7 @@
 {dump $task->related('task_has_tag')}
 					<span>{($task->finished / $task->workers)*100 |number:0}% finished</span>
 *}
-						
+
 					<div class="job-tag box-corner-cat{$task->budget_type}">
 						{foreach $task->related('task_has_tag')->limit(1) as $tag}
 							<a n:href="default $tag->tag->tag">
@@ -31,7 +32,7 @@
 						{/foreach}
 						<span class="box-corner"></span>
 					</div>
-											
+
 					<span class="job-time">{$task->deadline|daysLeft}</span>
 
 					<h3 class="job-title"><a n:href="Task:detail $task->token" data-toggle="modal">{$task->title}</a></h3>
@@ -54,15 +55,15 @@
 						<td class="job-checkbox-col">
 							<input type="checkbox" class="job-checkbox">
 						</td>
-						
+
 						<td class="table-title">
 							<a n:href="Task:detail $task->token" class="job-title" data-toggle="modal">{$task->title|truncate:60}</a>
 						</td>
-						
+
 						<td class="table-time">
 							<span class="job-time">{$task->deadline|daysLeft}</span>
 						</td>
-						
+
 						<td class="table-price">
 							<span class="job-price">Get <strong>&euro; {$task->salary|number:2}</strong></span>
 						</td>

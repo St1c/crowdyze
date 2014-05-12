@@ -1,11 +1,13 @@
+{snippet notifier}
 <div class="toppanel" n:block="notifier">
 	{*if $activeJobs > 0}
 		You have {$activeJobs} active jobs. <a n:href="User:">Go to Your profile</a> and check them.
 	{else}
 		You have no active jobs. Pick some from the offer below...
 	{/if *}
-	Result of searching for: &laquo;{$queryString}&raquo;
+	Result of searching for: {if $queryString}&laquo;{$queryString}&raquo;{else}<em>none</em>{/if}
 </div>
+{/snippet}
 
 
 {block content}
@@ -13,9 +15,9 @@
 	<div class="wrapper">
 
 		<div n:if="! (count($promotedResults) + count($otherResults))">No results founded.</div>
-		
+
+		{snippet tasks-promoted}
 		<!-- Promoted Tasks -->
-	
 		<div class="jobs-grid clearfix">
 			<div class="box-holder" n:foreach="$promotedResults as $task">
 				<div class="job job-box {$task->promotion|promotionClass}">
@@ -28,7 +30,7 @@
 						{/foreach}
 						<span class="box-corner"></span>
 					</div>
-											
+
 					<span class="job-time">{$task->deadline|daysLeft}</span>
 
 					<h3 class="job-title"><a n:href="Task:detail $task->token" data-toggle="modal">{$task->title}</a></h3>
@@ -39,8 +41,10 @@
 				</div>
 			</div>
 		</div>
+		{/snippet}
 
-		{snippet jobstable}
+
+		{snippet tasks-other}
 		<!-- Jobs Table -->
 		<div class="box" id="jobs-table">
 			<table class="jobs-table">
@@ -49,15 +53,15 @@
 						<td class="job-checkbox-col">
 							<input type="checkbox" class="job-checkbox">
 						</td>
-						
+
 						<td class="table-title">
 							<a n:href="Task:detail $task->token" class="job-title" data-toggle="modal">{$task->title|truncate:60}</a>
 						</td>
-						
+
 						<td class="table-time">
 							<span class="job-time">{$task->deadline|daysLeft}</span>
 						</td>
-						
+
 						<td class="table-price">
 							<span class="job-price">Get <strong>&euro; {$task->salary|number:2}</strong></span>
 						</td>

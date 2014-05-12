@@ -9,7 +9,7 @@
 	<meta name="keywords" content="crowdsourcing, jobs, small tasks" />
 	{* <meta name="robots" content="{$robots}" n:ifset="$robots"> *}
 	<meta name="robots" content="noindex,nofollow" />
-	
+
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'>
 	<meta name="viewport" content="width=device-width">
 
@@ -37,7 +37,7 @@
 			<div class="filter-holder"><a href="#" class="filter" id="showLeft"></a></div>
 			<form class="search large-screen" action="{plink Search:default}">
 				<div class="searchinput-holder">
-					<input class="searchinput" name="q">
+					<input class="searchinput" name="q" autocomplete="off" data-autocomplete="snippet--content">
 				</div>
 			</form>
 
@@ -50,7 +50,7 @@
 					<img src="{thumbnail $userData['profile_photo'] small}" class="img-circle" alt="{_layout.menu.profile}" title="{_layout.menu.profile}" />
 					{else}
 					<img src="{$basePath}/img/profile-small.png" class="img-circle" alt="{_layout.menu.profile}" title="{_layout.menu.profile}" />
-					{/if}			
+					{/if}
 				</a></li>
 				{else}
 				<li><a n:href="Sign:" class="btn btn-primary btn-large btn-addjob"><span class="addjob-text">{_layout.menu.login}</span><span class="addjob-icon">+</span></a></li>
@@ -61,7 +61,7 @@
 		<div class="toppanel" n:block="notifier" n:snippet="notifier">
 			You have no active jobs. Pick some from the offer below...
 		</div>
-		
+
 		<div class="alert-wp">
 			<div n:foreach="$flashes as $flash" class="alert {$flash->type}">{$flash->message}</div>
 		</div>
@@ -80,7 +80,7 @@
 					<fieldset>
 						<input type="text">
 					</fieldset>
-				</form>   
+				</form>
 				<a href="">Messages</a>
 				<a href="">Profile</a>
 			</div>
@@ -101,7 +101,7 @@
 			<ul class="">
 				<li n:if="!$user->isLoggedIn()"><a n:href="Sign:">{_layout.menu.login}</a></li>
 				<li n:if="$user->isLoggedIn()"><a n:href="Homepage:">{_layout.menu.tasks}</a></li>
-			</ul>			
+			</ul>
 		</div>
 
 		<!-- <a n:href="Homepage:">Crowdyze<span>me</span></a> -->
@@ -117,7 +117,7 @@
 
 	<div class="container">
 		<div class="body-wp">
-			{include #content}			
+			{include #content}
 		</div>
 
 		<hr>
@@ -136,7 +136,7 @@
 	<script src="{$basePath}/js/nette.min.js"></script>
 	<script src="{$basePath}/js/main.min.js"></script>
 	*}
-	
+
 
 	{block #scripts}
 	{/block}

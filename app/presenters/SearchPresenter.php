@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App;
 
@@ -7,9 +7,9 @@ use Nette,
 	Model\Services\TaskService;
 
 
-class SearchPresenter extends BaseSignedPresenter 
+class SearchPresenter extends BaseSignedPresenter
 {
-	
+
 	/**
 	 * Maximální počet promopoložek na stránce, které se zobrazují ve velkém boxu.
 	 */
@@ -47,7 +47,7 @@ class SearchPresenter extends BaseSignedPresenter
 				$other[] = $row;
 			}
 		}
-		
+
 		$this->template->promotedResults = $promoted;
 		$this->template->otherResults = $other;
 	}
@@ -57,7 +57,12 @@ class SearchPresenter extends BaseSignedPresenter
 	public function renderDefault($q)
 	{
 		if ($this->isAjax()) {
-			$this->redrawControl('jobstable');
+			$paginator = $this['paginator']->getPaginator();
+			if ($paginator->page <= 1) {
+				$this->redrawControl('tasks-promoted');
+			}
+			$this->redrawControl('tasks-other');
+			$this->redrawControl('notifier');
 		}
 	}
 

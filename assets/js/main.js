@@ -226,7 +226,7 @@ $(function(){
 	 */
 	$.nette.ext('ias', {
 		load: function () {
-			jQuery.ias({
+			this.obj = jQuery.ias({
 				container : '#jobs-table',
 				item: '.job-row',
 				pagination: '.paginator',
@@ -257,6 +257,12 @@ $(function(){
 				}
 			});
 		}
+	}, {
+		obj: null,
+		reload: function () {
+			this.obj.reload();
+		},
+
 	});
 
 
@@ -390,6 +396,7 @@ $(function(){
 	 */
 	$.nette.ext('searchbox', {
 		load: function () {
+			var that = this;
 			$('.searchinput-holder').on('click', function(e) {
 				$(this).addClass('searchinput-expanded');
 			});
@@ -410,6 +417,18 @@ $(function(){
 					$(this).removeClass('nobgr');
 				}
 			});
+
+			$("[data-autocomplete]").on('keyup', function() {
+				$.ajax({
+					dataType: "json",
+					url: "/search/" + $(this).val(),
+					success: function(payload) {
+						that.ext('snippets', true).updateSnippets(payload.snippets);
+						that.ext('ias', true).reload();
+						}
+				});
+			});
+
 		}
 	});
 

@@ -16,6 +16,7 @@
 
     $.ias = function (options)
     {
+
         // setup
         var opts             = $.extend({}, $.ias.defaults, options);
         var util             = new $.ias.util();                                // utilities module
@@ -47,15 +48,7 @@
                 opts.onPageChange.call(this, pageNum, pageUrl, scrollOffset);
             });
 
-            if (opts.triggerPageThreshold > 0) {
-                // setup scroll and hide pagination
-                reset();
-            } else if ($(opts.next).attr('href')) {
-                var curScrOffset = util.getCurrentScrollOffset(opts.scrollContainer);
-                show_trigger(function () {
-                    paginate(curScrOffset);
-                });
-            }
+			_reload();
 
             // load and scroll to previous page
             if (hist && hist.havePage()) {
@@ -83,6 +76,33 @@
 
         // initialize
         init();
+
+		return {
+			reload: function() {
+				_reload();
+			}
+		};
+
+
+		/**
+		 * ???
+		 *
+         * @return void
+         */
+        function _reload()
+        {
+            if (opts.triggerPageThreshold > 0) {
+                // setup scroll and hide pagination
+                reset();
+            }
+            else if ($(opts.next).attr('href')) {
+                var curScrOffset = util.getCurrentScrollOffset(opts.scrollContainer);
+                show_trigger(function () {
+                    paginate(curScrOffset);
+                });
+            }
+         }
+
 
         /**
          * Reset scrolling and hide pagination links
@@ -143,6 +163,7 @@
             $(opts.pagination).hide();
         }
 
+
         /**
          * Get scroll threshold based on the last item element
          *
@@ -197,6 +218,7 @@
             show_loader();
 
             loadItems(urlNextPage, function (data, items) {
+
                 // call the onLoadItems callback
                 var result = opts.onLoadItems.call(this, items),
                     curLastItem;
@@ -575,7 +597,6 @@
                 urlPage;
 
             curScrOffset = util.getCurrentScrollOffset($(window));
-
             curPageNum = getCurPageNum(curScrOffset);
             curPagebreak = getCurPagebreak(curScrOffset);
 
@@ -770,6 +791,8 @@
          */
         this.pushState = function (stateObj, title, url)
         {
+			return; // Musí se doladit to přepisování url.
+
             var hash;
 
             if (isHtml5) {

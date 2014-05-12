@@ -70,6 +70,19 @@ class TaskPresenter extends BaseSignedPresenter
 
 
 
+	public function renderDefault($tag = Null)
+	{
+		if ($this->isAjax()) {
+			$paginator = $this['paginator']->getPaginator();
+			if ($paginator->page <= 1) {
+				$this->redrawControl('tasks-promoted');
+			}
+			$this->redrawControl('tasks-other');
+		}
+	}
+
+
+
 	public function actionDetail($token)
 	{
 		$task = $this->redirectIfEmpty(
@@ -81,19 +94,6 @@ class TaskPresenter extends BaseSignedPresenter
 		$this->template->accepted = $this->taskService->isAccepted($task->token, $this->getUser()->id);
 		// $this->template->owner = $this->taskService->getOwnerTasks($this->getUser()->id);
 		$this['discussForm']->setValue($task);
-	}
-
-
-
-	public function renderDefault($tag = Null)
-	{
-		if ($this->isAjax()) {
-			$paginator = $this['paginator']->getPaginator();
-			if ($paginator->page <= 1) {
-				$this->redrawControl('tasks-promoted');
-			}
-			$this->redrawControl('tasks-other');
-		}
 	}
 
 
