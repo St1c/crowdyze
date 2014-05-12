@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema-manage version="0.11" replace-content="php:config-mapper.php">
+<schema-manage version="0.11">
 	<repository></repository>
 	<snapshots>../var/snaps</snapshots>
 
