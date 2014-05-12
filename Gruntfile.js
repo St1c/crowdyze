@@ -1,4 +1,4 @@
-/* 
+/*
 
 TO DO
 
@@ -20,7 +20,7 @@ TO DO
 5) Can this Gruntfile.js be abstracted into smaller parts?
 	 - https://github.com/cowboy/wesbos/commit/5a2980a7818957cbaeedcd7552af9ce54e05e3fb
 
-	 */		
+	 */
 
 	 module.exports = function(grunt) {
 
@@ -96,12 +96,12 @@ TO DO
 							'libs/js/vendor/pikaday.js',
 							'vendor/tacoberu/nette-form-controls/assets/js/jquery.filePreuploader.js'
 							],
-							'www/js/nette.min.js': [
+					'www/js/nette.min.js': [
 							'libs/js/nette/netteForms.js',
 							'libs/vojtechDobes/nette.ajax.js/nette.ajax.js',
 							'libs/vojtechDobes/history/history.ajax.js'
 							],
-							'www/js/main.min.js': [
+					'www/js/main.min.js': [
 							'assets/js/main.js'
 							]
 						}
@@ -112,14 +112,14 @@ TO DO
 					build: {
 						files: {
 							'www/js/common.min.js': [
-							'www/js/common.min.js'
-							],
+									'www/js/common.min.js'
+									],
 							'www/js/main.min.js': [
-							'www/js/main.min.js'
-							],
+									'www/js/main.min.js'
+									],
 							'www/js/nette.min.js': [
-							'www/js/nette.min.js'
-							]
+									'www/js/nette.min.js'
+									]
 						}
 					}
 				},
@@ -149,7 +149,7 @@ TO DO
 			},
 			watch: {
 				options: {
-					livereload: true					
+					livereload: true
 				}
 			}
 		},
